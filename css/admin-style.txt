@@ -1,0 +1,306 @@
+
+/**
+Style sheet for the bookings admin section only.
+*/
+.bookings-admin input, .bookings-admin select {
+  border-radius: 3px;
+}
+.bookings-admin .wp-switch-editor {
+  float: left;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  position: relative;
+  top: 1px;
+  background: #ebebeb;
+  color: #777;
+  cursor: pointer;
+  font: 13px/19px "Open Sans",sans-serif;
+  height: 20px;
+  margin: 0 !important;
+  padding: 3px 8px 4px;
+  border: 1px solid #d2d2d2;
+  margin-top: -2px !important;
+}
+#booking-container > .steps > ul > li {
+    width: 16%;
+}
+#booking-container h4 {
+    font-size: 17px;
+    text-decoration: underline;
+}
+.widefat {
+  line-height: 2 !important;
+}
+.wp-admin select {
+    padding: 2px;
+    line-height: 28px;
+    height: 41px;
+    vertical-align: middle;
+}
+.apartments-button {
+  padding: 15px 0;
+  float: right;
+}
+#booking-container > .actions a, #booking-container > .actions a:hover, #booking-container > .actions a:active {
+    background: #aa0042;
+    color: #fff;
+    display: block;
+    padding: 0.5em 1em;
+    text-decoration: none;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.hideme{
+  display: none;
+}
+table.payments {
+    padding: 10px;
+    background: #d2d2d2;
+    margin-top: 20px;
+}
+#booking-container > .content > .body {
+    width: 98%;
+    height: auto;
+    padding: 15px;
+    position: relative;
+}
+.bookings-admin i {
+  padding-right: 10px;
+  line-height: 1;
+  font-size: 30px;
+  position: relative;
+  top: 3px;
+}
+div#loadingDiv {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #0091cd;
+  color: #fff;
+  padding: 30px;
+  font-size: 20px;
+}
+.bookings-admin{
+  width: 100%;
+}
+.bookings-aligntop td {
+    vertical-align: top;
+}
+.bookings-admin td {
+  vertical-align: top;
+}
+
+.bookings-ref label {
+    color: #fff;
+}
+table.bookings-ref {
+    background: brown none repeat scroll 0 0;
+    border: 2px solid #2b2833;
+    border-radius: 3px;
+    padding: 10px 0;
+}
+table.bookings-ref h2 {
+    padding: 0px;
+    line-height: 0;
+    color: #fff;
+}
+
+.bookings-ref input {
+    background: transparent none repeat scroll 0 0;
+    border: medium none;
+    color: #fff;
+    display: inline-block;
+    width: 50%;
+}
+
+.locations-button {
+    float: right;
+    padding: 10px 0;
+}
+table.bookings-ref {
+    background: brown none repeat scroll 0 0;
+    border: 2px solid #2b2833;
+    border-radius: 3px;
+}
+.container-table {
+    border-bottom: 3px solid grey;
+    border-radius: 5px;
+    padding-bottom: 20px;
+    margin: 20px 0;
+    border-left: 1px solid grey;
+    border-right: 1px solid grey;
+    border-top: 1px solid grey;
+    box-shadow: 0px 3px 12px grey;
+}
+.container-table th {
+    text-align: center;
+    background: #363b3f;
+    padding: 0 10px;
+    color: #fff;
+    box-shadow: 0px 2px 3px grey;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+.container-table th h2, .container-table th i{
+  color: #fff;
+}
+.container-table th h2 {
+  margin-top: 10px !important;
+}
+.container-table input {
+    border-radius: 3px;
+}
+.bookings-admin label {
+    line-height: 3;
+}
+.searchField {
+    width: 200px;
+}
+#results {
+    display: none;
+    position: absolute;
+    width: 200px;
+    background-color: lightyellow; 
+    z-index: 10;
+}
+#results div {
+    position: absolute;
+    width: 200px; 
+    height: 20px;
+    background-color: lightblue; 
+    cursor: pointer;
+}
+#results div span {
+    color: red;
+    font-weight: bold;
+}
+td.haseditor .wp-editor-wrap {
+    border: 1px solid #d2d2d2;
+    padding: 0;
+    margin: 0;
+    border-radius: 3px;
+}
+.ui-widget-content {
+  border: none;
+  background: #eee url("images/ui-bg_highlight-soft_100_eeeeee_1x100.png") 50% top repeat-x;
+  color: #333;
+}
+.ui-widget-content {
+  border: none;
+  background: none;
+  color: #333;
+}
+.ui-widget-header {
+  border: none;
+  background: none;
+  color: #fff;
+  font-weight: bold;
+  border-bottom:1px solid #d2d2d2;
+}
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
+  border: 1px solid #d2d2d2;
+  background: #fff url("images/ui-bg_glass_65_ffffff_1x400.png") 50% 50% repeat-x;
+  font-weight: bold;
+  color: #eb8f00;
+}
+#ui-datepicker-div {
+  background: #363b3f;
+  border: 1px solid #fff;
+  border-radius: 4px;
+}
+#ui-datepicker-div thead {
+  color: #fff;
+}
+#ui-datepicker-div a {
+  color: #fff;
+}
+#ui-datepicker-div a:hover {
+  background: #fff;
+  color: #363b3f;
+}
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
+  border: 1px solid #d2d2d2;
+  background: #fff url("images/ui-bg_glass_65_ffffff_1x400.png") 50% 50% repeat-x;
+  font-weight: bold;
+  color: #eb8f00;
+}
+.email_button {
+  margin: 10px 0;
+  text-align: center;
+}
+td.report-footer {
+  padding: 5px 10px;
+}
+td.report-footer button{
+  width: 100%;
+}
+.report-footer p {
+  margin: 0;
+  padding: 4px 0px;
+}
+.leader-table {
+  float: left;
+  margin: 10px;
+  width: 23%;
+}
+#tabs i {
+  width: 14px;
+  padding-right: 10px;
+  font-size: 18px;
+}
+#searchresults th i {
+  font-size: 19px;
+}
+.featured-image-holder img {
+  width: 100%;
+  height:auto;
+}
+.customer-query-form {
+  display: none;
+  position: relative;
+  border: none;
+  width: 80%;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  border-radius: 5px;
+}
+#booking-container > .steps .current a, #booking-container > .steps .current a:hover, #booking-container > .steps .current a:active {
+    background: #aa0042;
+    color: #fff;
+    cursor: default;
+}
+#booking-container > .steps .done a, #booking-container > .steps .done a:hover, #booking-container > .steps .done a:active {
+    background: #b87e95;
+    color: #fff;
+}
+.bookingstable i {
+  padding-right: 10px;
+}
+table.dashboard_widget {
+    text-align: left;
+}
+
+table.dashboard_widget i {
+    padding-right: 10px;
+}
+
+table.dashboard_widget th {
+    border-bottom: 1px solid;
+}
+.bookingstable * {
+  text-align: left;
+}
+@media all and (max-width : 767px) {
+  .leader-table {
+    float: none;
+    margin: 0px;
+    margin-bottom: 10px;
+    width:100%%;
+  }
+}

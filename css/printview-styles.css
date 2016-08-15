@@ -1,0 +1,22 @@
+/******************
+Styles for the report tables 
+when printed to another window
+******************/
+
+td {
+  padding: 10px 2px;
+  border: 1px solid #555;
+}
+th {
+    background: grey;
+    text-align: left;
+    padding: 10px 10px;
+    color: #fff;
+    border: 1px solid #555;
+}
+.options {
+	display: none;
+}
+body {
+    font-family: Arial;
+}
