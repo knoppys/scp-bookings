@@ -10,7 +10,7 @@ License URI:       http://www.gnu.org/licenses/gpl-2.0.html
 GitHub Plugin URI: https://github.com/knoppys/scp-bookings.git
 GitHub Branch:     master
 */
-define( 'BOOKINGS_VERSION', '3.2' );
+//define( 'BOOKINGS_VERSION', '3.2' );
 define( 'BOOKINGS__MINIMUM_WP_VERSION', '1.0' );
 define( 'BOOKINGS__PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'BOOKINGS__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
