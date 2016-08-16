@@ -42,6 +42,15 @@ function locationinfo_meta_box_callback( $post ) {
     $cityoffers = get_post_meta( $post->ID, 'cityoffers', true );
     $areainformation = get_post_meta( $post->ID, 'areainformation', true );
     $reviews = get_post_meta( $post->ID, 'reviews', true );
+    $cityguide = get_post_meta( $post->ID, 'cityguide', true );
+    $cityguides = get_posts(
+        array(
+            'post_type'   => 'cityguides', 
+            'orderby'     => 'title', 
+            'order'       => 'ASC', 
+            'numberposts' => -1 
+        )
+    ); 
     ?>
     
     <table cellpadding="0" cellspacing="0" border="0" class="bookings-admin">    
@@ -55,6 +64,21 @@ function locationinfo_meta_box_callback( $post ) {
                     <table cellpadding="0" cellspacing="0" border="0" width="100%" class="bookings-aligntop container-table">
                        <tbody>
                             <tr><th>Additional Location Information</th></tr>
+                            <tr>
+                                <td>
+                                    <?php
+                                    echo '<label for="City Guide">';
+                                    _e( 'Select the City Guide', 'bookingsoperator_textdomain' );
+                                    echo '</label> ';
+                                    echo '<select class="widefat" id="cityguide" name="cityguide">';
+                                    echo '<option  value="' . esc_attr( $cityguide ) . '" size="25" />' . esc_attr( $cityguide ) . '</option>';
+                                        foreach ($cityguides as $cityguide) {
+                                            echo '<option value="' . $cityguide->post_title . '" size="25" />' . $cityguide->post_title . '</option>'; 
+                                        }                                        
+                                    echo "</select>";                                
+                                    ?>     
+                                </td>
+                            </tr>
                             <tr>                    
                                 <td class="haseditor">
                                 <label for="additional-info">City Offers</label>
@@ -152,6 +176,7 @@ function locationinfo_save_meta_box_data( $post_id ) {
     update_post_meta( $post_id, 'cityoffers', $_POST['cityoffers'] );
     update_post_meta( $post_id, 'areainformation', $_POST['areainformation'] );
     update_post_meta( $post_id, 'reviews', $_POST['reviews'] );
+    update_post_meta( $post_id, 'cityguide', $_POST['cityguide'] );
    
 }
 add_action( 'save_post', 'locationinfo_save_meta_box_data' );

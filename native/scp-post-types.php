@@ -387,4 +387,50 @@ function custom_post_type_resellerp() {
 // Hook into the 'init' action
 add_action( 'init', 'custom_post_type_resellerp', 0 );
 
+
+/*** 
+1. City Guides post type 
+***/
+function custom_post_type_cityguides() {
+
+	$labels = array(
+		'name'                => 'City Guides',
+		'singular_name'       => 'City Guide',
+		'menu_name'           => 'City Guides',
+		'parent_item_colon'   => 'Parent City Guide:',
+		'all_items'           => 'All City Guides',
+		'view_item'           => 'View City Guide',
+		'add_new_item'        => 'Add new City Guide',
+		'add_new'             => 'Add City Guide',
+		'edit_item'           => 'Edit City Guide',
+		'update_item'         => 'Update City Guide',
+		'search_items'        => 'Search City Guides',
+		'not_found'           => 'No City Guides found',
+		'not_found_in_trash'  => 'No City Guides found in trash',
+	);
+	$args = array(
+		'label'               => 'City Guides',
+		'description'         => 'This section relates to City Guides',
+		'labels'              => $labels,
+		'supports'            => array( 'title', 'thumbnail', ),
+		'hierarchical'        => false,
+		'public'              => true,
+		'show_ui'             => true,
+		'show_in_menu'        => false,
+		'show_in_nav_menus'   => true,
+		'show_in_admin_bar'   => true,
+		'menu_position'       => 100,
+		'menu_icon'           => 'dashicons-book-alt',
+		'can_export'          => true,
+		'has_archive'         => false,
+		'exclude_from_search' => true,
+		'publicly_queryable'  => true,
+		'capability_type'     => 'page',
+	);
+	register_post_type( 'cityguides', $args );
+
+}
+
+// Hook into the 'init' action
+add_action( 'init', 'custom_post_type_cityguides', 0 );
 ?>

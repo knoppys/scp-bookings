@@ -6,7 +6,7 @@ Add some custom meta columns to the bookings list view
 **********************************
 **/
 add_theme_support( 'post-thumbnails' ); 
-
+function multiple_media_upload_css() {wp_enqueue_style('thickbox');}
 
 /**
 **********************************
