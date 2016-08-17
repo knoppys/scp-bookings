@@ -412,7 +412,7 @@ function custom_post_type_cityguides() {
 		'label'               => 'City Guides',
 		'description'         => 'This section relates to City Guides',
 		'labels'              => $labels,
-		'supports'            => array( 'title', 'thumbnail', ),
+		'supports'            => array( 'title', 'thumbnail', 'editor'),
 		'hierarchical'        => false,
 		'public'              => true,
 		'show_ui'             => true,
