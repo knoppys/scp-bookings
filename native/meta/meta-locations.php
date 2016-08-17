@@ -71,9 +71,10 @@ function locationinfo_meta_box_callback( $post ) {
                                     _e( 'Select the City Guide', 'bookingsoperator_textdomain' );
                                     echo '</label> ';
                                     echo '<select class="widefat" id="cityguide" name="cityguide">';
-                                    echo '<option  value="' . esc_attr( $cityguide ) . '" size="25" />' . esc_attr( $cityguide ) . '</option>';
+                                    echo '<option  value="' . esc_attr( $cityguide ) . '" size="25" />' . get_the_title($cityguide) . '</option>';
                                         foreach ($cityguides as $cityguide) {
-                                            echo '<option value="' . $cityguide->post_title . '" size="25" />' . $cityguide->post_title . '</option>'; 
+                                            //need to get the value as the permalink and the text as the post titles
+                                            echo '<option value="' . $cityguide->ID . '" size="25" />' . $cityguide->post_title . '</option>'; 
                                         }                                        
                                     echo "</select>";                                
                                     ?>     
