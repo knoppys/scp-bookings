@@ -338,3 +338,7 @@ div#accordion h3 {
 .selectthishide {
     display: none !important;
 }
+.halfwidth {
+    width: 49%;
+    display: inline-block;
+}

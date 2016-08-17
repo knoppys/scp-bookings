@@ -73,7 +73,13 @@ function implement_ajax_vat() {
 				$rentalvatfigure = round($vatamount, 2);
 
 				//calculatge the vat for the suppliments and add ons
-				$supplementsprice = ($_POST['supplementsprice']);
+				$supplementscharge = ($_POST['supplementsprice']);
+				if (($_POST['chargetype']) == 'true') {
+					$supplementsprice = $supplementscharge * $numberofnights;
+				} elseif (($_POST['chargetype']) == 'false') {
+					$supplementsprice = $supplementscharge;
+				}
+				
 				$supplimentsvatrate = '20';
 				$supplementsvatfigure = ($supplementsprice  / 100) * $supplimentsvatrate;
 

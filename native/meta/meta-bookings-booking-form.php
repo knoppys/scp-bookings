@@ -115,6 +115,7 @@ function bookingsteps_meta_box_callback( $post ) {
     $welcomepack = get_post_meta( $post->ID, 'welcomepack', true );
     $supplements = get_post_meta( $post->ID, 'supplements', true );
     $supplementsprice = get_post_meta( $post->ID, 'supplementsprice', true );
+    $chargetype = get_post_meta( $post->ID, 'chargetype', true );
     $deposit = get_post_meta( $post->ID, 'deposit', true );
     $depositdate = get_post_meta( $post->ID, 'depositdate', true );
     $depositmethod = get_post_meta( $post->ID, 'depositmethod', true );
@@ -600,13 +601,28 @@ Meta box Contents
 
                                             echo "</select>";
                                         ?>
-                                         <?php
-                                        //supplements price field
+                                       <div class="halfwidth">
+                                            <?php
+                                            //supplements price field
+                                            echo '<h4>';
+                                                 _e( 'Supplements Price', 'bookingsrentalprice_textdomain' );
+                                            echo '</h4>';
+                                            echo '<input type="text" class="widefat" name="supplementsprice" id="supplementsprice" value="' . esc_attr( $supplementsprice ) . '"/>';
+                                            ?>
+                                       </div>
+                                       <div class="halfwidth">
+                                            <?php
                                         echo '<h4>';
-                                             _e( 'Supplements Price', 'bookingsrentalprice_textdomain' );
-                                        echo '</h4>';
-                                        echo '<input type="text" class="widefat" name="supplementsprice" id="supplementsprice" value="' . esc_attr( $supplementsprice ) . '"/>';
-                                        ?>
+                                        _e( 'Charget Nightly', 'bookingsapartment_textdomain' );
+                                        echo '</h4> ';
+                                        if ($vatselect) {
+                                            echo '<input type="checkbox" name="chargetype" id="chargetype" checked="checked" /><br>';
+                                        } else {
+                                            echo '<input type="checkbox" name="chargetype" id="chargetype" /><br>';
+                                        }
+                                        
+                                        ?>  
+                                       </div>                                       
                                         <?php
                                         //deposit field
                                         echo '<h4>';
@@ -1693,6 +1709,7 @@ function bookingsteps_save_meta_box_data( $post_id ) {
     $mydata_priceperperson = sanitize_text_field( $_POST['priceperperson'] );
     $mydata_supplements = sanitize_text_field( $_POST['supplements'] );
     $mydata_supplementsprice = sanitize_text_field( $_POST['supplementsprice'] );
+    $mydata_chargetype = sanitize_text_field( $_POST['chargetype'] );
     $mydata_deposit = sanitize_text_field( $_POST['deposit'] );
     $mydata_depositdate = sanitize_text_field( $_POST['depositdate'] );
     $mydata_depositmethod = sanitize_text_field( $_POST['depositmethod'] );
@@ -1749,6 +1766,7 @@ function bookingsteps_save_meta_box_data( $post_id ) {
     update_post_meta($post_id, 'priceperson',$mydata_priceperson);
     update_post_meta($post_id, 'supplements',$mydata_supplements);
     update_post_meta($post_id, 'supplementsprice',$mydata_supplementsprice);
+    update_post_meta($post_id, 'chargetype',$mydata_chargetype);
     update_post_meta($post_id, 'deposit',$mydata_deposit);
     update_post_meta($post_id, 'depositdate',$mydata_depositdate);
     update_post_meta($post_id, 'depositmethod',$mydata_depositmethod);

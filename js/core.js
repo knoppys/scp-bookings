@@ -322,12 +322,13 @@ jQuery(document).ready(function(){
 		var bookingtype = jQuery('#bookingtype').val();
 		var deposit = jQuery('#deposit').val();
 		var supplementsprice = jQuery('#supplementsprice').val();
+		if (jQuery('#chargetype').prop('checked')==true) {var chargetype = 'true'} else {var chargetype = 'false'}
 		var priceperperson = jQuery('#priceperperson').val();
 		var numberofguests = jQuery('#numberofguests').val();	
 		var discount = jQuery('#discount').val();
 		var customvatvalue = jQuery('#customvatvalue').val();
 
-		
+		console.log(chargetype);    
 
     
     if( jQuery('#vatselect').prop('checked') == true ) {																																																																																																																																																																																																																																																											
@@ -345,6 +346,7 @@ jQuery(document).ready(function(){
 	            '&bookingtype=' + bookingtype + 
 	            '&deposit=' + deposit + 
 	            '&supplementsprice=' + supplementsprice + 
+	            '&chargetype=' + chargetype +
 	            '&priceperperson=' + priceperperson + 
 	            '&numberofguests=' + numberofguests + 
 	            '&discount=' + discount +
@@ -356,8 +358,7 @@ jQuery(document).ready(function(){
 	            	jQuery('#balancedue').val(result.balancedue);
 	            	jQuery('#totalcost').val(result.balancedue);
 	            	jQuery('#numberofnights').text(result.nights);	            
-	            	console.log(result);            	
-
+	          
 
 			    }
 			});
@@ -377,6 +378,7 @@ jQuery(document).ready(function(){
 	            '&bookingtype=' + bookingtype + 
 	            '&deposit=' + deposit + 
 	            '&supplementsprice=' + supplementsprice  + 
+	            '&chargetype=' + chargetype +
 	            '&priceperperson=' + priceperperson + 
 	            '&numberofguests=' + numberofguests + 
 	            '&discount=' + discount,
@@ -387,7 +389,7 @@ jQuery(document).ready(function(){
 	            	jQuery('#balancedue').val(result.balancedue);
 	            	jQuery('#totalcost').val(result.balancedue);   
 	            	jQuery('#numberofnights').text(result.nights);
-					console.log(result);
+					
 	            	
 			    }
 			});
