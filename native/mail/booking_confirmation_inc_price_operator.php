@@ -245,9 +245,13 @@ function implement_ajax_email_operator(){
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td valign="top" colspan="2">
+                                        <td valign="top" colspan="1">
                                             <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Apartment(s) Breakdown</p></strong>
                                             <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.($_POST['apptbreakdown']).'</p> 
+                                        </td>
+                                        <td valign="top" colspan="1">
+                                            <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Additional Notes</p></strong>
+                                            <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.($_POST['additionalnotes']).'</p> 
                                         </td>                                        
                                     </tr>
                                     '.$areainformationtext.'
