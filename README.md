@@ -1,6 +1,6 @@
 Changelog
 
-V3.3
+V3.4
 - City Guides Post Type
 - City Guides UI
 - Select City Guide as meta in Locations UI
