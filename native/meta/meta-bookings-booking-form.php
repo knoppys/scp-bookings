@@ -613,9 +613,9 @@ Meta box Contents
                                        <div class="halfwidth">
                                             <?php
                                         echo '<h4>';
-                                        _e( 'Charget Nightly', 'bookingsapartment_textdomain' );
+                                        _e( 'Charge Nightly', 'bookingsapartment_textdomain' );
                                         echo '</h4> ';
-                                        if ($vatselect) {
+                                        if ($chargetype) {
                                             echo '<input type="checkbox" name="chargetype" id="chargetype" checked="checked" /><br>';
                                         } else {
                                             echo '<input type="checkbox" name="chargetype" id="chargetype" /><br>';

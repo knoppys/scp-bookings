@@ -310,25 +310,30 @@ jQuery(document).ready(function(){
 
 jQuery(document).ready(function(){
 	jQuery('#calculate').click(function() {
+
+	jQuery('#chargetype').on('click', function () {
+	    jQuery(this).val(this.checked ? true : false);
+	    console.log(jQuery(this).val());
+	});
 		
 	//get the data i need	
 	var siteUrl = siteUrlobject.siteUrl+'/wp-admin/admin-ajax.php';
-		var vatselect = jQuery('#vatselect').prop('checked');
-		var arrivaldate = jQuery('#arrivaldate').val();	
-		var leavingdate = jQuery('#leavingdate').val();
-		var actualcheckintime = jQuery('#actualcheckintime').val();	
-		var actualcheckouttime = jQuery('#actualcheckouttime').val();
-		var rentalprice = jQuery('#rentalprice').val();	
-		var bookingtype = jQuery('#bookingtype').val();
-		var deposit = jQuery('#deposit').val();
-		var supplementsprice = jQuery('#supplementsprice').val();
-		if (jQuery('#chargetype').prop('checked')==true) {var chargetype = 'true'} else {var chargetype = 'false'}
-		var priceperperson = jQuery('#priceperperson').val();
-		var numberofguests = jQuery('#numberofguests').val();	
-		var discount = jQuery('#discount').val();
-		var customvatvalue = jQuery('#customvatvalue').val();
+	var vatselect = jQuery('#vatselect').prop('checked');
+	var arrivaldate = jQuery('#arrivaldate').val();	
+	var leavingdate = jQuery('#leavingdate').val();
+	var actualcheckintime = jQuery('#actualcheckintime').val();	
+	var actualcheckouttime = jQuery('#actualcheckouttime').val();
+	var rentalprice = jQuery('#rentalprice').val();	
+	var bookingtype = jQuery('#bookingtype').val();
+	var deposit = jQuery('#deposit').val();
+	var supplementsprice = jQuery('#supplementsprice').val();
+	if (jQuery('#chargetype').prop('checked')==true) {var chargetype = 'true'} else {var chargetype = 'false'}
+	var priceperperson = jQuery('#priceperperson').val();
+	var numberofguests = jQuery('#numberofguests').val();	
+	var discount = jQuery('#discount').val();
+	var customvatvalue = jQuery('#customvatvalue').val();
 
-		console.log(chargetype);    
+	console.log(chargetype);    
 
     
     if( jQuery('#vatselect').prop('checked') == true ) {																																																																																																																																																																																																																																																											
