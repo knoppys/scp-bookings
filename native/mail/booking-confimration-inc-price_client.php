@@ -393,7 +393,7 @@ function implement_ajax_email_client(){
         $headers .= "X-MSMail-Priority: Normal\n";
         $headers .= "X-Mailer: php\n";
         $headers .= "From: Serviced City Pads <bookings@citypadsmail.com>\n";    
-        $headers .= 'Cc:richard.stockton@design-et-al.co.uk,accounts@servicedcitypads.com,bookings@citypadsmail.com,rachel@servicedcitypads.com,david.hill@servicedcitypads.com,martin@servicedcitypads.com,nicki@servicedcitypads.com,pumulo@servicedcitypads.com,sarah@servicedcitypads.com';
+        $headers .= 'Cc: info@servicedcitypads.com, accounts@servicedcitypads.com';
         wp_mail( $to, $subject, $message, $headers);
         
         }
