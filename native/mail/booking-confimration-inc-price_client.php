@@ -387,7 +387,7 @@ function implement_ajax_email_client(){
 
             </table>';
 
-        $subject = 'Booking confirmation';
+        $subject = 'Booking Confirmation';
         $headers .= "Content-type: text/html;charset=utf-8\n";
         $headers .= "X-Priority: 3\n";
         $headers .= "X-MSMail-Priority: Normal\n";

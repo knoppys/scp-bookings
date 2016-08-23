@@ -1515,11 +1515,7 @@ Meta box Contents
                                                                         <td colspan="2" valign="middle" style="background:#d2d2d2;text-align:center;border-radius:4px;">
                                                                            <p style="margin:3px;padding:4px 0;font-size:15px;font-weight:bold;">Price</p>
                                                                         </td>
-                                                                    </tr>
-                                                                   
-                                                                    '.$discounttext.'
-                                                                    '.$costcodetext.'
-                                                                    '.$suplementtext.'
+                                                                    </tr>                                                            
                                                                     <tr>
                                                                        <td style="width:250px;"valign="middle">
                                                                             <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Owner Price</p></strong>
@@ -1527,15 +1523,7 @@ Meta box Contents
                                                                         <td style="width:250px;"valign="middle">  
                                                                           <p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">&pound;'.$ownerprice.'</p>                                     
                                                                         </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                       <td style="width:250px;"valign="middle">
-                                                                            <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Total Cost</p></strong>
-                                                                        </td>
-                                                                        <td style="width:250px;"valign="middle">  
-                                                                          <p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">&pound;'. round($totalcosttext, 2) . $vatselecttext .'</p>                                     
-                                                                        </td>
-                                                                    </tr>
+                                                                    </tr>                                                                   
                                                                 </tbody>
                                                             </table>                        
 

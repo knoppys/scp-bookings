@@ -271,7 +271,7 @@ function implement_ajax_email_operator(){
                             </table>
 
                             <p></p>
-                            <!-- Pricing -->
+                             <!-- Pricing -->
                             <table style="background:#eee;border:1px solid #a2a2a2;border-radius:5px;margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif; max-width:500px; width:100%">
                                 <tbody>
                                     <!-- Apartment details -->
@@ -279,28 +279,17 @@ function implement_ajax_email_operator(){
                                         <td colspan="2" valign="middle" style="background:#d2d2d2;text-align:center;border-radius:4px;">
                                            <p style="margin:3px;padding:4px 0;font-size:15px;font-weight:bold;">Price</p>
                                         </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="width:250px;"valign="middle" style="width:50%;">
-                                            <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$ratelabel.'</p></strong> 
-                                        </td>
-                                        <td style="width:250px;"valign="middle" style="width:50%;">  
-                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">&pound;'. round($nightlyratetext, 2) . $vatselecttext .'</p>                                          
-                                        </td>
-                                    </tr>
-                                    '.$discounttext.'
-                                    '.$costcodetext.'
-                                    '.$suplementtext.'
+                                    </tr>                                                            
                                     <tr>
                                        <td style="width:250px;"valign="middle">
-                                            <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Total Cost</p></strong>
+                                            <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Owner Price</p></strong>
                                         </td>
                                         <td style="width:250px;"valign="middle">  
-                                          <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">&pound;'. round($totalcosttext, 2) . $vatselecttext .'</p>                                     
+                                          <p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">&pound;'.$ownerprice.'</p>                                     
                                         </td>
-                                    </tr>
+                                    </tr>                                                                   
                                 </tbody>
-                            </table>                        
+                            </table>                    
 
                             <p></p>
                             <!-- Arrival Process -->
