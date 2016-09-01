@@ -42,6 +42,12 @@ function cityguides_meta_box_callback( $post ) {
     $wheretoeat = get_post_meta( $post->ID, 'wheretoeat', true );
     $wheretodrink = get_post_meta( $post->ID, 'wheretodrink', true );
     $wheretogoout = get_post_meta( $post->ID, 'wheretogoout', true );
+    $wheretoshop = get_post_meta( $post->ID, 'wheretoshop', true );
+    $wheretovisit = get_post_meta( $post->ID, 'wheretovisit', true );
+    $usefulweb = get_post_meta( $post->ID, 'usefulweb', true );
+    $wtshimg = get_post_meta($post->ID, 'wtshimg', true);
+    $wtvimg = get_post_meta($post->ID, 'wtvimg', true);
+    $usefulwebimg = get_post_meta($post->ID, 'usefulwebimg', true);
     $wteimg = get_post_meta($post->ID, 'wteimg', true);
     $wtdimg = get_post_meta($post->ID, 'wtdimg', true);
     $wtgoimg = get_post_meta($post->ID, 'wtgoimg', true);
@@ -71,6 +77,10 @@ Meta box Contents
                             <li><a href="#tabs-1">Where to eat</a></li>
                             <li><a href="#tabs-2">Where to drink</a></li>
                             <li><a href="#tabs-3">Where to go out</a></li>
+                            <li><a href="#tabs-4">Where to shop</a></li>
+                            <li><a href="#tabs-5">Where to visit</a></li>
+                            <li><a href="#tabs-6">Useful Apps & Websites</a></li>
+
                           </ul>
                             <div id="tabs-1">
                                 <?php
@@ -107,7 +117,6 @@ Meta box Contents
                                   <input id="wtdimg" name="wtdimg" type="text" value="<?php echo $wtdimg; ?>" />
                                   <input class="upload_image_button" id="_btn" type="button" value="Upload" />
                                 </div>
-                               
                             </div>
                             <div id="tabs-3">
                                 <?php
@@ -122,7 +131,49 @@ Meta box Contents
                                   <input id="wtgoimg" name="wtgoimg" type="text" value="<?php echo $wtgoimg; ?>" />
                                   <input class="upload_image_button" id="_btn" type="button" value="Upload" />
                                 </div>
-                            </div>                         
+                            </div>  
+                            <div id="tabs-4">
+                                <?php
+                                /*
+                                  Could save a few isses later
+                                  wp_editor( stripslashes( $content ), strtolower($value['id']), $settings );
+                                */
+                                wp_editor($wheretoshop, 'wheretoshop');
+                                ?>
+                                <div class="imgupload">
+                                <p>Upload the banner image here.</p>
+                                  <input id="wtshimg" name="wtshimg" type="text" value="<?php echo $wtshimg; ?>" />
+                                  <input class="upload_image_button" id="_btn" type="button" value="Upload" />
+                                </div>
+                            </div>         
+                            <div id="tabs-5">
+                                <?php
+                                /*
+                                  Could save a few isses later
+                                  wp_editor( stripslashes( $content ), strtolower($value['id']), $settings );
+                                */
+                                wp_editor($wheretovisit, 'wheretovisit');
+                                ?>
+                                <div class="imgupload">
+                                <p>Upload the banner image here.</p>
+                                  <input id="wtvimg" name="wtvimg" type="text" value="<?php echo $wtvimg; ?>" />
+                                  <input class="upload_image_button" id="_btn" type="button" value="Upload" />
+                                </div>
+                            </div>       
+                            <div id="tabs-6">
+                                <?php
+                                /*
+                                  Could save a few isses later
+                                  wp_editor( stripslashes( $content ), strtolower($value['id']), $settings );
+                                */
+                                wp_editor($usefulweb, 'usefulweb');
+                                ?>
+                                <div class="imgupload">
+                                <p>Upload the banner image here.</p>
+                                  <input id="usefulwebimg" name="usefulwebimg" type="text" value="<?php echo $usefulwebimg; ?>" />
+                                  <input class="upload_image_button" id="_btn" type="button" value="Upload" />
+                                </div>
+                            </div>                             
                         </div>                             
                     </tr>
                 </tbody>
@@ -189,9 +240,16 @@ function cityguides_save_meta_box_data( $post_id ) {
     update_post_meta( $post_id, 'wheretoeat', $_POST['wheretoeat'] );
     update_post_meta( $post_id, 'wheretodrink', $_POST['wheretodrink'] );
     update_post_meta( $post_id, 'wheretogoout', $_POST['wheretogoout'] );
+    update_post_meta( $post_id, 'wheretoshop', $_POST['wheretoshop'] );
+    update_post_meta( $post_id, 'wheretovisit', $_POST['wheretovisit'] );
+    update_post_meta( $post_id, 'usefulweb', $_POST['usefulweb'] );
     update_post_meta( $post_id, 'wteimg', $_POST['wteimg'] );
     update_post_meta( $post_id, 'wtdimg', $_POST['wtdimg'] );
     update_post_meta( $post_id, 'wtgoimg', $_POST['wtgoimg'] );
+    update_post_meta( $post_id, 'wtshimg', $_POST['wtshimg'] );
+    update_post_meta( $post_id, 'wtvimg', $_POST['wtvimg'] );
+    update_post_meta( $post_id, 'usefulwebimg', $_POST['usefulwebimg'] );
+
 
 
 

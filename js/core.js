@@ -312,8 +312,7 @@ jQuery(document).ready(function(){
 	jQuery('#calculate').click(function() {
 
 	jQuery('#chargetype').on('click', function () {
-	    jQuery(this).val(this.checked ? true : false);
-	    console.log(jQuery(this).val());
+	    jQuery(this).val(this.checked ? true : false);	    
 	});
 		
 	//get the data i need	
@@ -327,13 +326,12 @@ jQuery(document).ready(function(){
 	var bookingtype = jQuery('#bookingtype').val();
 	var deposit = jQuery('#deposit').val();
 	var supplementsprice = jQuery('#supplementsprice').val();
+	var supplements = jQuery('#supplements').val();
 	if (jQuery('#chargetype').prop('checked')==true) {var chargetype = 'true'} else {var chargetype = 'false'}
 	var priceperperson = jQuery('#priceperperson').val();
 	var numberofguests = jQuery('#numberofguests').val();	
 	var discount = jQuery('#discount').val();
 	var customvatvalue = jQuery('#customvatvalue').val();
-
-	console.log(chargetype);    
 
     
     if( jQuery('#vatselect').prop('checked') == true ) {																																																																																																																																																																																																																																																											
@@ -350,6 +348,7 @@ jQuery(document).ready(function(){
 	            '&rentalprice=' + rentalprice + 
 	            '&bookingtype=' + bookingtype + 
 	            '&deposit=' + deposit + 
+	            '&supplements=' + supplements +
 	            '&supplementsprice=' + supplementsprice + 
 	            '&chargetype=' + chargetype +
 	            '&priceperperson=' + priceperperson + 
@@ -362,7 +361,8 @@ jQuery(document).ready(function(){
 	            	jQuery('#vatamount').val(result.vatfigure);
 	            	jQuery('#balancedue').val(result.balancedue);
 	            	jQuery('#totalcost').val(result.balancedue);
-	            	jQuery('#numberofnights').text(result.nights);	            
+	            	jQuery('#numberofnights').text(result.nights);
+	            	//console.log(result);	            
 	          
 
 			    }
@@ -382,6 +382,7 @@ jQuery(document).ready(function(){
 	            '&rentalprice=' + rentalprice + 
 	            '&bookingtype=' + bookingtype + 
 	            '&deposit=' + deposit + 
+	            '&supplements=' + supplements +
 	            '&supplementsprice=' + supplementsprice  + 
 	            '&chargetype=' + chargetype +
 	            '&priceperperson=' + priceperperson + 
@@ -394,7 +395,7 @@ jQuery(document).ready(function(){
 	            	jQuery('#balancedue').val(result.balancedue);
 	            	jQuery('#totalcost').val(result.balancedue);   
 	            	jQuery('#numberofnights').text(result.nights);
-					
+					//console.log(result);	     
 	            	
 			    }
 			});

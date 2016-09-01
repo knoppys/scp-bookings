@@ -579,16 +579,7 @@ Meta box Contents
                                              _e( 'Groups Price Per Person (inc vat)', 'bookingsrentalprice_textdomain' );
                                         echo '</h4>';
                                         echo '<input type="text" class="widefat" name="priceperperson" id="priceperperson" value="' . esc_attr( $priceperperson ) . '"/>';
-                                        ?>
-                                        <?php
-                                        //supplements field
-                                        echo '<h4>';
-                                             _e( 'Supplements', 'bookingsrentalprice_textdomain' );
-                                        echo '</h4>';
-                                        echo '<textarea rows="3" class="widefat" name="supplements" id="supplements" />';
-                                        echo esc_attr( $supplements );
-                                        echo '</textarea>';
-                                        ?>                                        
+                                        ?>                                                                          
                                         <?php
                                             echo '<h4>';
                                             _e( 'Welcome Pack', 'bookingsapartment_textdomain' );
@@ -601,28 +592,42 @@ Meta box Contents
 
                                             echo "</select>";
                                         ?>
-                                       <div class="halfwidth">
-                                            <?php
-                                            //supplements price field
-                                            echo '<h4>';
-                                                 _e( 'Supplements Price', 'bookingsrentalprice_textdomain' );
-                                            echo '</h4>';
-                                            echo '<input type="text" class="widefat" name="supplementsprice" id="supplementsprice" value="' . esc_attr( $supplementsprice ) . '"/>';
-                                            ?>
-                                       </div>
-                                       <div class="halfwidth">
-                                            <?php
-                                        echo '<h4>';
-                                        _e( 'Charge Nightly', 'bookingsapartment_textdomain' );
-                                        echo '</h4> ';
-                                        if ($chargetype) {
-                                            echo '<input type="checkbox" name="chargetype" id="chargetype" checked="checked" /><br>';
-                                        } else {
-                                            echo '<input type="checkbox" name="chargetype" id="chargetype" /><br>';
-                                        }
-                                        
-                                        ?>  
-                                       </div>                                       
+                                        <table style="width:100%">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="widefat" style="width:30%">
+                                                        <?php
+                                                        //supplements field
+                                                        echo '<h4>';
+                                                             _e( 'Supplements', 'bookingsrentalprice_textdomain' );
+                                                        echo '</h4>';
+                                                        echo '<input type="text" class="widefat" name="supplements" id="supplements" value="' . esc_attr( $supplements ) . '"/>';
+                                                        ?> 
+                                                    </td>
+                                                    <td class="widefat" style="width:30%">
+                                                        <?php
+                                                        //supplements price field
+                                                        echo '<h4>';
+                                                             _e( 'Supplements Price', 'bookingsrentalprice_textdomain' );
+                                                        echo '</h4>';
+                                                        echo '<input type="text" class="widefat" name="supplementsprice" id="supplementsprice" value="' . esc_attr( $supplementsprice ) . '"/>';
+                                                        ?>
+                                                    </td>
+                                                    <td class="widefat" style="width:30%">
+                                                    <?php
+                                                    echo '<h4>';
+                                                    _e( 'Charge Nightly', 'bookingsapartment_textdomain' );
+                                                    echo '</h4> ';
+                                                    if ($chargetype) {
+                                                        echo '<input type="checkbox" class="widefat" name="chargetype" id="chargetype" checked="checked" /><br>';
+                                                    } else {
+                                                        echo '<input type="checkbox" class="widefat" name="chargetype" id="chargetype" /><br>';
+                                                    }                                            
+                                                    ?>  
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>                                                                       
                                         <?php
                                         //deposit field
                                         echo '<h4>';

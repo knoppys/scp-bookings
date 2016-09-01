@@ -1,5 +1,8 @@
 Changelog
 
+V3.4.6
+- Updated supplements fields to accomodate individual calculations
+
 V3.4
 - City Guides Post Type
 - City Guides UI

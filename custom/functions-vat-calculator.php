@@ -73,15 +73,19 @@ function implement_ajax_vat() {
 				$rentalvatfigure = round($vatamount, 2);
 
 				//calculatge the vat for the suppliments and add ons
-				$supplementscharge = ($_POST['supplementsprice']);
-				if (($_POST['chargetype']) == 'true') {
-					$supplementsprice = $supplementscharge * $numberofnights;
-				} elseif (($_POST['chargetype']) == 'false') {
-					$supplementsprice = $supplementscharge;
-				}
+				$supplements = ($_POST['supplements']);
+				$supplementsprice = ($_POST['supplementsprice']);
+				$supplementscharge = ($_POST['chargetype']);
+
+				$supplementsfig1 = $supplements * $supplementsprice;
 				
-				$supplimentsvatrate = '20';
-				$supplementsvatfigure = ($supplementsprice  / 100) * $supplimentsvatrate;
+				if ($supplementscharge == 'true') {
+					$supplementsvalue = $supplementsfig1 * $numberofnights;
+				} elseif ($supplementscharge == 'false') {
+					$supplementsvalue = $supplementsfig1;
+				}
+						
+				$supplementsvatfigure = ($supplementsvalue  / 100) * $vatamount;
 
 				//add all the vat together to a single amount
 				$vatfigure = ($rentalvatfigure + $supplementsvatfigure);
@@ -89,7 +93,7 @@ function implement_ajax_vat() {
 
 
 			//now make a quick calc for the deposit amount			
-			$balance = $rentalprice * $numberofnights + $supplementsprice - $discount;
+			$balance = $rentalprice * $numberofnights + $supplementsvalue - $discount;
 
 			
 
