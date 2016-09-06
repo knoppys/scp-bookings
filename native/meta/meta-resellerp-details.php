@@ -135,7 +135,14 @@ Meta box Contents
                                             echo '</label>';
                                             echo '<input type="text" class="widefat" name="resellerp_pageurl" placeholder="If the client requires hosting space, please enter the clients subdomain here"id="resellerp_pageurl" value="' . esc_attr( $resellerp_pageurl ) . '"/>';
                                             ?>
-                                        </td>                                        
+                                        </td>  
+                                        <?php
+                                        if ($post->ID) { ?>
+                                            <td class="addondomain">
+                                                <p>If the client requires hosting for their reseller page, click add domain.</p>
+                                                <a class="btn btn-primary">Add Domain</a>
+                                            </td>   
+                                        <?php } else {}?>                                   
                                     </tr>                                  
                                     <tr>
                                         <td>
@@ -229,7 +236,7 @@ function resellerdetails_save_meta_box_data( $post_id ) {
     update_post_meta( $post_id, 'resellerp_website', $my_data_address );
     update_post_meta( $post_id, 'resellerp_terms', $my_data_town );
     update_post_meta( $post_id, 'resellerp_email', $my_data_email );
-    update_post_meta( $post_id, 'resellerp_email', $my_data_pageurl );
+    update_post_meta( $post_id, 'resellerp_pageurl', $my_data_pageurl );
    
     
 }

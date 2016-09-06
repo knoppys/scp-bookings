@@ -15,22 +15,18 @@ jQuery(document).ready(function(){
 	loading.hide();
 	});
 });
-jQuery(document).ready(function(){
- 
-    jQuery('.upload_image_button').click(function(){
- 
-        var textfieldid = jQuery(this).prev().attr("id");
- 
-        wp.media.editor.send.attachment = function(props, attachment){jQuery('#' + textfieldid).val(attachment.url);}
-        wp.media.editor.open(this);
-        return false;
-         
-  });
-   
+
+
+jQuery(document).ready(function(){ 
+    jQuery('.upload_image_button').click(function(){ 
+    var textfieldid = jQuery(this).prev().attr("id"); 
+    wp.media.editor.send.attachment = function(props, attachment){jQuery('#' + textfieldid).val(attachment.url);}
+    wp.media.editor.open(this);
+    return false;         
+  });   
 });
 
 jQuery(document).ready(function(){
-
 
 	//start date for search query
 	jQuery('#startdate').datetimepicker({																								
@@ -139,11 +135,7 @@ jQuery(document).ready(function(){
 		timepicker: false,
 		format:'d.m.Y'
 	});
-
-	/********************
-	// jQuery UI Tabs
-	********************/
-
+	
 	//Tabs for apartment terms and conditions
     jQuery( "#tabs" ).tabs();
     jQuery( "#pricing-tabs" ).tabs();
@@ -617,12 +609,14 @@ jQuery('#email_operator').click(function(e){
 		var displayname = jQuery('#displayname').val();
 		var welcomepack = jQuery('#welcomepack').val();
 		var vatselect = jQuery('#vatselect').prop('checked');
+		var ownerprice = jQuery('#ownerprice').val();
 	
 	
 	jQuery.ajax({
 		url:siteUrl,
 	    type:'POST',
-	    data:'action=booking_confirmation_email_operator&guestname=' + guestname + 
+	    data:'action=booking_confirmation_email_operator&guestname=' + guestname +
+	    '&ownerprice=' + ownerprice +
 	    '&useremail=' + useremail + 
 	    '&bookingtype=' + bookingtype + 
 	    '&username=' + username +
