@@ -610,6 +610,8 @@ jQuery('#email_operator').click(function(e){
 		var welcomepack = jQuery('#welcomepack').val();
 		var vatselect = jQuery('#vatselect').prop('checked');
 		var ownerprice = jQuery('#ownerprice').val();
+
+		console.log(ownerprice);
 	
 	
 	jQuery.ajax({

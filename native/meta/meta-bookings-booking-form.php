@@ -900,15 +900,15 @@ Meta box Contents
                                                 $costcodetext = '';
                                             }
 
-                                            //Check to see if there are suppliments
+                                            //Check to see if there are Supplements
                                             if (get_post_meta($post->id, 'supplements', true)) {
                                                 $suplementtext   = '<tr>
                                                                         <td style="width:250px;"valign="middle">
-                                                                            <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Suppliments</p></strong> 
+                                                                            <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Supplements</p></strong> 
                                                                            <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$supplements.'</p>
                                                                         </td>
                                                                         <td style="width:250px;"valign="middle">  
-                                                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">&pound;'.$supplimentsprice.'</p>                                          
+                                                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">&pound;'.$Supplementsprice.'</p>                                          
                                                                         </td>
                                                                     </tr>';
                                             } else {
@@ -1282,15 +1282,15 @@ Meta box Contents
                                                 $costcodetext = '';
                                             }
 
-                                            //Check to see if there are suppliments
+                                            //Check to see if there are Supplements
                                             if (get_post_meta($post->id, 'supplements', true)) {
                                                 $suplementtext   = '<tr>
                                                                         <td style="width:250px;"valign="middle">
-                                                                            <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Suppliments</p></strong> 
+                                                                            <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Supplements</p></strong> 
                                                                            <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$supplements.'</p>
                                                                         </td>
                                                                         <td style="width:250px;"valign="middle">  
-                                                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">&pound;'.$supplimentsprice.'</p>                                          
+                                                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">&pound;'.$Supplementsprice.'</p>                                          
                                                                         </td>
                                                                     </tr>';
                                             } else {

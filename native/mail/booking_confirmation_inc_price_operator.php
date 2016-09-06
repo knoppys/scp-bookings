@@ -40,11 +40,11 @@ function implement_ajax_email_operator(){
                 $costcodetext = '';
             }
 
-            //Check to see if there are suppliments
+            //Check to see if there are Supplements
             if (($_POST['supplementsprice'])) {
                 $suplementtext   = '<tr>
                                         <td style="width:250px;"valign="middle">
-                                            <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Suppliments</p></strong> 
+                                            <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Supplements</p></strong> 
                                             <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.($_POST['supplementstext']).'</p>
                                         </td>
                                         <td style="width:250px;"valign="middle">  
@@ -117,7 +117,7 @@ function implement_ajax_email_operator(){
 
                 //Get the right total cost field
                 if (($_POST['bookingtype'])==('Corporate')) {
-                    $totalcosttext = ($_POST['totalcost']);
+                    $totalcosttext = ($_POST['totalcost']).' &#43;VAT';
                 } else {
                     $totalcosttext = ($_POST['totalcost']);
                 }
@@ -285,7 +285,7 @@ function implement_ajax_email_operator(){
                                             <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Owner Price</p></strong>
                                         </td>
                                         <td style="width:250px;"valign="middle">  
-                                          <p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">&pound;'.$ownerprice.'</p>                                     
+                                          <p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">&pound;'.($_POST['ownerprice']).'</p>                                     
                                         </td>
                                     </tr>                                                                   
                                 </tbody>
