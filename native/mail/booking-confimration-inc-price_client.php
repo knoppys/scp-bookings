@@ -155,7 +155,9 @@ function implement_ajax_email_client(){
         $message = ' 
 
 
-            <table width="500px" align="center" style="border:1px solid #555; background:#003;margin: 0 auto;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif; max-width:500px; width:100%">
+            <html>
+            <body>
+                <table width="500px" align="center" style="border:1px solid #555; background:#003;margin: 0 auto;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif; max-width:500px; width:100%">
 
                 <tbody>
 
@@ -389,7 +391,9 @@ function implement_ajax_email_client(){
 
                 </tbody>
 
-            </table>';
+            </table>
+            </body>
+            </html>';
 
         $subject = 'Booking Confirmation';
         $headers .= "Content-type: text/html;charset=utf-8\n";
