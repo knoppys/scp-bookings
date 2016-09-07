@@ -147,9 +147,9 @@ function implement_ajax_email_operator(){
                     $ratelabel = 'Price per person, per night';
                 }
 
-                //Get the correct terms and conditions from the apartment because the .val doesnt grab it in HTML
-                $termstext = get_post_meta($page->ID, $bookingtype, true);
-
+                 //Get the correct terms and conditions from the apartment because the .val doesnt grab it in HTML
+                $termstext = get_post_meta($page->ID, ($_POST['bookingtype']), true);
+                $arrivalprocess = get_post_meta($page->ID, 'arrrivalprocess', true);
                 
 
         /**
@@ -300,12 +300,12 @@ function implement_ajax_email_operator(){
                                 <tbody>                                 
                                     <tr>
                                         <td colspan="2" valign="middle" style="background:#d2d2d2;text-align:center;border-radius:4px;">
-                                            <p style="margin:3px;padding:4px 0;font-size:15px;font-weight:bold;">Arrival Process</p>
+                                           <p style="margin:3px;padding:4px 0;font-size:15px;font-weight:bold;">Arrival Process</p>
                                         </td>
                                     </tr>
                                     <tr>                                        
                                         <td valign="top" colspan="2">
-                                            <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.($_POST['arrivalprocess']).'</p>    
+                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$arrivalprocess.'</p>    
                                             
                                         </td>
                                     </tr>                                  

@@ -144,6 +144,10 @@ function implement_ajax_email_client(){
                     $vatselecttext = ' &#43;VAT';
                 }
 
+                //Get the correct terms and conditions from the apartment because the .val doesnt grab it in HTML
+                $termstext = get_post_meta($page->ID, ($_POST['bookingtype']), true);
+                $arrivalprocess = get_post_meta($page->ID, 'arrrivalprocess', true);
+
 
         /**
             Build the email
@@ -309,7 +313,7 @@ function implement_ajax_email_client(){
                                     </tr>
                                     <tr>                                        
                                         <td valign="top" colspan="2">
-                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.($_POST['arrivalprocess']).'</p>    
+                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$arrivalprocess.'</p>    
                                             
                                         </td>
                                     </tr>                                  
@@ -327,7 +331,7 @@ function implement_ajax_email_client(){
                                     </tr>
                                     <tr>                                        
                                         <td valign="top" colspan="2">  
-                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.($_POST['terms']).'</p>                                         
+                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$termstext.'</p>                                         
                                         </td>
                                     </tr>                                  
                                 </tbody>
