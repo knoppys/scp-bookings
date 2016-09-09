@@ -1,0 +1,42 @@
+<?php
+
+/**
+Title of the function and what it does
+**/
+
+function implement_ajax_########() {
+	if(isset($_POST['##########']))
+		{
+
+			
+
+			/*******************
+			*Place Function Below Here
+			*******************/
+			/*
+			if sending content back
+			ob_start();
+			*/
+
+
+			
+
+
+			/*
+			if sending content back
+			$content = ob_get_clean();
+			*/
+			/*******************
+			*End Here
+			*******************/
+
+		    //send the array back		    
+		    echo $content;
+
+		    die();
+		}
+	}
+add_action('wp_ajax_########', 'implement_ajax_########');
+add_action('wp_ajax_nopriv_########', 'implement_ajax_########');
+
+?>

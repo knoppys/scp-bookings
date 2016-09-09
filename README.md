@@ -1,5 +1,8 @@
 Changelog
 
+V3.4.12
+- Added AddOnDomain functionality to resellers. Testing on AddOnDomain branch.
+
 V3.4.6
 - Updated supplements fields to accomodate individual calculations
 

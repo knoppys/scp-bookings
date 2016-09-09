@@ -50,6 +50,8 @@ function resellerdetails_meta_box_callback( $post ) {
     $resellerp_terms = get_post_meta( $post->ID, 'resellerp_terms', true );
     $resellerp_email = get_post_meta( $post->ID, 'resellerp_email', true );
     $resellerp_pageurl = get_post_meta( $post->ID, 'resellerp_pageurl', true );
+    $scphs = get_post_meta( $post->ID, 'scphs', true );
+    $shs = get_post_meta( $post->ID, 'shs', true );
 
     
 
@@ -126,7 +128,7 @@ Meta box Contents
                                             ?>
                                         </td>                                        
                                     </tr>  
-                                     <tr>
+                                    <tr>
                                         <td>
                                             <?php
                                             //Name field
@@ -135,15 +137,31 @@ Meta box Contents
                                             echo '</label>';
                                             echo '<input type="text" class="widefat" name="resellerp_pageurl" placeholder="If the client requires hosting space, please enter the clients subdomain here"id="resellerp_pageurl" value="' . esc_attr( $resellerp_pageurl ) . '"/>';
                                             ?>
-                                        </td>  
-                                        <?php
-                                        if ($post->ID) { ?>
-                                            <td class="addondomain">
-                                                <p>If the client requires hosting for their reseller page, click add domain.</p>
-                                                <a class="btn btn-primary">Add Domain</a>
-                                            </td>   
-                                        <?php } else {}?>                                   
-                                    </tr>                                  
+                                        </td>                                    
+                                    </tr>  
+                                    <tr class="table" align="" style="padding: 0px !important;">
+                                        <td>
+                                            <table width="100%" style="background:#e2e2e2;border-radius:4px;">
+                                                <tr>
+                                                    <td width="30%">
+                                                        <p id="shs"><strong>Self Hosted Solution</strong><input name="shs" style="background:none;border:none;box-shadow:inset 0 0px 0px rgba(0,0,0,.07)" readonly type="hidden" value="" /><span id="addhere1"><?php if($scphs){echo $shs;}?></span></p>
+                                                        <p>Click here to send the client an email with the download link to the Reseller Script instrcutions and regarding its setup.</p>
+                                                        <a class="wp-core-ui button-primary" role="button">Send Reseller Email</a>                              
+                                                    </td>   
+                                                    <td width="30%">
+                                                        <p id="scphs"><strong>SCP Hosted Solution</strong><input name ="scphs" style="background:none;border:none;box-shadow:inset 0 0px 0px rgba(0,0,0,.07)" readonly type="hidden" value="" /><span id="addhere2"><?php if($scphs){echo $scphs;}?></span></p>
+                                                        <p>Click here to send the client an email with instructions to use the SCP Hosted Reseller Script and create an entry on the SCP Server.</p>
+                                                        <a id="createreseller" class="wp-core-ui button-primary" role="button">Create Reseller</a>
+                                                    </td>
+                                                    <td width="30%">
+                                                        <p><strong>Delete SCP Hosted Solution</strong></p>
+                                                        <p>Click here to permenantly remove the resellers entry from the SCP Server.</p>
+                                                        <a class="wp-core-ui button-primary" role="button">Delete Reseller</a>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>                    
+                                    </tr>                                 
                                     <tr>
                                         <td>
                                             <?php
@@ -237,6 +255,10 @@ function resellerdetails_save_meta_box_data( $post_id ) {
     update_post_meta( $post_id, 'resellerp_terms', $my_data_town );
     update_post_meta( $post_id, 'resellerp_email', $my_data_email );
     update_post_meta( $post_id, 'resellerp_pageurl', $my_data_pageurl );
+
+    //no santitize
+    update_post_meta( $post_id, 'scphs', ( $_POST['scphs'] ) );
+    update_post_meta( $post_id, 'shs', ( $_POST['shs'] ) );
    
     
 }

@@ -11,7 +11,7 @@ function resellerp_callback() {
 			global $post; 
 			echo '<div class="wrap">';
 			echo '<h2>Reseller Pages</h1>';
-			echo '<div class="apartments-button"><a href="/wp-admin/post-new.php?post_type=resellerp" class="page-title-action">Add Reseller Page</a></div>';
+			echo '<div class="apartments-button"><a href="' . site_url() . '/wp-admin/post-new.php?post_type=resellerp" class="page-title-action">Add Reseller Page</a></div>';
 
 			$args = array ('post_type'=>'resellerp','posts_per_page' => -1);
 			$resellerquery = new WP_Query( $args );
