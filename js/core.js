@@ -1026,22 +1026,74 @@ jQuery(document).ready(function(){
 	jQuery('#createreseller').click(function(){
 		var siteUrl = siteUrlobject.siteUrl+'/wp-admin/admin-ajax.php';
 		var addondomain = jQuery('#resellerp_pageurl').val();
-		var email = jQuery('#resllerp_email'); 			 
-		
+		var email = jQuery('#resllerp_email').val(); 	
+
+
 		jQuery(function(){
 		    jQuery.ajax({
 	            url:siteUrl,
 	            type:'POST',
-	            data:'action=addondomain&addondomain='+addondomain+'&email='+email,
+	            data:'action=addondomain&addondomain='+addondomain+'&email='+jQuery('#resellerp_email').val(),
 	            success:function(result){
 	            //got it done now let them know the result	            
-	            //jQuery('#scphs #addhere2').html('<i class="fa fa-check-circle"></i>');
-				//jQuery('#scphs input').val('<i class="fa fa-check-circle"></i>');
-				
+	            jQuery('#scphs #addhere2').html('<i class="fa fa-check-circle"></i>');
+				jQuery('#scphs input').val('<i class="fa fa-check-circle"></i>');
+			    console.log()		
 	            }
 			});		
 		});
-	
 	});
 });
 
+/********************
+// Ajax delete add on domain for the reseller
+********************/
+jQuery(document).ready(function(){
+	jQuery('#deletereseller').click(function(){
+		var siteUrl = siteUrlobject.siteUrl+'/wp-admin/admin-ajax.php';
+		var addondomain = jQuery('#resellerp_pageurl').val();
+		var email = jQuery('#resllerp_email').val(); 
+		//var query = 'https://host.knoppys.co.uk:2087/json-api/cpanel?cpanel_jsonapi_user=servicedcitypads&apiversion=2&cpanel_jsonapi_module=addondomain&cpanel_jsonapi_func=deladdondomain&domain=' + addondomain  +'&subdomain='+ addondomain  +'_servicedcitypads.com';			
+		
+
+		jQuery(function(){
+		    jQuery.ajax({
+	            url:siteUrl,
+	            type:'POST',
+	            data:'action=deladdondomain&addondomain='+addondomain+'&email='+jQuery('#resellerp_email').val(),
+	            success:function(result){
+	            //got it done now let them know the result	            
+	            jQuery('#scphs #addhere2').html('<i class="fa fa-check-circle"></i>');
+				jQuery('#scphs input').val('<i class="fa fa-check-circle"></i>');
+			    console.log(result);		
+	            }
+			});		
+		});
+		
+	});
+});
+
+/********************
+// Ajax send the client an email with all the download link etc
+********************/
+jQuery(document).ready(function(){
+	jQuery('#sendreseller').click(function(){
+		var siteUrl = siteUrlobject.siteUrl+'/wp-admin/admin-ajax.php';
+		var email = jQuery('#resllerp_email').val(); 	
+
+
+		jQuery(function(){
+		    jQuery.ajax({
+	            url:siteUrl,
+	            type:'POST',
+	            data:'action=addondomain&addondomain='+addondomain+'&email='+jQuery('#resellerp_email').val(),
+	            success:function(result){
+	            //got it done now let them know the result	            
+	            jQuery('#scphs #addhere2').html('<i class="fa fa-check-circle"></i>');
+				jQuery('#scphs input').val('<i class="fa fa-check-circle"></i>');
+			    console.log(result);
+	            }
+			});		
+		});
+	});
+});

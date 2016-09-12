@@ -146,7 +146,7 @@ Meta box Contents
                                                     <td width="30%">
                                                         <p id="shs"><strong>Self Hosted Solution</strong><input name="shs" style="background:none;border:none;box-shadow:inset 0 0px 0px rgba(0,0,0,.07)" readonly type="hidden" value="" /><span id="addhere1"><?php if($scphs){echo $shs;}?></span></p>
                                                         <p>Click here to send the client an email with the download link to the Reseller Script instrcutions and regarding its setup.</p>
-                                                        <a class="wp-core-ui button-primary" role="button">Send Reseller Email</a>                              
+                                                        <a id="sendreseller" class="wp-core-ui button-primary" role="button">Send Reseller Email</a>                              
                                                     </td>   
                                                     <td width="30%">
                                                         <p id="scphs"><strong>SCP Hosted Solution</strong><input name ="scphs" style="background:none;border:none;box-shadow:inset 0 0px 0px rgba(0,0,0,.07)" readonly type="hidden" value="" /><span id="addhere2"><?php if($scphs){echo $scphs;}?></span></p>
@@ -155,8 +155,11 @@ Meta box Contents
                                                     </td>
                                                     <td width="30%">
                                                         <p><strong>Delete SCP Hosted Solution</strong></p>
+                                                        <!-- 
                                                         <p>Click here to permenantly remove the resellers entry from the SCP Server.</p>
-                                                        <a class="wp-core-ui button-primary" role="button">Delete Reseller</a>
+                                                        <a id="deletereseller" class="wp-core-ui button-primary" role="button">Delete Reseller</a>
+                                                         -->
+                                                        <p>Coming Soon!</p>
                                                     </td>
                                                 </tr>
                                             </table>
@@ -262,6 +265,4 @@ function resellerdetails_save_meta_box_data( $post_id ) {
    
     
 }
-add_action( 'save_post', 'resellerdetails_save_meta_box_data' );
-
-?>
+add_action( 'save_post', 'rese

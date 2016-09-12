@@ -1,7 +1,8 @@
 Changelog
 
 V3.4.12
-- Added AddOnDomain functionality to resellers. Testing on AddOnDomain branch.
+- Added AddOnDomain functionality to resellers.
+	- Still working on the Delete Add Domain Function
 
 V3.4.6
 - Updated supplements fields to accomodate individual calculations
