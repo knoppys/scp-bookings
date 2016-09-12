@@ -1038,7 +1038,12 @@ jQuery(document).ready(function(){
 	            //got it done now let them know the result	            
 	            jQuery('#scphs #addhere2').html('<i class="fa fa-check-circle"></i>');
 				jQuery('#scphs input').val('<i class="fa fa-check-circle"></i>');
-			    console.log()		
+
+				jQuery('#shs #addhere1').html('');
+				jQuery('#shs input').val('');
+
+				alert('The domain ' + addondomain + ' has been added to the SCP Server. An email has also been sent with instructions.\nPlease remember to Publish/Update your post.')
+			
 	            }
 			});		
 		});
@@ -1063,8 +1068,13 @@ jQuery(document).ready(function(){
 	            data:'action=deladdondomain&addondomain='+addondomain+'&email='+jQuery('#resellerp_email').val(),
 	            success:function(result){
 	            //got it done now let them know the result	            
-	            jQuery('#scphs #addhere2').html('<i class="fa fa-check-circle"></i>');
-				jQuery('#scphs input').val('<i class="fa fa-check-circle"></i>');
+
+				jQuery('#shs #addhere1').html('');
+				jQuery('#shs input').val('');
+
+				jQuery('#shs #addhere2').html('');
+				jQuery('#shs input').val('');
+
 			    console.log(result);		
 	            }
 			});		
@@ -1086,12 +1096,17 @@ jQuery(document).ready(function(){
 		    jQuery.ajax({
 	            url:siteUrl,
 	            type:'POST',
-	            data:'action=addondomain&addondomain='+addondomain+'&email='+jQuery('#resellerp_email').val(),
+	            data:'action=sendemail&email='+jQuery('#resellerp_email').val(),
 	            success:function(result){
 	            //got it done now let them know the result	            
-	            jQuery('#scphs #addhere2').html('<i class="fa fa-check-circle"></i>');
-				jQuery('#scphs input').val('<i class="fa fa-check-circle"></i>');
-			    console.log(result);
+	            jQuery('#shs #addhere1').html('<i class="fa fa-check-circle"></i>');
+				jQuery('#shs input').val('<i class="fa fa-check-circle"></i>');
+
+				jQuery('#scphs #addhere2').html('');
+				jQuery('#scphs input').val('');
+
+				alert('An email has been sent to the client with the download link and instructions on how to proceed.\nPlease remember to Publish/Update your post.');
+	            
 	            }
 			});		
 		});

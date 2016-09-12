@@ -64,7 +64,12 @@ echo '</div>'; ?>
           <li>Fill in all the details</li>
           <ul>
             <li>Website: This is the customers website address.</li>            
-            <li>Page URL: If the client requires an address other than their main web address to send traffic to for the search results, please add this in here.</li>            
+            <li>Page URL: If the client requires an address other than their main web address to send traffic to for the search results, please add this in here.</li> 
+            <li>Chose the option for delivering the SCP Script.</li>           
+            <ol>
+              <li>Self Hosted Solution :: This will enable the client to host a copy of the Reseller Tool on their own web space. Click here to send them an email with the download link and some instructions on what to do with it.</li>
+              <li>SCP Hosted Solution :: Some users may not be able to provide their own hosting space, so they can use a copy of the script on the SCP Server. They will still need a web address.<br>Generally this may be in the form of a subdomain (sub.domain.com). They will need to point the web traffic from their domain to the SCP Server, this id documented in the email that goes out at the same time.<br>Click this button to create an account an Add On Domain on the SCP Server.</li>
+            </ol>
           </ul>
           <li>Click Publish</li>            
           <li>You can then download the .zip file from the Reseller Download section on the right. Email this to the client and ask them to upload the extracted folder up to the root of their chosen web directory.</li>            

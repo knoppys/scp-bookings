@@ -15,8 +15,7 @@ function implement_ajax_sendemail() {
             /*
             if sending content back
             ob_start();
-            */
-            
+            */     
            
 
             $to = ($_POST['email']);
@@ -50,7 +49,7 @@ function implement_ajax_sendemail() {
                                         <p></p>
                                            <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#fff;">Thank you for your interest in the Apartment Recommendations Tool from Serviced City Pads.</p>
 
-                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#fff;">This email is to confirm the creation of your account on our system and provide you with some information about setting up the Customer Query Script on your chosen hosting provider.</p>
+                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#fff;">This email is to confirm the creation of your account on our system and provide you with some information about what you need to do next.</p>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -60,35 +59,18 @@ function implement_ajax_sendemail() {
                             <!-- Installation details -->   
                             <table style="background:#eee;border:1px solid #a2a2a2;border-radius:5px;margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif; max-width:500px; width:100%">
                                 <tbody>  
-                                     <!-- Installation details -->
-                                    <tr>
-                                        <td colspan="2" valign="middle" style="background:#d2d2d2;text-align:center;border-radius:4px;">
-                                           <p style="margin:3px;padding:4px 0;font-size:15px;font-weight:bold;">Step 1 :: Software Download</p>
-                                        </td>  
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2" valign="middle">
-                                        <p style="margin:3px;padding:4px 0;font-size:15px;"><strong>How does this software work?</strong></p>
-                                        <p style="margin:3px;padding:4px 0;font-size:15px;">The script you download will sit on your webspace and act as a window to a page on our Website. The page on our site shows your company branding and details etc along with the selected apartments for each customer query.</p>
-                                        <p style="margin:3px;padding:4px 0;font-size:15px;"><strong>Is this software secure?</strong></p>
-                                        <p style="margin:3px;padding:4px 0;font-size:15px;">This software is totally secure, the script will not interact with your webspace or your website. It wont ask for any passwords and the content can not be indexed by google.</p>
-                                        <p style="margin:3px;padding:4px 0;font-size:15px;">Click the icon to download the Reseller Software.</p>
-                                          <p style="padding:20px 0;text-align:center;"><img style="display:block;margin:0 auto;" src="http://www.servicedcitypads.com/images/download.png" alt="Download Icon" title="Download the SCP Reseller Script"></p>
-                                        <p style="margin:3px;padding:4px 0;font-size:15px;">If you have any questions regarding the use of this script or you wish to enquire into its methods before use, please feel free to contact our support team on support@knoppys.co.uk</p>                                        
-                                        </td>  
-                                    </tr>
-                                    <tr>
+                                     <!-- Installation details -->                                    
                                         <td colspan="2" valign="middle" style="background:#d2d2d2;text-align:center;border-radius:4px;">
                                            <p style="margin:3px;padding:4px 0;font-size:15px;font-weight:bold;">Step 2 :: Installation</p>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td colspan="2" valign="middle">
-                                           <p style="margin:3px;padding:4px 0;font-size:15px;"><strong>Upload to your server using FTP:</strong></p>
-                                           <p style="margin:3px;padding:4px 0;font-size:15px;">If you are using FTP to upload this script to your server, you will need to unzip the folder first and upload the complete directory ("customer-query") to the root directory of your chosen webspace. Please be aware that in order to work, you must not change the name of the folder from "customer-query".</p>
-                                            <p style="margin:3px;padding:4px 0;font-size:15px;"><strong>Upload to your server using File Manager:</strong></p>
-                                            <p style="margin:3px;padding:4px 0;font-size:15px;">Using your hosts file manager, upload the complete zip file to the root of your webspace and uzip the folder. Again we ask that you do not change the name of the folder from customer-query.</p>
-                                            <p style="margin:3px;padding:4px 0;font-size:15px;">Please remember to let us know if you are using a web address different than that of your normal web address for this tool.</p>
+                                           <p style="margin:3px;padding:4px 0;font-size:15px;"><strong>DNS Configuration:</strong></p>
+                                           <p style="margin:3px;padding:4px 0;font-size:15px;">In order for the tool to work, you will need to create a web address different to that of your normal web address. In most cases clients prefer a sub domain.</p>
+                                           <p style="margin:3px;padding:4px 0;font-size:15px;">This usually takes the form of something like: <br>subdomain.your-domain-name.com.</p>
+                                           <p style="margin:3px;padding:4px 0;font-size:15px;">Then you will need to update the DNS for this seperate web address by adding an A record pointing to the Serviced City Pads Server. If you dont know how to do this, contact your hosting provider / domain registrar as most of them will be happy to do this for you. </p>
+                                           <p style="text-align:center;margin:3px;padding:4px 0;font-size:15px;"><strong>New A Record :: 185.77.83.90</strong></p>
                                             <p style="margin:3px;padding:4px 0;font-size:15px;"><strong>Installation Complete</strong></p>
                                         </td>                                                                       
                                     </tr>
@@ -128,6 +110,7 @@ function implement_ajax_sendemail() {
             </table>
             </body>
             </html>
+
 
             ';
             $subject = 'Serviced City Pads Reseller Introduction';

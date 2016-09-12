@@ -145,13 +145,13 @@ Meta box Contents
                                                 <tr>
                                                     <td width="30%">
                                                         <p id="shs"><strong>Self Hosted Solution</strong><input name="shs" style="background:none;border:none;box-shadow:inset 0 0px 0px rgba(0,0,0,.07)" readonly type="hidden" value="" /><span id="addhere1"><?php if($scphs){echo $shs;}?></span></p>
-                                                        <p>Click here to send the client an email with the download link to the Reseller Script instrcutions and regarding its setup.</p>
-                                                        <a id="sendreseller" class="wp-core-ui button-primary" role="button">Send Reseller Email</a>                              
+                                                        <p>Click here to send the client an email with the download link to the Reseller Script and instrcutions regarding its setup.</p>
+                                                        <a id="sendreseller" class="wp-core-ui button-primary" role="button">Send Download Email</a>                              
                                                     </td>   
                                                     <td width="30%">
                                                         <p id="scphs"><strong>SCP Hosted Solution</strong><input name ="scphs" style="background:none;border:none;box-shadow:inset 0 0px 0px rgba(0,0,0,.07)" readonly type="hidden" value="" /><span id="addhere2"><?php if($scphs){echo $scphs;}?></span></p>
-                                                        <p>Click here to send the client an email with instructions to use the SCP Hosted Reseller Script and create an entry on the SCP Server.</p>
-                                                        <a id="createreseller" class="wp-core-ui button-primary" role="button">Create Reseller</a>
+                                                        <p>Click here to send the client an email with instructions to setup an A record and use the SCP Hosted solution.</p>
+                                                        <a id="createreseller" class="wp-core-ui button-primary" role="button">Create Account and Send Email</a>
                                                     </td>
                                                     <td width="30%">
                                                         <p><strong>Delete SCP Hosted Solution</strong></p>
@@ -265,4 +265,4 @@ function resellerdetails_save_meta_box_data( $post_id ) {
    
     
 }
-add_action( 'save_post', 'rese
+add_action( 'save_post', 'resellerdetails_save_meta_box_data' );
