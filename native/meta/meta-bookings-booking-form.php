@@ -1013,7 +1013,7 @@ Meta box Contents
 
                                                     //Get the correct terms and conditions from the apartment because the .val doesnt grab it in HTML
                                                     
-                                                    if (get_post_meta($page->ID, ($_POST['bookingtype']), true);) {
+                                                    if (get_post_meta($page->ID, ($_POST['bookingtype']), true)) {
                                                          $termstext = get_post_meta($page->ID, ($_POST['bookingtype']), true);
                                                      } else {
                                                          $termstext = get_post_meta($page->ID, ($_POST['Corporate']), true);
