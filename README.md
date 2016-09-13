@@ -1,5 +1,8 @@
 Changelog
 
+V3.4.15
+- Added a conditional check to see default the terms to the Corporate Terms if there are none in Groups or Leisure. 
+
 V3.4.12
 - Added AddOnDomain functionality to resellers.
 	- Still working on the Delete Add Domain Function
