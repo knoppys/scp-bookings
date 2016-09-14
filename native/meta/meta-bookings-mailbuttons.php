@@ -54,7 +54,7 @@ function emailbuttons_meta_box_callback( $post ) {
                             <tr>
                                 <td>      
                                     <p>You and the accounts team will be included in the email.</p> 
-                                    <p><?php echo $current_user->user_email; ?><br>bookings@citypadsmail.com</p>                            
+                                    <p><?php echo $current_user->user_email; ?><br>info@ and account@ servicedcitypads.com</p>                            
 
                                     <div class="email_button">
                                       <input class="button button-primary button-large" id="email_client" value="Send to Client">
@@ -78,6 +78,6 @@ function emailbuttons_meta_box_callback( $post ) {
       <p>You need to save your booking before you can email it.</p>
     <?php } ?>
     
-    ?>   
+ 
 
 <?php } ?>
