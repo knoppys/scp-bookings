@@ -1,5 +1,8 @@
 Changelog
 
+V3.5.1
+- Updated the booking confirmation emails to use the posted value from the booking form as the conditional check is already carried out function side. 
+
 V3.5
 - Upgraded all editors to use wpautop() to ensure that all meta is saved as HTML with tags.
 -- Includes Apartment meta : additional location information, description, terms and arrival process.

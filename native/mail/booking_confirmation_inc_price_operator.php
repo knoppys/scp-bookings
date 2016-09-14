@@ -147,18 +147,6 @@ function implement_ajax_email_operator(){
                     $ratelabel = 'Price per person, per night';
                 }
 
-                 //Get the correct terms and conditions from the apartment because the .val doesnt grab it in HTML
-              
-                if (get_post_meta($page->ID, ($_POST['bookingtype']), true)) {
-                     $termstext = get_post_meta($page->ID, ($_POST['bookingtype']), true);
-                 } else {
-                     $termstext = get_post_meta($page->ID, ($_POST['Corporate']), true);
-                 }
-                                                      
-                                                      
-                $arrivalprocess = get_post_meta($page->ID, 'arrrivalprocess', true);
-                
-
         /**
             Build the email
         **/ 
@@ -302,7 +290,7 @@ function implement_ajax_email_operator(){
                             </table>                    
 
                             <p></p>
-                            <!-- Arrival Process -->
+                           <!-- Arrival Process -->
                             <table style="background:#eee;border:1px solid #a2a2a2;border-radius:5px;margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif; max-width:500px; width:100%">
                                 <tbody>                                 
                                     <tr>
@@ -312,7 +300,7 @@ function implement_ajax_email_operator(){
                                     </tr>
                                     <tr>                                        
                                         <td valign="top" colspan="2">
-                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$arrivalprocess.'</p>    
+                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.($_POST['arrivalprocess']).'</p>    
                                             
                                         </td>
                                     </tr>                                  
@@ -325,12 +313,12 @@ function implement_ajax_email_operator(){
                                 <tbody>
                                     <tr>
                                         <td colspan="2" valign="middle" style="background:#d2d2d2;text-align:center;border-radius:4px;">
-                                            <p style="margin:3px;padding:4px 0;font-size:15px;font-weight:bold;">Terms and Conditions</p>
+                                           <p style="margin:3px;padding:4px 0;font-size:15px;font-weight:bold;">Terms and Conditions</p>
                                         </td>
                                     </tr>
                                     <tr>                                        
                                         <td valign="top" colspan="2">  
-                                            <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$termstext.'</p>                                         
+                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.($_POST['terms']).'</p>                                         
                                         </td>
                                     </tr>                                  
                                 </tbody>
