@@ -241,9 +241,19 @@ jQuery(document).ready(function(){
 	            	jQuery('#checkouttime').val(data.checkouttime);
 	            	jQuery('#ownerprice').val(data.ownerprice);	
 	            	jQuery('#emergencycontact').val(data.emergencycontact);
-	            	jQuery('#arrivalprocess').val(data.arrivalprocess);
-	            	jQuery('#terms').val(data.terms); 
+	            	jQuery('#arrivalprocess div').html(data.arrivalprocess);
 	            	jQuery('#numberofnights').val(data.nights);
+	            	jQuery('#terms div').html(data.terms);
+
+	            	//empty the booking confirmation fields that already exits
+	            	jQuery('.arrivalprocess p').remove();
+	            	jQuery('.terms p').remove();
+
+	            	//place the post meta retunred in html format
+					jQuery('.arrivalprocess').html(data.arrivalprocess); 					
+					jQuery('.terms').html(data.terms); 
+
+	            	
 	            
 	            	if (data.bookingtype == 'Corporate') {
     					jQuery('#rentalprice').val(data.rentalprice);
@@ -258,6 +268,7 @@ jQuery(document).ready(function(){
 					    jQuery('#rentalprice').val(null);
 
 					}
+					console.log(data.terms);
 
 
 	            	

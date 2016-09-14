@@ -39,7 +39,10 @@ function emailbuttons_meta_box_callback( $post ) {
   $useremail = $current_user->user_email;
   ?>
     
-    <table cellpadding="0" cellspacing="0" border="0" class="bookings-admin">    
+    <?php
+    if (get_the_id()) { ?>
+
+      <table cellpadding="0" cellspacing="0" border="0" class="bookings-admin">    
         <tbody>
             <tr>
                 <td>               
@@ -53,12 +56,12 @@ function emailbuttons_meta_box_callback( $post ) {
                                     <p>You and the accounts team will be included in the email.</p> 
                                     <p><?php echo $current_user->user_email; ?><br>bookings@citypadsmail.com</p>                            
 
-                                   	<div class="email_button">
-                                   		<input class="button button-primary button-large" id="email_client" value="Send to Client">
-                                   	</div>
-                                   	<div class="email_button">
-                                   		<input class="button button-primary button-large" id="email_operator" value="Send to Operator">
-                                   	</div>                                      
+                                    <div class="email_button">
+                                      <input class="button button-primary button-large" id="email_client" value="Send to Client">
+                                    </div>
+                                    <div class="email_button">
+                                      <input class="button button-primary button-large" id="email_operator" value="Send to Operator">
+                                    </div>                                      
                                     <input id="useremail" type="hidden" value="<?php echo $useremail; ?>">      
                                     
                                 </td>                               
@@ -69,6 +72,12 @@ function emailbuttons_meta_box_callback( $post ) {
                 </td>
             </tr>
         </tbody>
-    </table>    
+    </table> 
+
+    <?php } else { ?>
+      <p>You need to save your booking before you can email it.</p>
+    <?php } ?>
+    
+    ?>   
 
 <?php } ?>

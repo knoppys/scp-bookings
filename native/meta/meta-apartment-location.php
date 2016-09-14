@@ -168,8 +168,8 @@ function apartmentlocation_meta_box_callback( $post ) {
                             <tr>                    
                                 <td colspan="2" class="haseditor">
                                 <label for="additional-info">Additional Location Information</label>
-                                   <?php
-                                    wp_editor($additionalinfo, 'additionalinfo');
+                                    <?php
+                                        wp_editor($additionalinfo, 'additionalinfo', $settings = array('wpautop' => false));
                                     ?>
                                 </td>
                             </tr>

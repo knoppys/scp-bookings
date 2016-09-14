@@ -73,7 +73,7 @@ Meta box Contents
                             echo '<label for="arrivalprocess">';
                                 _e( 'Arrival Process', 'bookingscheckin_textdomain' );
                             echo '</label>';                            
-                            $arrivalprocesssettings = array('media_buttons' => false);
+                            $arrivalprocesssettings = array('media_buttons' => false, 'wpautop' => false);
                             wp_editor($arrivalprocess, 'arrivalprocess', $arrivalprocesssettings);
                             ?>
                         </td>                        

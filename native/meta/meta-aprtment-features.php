@@ -95,7 +95,7 @@ function apartmentdetails_meta_box_callback( $post ) {
                                                       
                                     <?php
                                     echo '<label for="description">Apartment Description: Upload images using the Add Media button below. </label>';                              
-                                    wp_editor($description, 'description');
+                                    wp_editor($description, 'description', $settings = array('wpautop' => false));
                                     ?>
                                 </td>
                             </tr>

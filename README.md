@@ -1,5 +1,11 @@
 Changelog
 
+V3.5
+- Upgraded all editors to use wpautop() to ensure that all meta is saved as HTML with tags.
+-- Includes Apartment meta : additional location information, description, terms and arrival process.
+-- Includes Bookings meta : terms and arrival process
+-- Includes Booking Confirmations : terms, arrival process, other informaiton.
+
 V3.4.15
 - Added a conditional check to see default the terms to the Corporate Terms if there are none in Groups or Leisure. 
 

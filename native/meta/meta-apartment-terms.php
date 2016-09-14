@@ -69,22 +69,22 @@ Meta box Contents
                                 </ul>
                                 <div id="tab1">
                                     <?php                                                        
-                                    wp_editor($Corporate, 'Corporate');                                  
+                                    wp_editor($Corporate, 'Corporate', $settings = array('wpautop' => false));                                  
                                     ?>                        
                                 </div>
                                 <div id="tab2">
                                     <?php                                    
-                                    wp_editor($Groups, 'Groups');
+                                    wp_editor($Groups, 'Groups', $settings = array('wpautop' => false));
                                     ?>
                                 </div>
                                 <div id="tab3">
                                     <?php
-                                    wp_editor($Leisure, 'Leisure');
+                                    wp_editor($Leisure, 'Leisure', $settings = array('wpautop' => false));
                                     ?>
                                 </div>
                                 <div id="tab4">
                                     <?php
-                                    wp_editor($frontendcancellation, 'frontendcancellation');
+                                    wp_editor($frontendcancellation, 'frontendcancellation', $settings = array('wpautop' => false));
                                     ?>
                                 </div>
                             </div>

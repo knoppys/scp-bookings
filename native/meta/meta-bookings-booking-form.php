@@ -141,6 +141,7 @@ function bookingsteps_meta_box_callback( $post ) {
 
     //Terms and Conditions Table
     $terms = get_post_meta( $post->ID, 'terms', true);
+    var_dump($arrivalprocess);
     $arrivalprocess = get_post_meta( $post->ID, 'arrivalprocess', true);
     $emergencycontact = get_post_meta( $post->ID, 'emergencycontact', true);
 
@@ -813,7 +814,7 @@ Meta box Contents
                                     echo '<h4>';
                                          _e( 'Additional Notes', 'bookingsrentalprice_textdomain' );
                                     echo '</h4>';
-                                    echo '<textarea rows="5" class="widefat" name="additionalnotes" id="additionalnotes" />';
+                                    echo '<textarea contenteditable rows="5" class="widefat" name="additionalnotes" id="additionalnotes" />';
                                     echo esc_attr( $additionalnotes ); 
                                     echo '</textarea>';
                                     ?>
@@ -824,7 +825,7 @@ Meta box Contents
                                     echo '<h4>';
                                          _e( 'Apartment Breakdown', 'bookingsrentalprice_textdomain' );
                                     echo '</h4>';
-                                    echo '<textarea rows="5" class="widefat" name="apptbreakdown" id="apptbreakdown" />';
+                                    echo '<textarea contenteditable rows="5" class="widefat" name="apptbreakdown" id="apptbreakdown" />';
                                     echo esc_attr( $apptbreakdown ); 
                                     echo '</textarea>';
                                     ?>
@@ -836,18 +837,18 @@ Meta box Contents
                         echo '<h4>';
                              _e( 'Operator Terms', 'bookingsrentalprice_textdomain' );
                         echo '</h4>';
-                        echo '<textarea rows="5" class="widefat" name="terms" id="terms" />';
-                        echo esc_attr( $terms ); 
-                        echo '</textarea>';
+                        echo '<textarea rows="5" class="widefat terms contenteditable" name="terms" id="terms" /><div>';
+                        echo esc_attr( $terms );
+                        echo '</div></textarea>';
                         ?>      
                         <?php
                         //apartment breakdown field
                         echo '<h4>';
                              _e( 'Arrival Process', 'bookingsrentalprice_textdomain' );
                         echo '</h4>';
-                        echo '<textarea rows="5" class="widefat" name="arrivalprocess" id="arrivalprocess" />';
+                        echo '<textarea rows="5" class="widefat arrivalprocess contenteditable" name="arrivalprocess" id="arrivalprocess" /><div>';
                         echo esc_attr( $arrivalprocess ); 
-                        echo '</textarea>';
+                        echo '</div></textarea>';
                         ?>
                         <?php
                         //apartment breakdown field
@@ -950,79 +951,67 @@ Meta box Contents
                                                 $apartmentcountry   = get_post_meta($page->ID,'country', true ); 
                                                 //get the location name
                                                 $locationPage = get_page_by_title( $aprtmentlocation, OBJECT, 'locations' );
-                                                    //get the location meta
-                                                    $areainformation = get_post_meta( $locationPage->ID, 'areainformation', true );
-                                                    if ($areainformation) {
-                                                        $areainformationtext = '<tr>
-                                                                                    <td valign="top" colspan="2">
-                                                                                        <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Area Information</p></strong>                                                     
-                                                                                       <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$areainformation.'</p>                                          
-                                                                                    </td>
-                                                                                </tr>';
-                                                    } else {
-                                                        $areainformationtext = '';
-                                                    }
+                                        //get the location meta
+                                        $areainformation = get_post_meta( $locationPage->ID, 'areainformation', true );
+                                        if ($areainformation) {
+                                            $areainformationtext = '<tr>
+                                                                        <td valign="top" colspan="2">
+                                                                            <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Area Information</p></strong>                                                     
+                                                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$areainformation.'</p>                                          
+                                                                        </td>
+                                                                    </tr>';
+                                        } else {
+                                            $areainformationtext = '';
+                                        }
 
-                                                    //get the number of nights
-                                                    $datetime1 = new DateTime($arrivaldate);
-                                                    $datetime2 = new DateTime($leavingdate);
-                                                    $interval = $datetime1->diff($datetime2);
-                                                    $numberofnights = $interval->format('%a nights');
+                                        //get the number of nights
+                                        $datetime1 = new DateTime($arrivaldate);
+                                        $datetime2 = new DateTime($leavingdate);
+                                        $interval = $datetime1->diff($datetime2);
+                                        $numberofnights = $interval->format('%a nights');
 
-                                                    //Get the right nightly rate field
-                                                    if ($bookingtype == ('Corporate')) {
-                                                        $nightlyratetext = ($rentalprice);
-                                                    } else {
-                                                        $nightlyratetext = ($priceperperson);
-                                                    }
+                                        //Get the right nightly rate field
+                                        if ($bookingtype == ('Corporate')) {
+                                            $nightlyratetext = ($rentalprice);
+                                        } else {
+                                            $nightlyratetext = ($priceperperson);
+                                        }
 
-                                                    //Get the right total cost field
-                                                    if ($bookingtype == ('Corporate')) {
-                                                        $totalcosttext = ($totalcost);
-                                                    } else {
-                                                        $totalcosttext = ($totalcost);
-                                                    }
+                                        //Get the right total cost field
+                                        if ($bookingtype == ('Corporate')) {
+                                            $totalcosttext = ($totalcost);
+                                        } else {
+                                            $totalcosttext = ($totalcost);
+                                        }
 
-                                                    //Get the nightly rate label
-                                                    if ($bookingtype == ('Corporate')) {
-                                                        $ratelabel = 'Nightly Rate';
-                                                    } else {
-                                                        $ratelabel = 'Price per person, per night';
-                                                    }
+                                        //Get the nightly rate label
+                                        if ($bookingtype == ('Corporate')) {
+                                            $ratelabel = 'Nightly Rate';
+                                        } else {
+                                            $ratelabel = 'Price per person, per night';
+                                        }
 
 
-                                                    //the chekin time
-                                                    if ($actualcheckintime ) {
-                                                        $theintime = $actualcheckintime ;
-                                                    } else {
-                                                        $theintime = ($checkintime);
-                                                    }
+                                        //the chekin time
+                                        if ($actualcheckintime ) {
+                                            $theintime = $actualcheckintime ;
+                                        } else {
+                                            $theintime = ($checkintime);
+                                        }
 
-                                                    //the chekin time
-                                                    if ($actualcheckouttime) {
-                                                        $theouttime = $actualcheckouttime;
-                                                    } else {
-                                                        $theouttime = $checkouttime;
-                                                    }
+                                        //the chekin time
+                                        if ($actualcheckouttime) {
+                                            $theouttime = $actualcheckouttime;
+                                        } else {
+                                            $theouttime = $checkouttime;
+                                        }
 
-                                                    if ($vatselect == true) {
-                                                        $vatselecttext = ' &#43;VAT';
-                                                    } else {
-                                                        $vatselecttext = '';
-                                                    }
-
-                                                    //Get the correct terms and conditions from the apartment because the .val doesnt grab it in HTML
+                                        if ($vatselect == true) {
+                                            $vatselecttext = ' &#43;VAT';
+                                        } else {
+                                            $vatselecttext = '';
+                                        }
                                                     
-                                                    if (get_post_meta($page->ID, ($_POST['bookingtype']), true)) {
-                                                         $termstext = get_post_meta($page->ID, ($_POST['bookingtype']), true);
-                                                     } else {
-                                                         $termstext = get_post_meta($page->ID, ($_POST['Corporate']), true);
-                                                     }
-                                                      
-
-
-
-
                                         /**
                                             Build the email
                                         **/ 
@@ -1187,7 +1176,7 @@ Meta box Contents
                                                                     </tr>
                                                                     <tr>                                        
                                                                         <td valign="top" colspan="2">
-                                                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$arrivalprocess.'</p>    
+                                                                           <div class="arrivalprocess" style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$arrivalprocess.'</div>    
                                                                             
                                                                         </td>
                                                                     </tr>                                  
@@ -1205,7 +1194,7 @@ Meta box Contents
                                                                     </tr>
                                                                     <tr>                                        
                                                                         <td valign="top" colspan="2">  
-                                                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$terms.'</p>                                         
+                                                                           <div class="terms" style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$terms.'</div>                                         
                                                                         </td>
                                                                     </tr>                                  
                                                                 </tbody>
@@ -1397,13 +1386,7 @@ Meta box Contents
                                                     $vatselecttext = '';
                                                 }
                                             
-                                                //Get the correct terms and conditions from the apartment because the .val doesnt grab it in HTML
-                                                    
-                                                if (get_post_meta($page->ID, ($_POST['bookingtype']), true);) {
-                                                     $termstext = get_post_meta($page->ID, ($_POST['bookingtype']), true);
-                                                 } else {
-                                                     $termstext = get_post_meta($page->ID, ($_POST['Corporate']), true);
-                                                 }
+                                              
 
                                         /**
                                             Build the email
@@ -1553,12 +1536,12 @@ Meta box Contents
                                                                 <tbody>                                 
                                                                     <tr>
                                                                         <td colspan="2" valign="middle" style="background:#d2d2d2;text-align:center;border-radius:4px;">
-                                                                            <p style="margin:3px;padding:4px 0;font-size:15px;font-weight:bold;">Arrival Process</p>
+                                                                           <p style="margin:3px;padding:4px 0;font-size:15px;font-weight:bold;">Arrival Process</p>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>                                        
                                                                         <td valign="top" colspan="2">
-                                                                            <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$arrivalprocess.'</p>    
+                                                                           <div class="arrivalprocess" style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$arrivalprocess.'</div>    
                                                                             
                                                                         </td>
                                                                     </tr>                                  
@@ -1571,12 +1554,12 @@ Meta box Contents
                                                                 <tbody>
                                                                     <tr>
                                                                         <td colspan="2" valign="middle" style="background:#d2d2d2;text-align:center;border-radius:4px;">
-                                                                            <p style="margin:3px;padding:4px 0;font-size:15px;font-weight:bold;">Terms and Conditions</p>
+                                                                           <p style="margin:3px;padding:4px 0;font-size:15px;font-weight:bold;">Terms and Conditions</p>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>                                        
                                                                         <td valign="top" colspan="2">  
-                                                                            <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$terms.'</p>                                         
+                                                                           <div class="terms" style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$terms.'</div>                                         
                                                                         </td>
                                                                     </tr>                                  
                                                                 </tbody>
@@ -1731,7 +1714,7 @@ function bookingsteps_save_meta_box_data( $post_id ) {
     $mydata_apptbreakdown = sanitize_text_field( $_POST['apptbreakdown'] );
     $mydata_vatselect = sanitize_text_field( $_POST['vatselect'] );
     $mydata_costcode = sanitize_text_field( $_POST['costcode'] );
-    $mydata_terms = sanitize_text_field( $_POST['terms'] );
+    $mydata_terms = ( $_POST['terms'] ); //removed sanitisation
     $mydata_emergencycontact = sanitize_text_field( $_POST['emergencycontact'] );
     $mydata_arrivaldate = sanitize_text_field( $_POST['arrivaldate'] );
     $mydata_leavingdate = sanitize_text_field( $_POST['leavingdate'] );
@@ -1760,7 +1743,7 @@ function bookingsteps_save_meta_box_data( $post_id ) {
     $mydata_email = sanitize_text_field( $_POST['email'] );
     $mydata_guestage = sanitize_text_field( $_POST['guestage'] );
     $mydata_guestsex = sanitize_text_field( $_POST['guestsex'] );
-    $mydata_arrivalprocess = sanitize_text_field( $_POST['arrivalprocess'] );
+    $mydata_arrivalprocess = ( $_POST['arrivalprocess'] ); //removed sanitisation
 
 
 
