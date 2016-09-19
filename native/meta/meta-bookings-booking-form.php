@@ -138,17 +138,12 @@ function bookingsteps_meta_box_callback( $post ) {
     //Additional Notes Table
     $additionalnotes = get_post_meta( $post->ID, 'additionalnotes', true);
     $apptbreakdown = get_post_meta( $post->ID, 'apptbreakdown', true);
-<<<<<<< HEAD
+
     $staffnotes = get_post_meta($post->ID, 'staffnotes', true);
 
     //Terms and Conditions Table
     $terms = get_post_meta( $post->ID, 'terms', true);
-=======
 
-    //Terms and Conditions Table
-    $terms = get_post_meta( $post->ID, 'terms', true);
-    var_dump($arrivalprocess);
->>>>>>> 16124d5bee14d897372ce54b290cd6ef66d7ace5
     $arrivalprocess = get_post_meta( $post->ID, 'arrivalprocess', true);
     $emergencycontact = get_post_meta( $post->ID, 'emergencycontact', true);
 
@@ -856,11 +851,8 @@ Meta box Contents
                         echo '<textarea rows="5" class="widefat arrivalprocess contenteditable" name="arrivalprocess" id="arrivalprocess" /><div>';
                         echo esc_attr( $arrivalprocess ); 
                         echo '</div></textarea>';
-<<<<<<< HEAD
                         ?>                        
-=======
                         ?>
->>>>>>> 16124d5bee14d897372ce54b290cd6ef66d7ace5
                         <?php
                         //apartment breakdown field
                         echo '<h4>';
@@ -869,7 +861,6 @@ Meta box Contents
                         echo '<input type="text" class="widefat" name="emergencycontact" id="emergencycontact" value="' . esc_attr( $emergencycontact ) . '"/>';
                         ?>                  
                         </section>
-<<<<<<< HEAD
                         <h3 class="staffnotes">Staff Notes</h3>
                         <section>
                             <?php
@@ -880,12 +871,7 @@ Meta box Contents
                             wp_editor($staffnotes, 'staffnotes', $settings = array('wpautop' => false));
                             ?>
                         </section>
-                        
-=======
->>>>>>> 16124d5bee14d897372ce54b290cd6ef66d7ace5
-
-
-                    
+   
                 </div>
 
                 <?php 
@@ -1827,10 +1813,8 @@ function bookingsteps_save_meta_box_data( $post_id ) {
     update_post_meta($post_id, 'guestsex',$mydata_guestsex);
     update_post_meta($post_id, 'priceperperson', $mydata_priceperperson);
     update_post_meta( $post_id, 'refid', get_the_id() );
-<<<<<<< HEAD
     update_post_meta( $post_id, 'staffnotes', ($_POST['staffnotes']) );
-=======
->>>>>>> 16124d5bee14d897372ce54b290cd6ef66d7ace5
+
 
     
 }
