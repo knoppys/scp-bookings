@@ -26,10 +26,13 @@
 #booking-container>.steps>ul>li {
     width: 16%
 }
+<<<<<<< HEAD
 #booking-container > .steps a {
     background: #a66680;
     color: #fff;
 }
+=======
+>>>>>>> 16124d5bee14d897372ce54b290cd6ef66d7ace5
 #booking-container h4 {
     font-size: 17px;
     text-decoration: underline

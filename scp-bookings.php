@@ -3,14 +3,22 @@
 Plugin Name:       SCP Bookings
 Plugin URI:        https://github.com/knoppys/scp-bookings.git
 Description:       The SCP Bookings plugin is a custom built application as a tool for managing the companies assets. Process bookings, assetts and peform reports on yoru data with ease. 
+<<<<<<< HEAD
 Version:           3.6
+=======
+Version:           3.5.2
+>>>>>>> 16124d5bee14d897372ce54b290cd6ef66d7ace5
 Author:            Knoppys Digital Limited
 License:           GNU General Public License v2
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
 GitHub Plugin URI: https://github.com/knoppys/scp-bookings.git
 GitHub Branch:     master
 */
+<<<<<<< HEAD
 define( 'BOOKINGS_VERSION', '3.6' );
+=======
+define( 'BOOKINGS_VERSION', '3.5.2' );
+>>>>>>> 16124d5bee14d897372ce54b290cd6ef66d7ace5
 define( 'BOOKINGS__MINIMUM_WP_VERSION', '1.0' );
 define( 'BOOKINGS__PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'BOOKINGS__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );

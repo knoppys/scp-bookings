@@ -161,9 +161,13 @@ jQuery(document).ready(function(){
 		    headerTag: "h3",
 		    bodyTag: "section",
 		    transitionEffect: "slideLeft",
+<<<<<<< HEAD
 		    autoFocus: true,
 		    enableAllSteps: true,
     		enablePagination: false
+=======
+		    autoFocus: true
+>>>>>>> 16124d5bee14d897372ce54b290cd6ef66d7ace5
 		});
 	})
 
