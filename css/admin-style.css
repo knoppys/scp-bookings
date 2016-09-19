@@ -1,0 +1,353 @@
+.bookings-admin input,
+.bookings-admin select {
+    border-radius: 3px
+}
+.bookings-admin .wp-switch-editor {
+    float: left;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    position: relative;
+    top: 1px;
+    background: #ebebeb;
+    color: #777;
+    cursor: pointer;
+    font: 13px/19px "Open Sans", sans-serif; 
+    height: 20px;
+    margin: -2px 0 0!important;
+    padding: 3px 8px 4px;
+    border: 1px solid #d2d2d2;
+}
+#scphs i, #shs i {
+    color: green;
+    padding-left: 20px;
+    line-height: 0;
+}
+#booking-container>.steps>ul>li {
+    width: 16%
+}
+#booking-container > .steps a {
+    background: #a66680;
+    color: #fff;
+}
+#booking-container h4 {
+    font-size: 17px;
+    text-decoration: underline
+}
+.widefat {
+    line-height: 2!important
+}
+.wp-admin select {
+    padding: 2px;
+    line-height: 28px;
+    height: 41px;
+    vertical-align: middle
+}
+.apartments-button {
+    padding: 15px 0;
+    float: right
+}
+#booking-container>.actions a,
+#booking-container>.actions a:active,
+#booking-container>.actions a:hover {
+    background: #aa0042;
+    color: #fff;
+    display: block;
+    padding: .5em 1em;
+    text-decoration: none;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px
+}
+.hideme {
+    display: none
+}
+table.payments {
+    padding: 10px;
+    background: #d2d2d2;
+    margin-top: 20px
+}
+#booking-container>.content>.body {
+    width: 98%;
+    height: auto;
+    padding: 15px;
+    position: relative
+}
+.bookings-admin i {
+    padding-right: 10px;
+    line-height: 1;
+    font-size: 30px;
+    position: relative;
+    top: 3px
+}
+div#loadingDiv {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #0091cd;
+    color: #fff;
+    padding: 30px;
+    font-size: 20px
+}
+.bookings-admin {
+    width: 100%
+}
+.bookings-admin td,
+.bookings-aligntop td {
+    vertical-align: top
+}
+.bookings-ref label {
+    color: #fff
+}
+table.bookings-ref {
+    padding: 10px 0
+}
+table.bookings-ref h2 {
+    padding: 0;
+    line-height: 0;
+    color: #fff
+}
+.bookings-ref input {
+    background: 0 0;
+    border: none;
+    color: #fff;
+    display: inline-block;
+    width: 50%
+}
+#results,
+.searchField {
+    width: 200px
+}
+.locations-button {
+    float: right;
+    padding: 10px 0
+}
+table.bookings-ref {
+    background: brown;
+    border: 2px solid #2b2833;
+    border-radius: 3px
+}
+.container-table {
+    border-bottom: 3px solid grey;
+    border-radius: 5px;
+    padding-bottom: 20px;
+    margin: 20px 0;
+    border-left: 1px solid grey;
+    border-right: 1px solid grey;
+    border-top: 1px solid grey;
+    box-shadow: 0 3px 12px grey
+}
+.container-table th {
+    text-align: center;
+    background: #363b3f;
+    padding: 0 10px;
+    color: #fff;
+    box-shadow: 0 2px 3px grey;
+    border-radius: 4px 4px 0 0
+}
+.container-table th h2,
+.container-table th i {
+    color: #fff
+}
+.container-table th h2 {
+    margin-top: 10px!important
+}
+.container-table input {
+    border-radius: 3px
+}
+.bookings-admin label {
+    line-height: 3
+}
+#results {
+    display: none;
+    position: absolute;
+    background-color: #ffffe0;
+    z-index: 10
+}
+#results div {
+    position: absolute;
+    width: 200px;
+    height: 20px;
+    background-color: #add8e6;
+    cursor: pointer
+}
+#results div span {
+    color: red;
+    font-weight: 700
+}
+td.haseditor .wp-editor-wrap {
+    border: 1px solid #d2d2d2;
+    padding: 0;
+    margin: 0;
+    border-radius: 3px
+}
+.ui-widget-content {
+    border: none;
+    background: 0 0;
+    color: #333
+}
+.ui-widget-header {
+    border: none;
+    background: 0 0;
+    color: #fff;
+    font-weight: 700;
+    border-bottom: 1px solid #d2d2d2
+}
+#ui-datepicker-div {
+    background: #363b3f;
+    border: 1px solid #fff;
+    border-radius: 4px
+}
+#ui-datepicker-div a,
+#ui-datepicker-div thead {
+    color: #fff
+}
+#ui-datepicker-div a:hover {
+    background: #fff;
+    color: #363b3f
+}
+.ui-state-active,
+.ui-widget-content .ui-state-active,
+.ui-widget-header .ui-state-active {
+    border: 1px solid #d2d2d2;
+    background: url(images/ui-bg_glass_65_ffffff_1x400.png) 50% 50% repeat-x #fff;
+    font-weight: 700;
+    color: #eb8f00
+}
+.email_button {
+    margin: 10px 0;
+    text-align: center
+}
+.bookingstable *,
+table.dashboard_widget {
+    text-align: left
+}
+td.report-footer {
+    padding: 5px 10px
+}
+td.report-footer button {
+    width: 100%
+}
+.report-footer p {
+    margin: 0;
+    padding: 4px 0
+}
+#tabs i,
+.bookingstable i,
+table.dashboard_widget i {
+    padding-right: 10px
+}
+.leader-table {
+    float: left;
+    margin: 10px;
+    width: 23%
+}
+#tabs i {
+    width: 14px;
+    font-size: 18px
+}
+#searchresults th i {
+    font-size: 19px
+}
+.featured-image-holder img {
+    width: 100%;
+    height: auto
+}
+.customer-query-form {
+    display: none;
+    position: relative;
+    border: none;
+    width: 80%;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    border-radius: 5px
+}
+#booking-container>.steps .current a,
+#booking-container>.steps .current a:active,
+#booking-container>.steps .current a:hover {
+    background: #aa0042;
+    color: #fff;
+    cursor: default
+}
+#booking-container>.steps .done a,
+#booking-container>.steps .done a:active,
+#booking-container>.steps .done a:hover {
+    background: #b87e95;
+    color: #fff
+}
+table.dashboard_widget th {
+    border-bottom: 1px solid
+}
+@media all and (max-width: 767px) {
+    .leader-table {
+        float: none;
+        margin: 0 0 10px;
+        width: 100%%
+    }
+}
+.container-table td {
+    padding: 10px !important;
+}
+.bookings-admin td,
+.bookings-aligntop td {
+    vertical-align: top;
+    padding: 10px;
+}
+table.confirmationtable {
+    width: 100%;
+    padding: 26px;
+    background: #eee;
+    margin: 10px;
+    width: 99%;
+    border-radius: 7px;
+    position: relative;
+    top: 3px;
+}
+.confirmationtable h2 {
+    border-bottom: 1px solid #d2d2d2;
+}
+.imgupload {
+    width: 100%;
+}
+
+.imgupload input {
+    width: 300px;
+    padding: 10px;
+    font-family: inherit;
+}
+
+.upload_image_button {
+    width: 127px !important;
+    background: #aa0042;
+    color: #fff;
+    border: 0px;
+    padding: 9px;
+}
+div#accordion h3 {
+    border: 1px solid #d2d2d2;
+    margin-bottom: 10px;
+}
+.ui-state-default, .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
+    background: #aa0042;
+    color: #fff;
+    padding: 8px !important;
+    border-radius: 5px;
+    margin-right: 11px !important;
+    margin-bottom: 10px !important;
+}
+.ui-state-default {
+    background: #e2e2e2;
+    color:#333;
+}
+.ui-tabs-active .ui-tabs-anchor {
+    color: #fff;
+}
+.selectthishide {
+    display: none !important;
+}
+.halfwidth {
+    width: 49%;
+    display: inline-block;
+}
