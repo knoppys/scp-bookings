@@ -36,7 +36,7 @@ function my_custom_menu_page(){
 					<thead>
 						<tr>
 							<th>
-								<strong><p></i>Date Added</p></strong>
+								<strong><p></i>Date<br>Posted</p></strong>
 							</th>
 							<th>
 								<strong><p>Guest name</p></strong>
@@ -55,8 +55,7 @@ function my_custom_menu_page(){
 							</th>
 							<th>
 								<strong><p>Client</p></strong>
-							</th>
-							<th style="display:none;"></th>
+							</th>							
 							<th>
 								<strong><p>Check In</p></strong>
 							</th>							
@@ -106,7 +105,6 @@ function my_custom_menu_page(){
 					<td style="text-align:center;"><?php echo $noofguests; ?></td>
 					<td><a href="http://www.servicedcitypads.com/wp-admin/post.php?post=<?php echo $operatorobject->ID; ?>&action=edit"><?php echo $operatorname; ?></a></td>
 					<td><a href="http://www.servicedcitypads.com/wp-admin/post.php?post=<?php echo $clientobject->ID; ?>&action=edit"><?php echo $clientname; ?></a></td>
-					<td style="display:none;"><?php echo strtotime($arrivaldate); ?></td>
 					<td><?php echo $arrivaldate;?></td>
 					<td><?php echo $leavingdate;?></td>
 					<td><?php echo $welcomepack; ?></td>
@@ -117,7 +115,4 @@ function my_custom_menu_page(){
 				echo '</table>';
 
 				wp_reset_postdata();
-
-}
-
- ?>
+				 } ?>

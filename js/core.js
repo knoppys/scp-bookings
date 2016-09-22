@@ -142,19 +142,28 @@ jQuery(document).ready(function(){
 
 });
 
-	jQuery(document).ready(function(){
-	    jQuery('.dashboard_widget').DataTable({
-	        "order": [[ 1, "desc" ]],
-	        
-	    });
-	})
 
-	jQuery(document).ready(function(){
-	    jQuery('.bookingstable').DataTable({
+jQuery(document).ready(function(){
+    jQuery('.dashboard_widget').DataTable({
+        "order": [[ 1, "desc" ]],
+        "autoWidth": false
+        
+    });
+})
+
+
+jQuery(document).ready(function() {
+	jQuery.fn.dataTable.moment( 'DD.MM.YYYY' );
+    jQuery.fn.dataTable.moment( 'DD.MMMM' );
+    jQuery.fn.dataTable.moment( 'MMMM DD, YYYY' );
+    jQuery('.bookingstable').DataTable({
 	        "order": [[ 7, "desc" ]],
-	        "iDisplayLength": -1
+	        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],	        
+		    "iDisplayLength": -1	        
 	    });
-	})
+});
+
+
 
 	jQuery(document).ready(function(){
 		jQuery ("#booking-container").steps({

@@ -1,5 +1,8 @@
 Changelog
 
+V3.8.1 
+- Updated the listings tables due to incompatibility with UK Dates. included Moment.js and DatatablesMoment.js and edited the tables to use the correct date format. 
+
 V3.5.1
 - Updated the booking confirmation emails to use the posted value from the booking form as the conditional check is already carried out function side. 
 

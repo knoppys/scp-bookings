@@ -23,22 +23,22 @@ function operatorslistings_callback() {
 					<thead>
 						<tr>
 							<th>
-								<strong><p><i class="fa fa-user"></i>Operator Name</p></strong>
+								<strong><p>Operator Name</p></strong>
 							</th>
 							<th>
-								<strong><p><i class="fa fa-user"></i>Operator Contact</p></strong>
+								<strong><p>Operator Contact</p></strong>
 							</th>
 							<th>
-								<strong><p><i class="fa fa-user"></i>Operator Phone Number</p></strong>
+								<strong><p>Operator Phone Number</p></strong>
 							</th>
 							<th>
-								<strong><p><i class="fa fa-user"></i>Operator Mobile Number</p></strong>
+								<strong><p>Operator Mobile Number</p></strong>
 							</th>	
 							<th>
-								<strong><p><i class="fa fa-user"></i>Operator Email Address</p></strong>
+								<strong><p>Operator Email Address</p></strong>
 							</th>
 							<th>
-								<strong><p><i class="fa fa-user"></i>Operator Address</p></strong>
+								<strong><p>Operator Address</p></strong>
 							</th>
 																			
 						</tr>

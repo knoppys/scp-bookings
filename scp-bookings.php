@@ -3,7 +3,7 @@
 Plugin Name:       SCP Bookings
 Plugin URI:        https://github.com/knoppys/scp-bookings.git
 Description:       The SCP Bookings plugin is a custom built application as a tool for managing the companies assets. Process bookings, assetts and peform reports on yoru data with ease. 
-Version:           3.7
+Version:           3.8.1
 Author:            Knoppys Digital Limited
 License:           GNU General Public License v2
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
@@ -11,7 +11,7 @@ GitHub Plugin URI: https://github.com/knoppys/scp-bookings.git
 GitHub Branch:     master
 */
 
-define( 'BOOKINGS_VERSION', '3.7' );
+define( 'BOOKINGS_VERSION', '3.8.1' );
 define( 'BOOKINGS__MINIMUM_WP_VERSION', '1.0' );
 define( 'BOOKINGS__PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'BOOKINGS__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
@@ -78,6 +78,11 @@ function scp_scripts() {
     
     wp_enqueue_script( 'datetimepicker', plugin_dir_url( __FILE__ ) . 'js/jquery.datetimepicker.js', array(), '1.0.0', true );
     wp_enqueue_script( 'datatablejs', 'http://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js', array(), '1.0.0', true );
+    wp_enqueue_script( 'moment', plugin_dir_url( __FILE__ ) . 'js/moment.min.js', array(), '1.0.0', true );
+    wp_enqueue_script( 'datetime-moment', plugin_dir_url( __FILE__ ) . 'js/datetime-moment.js', array(), '1.0.0', true );
+//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js
+
+    
     wp_enqueue_script( 'ui', plugin_dir_url( __FILE__ ) . 'js/jquery-ui.min.js', array(), '', true );
     wp_enqueue_script( 'steps', plugin_dir_url( __FILE__ ) . 'js/jquery.steps.min.js', array(), '', true );
     wp_enqueue_script( 'core', plugin_dir_url( __FILE__ ) . 'js/core.js', array(), '1.0.0', true );

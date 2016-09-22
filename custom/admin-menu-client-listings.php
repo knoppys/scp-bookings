@@ -22,16 +22,16 @@ function clientlistings_callback() {
 					<thead>
 						<tr>
 							<th>
-								<strong><p><i class="fa fa-user"></i>Client Name</p></strong>
+								<strong><p>Client Name</p></strong>
 							</th>
 							<th>
-								<strong><p><i class="fa fa-user"></i>Contact Name</p></strong>
+								<strong><p>Contact Name</p></strong>
 							</th>
 							<th>
-								<strong><p><i class="fa fa-phone"></i>Client Telephone</p></strong>
+								<strong><p>Client Telephone</p></strong>
 							</th>	
 							<th>
-								<strong><p><i class="fa fa-envelope"></i>Client Email</p></strong>
+								<strong><p>Client Email</p></strong>
 							</th>										
 						</tr>
 					</thead>
