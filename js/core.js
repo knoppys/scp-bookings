@@ -155,7 +155,7 @@ jQuery(document).ready(function(){
 jQuery(document).ready(function() {
 	jQuery.fn.dataTable.moment( 'DD.MM.YYYY' );
     jQuery.fn.dataTable.moment( 'DD.MMMM' );
-    jQuery.fn.dataTable.moment( 'MMMM DD, YYYY' );
+    jQuery.fn.dataTable.moment( 'MMMM DD, YY' );
     jQuery('.bookingstable').DataTable({
 	        "order": [[ 7, "desc" ]],
 	        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],	        

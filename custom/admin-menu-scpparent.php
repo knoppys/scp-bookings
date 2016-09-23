@@ -98,7 +98,7 @@ function my_custom_menu_page(){
 					?>
 
 				<tr>
-					<td><?php the_time('d M'); ?></td>
+					<td><?php the_time('d.m.y'); ?></td>
 					<td><a href="<?php echo get_site_url(); ?>/wp-admin/post.php?post=<?php echo get_the_id(); ?>&action=edit"><?php echo $guestname; ?></a></td>
 					<td><a href="<?php echo get_site_url(); ?>/wp-admin/post.php?post=<?php echo get_the_id(); ?>&action=edit"><?php echo $apartment ?></a></td>
 					<td><?php echo $bookingtype; ?></td>
