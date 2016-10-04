@@ -516,7 +516,6 @@ jQuery('#email_client').click(function(e){
 		var terms = jQuery('#terms').val();
 		var arrivalprocess = jQuery('#arrivalprocess').val();
 		var emergencycontact = jQuery('#emergencycontact').val;
-		var clientname = jQuery('#bookingsclient_new_field').val();
 		var clientname = jQuery('#clientname').val();
 		var clientemail = jQuery('#clientemail').val();
 		var clientphone = jQuery('#clientphone').val();	
@@ -612,7 +611,7 @@ jQuery('#email_operator').click(function(e){
 		var arrivalprocess = jQuery('#arrivalprocess').val();
 		var emergencycontact = jQuery('#emergencycontact').val;
 		var clientname = jQuery('#bookingsclient_new_field').val();
-		var operatorname = jQuery('#clientname').val();
+		var operatorname = jQuery('#operatorname').val();
 		var operatoremail = jQuery('#operatoremail').val();
 		var operatorphone = jQuery('#clientphone').val();	
 		var arrivaldate = jQuery('#arrivaldate').val();	

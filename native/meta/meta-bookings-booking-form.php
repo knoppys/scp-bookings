@@ -852,7 +852,6 @@ Meta box Contents
                         echo esc_attr( $arrivalprocess ); 
                         echo '</div></textarea>';
                         ?>                        
-                        ?>
                         <?php
                         //apartment breakdown field
                         echo '<h4>';

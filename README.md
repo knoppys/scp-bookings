@@ -1,5 +1,8 @@
 Changelog
 
+V3.8.3
+- Bug fix where the booking confirmation email were showing the wrong fields. 
+
 V3.8.1 
 - Updated the listings tables due to incompatibility with UK Dates. included Moment.js and DatatablesMoment.js and edited the tables to use the correct date format. 
 
