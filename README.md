@@ -1,5 +1,8 @@
 Changelog
 
+V3.8.4
+- Bug fix where the address was not showing. This seemed to be fixed when i changed the PHP variable names in the get+page _by_title function on both the client confirmation (local and email) and operator confirmation (local and email). 
+
 V3.8.3
 - Bug fix where the booking confirmation email were showing the wrong fields. 
 

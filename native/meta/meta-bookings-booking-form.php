@@ -946,86 +946,83 @@ Meta box Contents
                                             */
 
 
-                                            //Get the apartment details
-                                                //$apartmenttitle = get_post_meta($post->id, 'apartmentname', true);
-                                                $page = get_page_by_title( $apartmentname, OBJECT, 'apartments');
-                                                //var_dump($page);
-                                                //$permalink = $page->guid;
+                                            $apartmentnamee = get_post_meta( $post->ID, 'apartmentname', true );
+                                            $page = get_page_by_title( $apartmentnamee, OBJECT, 'apartments');
 
-                                                //get the apartment address details
-                                                $apartmentaddress   = get_post_meta($page->ID,'address', true );            
-                                                $aprtmentlocation   = get_post_meta($page->ID,'apptlocation1', true);
-                                                $aprtmentlocation2  = get_post_meta($page->ID,'apptlocation2', true);
-                                                $apartmentpostcode  = get_post_meta($page->ID,'postcode', true );
-                                                $apartmentstate     = get_post_meta($page->ID,'state', true );
-                                                $apartmentcountry   = get_post_meta($page->ID,'country', true ); 
-                                                //get the location name
-                                                $locationPage = get_page_by_title( $aprtmentlocation, OBJECT, 'locations' );
-                                        //get the location meta
-                                        $areainformation = get_post_meta( $locationPage->ID, 'areainformation', true );
-                                        if ($areainformation) {
-                                            $areainformationtext = '<tr>
-                                                                        <td valign="top" colspan="2">
-                                                                            <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Area Information</p></strong>                                                     
-                                                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$areainformation.'</p>                                          
-                                                                        </td>
-                                                                    </tr>';
-                                        } else {
-                                            $areainformationtext = '';
-                                        }
+                                            //get the apartment address details
+                                            $apartmentaddress   = get_post_meta($page->ID,'address', true );            
+                                            $aprtmentlocation   = get_post_meta($page->ID,'apptlocation1', true);
+                                            $aprtmentlocation2  = get_post_meta($page->ID,'apptlocation2', true);
+                                            $apartmentpostcode  = get_post_meta($page->ID,'postcode', true );
+                                            $apartmentstate     = get_post_meta($page->ID,'state', true );
+                                            $apartmentcountry   = get_post_meta($page->ID,'country', true ); 
+                                            //get the location name
+                                            $locationPage = get_page_by_title( $aprtmentlocation, OBJECT, 'locations' );
+                                            //get the location meta
+                                            $areainformation = get_post_meta( $locationPage->ID, 'areainformation', true );
+                                            if ($areainformation) {
+                                                $areainformationtext = '<tr>
+                                                                            <td valign="top" colspan="2">
+                                                                                <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Area Information</p></strong>                                                     
+                                                                               <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$areainformation.'</p>                                          
+                                                                            </td>
+                                                                        </tr>';
+                                            } else {
+                                                $areainformationtext = '';
+                                            }
 
-                                        //get the number of nights
-                                        $datetime1 = new DateTime($arrivaldate);
-                                        $datetime2 = new DateTime($leavingdate);
-                                        $interval = $datetime1->diff($datetime2);
-                                        $numberofnights = $interval->format('%a nights');
+                                            //get the number of nights
+                                            $datetime1 = new DateTime($arrivaldate);
+                                            $datetime2 = new DateTime($leavingdate);
+                                            $interval = $datetime1->diff($datetime2);
+                                            $numberofnights = $interval->format('%a nights');
 
-                                        //Get the right nightly rate field
-                                        if ($bookingtype == ('Corporate')) {
-                                            $nightlyratetext = ($rentalprice);
-                                        } else {
-                                            $nightlyratetext = ($priceperperson);
-                                        }
+                                            //Get the right nightly rate field
+                                            if ($bookingtype == ('Corporate')) {
+                                                $nightlyratetext = ($rentalprice);
+                                            } else {
+                                                $nightlyratetext = ($priceperperson);
+                                            }
 
-                                        //Get the right total cost field
-                                        if ($bookingtype == ('Corporate')) {
-                                            $totalcosttext = ($totalcost);
-                                        } else {
-                                            $totalcosttext = ($totalcost);
-                                        }
+                                            //Get the right total cost field
+                                            if ($bookingtype == ('Corporate')) {
+                                                $totalcosttext = ($totalcost);
+                                            } else {
+                                                $totalcosttext = ($totalcost);
+                                            }
 
-                                        //Get the nightly rate label
-                                        if ($bookingtype == ('Corporate')) {
-                                            $ratelabel = 'Nightly Rate';
-                                        } else {
-                                            $ratelabel = 'Price per person, per night';
-                                        }
+                                            //Get the nightly rate label
+                                            if ($bookingtype == ('Corporate')) {
+                                                $ratelabel = 'Nightly Rate';
+                                            } else {
+                                                $ratelabel = 'Price per person, per night';
+                                            }
 
 
-                                        //the chekin time
-                                        if ($actualcheckintime ) {
-                                            $theintime = $actualcheckintime ;
-                                        } else {
-                                            $theintime = ($checkintime);
-                                        }
+                                            //the chekin time
+                                            if ($actualcheckintime ) {
+                                                $theintime = $actualcheckintime ;
+                                            } else {
+                                                $theintime = ($checkintime);
+                                            }
 
-                                        //the chekin time
-                                        if ($actualcheckouttime) {
-                                            $theouttime = $actualcheckouttime;
-                                        } else {
-                                            $theouttime = $checkouttime;
-                                        }
+                                            //the chekin time
+                                            if ($actualcheckouttime) {
+                                                $theouttime = $actualcheckouttime;
+                                            } else {
+                                                $theouttime = $checkouttime;
+                                            }
 
-                                        if ($vatselect == true) {
-                                            $vatselecttext = ' &#43;VAT';
-                                        } else {
-                                            $vatselecttext = '';
-                                        }
-                                                    
-                                        /**
-                                            Build the email
-                                        **/ 
-                                        echo ' 
+                                            if ($vatselect == true) {
+                                                $vatselecttext = ' &#43;VAT';
+                                            } else {
+                                                $vatselecttext = '';
+                                            }
+                                                        
+                                            /**
+                                                Build the email
+                                            **/ 
+                                            echo ' 
 
 
                                             <table width="500px" align="center" style="border:1px solid #555; background:#003;margin: 0 auto;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif; max-width:500px; width:100%">
@@ -1329,17 +1326,16 @@ Meta box Contents
                                          
 
                                             //$apartmenttitle = get_post_meta($post->id, 'apartmentname', true);
-                                            $page = get_page_by_title( $apartmentname, OBJECT, 'apartments');
-                                            //var_dump($page);
-                                            //$permalink = $page->guid;
+                                            $apartmentnamef = get_post_meta( $post->ID, 'apartmentname', true );
+                                            $pagf = get_page_by_title( $apartmentnamef, OBJECT, 'apartments');
 
                                             //get the apartment address details
-                                            $apartmentaddress   = get_post_meta($page->ID,'address', true );            
-                                            $aprtmentlocation   = get_post_meta($page->ID,'apptlocation1', true);
-                                            $aprtmentlocation2  = get_post_meta($page->ID,'apptlocation2', true);
-                                            $apartmentpostcode  = get_post_meta($page->ID,'postcode', true );
-                                            $apartmentstate     = get_post_meta($page->ID,'state', true );
-                                            $apartmentcountry   = get_post_meta($page->ID,'country', true ); 
+                                            $apartmentaddress   = get_post_meta($pagf->ID,'address', true );            
+                                            $aprtmentlocation   = get_post_meta($pagf->ID,'apptlocation1', true);
+                                            $aprtmentlocation2  = get_post_meta($pagf->ID,'apptlocation2', true);
+                                            $apartmentpostcode  = get_post_meta($pagf->ID,'postcode', true );
+                                            $apartmentstate     = get_post_meta($pagf->ID,'state', true );
+                                            $apartmentcountry   = get_post_meta($pagf->ID,'country', true ); 
                                             //get the location name
                                             $locationPage = get_page_by_title( $aprtmentlocation, OBJECT, 'locations' );
                                                 //get the location meta
@@ -1702,7 +1698,7 @@ function bookingsteps_save_meta_box_data( $post_id ) {
     }
 
     // Sanitize user input.
-    $mydata_apartmentname = sanitize_text_field( $_POST['apartmentname'] );
+    $mydata_apartmentname = ( $_POST['apartmentname'] );
     $mydata_numberofapts = sanitize_text_field( $_POST['numberofapts'] );
     $mydata_numberofguests = sanitize_text_field( $_POST['numberofguests'] );
     $mydata_checkintime = sanitize_text_field( $_POST['checkintime'] );
