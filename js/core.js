@@ -559,8 +559,7 @@ jQuery('#email_client').click(function(e){
 	    '&arrivalprocess=' + arrivalprocess + 
 	    '&emergencycontact=' + emergencycontact + 
 	    '&clientname=' + clientname + 
-	    '&clientemail=' + clientemail + 
-	    '&clientname=' + clientname + 
+	    '&clientemail=' + clientemail +  
 	    '&clientphone=' + clientphone + 
 	    '&leavingdate=' + leavingdate + 
 	    '&actualcheckintime=' + actualcheckintime + 
