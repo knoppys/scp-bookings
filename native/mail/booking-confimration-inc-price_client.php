@@ -262,7 +262,7 @@ function implement_ajax_email_client(){
                                          <!-- Client Details -->
                                         <td style="width:250px;"valign="top">
                                             <h4 style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Client Contact</h4>
-                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.($_POST['clientnamename']).'</p> 
+                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.($_POST['clientname']).'</p> 
                                         </td>
                                     </tr>
                                 </tbody>
