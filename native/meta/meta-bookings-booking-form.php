@@ -1013,11 +1013,11 @@ Meta box Contents
                                                 $theouttime = $checkouttime;
                                             }
 
-                                            if ($vatselect == true) {
+                                            if (($_POST['bookingtype']) == 'Corporate') {
                                                 $vatselecttext = ' &#43;VAT';
                                             } else {
                                                 $vatselecttext = '';
-                                            }
+                                            } 
                                                         
                                             /**
                                                 Build the email
@@ -1386,11 +1386,11 @@ Meta box Contents
                                                     $theouttime = $checkouttime;
                                                 }
 
-                                                if ($vatselect == true) {
+                                                if (($_POST['bookingtype']) == 'Corporate') {
                                                     $vatselecttext = ' &#43;VAT';
                                                 } else {
                                                     $vatselecttext = '';
-                                                }
+                                                } 
                                             
                                               
 

@@ -140,9 +140,11 @@ function implement_ajax_email_client(){
                     $theouttime = ($_POST['checkouttime']);
                 }
 
-                if (($_POST['vatselect']) == true) {
+                if (($_POST['bookingtype']) == 'Corporate') {
                     $vatselecttext = ' &#43;VAT';
-                }              
+                } else {
+                    $vatselecttext = '';
+                }         
 
 
         /**
