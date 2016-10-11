@@ -31,14 +31,17 @@ function implement_ajax_apartmentsearchemail() {
                 $message = emailcontentscp($postidstring, $commentsstring, $pricestring, $nametext);
             } else {
                 $message = emailcontentreseller($postidstring, $commentsstring, $pricestring, $nametext, $reseller);
-            }            
+            }  
+
+            $current_user = wp_get_current_user();          
         
             $subject = 'Our Recommendations';
             $headers = "Content-type: text/html;charset=UTF-8\n";
             $headers .= "X-Priority: 3\n";
             $headers .= "X-MSMail-Priority: Normal\n";
             $headers .= "X-Mailer: php\n";
-            $headers .= "From: Serviced City Pads  <bookings@citypadsmail.com>\n";    
+            $headers .= "From: Serviced City Pads  <bookings@citypadsmail.com>\n";
+            $headers .= 'CC: '.$current_user->user_email;    
             wp_mail( $to, $subject, $message, $headers);   
 
             die();
