@@ -229,6 +229,8 @@ jQuery(document).ready(function(){
 
 jQuery(document).ready(function(){
 		jQuery('#bookingtype').change(function() {
+
+		jQuery('span.bookingupdate').show();
 		//get the data i need	
 		var siteUrl = siteUrlobject.siteUrl+'/wp-admin/admin-ajax.php';
 		var bookingtype = jQuery('#bookingtype').val();				

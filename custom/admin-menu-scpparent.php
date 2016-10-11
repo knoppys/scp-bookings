@@ -4,6 +4,7 @@ add_action( 'admin_menu', 'register_my_custom_menu_page' );
 
 function register_my_custom_menu_page(){
 	add_menu_page( 'SCP Bookings Dashboard', 'SCP Bookings', 'publish_pages', 'scp-bookings-parent', 'my_custom_menu_page', plugins_url( 'scp-bookings/images/iconmenu.png' ), 6 ); 
+	add_submenu_page( 'scp-bookings-parent', 'Accounts', 'Accounts', 'publish_pages', 'accountlistings', 'accountslistings_callback' );
 	add_submenu_page( 'scp-bookings-parent', 'Apartments', 'Apartments', 'publish_pages', 'apartmentslistingsview', 'apartmentslistings_callback' );
 	add_submenu_page( 'scp-bookings-parent', 'Operators', 'Operators', 'publish_pages', 'operatorslistings', 'operatorslistings_callback' );
 	add_submenu_page( 'scp-bookings-parent', 'Clients', 'Clients', 'publish_pages', 'clients', 'clientlistings_callback' );
@@ -115,4 +116,4 @@ function my_custom_menu_page(){
 				echo '</table>';
 
 				wp_reset_postdata();
-				 } ?>
+}?>

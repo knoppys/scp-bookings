@@ -141,7 +141,7 @@ function implement_ajax_email_operator(){
                 }
 
                 //Get the nightly rate label
-                if ($bookingtype == ('Corporate')) {
+                if (($_POST['bookingtype'])==('Corporate')) {
                     $ratelabel = ''.$ratelabel.'';
                 } else {
                     $ratelabel = 'Price per person, per night';

@@ -1,4 +1,7 @@
 Changelog
+V3.9
+- Revamp of the Customer Query System. Requires testing by the client but both the SCP and Reseller Emails seem to be working fine. 
+
 V3.8.5
 - Bug fix incorrect meta showing on the city guides page. 
 

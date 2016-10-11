@@ -389,9 +389,15 @@ Meta box Contents
                     echo '<input type="text" class="widefat" name="displayname" id="displayname" value="' . esc_attr( $displayname ) . '"/>';
                     ?>   
                     <?php
-                    //booking type                            
+                    //booking type    
+                    if ($bookingtype) {
+                        $updatetext = '<span class="bookingupdate" style="color:red;display:none;"> >>> You have changed the booking type. Please update your booking</span>';
+                    } else {
+                        $updatetext = '';
+                    }
+                                                                    
                     echo '<h4>';
-                        _e( 'Booking Type', 'bookingscheckin_textdomain' );
+                        _e( 'Booking Type'.$updatetext, 'bookingscheckin_textdomain' );
                     echo '</h4>';
                     echo '<select class="widefat" id="bookingtype" name="bookingtype">'; 
                         echo '<option value="' . esc_attr( $bookingtype ) . '" size="25" />' . esc_attr( $bookingtype ) . '</option>';                          
@@ -1013,7 +1019,7 @@ Meta box Contents
                                                 $theouttime = $checkouttime;
                                             }
 
-                                            if (($_POST['bookingtype']) == 'Corporate') {
+                                            if ($bookingtype == 'Corporate') {
                                                 $vatselecttext = ' &#43;VAT';
                                             } else {
                                                 $vatselecttext = '';
@@ -1386,7 +1392,7 @@ Meta box Contents
                                                     $theouttime = $checkouttime;
                                                 }
 
-                                                if (($_POST['bookingtype']) == 'Corporate') {
+                                                if ($bookingtype == 'Corporate') {
                                                     $vatselecttext = ' &#43;VAT';
                                                 } else {
                                                     $vatselecttext = '';

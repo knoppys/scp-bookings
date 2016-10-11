@@ -11,12 +11,6 @@ function customerquery_callback() {
 
     $operatorsargs = array('post_type' => 'operators','posts_per_page'   => -1,'orderby' => 'title', 'order' => 'ASC', );
     $operatorsquery = new WP_Query( $operatorsargs );
-
-    
-
-
-
-
 ?>
 
 <div id="loadingDiv">
@@ -29,7 +23,7 @@ function customerquery_callback() {
 
             <table cellpadding="0" cellspacing="0" border="0" class="bookings-aligntop container-table" width="100%">            
                 <tbody>
-                <tr><th colspan="5"><h2><i class="fa fa-home"></i>Customer Apartment Search</h2></th></tr>
+                <tr><th colspan="5"><h2><i class="fa fa-home"></i>Customer Apartment Search</h2><p>Please select Location, No. of nights and Booking Type for best results</p></th></tr>
                     <tr>
                     <td width="200px">
                         <p>Select a Location</p>
@@ -92,7 +86,7 @@ function customerquery_callback() {
               	<table id="searchresult" cellpadding="0" cellspacing="0" border="0" class="bookings-aligntop" width="100%">
 	        	</table>
 	        	<button class="wp-core-ui button-primary hide-select" id="printme">Print Me</button> 
-	        	<button class="wp-core-ui button-primary hide-select" id="emailme">Email Me</button>
+	        	<button class="wp-core-ui button-primary hide-select hidenone" id="emailme">Email Me</button>
 			</div>
 
 			
