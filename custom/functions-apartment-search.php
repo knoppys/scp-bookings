@@ -9,6 +9,9 @@ The function to return the data
 
 function customer_query_ajax() {
 
+			//ge the current user
+			$user = wp_get_current_user();
+			$username = $user->user_firstname;
 			//get the post values for the locations
 			$location = ($_POST['location']);
 			//get the operatorname
@@ -136,6 +139,8 @@ function customer_query_ajax() {
 								<td width="33%" id="<?php echo $i; ?>">
 									
 									<div class="apartment-entry-container">
+									<input type="hidden" name="username" class="username" value="<?php echo $username ;?>">
+									<input type="hidden" name="post-title" class="post-title" value="<?php the_title(); ;?>">
 										
 										<table id="<?php echo get_the_ID(); ?>" bgcolor="#efefef" cellpadding="10" cellspacing="0" border="0" width="100%" class="bookings-aligntop container-table apartment-entry">
 		                    				<tbody>
@@ -157,7 +162,7 @@ function customer_query_ajax() {
 		                    					</tr>
 		                    					<tr>
 		                    						<td class="pricingentry" width="100%" data-price="<?php echo $prefix.$stay ?>">
-		                    							<h4><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>
+		                    							<h4 class="post-title"><a class="post-title" href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>
 		                    							<?php
 		                    							if ($price >= 1) {
 		                    								echo '<p class="pricestring"><strong>Price: &pound;' . $price . '</strong></p>';
@@ -178,8 +183,16 @@ function customer_query_ajax() {
 		                    							<p><strong>Description</strong></p>		                    							
 		                    							<?php echo $description; ?>
 		                    							<div class="selectthis">
-		                    								<p>
-		                    									<input type="checkbox" class="additionalinfotoggle" name="selectthis" id="selectthis" value="<?php echo get_the_ID(); ?>">Select this apartment
+		                    								<p>                    								
+		                    								
+	                    									<?php 	                    									
+	                    									if (get_post_status($post->ID) == 'publish') {	                    										
+	                    										echo '<input type="checkbox" class="additionalinfotoggle" name="selectthis" id="selectthis" value="'.get_the_ID().'">Select this apartment';
+	                    									} else {
+	                    										echo 'This apartment is not available to email, please update the apartment.';
+	                    										echo '<p style="background: #003 none repeat scroll 0 0;border-radius: 4px;color: #fff;font-size: 13px;padding: 7px;text-align: center;cursor:pointer;"class="btn btn-primary updaterequest">This apartment is not available.<br>Click to Request Update<p>';
+	                    									}		                    									
+	                    									?>		                    									
 		                    								</p>		
 		                    							</div>
 		                    							<input type="hidden" id="postid" value="<?php echo get_the_ID(); ?>">
@@ -261,6 +274,23 @@ function customer_query_ajax() {
                 /********************
 				// Supporting email functions and ajax starts here
 				********************/	
+		
+				jQuery('.updaterequest').on('click', function(){
+					var siteUrl = siteUrlobject.siteUrl+'/wp-admin/admin-ajax.php';
+					var apartment = jQuery(this).closest('.apartment-entry-container').find('.post-title').val();
+					var username = jQuery(this).closest('.apartment-entry-container').find('.username').val();					
+					jQuery.ajax({
+					    url: siteUrl,
+					    type: 'POST',
+					    data: 'action=updaterequest&apartment=' + apartment + '&username=' + username,
+					    success: function(result) {
+				      		//got it back, now assign it to its fields.                     
+				      		alert('Your request has been sent.');
+				    	}
+				  	});
+				});
+			
+
 				jQuery(document).ready(function(){
 					jQuery('#emailme').click(function(){
 						jQuery('.selectthis').attr("style", "display: none !important;");

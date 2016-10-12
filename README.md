@@ -1,4 +1,7 @@
 Changelog
+V4
+- The new customer query tool is complete. Users can now send correctly formatted emails over to clients and the reseller tool also works. In addition, unpublished / pending apartments in the search results now have a request update button. This sends an email to Bryony to update the apartment and make it avaiable to send in emails.
+
 V3.9
 - Revamp of the Customer Query System. Requires testing by the client but both the SCP and Reseller Emails seem to be working fine. 
 
