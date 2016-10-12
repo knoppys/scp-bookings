@@ -65,6 +65,7 @@ function emailcontentreseller($postidstring, $commentsstring, $pricestring, $nam
                                         <td valign="top" colspan="2">
                                         <p style="margin:3px;border-bottom:1px solid #fff;"></p>
                                         <p></p>
+                                        <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#fff;">Dear '.$name.'</p>
                                             <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#fff;">Thankyou for your interest in ' . $clientname . '</p>
                                             <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#fff;">Please find a list of our recommended apartments below.</p>                                            
                                         </td>

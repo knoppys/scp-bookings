@@ -2,11 +2,14 @@
 function emailcontentscp($postidstring, $commentsstring, $pricestring, $name){ 
 
     //get the post id string
-    $postsin = explode(',', $postidstring);    
+    $postsin = explode(',', $postidstring);  
+
     //create an array from the $comments string
-    $commentsarray = explode(',',$commentsstring);
+    $commentsarray = explode('%%',$commentsstring);
+
     //create an array from the $price string
     $pricearray = explode(',', $pricestring);
+    
     //get all the posts required to fill the email template
     $args = array ('post__in' => $postsin,'post_type' => array( 'apartments' ));
     $apartments = get_posts($args);
@@ -45,7 +48,7 @@ function emailcontentscp($postidstring, $commentsstring, $pricestring, $name){
                                     <td valign="top" colspan="2">
                                     <p style="margin:3px;border-bottom:1px solid #fff;"></p>
                                     <p></p>
-                                        <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#fff;">Dear'.$name.'</p>
+                                        <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#fff;">Dear '.$name.'</p>
                                         <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#fff;">Thank you for your interest in Serviced City Pads</p>
                                         <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#fff;">Please find a list of our recommended apartments below.</p>                                           
                                     </td>
@@ -69,6 +72,8 @@ function emailcontentscp($postidstring, $commentsstring, $pricestring, $name){
     $image_attributes = wp_get_attachment_image_src( $attachment_id, 'medium' );
     if( $image_attributes ) {
         $img = '<img style="width:300px;height:auto;" src="'.$image_attributes[0].'">';
+    } else {
+        $img = '<img style="width:300px;height:auto;" src="http://www.servicedcitypads.com/servicedcitypads/wp-content/themes/servicedcitypads/images/logo.png">';
     }
     
     

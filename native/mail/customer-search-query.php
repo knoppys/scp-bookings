@@ -44,6 +44,8 @@ function implement_ajax_apartmentsearchemail() {
             $headers .= 'CC: '.$current_user->user_email;    
             wp_mail( $to, $subject, $message, $headers);   
 
+            echo $message;
+
             die();
         }
 

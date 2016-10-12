@@ -297,7 +297,7 @@ function customer_query_ajax() {
 				 	//generate the string of comments for the next query
 					jQuery('.apartment-entry-container').each(function() {					   
 					   var commstr = jQuery(this).find('textarea').val().replace(/\n\r?/g, '<br>');
-					   commentsstring += commentsstring.length > 0 ? ',' + commstr : commstr;                   
+					   commentsstring += commentsstring.length > 0 ? '%%' + commstr : commstr;                   
 					});
 
 					
