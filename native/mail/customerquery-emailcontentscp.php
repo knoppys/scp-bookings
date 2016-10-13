@@ -15,7 +15,7 @@ function emailcontentscp($postidstring, $commentsstring, $pricestring, $name){
     $apartments = get_posts($args);
 
      
-
+    
     //concatinate the email header and body into a singel variable
     $template = '
         <html xmlns="http://www.w3.org/1999/xhtml">
@@ -148,6 +148,11 @@ function emailcontentscp($postidstring, $commentsstring, $pricestring, $name){
         <!--  End NOT reseller email   -->
     ';
     //end footer
-
     return $template;
+    
+    //ob_start();
+    //var_dump($args);
+    //$result = ob_get_clean();
+
+    //return $result;
 };

@@ -1076,7 +1076,7 @@ Meta box Contents
                                                                         <td style="width:250px;"valign="top">                                            
                                                                             <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Apartment Name</p></strong>
                                                                            <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">' . $titletext . '<br>
-                                                                            <a target="_blank"href="'.$apartment->guid.'">View apartment information</a><br>
+                                                                            <a target="_blank"href="'.$page->guid.'">View apartment information</a><br>
                                                                             <a href="https://www.google.co.uk/maps/place/'.$apartmentpostcode.'">Get directions</a>
                                                                             </p>
 
@@ -1451,7 +1451,7 @@ Meta box Contents
                                                                         <td style="width:250px;"valign="top">                                            
                                                                             <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Apartment Name</p></strong>
                                                                             <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">' . $titletext . '<br>
-                                                                             <a target="_blank"href="'.$apartment->guid.'">View apartment information</a><br>
+                                                                             <a target="_blank"href="'.$page->guid.'">View apartment information</a><br>
                                                                             <a href="https://www.google.co.uk/maps/place/'.$apartmentpostcode.'">Get directions</a>
                                                                             </p>
 

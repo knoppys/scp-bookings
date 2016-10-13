@@ -189,8 +189,8 @@ function customer_query_ajax() {
 	                    									if (get_post_status($post->ID) == 'publish') {	                    										
 	                    										echo '<input type="checkbox" class="additionalinfotoggle" name="selectthis" id="selectthis" value="'.get_the_ID().'">Select this apartment';
 	                    									} else {
-	                    										echo 'This apartment is not available to email, please update the apartment.';
-	                    										echo '<p style="background: #003 none repeat scroll 0 0;border-radius: 4px;color: #fff;font-size: 13px;padding: 7px;text-align: center;cursor:pointer;"class="btn btn-primary updaterequest">This apartment is not available.<br>Click to Request Update<p>';
+	                    										echo '<div class="resetmessage">This apartment is not available to email, please update the apartment.';
+	                    										echo '<p style="background: #003 none repeat scroll 0 0;border-radius: 4px;color: #fff;font-size: 13px;padding: 7px;text-align: center;cursor:pointer;"class="btn btn-primary updaterequest">This apartment is not available.<br>Click to Request Update<p></div>';
 	                    									}		                    									
 	                    									?>		                    									
 		                    								</p>		
@@ -293,10 +293,17 @@ function customer_query_ajax() {
 
 				jQuery(document).ready(function(){
 					jQuery('#emailme').click(function(){
+
 						jQuery('.selectthis').attr("style", "display: none !important;");
-						jQuery('.apartment-entry-container input:checkbox:not(:checked)').each(function() {
+
+						jQuery('.resetmessage').each(function() {
 							jQuery(this).closest('.apartment-entry-container').remove();
 						});
+
+						jQuery('.apartment-entry-container input:checkbox:not(:checked)').each(function() {
+							jQuery(this).closest('.apartment-entry-container').remove();
+						});	
+
 						jQuery('.customer-query-form').show();			
 					});
 				});
@@ -336,6 +343,9 @@ function customer_query_ajax() {
 					   var pristr = jQuery(this).find('.pricestring').text();
 					   pricestring += pricestring.length > 0 ? ',' + pristr : pristr;                   
 					});
+
+					//Test the values sent to the mail function.					
+					//console.log('postidstring=' + postidstring+'/ commentsstring='+commentsstring + ' /pricestring=' +pricestring);
 			
 				 	
 					//send everything off to the next function
@@ -347,6 +357,7 @@ function customer_query_ajax() {
 					    success: function(result) {
 				      		//got it back, now assign it to its fields.                     
 				      		alert('Your message has been sent.');
+				      		
 				    	}
 				  	});	
 				  	
