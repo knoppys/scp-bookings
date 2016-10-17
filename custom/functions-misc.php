@@ -258,7 +258,7 @@ function implement_ajax_depositpaid() {
 			$depositpaid = ($_POST['depositpaid']);
 			$deposit = ($_POST['deposit']);
 			$balancedue = ($_POST['balancedue']);
-			$apartmentpaid = ($_POST['apartmentpaud']);
+			$apartmentpaid = ($_POST['apartmentpaid']);
 			$balancepaid = ($_POST['balancepaid']);
 
 		//if just the deposit is paid

@@ -5,7 +5,7 @@ function emailcontentreseller($postidstring, $commentsstring, $pricestring, $nam
     $postsin = explode(',', $postidstring); 
 
     //create an array from the $comments string
-    $commentsarray = explode(',',$commentsstring);
+    $commentsarray = explode('%%',$commentsstring);
 
     //create an array from the $price string
     $pricearray = explode(',', $pricestring);
