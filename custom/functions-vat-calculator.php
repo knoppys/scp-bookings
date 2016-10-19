@@ -8,110 +8,137 @@ function implement_ajax_vat() {
 	if(isset($_POST['rentalprice']))
 		{
     
-		    //get the start and end dates
-		    $startdate = ($_POST['arrivaldate']);
-		    $enddate = ($_POST['leavingdate']);	 
+			//***********************
+			//Get the posted variables
+			//***********************	
 
-		    //get the vat applicable field
-		    $vatselect = ($_POST['vatselect']);
-
-		    //get remaining vriables   		    
-			$discount = ($_POST['discount']);
-			$priceperperson = ($_POST['priceperperson']);
-			$baserentalprice = ($_POST['rentalprice']);
-			$numberofguests = ($_POST['numberofguests']);
-			$bookingtype = ($_POST['bookingtype']);
-
-		    $datetime1 = new DateTime($startdate);
-		    $datetime2 = new DateTime($enddate);
-		    $interval = $datetime1->diff($datetime2);
-		    $numberofnights = $interval->format('%a nights');
-
-		    //get the custom vat value if there is one
-		    $customvatvalue = ($_POST['customvatvalue']);	 
+				//1. Get some posted values and assign them variables for easy syntax
+				$discount = ($_POST['discount']);
+				$priceperperson = ($_POST['priceperperson']);
+				$baserentalprice = ($_POST['rentalprice']);
+				$numberofguests = ($_POST['numberofguests']);
+				$bookingtype = ($_POST['bookingtype']);
+				$customvatvalue = ($_POST['customvatvalue']);
+				$supplements = ($_POST['supplements']);
+				$supplementsprice = ($_POST['supplementsprice']);
+				$supplementscharge = ($_POST['chargetype']);
+				$incvat = ($_POST['incvat']);
 
 
-			
-			//calculatge the VAT amount				
 
-				//set rental price variable as Price per Person or Fixed Apartment Price
+		    //***********************
+			//calculatge the length of stay
+			//***********************	
+
+				//1. Get the dates and get the diff between them
+				$datetime1 = new DateTime(($_POST['arrivaldate']));
+			    $datetime2 = new DateTime(($_POST['leavingdate']));
+			    $interval = $datetime1->diff($datetime2);
+			    $numberofnights = $interval->format('%a nights');
+			    $rentalprice = ($_POST['rentalprice']);
+
+
+
+			//***********************
+			//calculatge the rental VAT amount
+			//***********************				
+
+				//1. Set rental price variable as Price per Person or Fixed Apartment Price
 				if (isset($priceperperson) && $priceperperson != '') { 
 					$rentalprice = ($priceperperson * $numberofguests); 
 				} else { 
 					$rentalprice = $baserentalprice; 
 				}		
-
 				
-				//over ride the vat amount if there is a value in the vat field.
-
-				if (($_POST['vatselect'])) {
-					if($customvatvalue > 0 ) {
-						$vatrate = $customvatvalue;
-					} else {
-
-						if($numberofnights >= 29){
-			    			$vatrate = '4';
-				    	} elseif ($numberofnights <= 28) {
-				    		$vatrate = '20';
-				    	} 
-
-					}
-				} elseif (!($_POST['vatselect'])) {
-					$vatrate == 0;
-				}
+				//2. Over ride the vat amount if there is a value in the vat field.	
+				if($customvatvalue > 0 ) {
+					$vatrate = $customvatvalue;
+				} else {
+					if($numberofnights >= 29){
+		    			$vatrate = '4';
+			    	} elseif ($numberofnights <= 28) {
+			    		$vatrate = '20';
+			    	} 
+				}	    	
 				
+				//3. Give the rental VAT figure			
+				$rentalvatfigure = round( (($rentalprice * $numberofnights) / 100) * $vatrate, 2);
 
-						    	
-				
-				//get the booking type and check if its a variable rate	
-				//then calculate the vat figure based on the  rental price
-				if(($bookingtype == 'Corporate') || ($bookingtype == 'Groups')){                                                       
-				    $vatamount = (($rentalprice * $numberofnights) / 100) * $vatrate;
-				} elseif ($bookingtype == 'Leisure') {				                       
-				    $vatamount = (($rentalprice * $numberofnights) / 100) * 20;
-				}
-				$rentalvatfigure = round($vatamount, 2);
 
-				//calculatge the vat for the suppliments and add ons
-				$supplements = ($_POST['supplements']);
-				$supplementsprice = ($_POST['supplementsprice']);
-				$supplementscharge = ($_POST['chargetype']);
 
+
+			//***********************
+			//calculatge the supplements VAT amount
+			//***********************				
+
+				//1. = number of supps X supps price
 				$supplementsfig1 = $supplements * $supplementsprice;
 				
+				//2. If the supps are charged nightly then no. of supps X no. of nights
 				if ($supplementscharge == 'true') {
 					$supplementsvalue = $supplementsfig1 * $numberofnights;
 				} elseif ($supplementscharge == 'false') {
 					$supplementsvalue = $supplementsfig1;
 				}
-						
-				$supplementsvatfigure = ($supplementsvalue  / 100) * $vatamount;
+				
+				//3. Get the supplements VAT figure. If the booking is a groups or leisure booking then normal 20% VAT applies
+				if ($bookingtype == 'Corporate' || 'Groups') {
+					$supplementsvatfigure = round( ($supplementsvalue  / 100) * 20, 2);
+				} else {
+					$supplementsvatfigure = '';
+				}
+				
+				
 
-				//add all the vat together to a single amount
+
+			//***********************
+			//calculatge the total VAT for the booking
+			//***********************	
+
+				//1. Add both the $rentalvatfigure and $supplementsvatfigure
 				$vatfigure = ($rentalvatfigure + $supplementsvatfigure);
 
 
 
-			//now make a quick calc for the deposit amount			
-			$balance = $rentalprice * $numberofnights + $supplementsvalue - $discount;
+			//***********************
+			//Get the balance of the booking in total INC VAT
+			////// This can also be used for the totalcost figure if the booking reuqires INC VAT
+			//***********************
 
+				//1. Balance = the rental price X the number of nights + supps. If there is a discount, take it off
+				$balance = $rentalprice * $numberofnights + $supplementsvalue - $discount;
+
+
+
+			//***********************
+			//Get the net price
+			//***********************
+			
+				//1. This is the balance less the vat figure
+				$netprice = $balance - $vatfigure;
+			
 			
 
+			//***********************
+			//Get the totalcost for this booking
+			//***********************
+
+				//1. If the booking is INC VAT then $totalcost will be the $balance figure, else its the $netprice
+				if ($incvat == 'true') {
+					$totalcost = round($balance, 2);
+				} else {
+					$totalcost = round($netprice, 2);
+				}
 			
-			if ( ($bookingtype == 'Corporate') ){
-				$balancedue = $balance - $vatfigure;
-			} else {
-				$balancedue = $balance;
-			}
 
-			$totalcost = round($balancedue, 2);
 
-			//bundle it all into an array
+			//***********************
+			//Bundle this into an array and send it all back
+			//***********************
 		    $data = json_encode(array(
-		    	'vatfigure' => $vatfigure, 
-		    	'balancedue' 	=> $totalcost,
-		    	'bookingtype'		=> $bookingtype, 
-		    	'nights'				=>$numberofnights
+		    	'vatfigure' => 	$vatfigure, 
+		    	'totalcost'	=> 	$totalcost,
+		    	'nights'	=> 	$numberofnights
 		    	)
 		    );
 		    

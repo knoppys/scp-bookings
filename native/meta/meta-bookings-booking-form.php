@@ -116,6 +116,7 @@ function bookingsteps_meta_box_callback( $post ) {
     $supplements = get_post_meta( $post->ID, 'supplements', true );
     $supplementsprice = get_post_meta( $post->ID, 'supplementsprice', true );
     $chargetype = get_post_meta( $post->ID, 'chargetype', true );
+    $incvat = get_post_meta( $post->ID, 'incvat', true );
     $deposit = get_post_meta( $post->ID, 'deposit', true );
     $depositdate = get_post_meta( $post->ID, 'depositdate', true );
     $depositmethod = get_post_meta( $post->ID, 'depositmethod', true );
@@ -123,7 +124,7 @@ function bookingsteps_meta_box_callback( $post ) {
     $ownerprice = get_post_meta( $post->ID, 'ownerprice', true );
     $ourcommision = get_post_meta( $post->ID, 'ourcommision', true );
     $discount = get_post_meta( $post->ID, 'discount', true );
-    $vatselect = get_post_meta( $post->ID, 'vatselect', true );
+    //$vatselect = get_post_meta( $post->ID, 'vatselect', true );
     $costcode = get_post_meta( $post->ID, 'costcode', true );
     $vatamount = get_post_meta( $post->ID, 'vatamount', true );
     $depositpaid = get_post_meta( $post->ID,'depositpaid', true);
@@ -578,16 +579,19 @@ Meta box Contents
                                         <?php
                                         //rental price field
                                         echo '<h4>';
-                                             _e( 'Corporate and Leisure Price Per Night (inc vat)', 'bookingsrentalprice_textdomain' );
-                                        echo '</h4>';
+                                             _e( 'Price Per Night (All booking Types) ', 'bookingsrentalprice_textdomain' );
+                                        echo '</h4>';                                       
                                         echo '<input type="text" class="widefat" name="rentalprice" id="rentalprice" value="' . esc_attr( $rentalprice ) . '"/>';
                                         ?>
+
                                         <?php
+                                        /*
                                         //price per person field
                                         echo '<h4>';
                                              _e( 'Groups Price Per Person (inc vat)', 'bookingsrentalprice_textdomain' );
                                         echo '</h4>';
                                         echo '<input type="text" class="widefat" name="priceperperson" id="priceperperson" value="' . esc_attr( $priceperperson ) . '"/>';
+                                        */
                                         ?>                                                                          
                                         <?php
                                             echo '<h4>';
@@ -661,8 +665,10 @@ Meta box Contents
                                              _e( 'Discount', 'bookingsrentalprice_textdomain' );
                                         echo '</h4>';
                                         echo '<input type="text" class="widefat" name="discount" id="discount" value="' . esc_attr( $discount ) . '"/>';
-                                        ?>                                        
+                                        ?> 
+                                                                         
                                         <?php
+                                        /*
                                         echo '<h4>';
                                         _e( 'Select Vat Applicable (default is Yes + VAT)', 'bookingsapartment_textdomain' );
                                         echo '</h4> ';
@@ -671,8 +677,9 @@ Meta box Contents
                                         } else {
                                             echo '<input type="checkbox" name="vatselect" id="vatselect" /><br>';
                                         }
-                                        
-                                        ?>                
+                                        */
+                                        ?>  
+
                                          <?php
                                         //custom vat field
                                         echo '<h4>';
@@ -721,13 +728,38 @@ Meta box Contents
                                                         echo '</h4>';
                                                         echo '<input type="text" class="widefat" name="costcode" id="costcode" value="' . esc_attr( $costcode ) . '"/>';
                                                         ?>
-                                                        <?php
-                                                        //cost code field
-                                                        echo '<h4>';
-                                                             _e( 'Total Cost for <span id="numberofnights"></span>', 'bookingsrentalprice_textdomain' );
-                                                        echo '</h4>';
-                                                        echo '<input type="text" class="widefat" name="totalcost" id="totalcost" value="' . esc_attr( $totalcost ) . '"/>';
-                                                        ?>
+                                                        <table style="width: 100%;">
+                                                            <tr>
+                                                                <td width="50%" style="width: 50%;">
+                                                                    <?php
+                                                                    //cost code field
+                                                                    echo '<h4>';
+                                                                         _e( 'Total Cost for <span id="numberofnights"></span>', 'bookingsrentalprice_textdomain' );
+                                                                    echo '</h4>';
+                                                                    
+                                                                    ?>
+                                                                </td>
+                                                                <td width="50%" style="width: 50%;">
+                                                                    <?php
+                                                                    //cost code field
+                                                                    echo '<h4 style="display:inline-block;padding-right:40px;">';
+                                                                         _e( 'Show as inc VAT? <span id="vatshow"></span>', 'bookingsrentalprice_textdomain' );
+                                                                    echo '</h4>';                                                                    
+                                                                    if ($incvat) {
+                                                                        echo '<input type="checkbox" class="widefat" name="incvat" id="incvat" checked="checked" />';
+                                                                    } else {
+                                                                        echo '<input type="checkbox" class="widefat" name="incvat" id="incvat" />';
+                                                                    }                                            
+                                                                    ?>                                                                    
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="2">
+                                                                    <?php echo '<input type="text" class="widefat" name="totalcost" id="totalcost" value="' . esc_attr( $totalcost ) . '"/>'; ?>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                        
                                                         <input style="width:200px; display:block; margin:10px auto; text-align:center;" class="button button-primary button-large" id="calculate" value="Calculate" />
                                                     </td>
                                                 </tr>
@@ -1716,6 +1748,7 @@ function bookingsteps_save_meta_box_data( $post_id ) {
     $mydata_supplements = sanitize_text_field( $_POST['supplements'] );
     $mydata_supplementsprice = sanitize_text_field( $_POST['supplementsprice'] );
     $mydata_chargetype = sanitize_text_field( $_POST['chargetype'] );
+    $mydata_incvat = sanitize_text_field( $_POST['incvat'] );
     $mydata_deposit = sanitize_text_field( $_POST['deposit'] );
     $mydata_depositdate = sanitize_text_field( $_POST['depositdate'] );
     $mydata_depositmethod = sanitize_text_field( $_POST['depositmethod'] );
@@ -1724,7 +1757,7 @@ function bookingsteps_save_meta_box_data( $post_id ) {
     $mydata_ourcommision = sanitize_text_field( $_POST['ourcommision'] );
     $mydata_additionalnotes = sanitize_text_field( $_POST['additionalnotes'] );
     $mydata_apptbreakdown = sanitize_text_field( $_POST['apptbreakdown'] );
-    $mydata_vatselect = sanitize_text_field( $_POST['vatselect'] );
+    //$mydata_vatselect = sanitize_text_field( $_POST['vatselect'] );
     $mydata_costcode = sanitize_text_field( $_POST['costcode'] );
     $mydata_terms = ( $_POST['terms'] ); //removed sanitisation
     $mydata_emergencycontact = sanitize_text_field( $_POST['emergencycontact'] );
@@ -1773,6 +1806,7 @@ function bookingsteps_save_meta_box_data( $post_id ) {
     update_post_meta($post_id, 'supplements',$mydata_supplements);
     update_post_meta($post_id, 'supplementsprice',$mydata_supplementsprice);
     update_post_meta($post_id, 'chargetype',$mydata_chargetype);
+    update_post_meta($post_id, 'incvat',$mydata_incvat);
     update_post_meta($post_id, 'deposit',$mydata_deposit);
     update_post_meta($post_id, 'depositdate',$mydata_depositdate);
     update_post_meta($post_id, 'depositmethod',$mydata_depositmethod);
@@ -1781,7 +1815,7 @@ function bookingsteps_save_meta_box_data( $post_id ) {
     update_post_meta($post_id, 'ourcommision',$mydata_ourcommision);
     update_post_meta($post_id, 'additionalnotes',$mydata_additionalnotes);
     update_post_meta($post_id, 'apptbreakdown',$mydata_apptbreakdown);
-    update_post_meta($post_id, 'vatselect',$mydata_vatselect);
+    //update_post_meta($post_id, 'vatselect',$mydata_vatselect);
     update_post_meta($post_id, 'costcode',$mydata_costcode);
     update_post_meta($post_id, 'terms',$mydata_terms);
     update_post_meta($post_id, 'emergencycontact',$mydata_emergencycontact);

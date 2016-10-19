@@ -331,10 +331,14 @@ jQuery(document).ready(function(){
 	jQuery('#chargetype').on('click', function () {
 	    jQuery(this).val(this.checked ? true : false);	    
 	});
+
+	jQuery('#incvat').on('click', function () {
+	    jQuery(this).val(this.checked ? true : false);	    
+	});
 		
 	//get the data i need	
 	var siteUrl = siteUrlobject.siteUrl+'/wp-admin/admin-ajax.php';
-	var vatselect = jQuery('#vatselect').prop('checked');
+	//var vatselect = jQuery('#vatselect').prop('checked');
 	var arrivaldate = jQuery('#arrivaldate').val();	
 	var leavingdate = jQuery('#leavingdate').val();
 	var actualcheckintime = jQuery('#actualcheckintime').val();	
@@ -345,48 +349,13 @@ jQuery(document).ready(function(){
 	var supplementsprice = jQuery('#supplementsprice').val();
 	var supplements = jQuery('#supplements').val();
 	if (jQuery('#chargetype').prop('checked')==true) {var chargetype = 'true'} else {var chargetype = 'false'}
+	if (jQuery('#incvat').prop('checked')==true) {var incvat = 'true'} else {var incvat = 'false'}
 	var priceperperson = jQuery('#priceperperson').val();
 	var numberofguests = jQuery('#numberofguests').val();	
 	var discount = jQuery('#discount').val();
 	var customvatvalue = jQuery('#customvatvalue').val();
 
     
-    if( jQuery('#vatselect').prop('checked') == true ) {																																																																																																																																																																																																																																																											
-		//got the data, make the ajax request
-		jQuery(function(){
-		    jQuery.ajax({
-	            url:siteUrl,
-	            type:'POST',
-	            data:'action=my_special_vataction&arrivaldate=' + arrivaldate + 
-	            '&leavingdate=' + leavingdate + 
-	            '&vatselect=' + vatselect +
-	            '&actualcheckintime=' + actualcheckintime + 
-	            '&actualcheckouttime=' + actualcheckouttime + 
-	            '&rentalprice=' + rentalprice + 
-	            '&bookingtype=' + bookingtype + 
-	            '&deposit=' + deposit + 
-	            '&supplements=' + supplements +
-	            '&supplementsprice=' + supplementsprice + 
-	            '&chargetype=' + chargetype +
-	            '&priceperperson=' + priceperperson + 
-	            '&numberofguests=' + numberofguests + 
-	            '&discount=' + discount +
-	            '&customvatvalue=' + customvatvalue,
-	           	dataType:'json',
-	            success:function(result){
-	            	//got it back, now assign it to its fields. 	            	
-	            	jQuery('#vatamount').val(result.vatfigure);
-	            	jQuery('#balancedue').val(result.balancedue);
-	            	jQuery('#totalcost').val(result.balancedue);
-	            	jQuery('#numberofnights').text(result.nights);
-	            	//console.log(result);	            
-	          
-
-			    }
-			});
-		});
-
-    } else if( jQuery('#vatselect').prop('checked') == false ) {
     	//got the data, make the ajax request
 		jQuery(function(){
 		    jQuery.ajax({
@@ -400,25 +369,38 @@ jQuery(document).ready(function(){
 	            '&bookingtype=' + bookingtype + 
 	            '&deposit=' + deposit + 
 	            '&supplements=' + supplements +
-	            '&supplementsprice=' + supplementsprice  + 
+	            '&supplementsprice=' + supplementsprice + 
 	            '&chargetype=' + chargetype +
+	            '&incvat=' + incvat +
 	            '&priceperperson=' + priceperperson + 
 	            '&numberofguests=' + numberofguests + 
-	            '&discount=' + discount,
-	            dataType:'json',
+	            '&discount=' + discount +
+	            '&customvatvalue=' + customvatvalue,
+	           	dataType:'json',
 	            success:function(result){
+
+	            	//check to see if this is a +VAT or INC VAT booking
+
+	            	if (incvat == 'true') {
+	            		jQuery('#balancedue').val(result.totalcost);	            	
+		            	jQuery('#vatamount').val('0');	            	
+		            	jQuery('#totalcost').val(result.totalcost);   
+		            	jQuery('#numberofnights').text(result.nights);
+	            	} else {
+	            		jQuery('#balancedue').val(result.totalcost);	            	
+		            	jQuery('#vatamount').val(result.vatfigure);	            	
+		            	jQuery('#totalcost').val(result.totalcost);    
+		            	jQuery('#numberofnights').text(result.nights);
+	            	}
+
 	            	//got it back, now assign it to its fields. 	            	
-	            	jQuery('#vatamount').val('0');
-	            	jQuery('#balancedue').val(result.balancedue);
-	            	jQuery('#totalcost').val(result.balancedue);   
-	            	jQuery('#numberofnights').text(result.nights);
+	            	
 					//console.log(result);	     
 	            	
 			    }
 			});
 		});
-    }
-});
+	});
 })
 /********************
 // Ajax auto populate the operator details
