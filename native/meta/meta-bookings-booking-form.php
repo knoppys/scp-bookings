@@ -37,6 +37,18 @@ function bookingsteps_meta_box_callback( $post ) {
     // Add an nonce field so we can check for it later.
     wp_nonce_field( 'bookingsteps_meta_box', 'bookingsteps_meta_box_nonce' );
 
+    //run the legacy functions and save the old code as ref
+
+        //***************************************
+        // Save the old code
+        //***************************************
+
+            //$vatselect = get_post_meta( $post->ID, 'vatselect', true );
+            //$customvatvalue = get_post_meta( $post->ID, 'customvatvalue', true );
+
+
+        
+
     //apartment details
     $apartmentname = get_post_meta( $post->ID, 'apartmentname', true );
     $numberofapts = get_post_meta($post->ID,'numberofapts', true );
@@ -86,6 +98,20 @@ function bookingsteps_meta_box_callback( $post ) {
      * Use get_post_meta() to retrieve an existing values
      * from the database and use the value for the form.
      */
+    
+    //***************************************
+    // Run legacy functions 
+    //***************************************
+
+        //Legacy Rental Price
+        $Priceperperson = get_post_meta( $post->ID, 'priceperperson', true );
+        $Rentalprice = get_post_meta( $post->ID, 'rentalprice', true );
+
+        if ($Priceperperson != NULL) {
+            $rentalprice = $Priceperperson;
+        } elseif ($Rentalprice != NULL) {
+            $rentalprice = $Rentalprice;
+        }
 
     //lead guest details
     $guestname = get_post_meta( $post->ID, 'guestname', true );
@@ -108,10 +134,6 @@ function bookingsteps_meta_box_callback( $post ) {
     $arrivaldate = get_post_meta( $post->ID, 'arrivaldate', true );   
     $location = get_post_meta( $post->ID, 'location', true );
     $displayname = get_post_meta($post->ID, 'displayname', true);
-
-    //pricing details
-    $rentalprice = get_post_meta( $post->ID, 'rentalprice', true );
-    $priceperperson = get_post_meta( $post->ID, 'priceperperson', true );
     $welcomepack = get_post_meta( $post->ID, 'welcomepack', true );
     $supplements = get_post_meta( $post->ID, 'supplements', true );
     $supplementsprice = get_post_meta( $post->ID, 'supplementsprice', true );
@@ -124,7 +146,6 @@ function bookingsteps_meta_box_callback( $post ) {
     $ownerprice = get_post_meta( $post->ID, 'ownerprice', true );
     $ourcommision = get_post_meta( $post->ID, 'ourcommision', true );
     $discount = get_post_meta( $post->ID, 'discount', true );
-    //$vatselect = get_post_meta( $post->ID, 'vatselect', true );
     $costcode = get_post_meta( $post->ID, 'costcode', true );
     $vatamount = get_post_meta( $post->ID, 'vatamount', true );
     $depositpaid = get_post_meta( $post->ID,'depositpaid', true);
@@ -133,7 +154,7 @@ function bookingsteps_meta_box_callback( $post ) {
     $balanceduedate = get_post_meta( $post->ID, 'balanceduedate', true );
     $apartmentduedate = get_post_meta( $post->ID, 'apartmentduedate', true );
     $totalcost = get_post_meta( $post->ID, 'totalcost', true );
-    $customvatvalue = get_post_meta( $post->ID, 'customvatvalue', true );
+    
     $username = get_post_meta($post->ID, 'username', true); 
 
     //Additional Notes Table
@@ -579,8 +600,9 @@ Meta box Contents
                                         <?php
                                         //rental price field
                                         echo '<h4>';
-                                             _e( 'Price Per Night (All booking Types) ', 'bookingsrentalprice_textdomain' );
-                                        echo '</h4>';                                       
+                                             _e( 'Price Per Night ', 'bookingsrentalprice_textdomain' );
+                                        echo '</h4>';  
+                                        echo '<p>You can now add Price Per Night or Price Per Person Per Night. The system will update the correct value based on the booking type.</p>';                                     
                                         echo '<input type="text" class="widefat" name="rentalprice" id="rentalprice" value="' . esc_attr( $rentalprice ) . '"/>';
                                         ?>
 
@@ -680,12 +702,14 @@ Meta box Contents
                                         */
                                         ?>  
 
-                                         <?php
+                                        <?php
+                                        /*
                                         //custom vat field
                                         echo '<h4>';
                                              _e( 'Custom VAT %', 'bookingsrentalprice_textdomain' );
                                         echo '</h4>';
                                         echo '<input type="text" class="widefat" name="customvatvalue" id="customvatvalue" value="' . esc_attr( $customvatvalue ) . '"/>';
+                                        */
                                         ?>
                                         
                                     </td>
@@ -744,7 +768,7 @@ Meta box Contents
                                                                     //cost code field
                                                                     echo '<h4 style="display:inline-block;padding-right:40px;">';
                                                                          _e( 'Show as inc VAT? <span id="vatshow"></span>', 'bookingsrentalprice_textdomain' );
-                                                                    echo '</h4>';                                                                    
+                                                                    echo '</h4>';                                                              ;
                                                                     if ($incvat) {
                                                                         echo '<input type="checkbox" class="widefat" name="incvat" id="incvat" checked="checked" />';
                                                                     } else {
@@ -950,19 +974,11 @@ Meta box Contents
                                             }
 
                                             //Check to see if there are Supplements
-                                            if (get_post_meta($post->id, 'supplements', true)) {
-                                                $suplementtext   = '<tr>
-                                                                        <td style="width:250px;"valign="middle">
-                                                                            <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Supplements</p></strong> 
-                                                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$supplements.'</p>
-                                                                        </td>
-                                                                        <td style="width:250px;"valign="middle">  
-                                                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">&pound;'.$Supplementsprice.'</p>                                          
-                                                                        </td>
-                                                                    </tr>';
-                                            } else {
-                                                $suplementtext   = '';
+                                            //add vat to supps
+                                            if ($incvat !== 'true') {
+                                                $plusvat =  ' &#43;VAT';
                                             }
+                                           
 
                                             //Check to see if there is a discount
                                             if ($discount) {
@@ -984,25 +1000,27 @@ Meta box Contents
                                             */
 
 
-                                            $apartmentnamee = get_post_meta( $post->ID, 'apartmentname', true );
-                                            $page = get_page_by_title( $apartmentnamee, OBJECT, 'apartments');
+                                            $page = get_page_by_title( $apartmentname , OBJECT, 'apartments');                                        
 
                                             //get the apartment address details
-                                            $apartmentaddress   = get_post_meta($page->ID,'address', true );            
-                                            $aprtmentlocation   = get_post_meta($page->ID,'apptlocation1', true);
-                                            $aprtmentlocation2  = get_post_meta($page->ID,'apptlocation2', true);
-                                            $apartmentpostcode  = get_post_meta($page->ID,'postcode', true );
-                                            $apartmentstate     = get_post_meta($page->ID,'state', true );
-                                            $apartmentcountry   = get_post_meta($page->ID,'country', true ); 
+                                            $apartmentaddress   = get_post_meta($page->ID, 'address', true );            
+                                            $aprtmentlocation   = get_post_meta($page->ID, 'apptlocation1', true);
+                                            $aprtmentlocation2  = get_post_meta($page->ID, 'apptlocation2', true);
+                                            $apartmentpostcode  = get_post_meta($page->ID, 'postcode', true );
+                                            $apartmentstate     = get_post_meta($page->ID, 'state', true );
+                                            $apartmentcountry   = get_post_meta($page->ID, 'country', true ); 
+                                            
                                             //get the location name
                                             $locationPage = get_page_by_title( $aprtmentlocation, OBJECT, 'locations' );
+                                            
                                             //get the location meta
                                             $areainformation = get_post_meta( $locationPage->ID, 'areainformation', true );
+                                            
                                             if ($areainformation) {
                                                 $areainformationtext = '<tr>
                                                                             <td valign="top" colspan="2">
                                                                                 <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Area Information</p></strong>                                                     
-                                                                               <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$areainformation.'</p>                                          
+                                                                                <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$areainformation.'</p>                                          
                                                                             </td>
                                                                         </tr>';
                                             } else {
@@ -1015,27 +1033,12 @@ Meta box Contents
                                             $interval = $datetime1->diff($datetime2);
                                             $numberofnights = $interval->format('%a nights');
 
-                                            //Get the right nightly rate field
-                                            if ($bookingtype == ('Corporate')) {
-                                                $nightlyratetext = ($rentalprice);
-                                            } else {
-                                                $nightlyratetext = ($priceperperson);
-                                            }
-
-                                            //Get the right total cost field
-                                            if ($bookingtype == ('Corporate')) {
-                                                $totalcosttext = ($totalcost);
-                                            } else {
-                                                $totalcosttext = ($totalcost);
-                                            }
-
                                             //Get the nightly rate label
                                             if ($bookingtype == ('Corporate')) {
-                                                $ratelabel = 'Nightly Rate';
+                                                $ratelabel = 'Nightly Rate';                                                                                                
                                             } else {
-                                                $ratelabel = 'Price per person, per night';
+                                                $ratelabel = 'Price per person, per night';                                                                                                
                                             }
-
 
                                             //the chekin time
                                             if ($actualcheckintime ) {
@@ -1051,15 +1054,32 @@ Meta box Contents
                                                 $theouttime = $checkouttime;
                                             }
 
-                                            if ($bookingtype == 'Corporate') {
-                                                $vatselecttext = ' &#43;VAT';
-                                            } else {
+                                            if ($incvat == 'on') {
                                                 $vatselecttext = '';
+                                            } else {
+                                                $vatselecttext = ' &#43;VAT';
                                             } 
+
+                                            //location text
+                                            if ($aprtmentlocation == $aprtmentlocation2) {
+                                                $locationtext = $aprtmentlocation . '<br>';
+                                            } else {
+                                                $locationtext = $aprtmentlocation . '<br>' . $aprtmentlocation2 . '<br>';
+                                            }
+
+                                            //Is the apartment available or will it just leave empty meta
+                                            if ($page) {
+                                                $available = '';
+                                            } else {
+                                                $available = '<p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:red;">There is a problem getting the apartment information. Please check to see is this apartment is still a published apartment.</p>';
+                                            }
+
+
                                                         
                                             /**
                                                 Build the email
                                             **/ 
+                                
                                             echo ' 
 
 
@@ -1116,7 +1136,8 @@ Meta box Contents
                                                                         </td>
                                                                         <td style="width:250px;"valign="top">
                                                                             <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Apartment Address</p></strong>
-                                                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">' . $apartmentaddress . '<br>' . $aprtmentlocation . '<br>' . $aprtmentlocation2 . '<br>' . $apartmentstate . '<br/>' . $apartmentpostcode . '&nbsp;' . $apartmentcountry . '</p>
+                                                                            '.$available.'
+                                                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">' . $apartmentaddress . '<br>' . $locationtext . $apartmentstate . '<br/>' . $apartmentpostcode . '&nbsp;' . $apartmentcountry . '</p>
                                                                         </td>
                                                                     </tr>
                                                                 </tbody>
@@ -1193,18 +1214,18 @@ Meta box Contents
                                                                             <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$ratelabel.'</p></strong> 
                                                                         </td>
                                                                         <td style="width:250px;"valign="middle" style="width:50%;">  
-                                                                           <p style=";font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">&pound;'. round($nightlyratetext, 2) . $vatselecttext .'</p>                                          
+                                                                           <p style=";font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">&pound;'. $rentalprice . $vatselecttext .'</p>                                          
                                                                         </td>
                                                                     </tr>
                                                                     '.$discounttext.'
                                                                     '.$costcodetext.'
-                                                                    '.$suplementtext.'
+                                                                    
                                                                     <tr>
                                                                        <td style="width:250px;"valign="middle">
                                                                             <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Total Cost</p></strong>
                                                                         </td>
                                                                         <td style="width:250px;"valign="middle">  
-                                                                          <p style=";font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">&pound;'. round($totalcosttext, 2) . $vatselecttext .'</p>                                     
+                                                                          <p style=";font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">&pound;'. $totalcost . $vatselecttext .'</p>                                     
                                                                         </td>
                                                                     </tr>
                                                                 </tbody>
@@ -1221,8 +1242,8 @@ Meta box Contents
                                                                     </tr>
                                                                     <tr>                                        
                                                                         <td valign="top" colspan="2">
-                                                                           <div class="arrivalprocess" style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$arrivalprocess.'</div>    
-                                                                            
+                                                                            <p style="margin:3px;padding:4px 0;font-size:15px;font-weight:bold;">Emergency Contact : '.$emergencycontact.'</p>
+                                                                            <div class="arrivalprocess" style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$arrivalprocess.'</div>    
                                                                         </td>
                                                                     </tr>                                  
                                                                 </tbody>
@@ -1302,135 +1323,8 @@ Meta box Contents
                                     </div>
                                     <h3>Operator Booking Confirmation</h3>
                                     <div>
-                                        <?php
-                                         //Check to see if there is a display name overide. 
-                                            if ($displayname) {
-                                                $titletext = $displayname;
-                                            } else {
-                                                $titletext = $apartmentname;
-                                            }         
-                                            
+                                        <?php 
 
-                                            //Check to see if there is a cost code
-                                            if ($costcode) {
-                                                $costcodetext = '<tr>
-                                                                    <td style="width:250px;"valign="middle">
-                                                                        <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Cost code</p></strong> 
-                                                                    </td>
-                                                                    <td style="width:250px;"valign="middle">  
-                                                                       <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$costcode.'</p>                                          
-                                                                    </td>
-                                                                </tr>';
-                                            } else {
-                                                $costcodetext = '';
-                                            }
-
-                                            //Check to see if there are Supplements
-                                            if (get_post_meta($post->id, 'supplements', true)) {
-                                                $suplementtext   = '<tr>
-                                                                        <td style="width:250px;"valign="middle">
-                                                                            <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Supplements</p></strong> 
-                                                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$supplements.'</p>
-                                                                        </td>
-                                                                        <td style="width:250px;"valign="middle">  
-                                                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">&pound;'.$Supplementsprice.'</p>                                          
-                                                                        </td>
-                                                                    </tr>';
-                                            } else {
-                                                $suplementtext   = '';
-                                            }
-
-                                            //Check to see if there is a discount
-                                            if ($discount) {
-                                                $discounttext   = '<tr>
-                                                                        <td style="width:250px;"valign="middle">
-                                                                            <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Discount</p></strong> 
-                                                                        </td>
-                                                                        <td style="width:250px;"valign="middle">  
-                                                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">&pound;'.$discount.'</p>                                          
-                                                                        </td>
-                                                                    </tr>';
-                                            } else {
-                                                $discounttext   = '';
-                                            }
-
-
-                                            /**
-                                            HTML Email Elements
-                                            */
-
-
-                                            //Get the apartment details
-                                         
-
-                                            //$apartmenttitle = get_post_meta($post->id, 'apartmentname', true);
-                                            $apartmentnamef = get_post_meta( $post->ID, 'apartmentname', true );
-                                            $pagf = get_page_by_title( $apartmentnamef, OBJECT, 'apartments');
-
-                                            //get the apartment address details
-                                            $apartmentaddress   = get_post_meta($pagf->ID,'address', true );            
-                                            $aprtmentlocation   = get_post_meta($pagf->ID,'apptlocation1', true);
-                                            $aprtmentlocation2  = get_post_meta($pagf->ID,'apptlocation2', true);
-                                            $apartmentpostcode  = get_post_meta($pagf->ID,'postcode', true );
-                                            $apartmentstate     = get_post_meta($pagf->ID,'state', true );
-                                            $apartmentcountry   = get_post_meta($pagf->ID,'country', true ); 
-                                            //get the location name
-                                            $locationPage = get_page_by_title( $aprtmentlocation, OBJECT, 'locations' );
-                                                //get the location meta
-                                                $areainformation = get_post_meta( $locationPage->ID, 'areainformation', true );
-                                                if ($areainformation) {
-                                                    $areainformationtext = '<tr>
-                                                                                <td valign="top" colspan="2">
-                                                                                    <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Area Information</p></strong>                                                     
-                                                                                   <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$areainformation.'</p>                                          
-                                                                                </td>
-                                                                            </tr>';
-                                                } else {
-                                                    $areainformationtext = '';
-                                                }
-
-                                                //get the number of nights
-                                                $datetime1 = new DateTime($arrivaldate);
-                                                $datetime2 = new DateTime($leavingdate);
-                                                $interval = $datetime1->diff($datetime2);
-                                                $numberofnights = $interval->format('%a nights');
-
-                                                //Get the right nightly rate field
-                                                if ($bookingtype == ('Corporate')) {
-                                                    $nightlyratetext = ($rentalprice);
-                                                } else {
-                                                    $nightlyratetext = ($priceperperson);
-                                                }
-
-                                                //Get the right total cost field
-                                                if ($bookingtype == ('Corporate')) {
-                                                    $totalcosttext = ($totalcost);
-                                                } else {
-                                                    $totalcosttext = ($totalcost);
-                                                }
-
-
-                                                //the chekin time
-                                                if ($actualcheckintime ) {
-                                                    $theintime = $actualcheckintime ;
-                                                } else {
-                                                    $theintime = ($checkintime);
-                                                }
-
-                                                //the chekin time
-                                                if ($actualcheckouttime) {
-                                                    $theouttime = $actualcheckouttime;
-                                                } else {
-                                                    $theouttime = $checkouttime;
-                                                }
-
-                                                if ($bookingtype == 'Corporate') {
-                                                    $vatselecttext = ' &#43;VAT';
-                                                } else {
-                                                    $vatselecttext = '';
-                                                } 
-                                            
-                                              
 
                                         /**
                                             Build the email
@@ -1469,21 +1363,21 @@ Meta box Contents
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
-                                                            <p></p>                            
+                                                           <p></p>                            
                                                             <table style="background:#eee;border:1px solid #a2a2a2;border-radius:5px;margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif; max-width:500px; width:100%">
                                                                 <tbody>                                   
 
                                                                     <!-- Apartment details -->
                                                                     <tr>
                                                                         <td colspan="2" valign="middle" style="background:#d2d2d2;text-align:center;border-radius:4px;">
-                                                                            <p style="margin:3px;padding:4px 0;font-size:15px;font-weight:bold;">Apartment Details</p>
+                                                                           <p style="margin:3px;padding:4px 0;font-size:15px;font-weight:bold;">Apartment Details</p>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td style="width:250px;"valign="top">                                            
                                                                             <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Apartment Name</p></strong>
-                                                                            <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">' . $titletext . '<br>
-                                                                             <a target="_blank"href="'.$page->guid.'">View apartment information</a><br>
+                                                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">' . $titletext . '<br>
+                                                                            <a target="_blank"href="'.$page->guid.'">View apartment information</a><br>
                                                                             <a href="https://www.google.co.uk/maps/place/'.$apartmentpostcode.'">Get directions</a>
                                                                             </p>
 
@@ -1491,7 +1385,8 @@ Meta box Contents
                                                                         </td>
                                                                         <td style="width:250px;"valign="top">
                                                                             <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Apartment Address</p></strong>
-                                                                            <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">' . $apartmentaddress . '<br>' . $aprtmentlocation . '<br>' . $aprtmentlocation2 . '<br>' . $apartmentstate . '<br/>' . $apartmentpostcode . '&nbsp;' . $apartmentcountry . '</p>
+                                                                            '.$available.'
+                                                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">' . $apartmentaddress . '<br>' . $locationtext . $apartmentstate . '<br/>' . $apartmentpostcode . '&nbsp;' . $apartmentcountry . '</p>
                                                                         </td>
                                                                     </tr>
                                                                 </tbody>
@@ -1553,7 +1448,7 @@ Meta box Contents
                                                                 </tbody>
                                                             </table>
 
-                                                            <p></p>
+                                                           <p></p>
                                                             <!-- Pricing -->
                                                             <table style="background:#eee;border:1px solid #a2a2a2;border-radius:5px;margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif; max-width:500px; width:100%">
                                                                 <tbody>
@@ -1562,17 +1457,28 @@ Meta box Contents
                                                                         <td colspan="2" valign="middle" style="background:#d2d2d2;text-align:center;border-radius:4px;">
                                                                            <p style="margin:3px;padding:4px 0;font-size:15px;font-weight:bold;">Price</p>
                                                                         </td>
-                                                                    </tr>                                                            
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td style="width:250px;"valign="middle" style="width:50%;">
+                                                                            <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$ratelabel.'</p></strong> 
+                                                                        </td>
+                                                                        <td style="width:250px;"valign="middle" style="width:50%;">  
+                                                                           <p style=";font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">&pound;'. $rentalprice . $vatselecttext .'</p>                                          
+                                                                        </td>
+                                                                    </tr>
+                                                                    '.$discounttext.'
+                                                                    '.$costcodetext.'
+                                                                    
                                                                     <tr>
                                                                        <td style="width:250px;"valign="middle">
-                                                                            <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Owner Price</p></strong>
+                                                                            <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Total Cost</p></strong>
                                                                         </td>
                                                                         <td style="width:250px;"valign="middle">  
-                                                                          <p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">&pound;'.$ownerprice.'</p>                                     
+                                                                          <p style=";font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">&pound;'. $totalcost . $vatselecttext .'</p>                                     
                                                                         </td>
-                                                                    </tr>                                                                   
+                                                                    </tr>
                                                                 </tbody>
-                                                            </table>                        
+                                                            </table>                           
 
                                                             <p></p>
                                                             <!-- Arrival Process -->
@@ -1585,8 +1491,8 @@ Meta box Contents
                                                                     </tr>
                                                                     <tr>                                        
                                                                         <td valign="top" colspan="2">
-                                                                           <div class="arrivalprocess" style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$arrivalprocess.'</div>    
-                                                                            
+                                                                            <p style="margin:3px;padding:4px 0;font-size:15px;font-weight:bold;">Emergency Contact : '.$emergencycontact.'</p>
+                                                                            <div class="arrivalprocess" style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$arrivalprocess.'</div>    
                                                                         </td>
                                                                     </tr>                                  
                                                                 </tbody>

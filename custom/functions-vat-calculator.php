@@ -13,8 +13,7 @@ function implement_ajax_vat() {
 			//***********************	
 
 				//1. Get some posted values and assign them variables for easy syntax
-				$discount = ($_POST['discount']);
-				$priceperperson = ($_POST['priceperperson']);
+				$discount = ($_POST['discount']);				
 				$baserentalprice = ($_POST['rentalprice']);
 				$numberofguests = ($_POST['numberofguests']);
 				$bookingtype = ($_POST['bookingtype']);
@@ -35,8 +34,6 @@ function implement_ajax_vat() {
 			    $datetime2 = new DateTime(($_POST['leavingdate']));
 			    $interval = $datetime1->diff($datetime2);
 			    $numberofnights = $interval->format('%a nights');
-			    $rentalprice = ($_POST['rentalprice']);
-
 
 
 			//***********************
@@ -44,14 +41,15 @@ function implement_ajax_vat() {
 			//***********************				
 
 				//1. Set rental price variable as Price per Person or Fixed Apartment Price
-				if (isset($priceperperson) && $priceperperson != '') { 
-					$rentalprice = ($priceperperson * $numberofguests); 
-				} else { 
+				if ( ($bookingtype !== 'Corporate') ) {
+					$rentalprice = ($baserentalprice * $numberofguests);
+				} else {
 					$rentalprice = $baserentalprice; 
-				}		
+				}
+								
 				
 				//2. Over ride the vat amount if there is a value in the vat field.	
-				if($customvatvalue > 0 ) {
+				if($customvatvalue) {
 					$vatrate = $customvatvalue;
 				} else {
 					if($numberofnights >= 29){
@@ -135,15 +133,15 @@ function implement_ajax_vat() {
 			//***********************
 			//Bundle this into an array and send it all back
 			//***********************
-		    $data = json_encode(array(
-		    	'vatfigure' => 	$vatfigure, 
-		    	'totalcost'	=> 	$totalcost,
-		    	'nights'	=> 	$numberofnights
-		    	)
-		    );
-		    
-		    //send the aray back
-		    echo $data;    
+			    $data = json_encode(array(
+			    	'vatfigure' => 	$vatfigure, 
+			    	'totalcost'	=> 	$balance,
+			    	'nights'	=> 	$numberofnights
+			    	)
+			    );
+			    
+			    //send the aray back
+			    echo $data;    
 
 		die();
 	} 

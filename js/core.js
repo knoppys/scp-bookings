@@ -267,8 +267,11 @@ jQuery(document).ready(function(){
 					jQuery('.arrivalprocess').html(data.arrivalprocess); 					
 					jQuery('.terms').html(data.terms); 
 
+					//place the required price into the Price Per $night field
+					jQuery('#rentalprice').val(data.rentalprice);
+
 	            	
-	            
+	            	/*This is the old function that used to seperate the values into two fields.
 	            	if (data.bookingtype == 'Corporate') {
     					jQuery('#rentalprice').val(data.rentalprice);
     					jQuery('#priceperperson').val(null);
@@ -283,7 +286,7 @@ jQuery(document).ready(function(){
 
 					}
 					console.log(data.terms);
-
+					*/
 
 	            	
 			    }
@@ -338,7 +341,6 @@ jQuery(document).ready(function(){
 		
 	//get the data i need	
 	var siteUrl = siteUrlobject.siteUrl+'/wp-admin/admin-ajax.php';
-	//var vatselect = jQuery('#vatselect').prop('checked');
 	var arrivaldate = jQuery('#arrivaldate').val();	
 	var leavingdate = jQuery('#leavingdate').val();
 	var actualcheckintime = jQuery('#actualcheckintime').val();	
@@ -350,12 +352,10 @@ jQuery(document).ready(function(){
 	var supplements = jQuery('#supplements').val();
 	if (jQuery('#chargetype').prop('checked')==true) {var chargetype = 'true'} else {var chargetype = 'false'}
 	if (jQuery('#incvat').prop('checked')==true) {var incvat = 'true'} else {var incvat = 'false'}
-	var priceperperson = jQuery('#priceperperson').val();
 	var numberofguests = jQuery('#numberofguests').val();	
 	var discount = jQuery('#discount').val();
 	var customvatvalue = jQuery('#customvatvalue').val();
 
-    
     	//got the data, make the ajax request
 		jQuery(function(){
 		    jQuery.ajax({
@@ -372,30 +372,26 @@ jQuery(document).ready(function(){
 	            '&supplementsprice=' + supplementsprice + 
 	            '&chargetype=' + chargetype +
 	            '&incvat=' + incvat +
-	            '&priceperperson=' + priceperperson + 
+	            //'&priceperperson=' + priceperperson + 
 	            '&numberofguests=' + numberofguests + 
 	            '&discount=' + discount +
 	            '&customvatvalue=' + customvatvalue,
 	           	dataType:'json',
 	            success:function(result){
 
-	            	//check to see if this is a +VAT or INC VAT booking
-
+	            	//If the price is to be shown as INC VAT then 
 	            	if (incvat == 'true') {
-	            		jQuery('#balancedue').val(result.totalcost);	            	
-		            	jQuery('#vatamount').val('0');	            	
-		            	jQuery('#totalcost').val(result.totalcost);   
-		            	jQuery('#numberofnights').text(result.nights);
+	            		jQuery('#balancedue').val(result.totalcost);
+	            		jQuery('#vatamount').val('0');	
+	            		jQuery('#totalcost').val(result.totalcost); 
+	            		jQuery('#numberofnights').text(result.nights);
 	            	} else {
-	            		jQuery('#balancedue').val(result.totalcost);	            	
-		            	jQuery('#vatamount').val(result.vatfigure);	            	
-		            	jQuery('#totalcost').val(result.totalcost);    
-		            	jQuery('#numberofnights').text(result.nights);
+	            		jQuery('#balancedue').val(result.totalcost + result.vatfigure);
+	            		jQuery('#vatamount').val(result.vatfigure);
+	            		jQuery('#totalcost').val(result.totalcost);	
+	            		jQuery('#numberofnights').text(result.nights);
 	            	}
 
-	            	//got it back, now assign it to its fields. 	            	
-	            	
-					//console.log(result);	     
 	            	
 			    }
 			});
@@ -484,7 +480,13 @@ var siteUrl = siteUrlobject.siteUrl+'/wp-admin/admin-ajax.php';
 ********************/	
 
 jQuery('#email_client').click(function(e){
-	var siteUrl = siteUrlobject.siteUrl+'/wp-admin/admin-ajax.php';
+
+		jQuery('#incvat').on('click', function () {
+		    jQuery(this).val(this.checked ? true : false);	    
+		});
+		if (jQuery('#incvat').prop('checked')==true) {var incvat = 'true'} else {var incvat = 'false'}
+
+		var siteUrl = siteUrlobject.siteUrl+'/wp-admin/admin-ajax.php';
 		var buttonid = this.id;
 		var bookingtype = jQuery('#bookingtype').val();
 		var useremail = jQuery('#useremail').attr('value');
@@ -495,7 +497,7 @@ jQuery('#email_client').click(function(e){
 		var phone = jQuery('#phone').val();
 		var apartmentname = jQuery('#apartmentname').val();
 		var numberofapts = jQuery('#numberofapts').val();
-		var additionalnotes = jQuery('#additionalnotes').val();
+		var additionalnotes = jQuery('#additionalnotes').val()
 		var apptbreakdown = jQuery('#apptbreakdown').val();		
 		var terms = jQuery('#terms').val();
 		var arrivalprocess = jQuery('#arrivalprocess').val();
@@ -510,19 +512,14 @@ jQuery('#email_client').click(function(e){
 		var actualcheckintime = jQuery('#actualcheckintime').val();	
 		var actualcheckouttime = jQuery('#actualcheckouttime').val();		
 		var supplementsprice = jQuery('#supplementsprice').val();
-		var priceperperson = jQuery('#priceperperson').val();
 		var numberofguests = jQuery('#numberofguests').val();	
 		var discount = jQuery('#discount').val();
-		var rentalprice = jQuery('#rentalprice').val();
-		var vatamount = jQuery('#vatamount').val();		
+		var rentalprice = jQuery('#rentalprice').val();	
 		var totalcost = jQuery('#totalcost').val();
 		var costcode = jQuery('#costcode').val();
 		var displayname = jQuery('#displayname').val();
 		var welcomepack = jQuery('#welcomepack').val();
-		var vatselect = jQuery('#vatselect').prop('checked');
 
-		
-	
 	
 	jQuery.ajax({
 		url:siteUrl,
@@ -549,11 +546,8 @@ jQuery('#email_client').click(function(e){
 	    '&actualcheckintime=' + actualcheckintime + 
 	    '&actualcheckouttime=' + actualcheckouttime + 
 	    '&supplementsprice=' + supplementsprice + 
-	    '&priceperperson=' + priceperperson + 
 	    '&numberofguests=' + numberofguests + 
 	    '&discount='  + discount + 
-	    '&vatamount=' + vatamount + 
-	    '&vatselect=' + vatselect +
 	    '&totalcost=' + totalcost +
 	    '&checkintime=' + checkintime +
 	    '&checkouttime=' + checkouttime + 
@@ -561,10 +555,10 @@ jQuery('#email_client').click(function(e){
 	    '&rentalprice=' + rentalprice +
 	    '&costcode=' + costcode +
 	    '&displayname=' + displayname +
+	    '&incvat=' + incvat +
 	    '&welcomepack=' + welcomepack,
          success:function(result){ 
             	alert('Your email was sent to the client.');
-            	console.log(result);
             	
 		    }
 
@@ -577,7 +571,13 @@ jQuery('#email_client').click(function(e){
 ********************/	
 
 jQuery('#email_operator').click(function(e){
-	var siteUrl = siteUrlobject.siteUrl+'/wp-admin/admin-ajax.php';
+
+		jQuery('#incvat').on('click', function () {
+		    jQuery(this).val(this.checked ? true : false);	    
+		});
+		if (jQuery('#incvat').prop('checked')==true) {var incvat = 'true'} else {var incvat = 'false'}
+
+		var siteUrl = siteUrlobject.siteUrl+'/wp-admin/admin-ajax.php';
 		var buttonid = this.id;
 		var bookingtype = jQuery('#bookingtype').val();
 		var useremail = jQuery('#useremail').attr('value');
@@ -604,19 +604,13 @@ jQuery('#email_operator').click(function(e){
 		var actualcheckintime = jQuery('#actualcheckintime').val();	
 		var actualcheckouttime = jQuery('#actualcheckouttime').val();		
 		var supplementsprice = jQuery('#supplementsprice').val();
-		var priceperperson = jQuery('#priceperperson').val();
 		var numberofguests = jQuery('#numberofguests').val();	
 		var discount = jQuery('#discount').val();
 		var rentalprice = jQuery('#rentalprice').val();
-		var vatamount = jQuery('#vatamount').val();
 		var totalcost = jQuery('#totalcost').val();
 		var costcode = jQuery('#costcode').val();
 		var displayname = jQuery('#displayname').val();
 		var welcomepack = jQuery('#welcomepack').val();
-		var vatselect = jQuery('#vatselect').prop('checked');
-		var ownerprice = jQuery('#ownerprice').val();
-
-		console.log(terms);
 	
 	
 	jQuery.ajax({
@@ -645,12 +639,10 @@ jQuery('#email_operator').click(function(e){
 	    '&leavingdate=' + leavingdate + 
 	    '&actualcheckintime=' + actualcheckintime + 
 	    '&actualcheckouttime=' + actualcheckouttime + 
-	    '&supplementsprice=' + supplementsprice + 
-	    '&priceperperson=' + priceperperson + 
+	    '&supplementsprice=' + supplementsprice +  
 	    '&numberofguests=' + numberofguests + 
 	    '&discount='  + discount + 
 	    '&vatamount=' + vatamount + 
-	    '&vatselect=' + vatselect +
 	    '&totalcost=' + totalcost +
 	    '&checkintime=' + checkintime +
 	    '&checkouttime=' + checkouttime + 
@@ -658,10 +650,10 @@ jQuery('#email_operator').click(function(e){
 	    '&rentalprice=' + rentalprice +
 	    '&costcode=' + costcode +
 	    '&displayname=' + displayname +
+	    '&incvat=' + incvat +
 	    '&welcomepack=' + welcomepack,
          success:function(result){ 
             	alert('Your email was sent to the Operator.');
-            	console.log(operatoremail);
             	
 		    }
 

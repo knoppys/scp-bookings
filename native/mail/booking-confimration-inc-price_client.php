@@ -37,21 +37,25 @@ function implement_ajax_email_client(){
                 $costcodetext = '';
             }
 
-            //Check to see if there are suppliments
+
+            //Check to see if there are Supplements
+            /*
             if (($_POST['supplementsprice'])) {
                 $suplementtext   = '<tr>
                                         <td style="width:250px;"valign="middle">
-                                            <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Suppliments</p></strong> 
-                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.($_POST['supplementstext']).'</p>
+                                            <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Supplements</p></strong> 
+                                            <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.($_POST['supplementstext']).'</p>
                                         </td>
                                         <td style="width:250px;"valign="middle">  
-                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">&pound;'.($_POST['supplementsprice']).'</p>                                          
+                                            <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">&pound;'.($_POST['supplementsprice']).'</p>                                          
                                         </td>
                                     </tr>';
             } else {
                 $suplementtext   = '';
             }
+           */
 
+            
             //Check to see if there is a discount
             if (($_POST['discount'])) {
                 $discounttext   = '<tr>
@@ -65,13 +69,7 @@ function implement_ajax_email_client(){
             } else {
                 $discounttext   = '';
             }
-
-            //Get the nightly rate label
-            if ($bookingtype == ('Corporate')) {
-                $ratelabel = ''.$ratelabel.'';
-            } else {
-                $ratelabel = 'Price per person, per night';
-            }
+            
 
             /**
             HTML Email Elements
@@ -111,20 +109,21 @@ function implement_ajax_email_client(){
                 $interval = $datetime1->diff($datetime2);
                 $numberofnights = $interval->format('%a nights');
 
-                //Get the right nightly rate field
-                if (($_POST['bookingtype'])==('Corporate')) {
-                    $nightlyratetext = (($_POST['rentalprice']));
-                } else {
-                    $nightlyratetext = (($_POST['priceperperson']));
-                }
+                  //get the number of nights
+                $datetime1 = new DateTime(($_POST['arrivaldate']));
+                $datetime2 = new DateTime(($_POST['leavingdate']));
+                $interval = $datetime1->diff($datetime2);
+                $numberofnights = $interval->format('%a nights');
 
-                //Get the right total cost field
-                if (($_POST['bookingtype'])==('Corporate')) {
-                    $totalcosttext = ($_POST['totalcost']);
+                //Get the right nightly rate text
+                //Get the right total cost text
+                if (($_POST['incvat'])!==('true')) {
+                    $nightlyratetext = ($_POST['rentalprice']).' &#43;VAT';
+                    $totalcosttext = ($_POST['totalcost']).' &#43;VAT';
                 } else {
+                    $nightlyratetext = ($_POST['rentalprice']);
                     $totalcosttext = ($_POST['totalcost']);
                 }
-
 
                 //the chekin time
                 if (($_POST['actualcheckintime'])) {
@@ -138,14 +137,21 @@ function implement_ajax_email_client(){
                     $theouttime = ($_POST['actualcheckouttime']);
                 } else {
                     $theouttime = ($_POST['checkouttime']);
+                }      
+
+                //Get the nightly rate label
+                if (($_POST['bookingtype']) == 'Corporate') {
+                    $ratelabel = 'Price Per Night';
+                } else {
+                    $ratelabel = 'Price per person, per night';
                 }
 
-                if (($_POST['bookingtype']) == 'Corporate') {
-                    $vatselecttext = ' &#43;VAT';
+                //location text
+                if ($aprtmentlocation == $aprtmentlocation2) {
+                    $locationtext = $aprtmentlocation . '<br>';
                 } else {
-                    $vatselecttext = '';
-                }         
-
+                    $locationtext = $aprtmentlocation . '<br>' . $aprtmentlocation2 . '<br>';
+                }
 
         /**
             Build the email
@@ -200,7 +206,7 @@ function implement_ajax_email_client(){
                                         <td style="width:250px;"valign="top">                                            
                                             <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Apartment Name</p></strong>
                                            <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">' . $titletext . '<br>
-                                            <a href="'.$permalink.'">View apartment information</a><br>
+                                            <a target="_blank"href="'.$page->guid.'">View apartment information</a><br>
                                             <a href="https://www.google.co.uk/maps/place/'.$apartmentpostcode.'">Get directions</a>
                                             </p>
 
@@ -208,7 +214,8 @@ function implement_ajax_email_client(){
                                         </td>
                                         <td style="width:250px;"valign="top">
                                             <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Apartment Address</p></strong>
-                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">' . $apartmentaddress . '<br>' . $aprtmentlocation . '<br>' . $aprtmentlocation2 . '<br>' . $apartmentstate . '<br/>' . $apartmentpostcode . '&nbsp;' . $country . '</p>
+                                            '.$available.'
+                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">' . $apartmentaddress . '<br>' . $locationtext . $apartmentstate . '<br/>' . $apartmentpostcode . '&nbsp;' . $apartmentcountry . '</p>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -285,18 +292,18 @@ function implement_ajax_email_client(){
                                             <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$ratelabel.'</p></strong> 
                                         </td>
                                         <td style="width:250px;"valign="middle" style="width:50%;">  
-                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">&pound;'. round($nightlyratetext, 2) . $vatselecttext .'</p>                                          
+                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">&pound;'. $nightlyratetext .'</p>                                          
                                         </td>
                                     </tr>
                                     '.$discounttext.'
-                                    '.$costcodetext.'
-                                    '.$suplementtext.'
+                                    '.$costcodetext.' 
+                                    '.$suplementtext.'                                 
                                     <tr>
                                        <td style="width:250px;"valign="middle">
                                             <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Total Cost</p></strong>
                                         </td>
                                         <td style="width:250px;"valign="middle">  
-                                          <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">&pound;'. round($totalcosttext, 2) . $vatselecttext .'</p>                                     
+                                          <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">&pound;'. $totalcosttext .'</p>                                     
                                         </td>
                                     </tr>
                                 </tbody>
@@ -393,7 +400,7 @@ function implement_ajax_email_client(){
             </body>
             </html>';
 
-        $subject = 'Booking Confirmation';
+        $subject = 'Booking Confirmation :: '.($_POST['guestname']);
         $headers .= "Content-type: text/html;charset=utf-8\n";
         $headers .= "X-Priority: 3\n";
         $headers .= "X-MSMail-Priority: Normal\n";

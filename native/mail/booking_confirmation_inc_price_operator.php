@@ -22,9 +22,7 @@ function implement_ajax_email_operator(){
                 $titletext = ($_POST['displayname']);
             } else {
                 $titletext = ($_POST['title']);
-            }
-
-            
+            }            
 
             //Check to see if there is a cost code
             if (($_POST['costcode'])) {
@@ -41,6 +39,7 @@ function implement_ajax_email_operator(){
             }
 
             //Check to see if there are Supplements
+            /*
             if (($_POST['supplementsprice'])) {
                 $suplementtext   = '<tr>
                                         <td style="width:250px;"valign="middle">
@@ -54,6 +53,7 @@ function implement_ajax_email_operator(){
             } else {
                 $suplementtext   = '';
             }
+            */
 
             //Check to see if there is a discount
             if (($_POST['discount'])) {
@@ -102,23 +102,25 @@ function implement_ajax_email_operator(){
                         $areainformationtext = '';
                     }
 
-                //get the number of nights
+               //get the number of nights
                 $datetime1 = new DateTime(($_POST['arrivaldate']));
                 $datetime2 = new DateTime(($_POST['leavingdate']));
                 $interval = $datetime1->diff($datetime2);
                 $numberofnights = $interval->format('%a nights');
 
-                //Get the right nightly rate field
-                if (($_POST['bookingtype'])==('Corporate')) {
-                    $nightlyratetext = (($_POST['rentalprice']));
-                } else {
-                    $nightlyratetext = (($_POST['priceperperson']));
-                }
+                  //get the number of nights
+                $datetime1 = new DateTime(($_POST['arrivaldate']));
+                $datetime2 = new DateTime(($_POST['leavingdate']));
+                $interval = $datetime1->diff($datetime2);
+                $numberofnights = $interval->format('%a nights');
 
-                //Get the right total cost field
-                if (($_POST['bookingtype'])==('Corporate')) {
+                //Get the right nightly rate text
+                //Get the right total cost text
+                if (($_POST['incvat'])!==('true')) {
+                    $nightlyratetext = ($_POST['rentalprice']).' &#43;VAT';
                     $totalcosttext = ($_POST['totalcost']).' &#43;VAT';
                 } else {
+                    $nightlyratetext = ($_POST['rentalprice']);
                     $totalcosttext = ($_POST['totalcost']);
                 }
 
@@ -134,17 +136,20 @@ function implement_ajax_email_operator(){
                     $theouttime = ($_POST['actualcheckouttime']);
                 } else {
                     $theouttime = ($_POST['checkouttime']);
-                }
-
-                if (($_POST['vatselect']) == true) {
-                    $vatselecttext = ' &#43;VAT';
-                }
+                }      
 
                 //Get the nightly rate label
-                if (($_POST['bookingtype'])==('Corporate')) {
-                    $ratelabel = ''.$ratelabel.'';
+                if (($_POST['bookingtype']) == 'Corporate') {
+                    $ratelabel = 'Price Per Night';
                 } else {
                     $ratelabel = 'Price per person, per night';
+                }
+
+                //location text
+                if ($aprtmentlocation == $aprtmentlocation2) {
+                    $locationtext = $aprtmentlocation . '<br>';
+                } else {
+                    $locationtext = $aprtmentlocation . '<br>' . $aprtmentlocation2 . '<br>';
                 }
 
         /**
@@ -184,21 +189,21 @@ function implement_ajax_email_operator(){
                                     </tr>
                                 </tbody>
                             </table>
-                            <p></p>                            
+                           <p></p>                            
                             <table style="background:#eee;border:1px solid #a2a2a2;border-radius:5px;margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif; max-width:500px; width:100%">
                                 <tbody>                                   
 
                                     <!-- Apartment details -->
                                     <tr>
                                         <td colspan="2" valign="middle" style="background:#d2d2d2;text-align:center;border-radius:4px;">
-                                            <p style="margin:3px;padding:4px 0;font-size:15px;font-weight:bold;">Apartment Details</p>
+                                           <p style="margin:3px;padding:4px 0;font-size:15px;font-weight:bold;">Apartment Details</p>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td style="width:250px;"valign="top">                                            
                                             <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Apartment Name</p></strong>
-                                            <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">' . $titletext . '<br>
-                                            <a href="'.$permalink.'">View apartment information</a><br>
+                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">' . $titletext . '<br>
+                                            <a target="_blank"href="'.$page->guid.'">View apartment information</a><br>
                                             <a href="https://www.google.co.uk/maps/place/'.$apartmentpostcode.'">Get directions</a>
                                             </p>
 
@@ -206,7 +211,8 @@ function implement_ajax_email_operator(){
                                         </td>
                                         <td style="width:250px;"valign="top">
                                             <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Apartment Address</p></strong>
-                                            <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">' . $apartmentaddress . '<br>' . $aprtmentlocation . '<br>' . $aprtmentlocation2 . '<br>' . $apartmentstate . '<br/>' . $apartmentpostcode . '&nbsp;' . $country . '</p>
+                                            '.$available.'
+                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">' . $apartmentaddress . '<br>' . $locationtext . $apartmentstate . '<br/>' . $apartmentpostcode . '&nbsp;' . $apartmentcountry . '</p>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -268,8 +274,8 @@ function implement_ajax_email_operator(){
                                 </tbody>
                             </table>
 
-                            <p></p>
-                             <!-- Pricing -->
+                             <p></p>
+                            <!-- Pricing -->
                             <table style="background:#eee;border:1px solid #a2a2a2;border-radius:5px;margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif; max-width:500px; width:100%">
                                 <tbody>
                                     <!-- Apartment details -->
@@ -277,17 +283,28 @@ function implement_ajax_email_operator(){
                                         <td colspan="2" valign="middle" style="background:#d2d2d2;text-align:center;border-radius:4px;">
                                            <p style="margin:3px;padding:4px 0;font-size:15px;font-weight:bold;">Price</p>
                                         </td>
-                                    </tr>                                                            
+                                    </tr>
+                                    <tr>
+                                        <td style="width:250px;"valign="middle" style="width:50%;">
+                                            <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$ratelabel.'</p></strong> 
+                                        </td>
+                                        <td style="width:250px;"valign="middle" style="width:50%;">  
+                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">&pound;'. $nightlyratetext .'</p>                                          
+                                        </td>
+                                    </tr>
+                                    '.$discounttext.'
+                                    '.$costcodetext.'
+                                    '.$suplementtext.'
                                     <tr>
                                        <td style="width:250px;"valign="middle">
-                                            <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Owner Price</p></strong>
+                                            <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Total Cost</p></strong>
                                         </td>
                                         <td style="width:250px;"valign="middle">  
-                                          <p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">&pound;'.($_POST['ownerprice']).'</p>                                     
+                                          <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">&pound;'. $totalcosttext .'</p>                                     
                                         </td>
-                                    </tr>                                                                   
+                                    </tr>
                                 </tbody>
-                            </table>                    
+                            </table>                       
 
                             <p></p>
                            <!-- Arrival Process -->
@@ -378,7 +395,7 @@ function implement_ajax_email_operator(){
 
             </table>';
 
-        $subject = 'Booking Confirmation';
+        $subject = 'Booking Confirmation :: '.($_POST['guestname']);
         $headers .= "Content-type: text/html;charset=utf-8\n";
         $headers .= "X-Priority: 3\n";
         $headers .= "X-MSMail-Priority: Normal\n";
