@@ -61,7 +61,11 @@ function apartmentlocation_meta_box_callback( $post ) {
             <tr>
                 <td>
 
-                
+                <?php
+                $test = get_post_meta($post->ID);
+                echo '<pre>' . print_r($test) . '</pre>';
+                //echo $test['apartmentname'][0];
+                ?>
                    
                    <!-- Location Table -->
                     <table cellpadding="0" cellspacing="0" border="0" width="100%" class="bookings-aligntop container-table">

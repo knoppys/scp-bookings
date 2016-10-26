@@ -198,12 +198,22 @@ jQuery(document).ready(function(){
 		timepicker: false
 	})	
 	jQuery('#actualcheckintime').datetimepicker({
-		format:'d.m.Y',
+		format:'H:i',
 		datepicker: false,
 		timepicker: true
 	})	
 	jQuery('#actualcheckouttime').datetimepicker({
-		format:'d.m.Y',
+  		format:'H:i',
+  		datepicker: false,
+		timepicker: true
+	})
+	jQuery('#apptchekintime').datetimepicker({
+		format:'H:i',
+		datepicker: false,
+		timepicker: true
+	})	
+	jQuery('#apptchekouttime').datetimepicker({
+		format:'H:i',
 		datepicker: false,
 		timepicker: true
 	})	

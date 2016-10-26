@@ -181,7 +181,7 @@ function implement_ajax() {
 		    	$checkintime = get_post_meta($page->ID, 'apptchekintime', true );
 		    };
 
-		    if(empty(get_post_meta($page->ID, 'apptcheckouttime', true ))){
+		    if(empty(get_post_meta($page->ID, 'apptchekouttime', true ))){
 		    	$checkouttime = 'No Data Available';
 		    }else{
 		    	$checkouttime = get_post_meta($page->ID, 'apptchekouttime', true );

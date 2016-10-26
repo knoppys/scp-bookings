@@ -17,6 +17,3 @@ Installation:
 
 == Screenshots ==
 n/A
-
-== Changelog ==
-3.0.5 = Corrected a bug where the Arrival Process wasnt showing on the Client Confirmation 

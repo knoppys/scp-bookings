@@ -323,7 +323,7 @@ function customer_query_ajax() {
 				  var pricestring = [];
 				  var name = jQuery('#name').val();		  
 				  var email = jQuery('#email').val();
-				  var reseller = jQuery('#reseller').val();
+				  var reseller = jQuery('#reseller option:selected').attr('id');
 
 				  	//generate the string of post ID's for the next query
 				 	jQuery('.apartment-entry-container:has(input:checked)').each(function() {				 		
@@ -336,7 +336,6 @@ function customer_query_ajax() {
 					   var commstr = jQuery(this).find('textarea').val().replace(/\n\r?/g, '<br>');
 					   commentsstring += commentsstring.length > 0 ? '%%' + commstr : commstr;                   
 					});
-
 					
 					//generate the string of prices for the next query
 					jQuery('.apartment-entry-container').each(function() {					   
@@ -346,8 +345,7 @@ function customer_query_ajax() {
 
 					//Test the values sent to the mail function.					
 					//console.log('postidstring=' + postidstring+'/ commentsstring='+commentsstring + ' /pricestring=' +pricestring);
-			
-				 	
+									 	
 					//send everything off to the next function
 					var siteUrl = siteUrlobject.siteUrl+'/wp-admin/admin-ajax.php';
 					jQuery.ajax({
@@ -359,7 +357,7 @@ function customer_query_ajax() {
 				      		alert('Your message has been sent.');
 				      		
 				    	}
-				  	});	
+				  	});				  	
 				  	
 				});	
 

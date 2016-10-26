@@ -1,4 +1,9 @@
 Changelog
+V4.6
+- Customer Query
+Email template generator changed from the use of get_posts() to WP_Query and all seems to be working fine. 
+Still need to fix a bug in the reseller email. 
+
 V4.5
 - BOOKING PROCESS
 - Update the booking process to include new fields and reduce some of the extra unwanted VAT calculation tools.
