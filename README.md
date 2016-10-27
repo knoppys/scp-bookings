@@ -1,11 +1,17 @@
 Changelog
+V4.7
+Customer Query
+- Added conditional display check for Listin Price and Additional Comments. 
+- Fixed bug with $comments display string.
+- Added pre_replace() to remove all in line stying from $description in the email template. 
+
 V4.6
 - Customer Query
 Email template generator changed from the use of get_posts() to WP_Query and all seems to be working fine. 
 Still need to fix a bug in the reseller email. 
 
 V4.5
-- BOOKING PROCESS
+BOOKING PROCESS
 - Update the booking process to include new fields and reduce some of the extra unwanted VAT calculation tools.
 - The Custom VAT Value field has been removed
 - The VAT Select Checkbox has been removed
@@ -19,13 +25,13 @@ V4.5
 - NOTE: We may have to look into the reporting to check to make sure the reports take into account the single use meta field. 
 
 V4
-- The new customer query tool is complete. Users can now send correctly formatted emails over to clients and the reseller tool also works. In addition, unpublished / pending apartments in the search results now have a request update button. This sends an email to Bryony to update the apartment and make it avaiable to send in emails.
+The new customer query tool is complete. Users can now send correctly formatted emails over to clients and the reseller tool also works. In addition, unpublished / pending apartments in the search results now have a request update button. This sends an email to Bryony to update the apartment and make it avaiable to send in emails.
 
 V3.9
-- Revamp of the Customer Query System. Requires testing by the client but both the SCP and Reseller Emails seem to be working fine. 
+Revamp of the Customer Query System. Requires testing by the client but both the SCP and Reseller Emails seem to be working fine. 
 
 V3.8.5
-- Bug fix incorrect meta showing on the city guides page. 
+Bug fix incorrect meta showing on the city guides page. 
 
 V3.8.4
-- Bug fix where the address was not showing. This seemed to be fixed when i changed the PHP variable names in the get+page _by_title function on both the client confirmation (local and email) and operator confirmatio
+Bug fix where the address was not showing. This seemed to be fixed when i changed the PHP variable names in the get+page _by_title function on both the client confirmation (local and email) and operator confirmatio

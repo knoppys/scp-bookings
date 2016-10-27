@@ -16,7 +16,7 @@ function implement_ajax_apartmentsearchemail() {
             $name = ($_POST['name']);
             $subject = 'Our Recommendations.';
             $postidstring = ($_POST['postidstring']);  
-            $commentsstring = ($_POST['commentsstring']) ;
+            $commentsstring = ($_POST['commentsstring']);
             $reseller = ($_POST['reseller']);
             $pricestring = ($_POST['pricestring']);
 

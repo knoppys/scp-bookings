@@ -136,7 +136,7 @@ function customer_query_ajax() {
 
 							?>
 
-								<td width="33%" id="<?php echo $i; ?>">
+								<td class="removethis" width="33%" id="<?php echo $i; ?>">
 									
 									<div class="apartment-entry-container">
 									<input type="hidden" name="username" class="username" value="<?php echo $username ;?>">
@@ -167,14 +167,12 @@ function customer_query_ajax() {
 		                    							if ($price >= 1) {
 		                    								echo '<p class="pricestring"><strong>Price: &pound;' . $price . '</strong></p>';
 		                    							} else {
-		                    								echo '<p class="pricestring">No price available, please call for a quote.</p>';
+		                    								echo '<p class="pricestring">No price available</p>';
 		                    							}
 		                    							
 		                    							?>	
 		                    							<p>Additional Pricing Information</p>	                    							
-		                    							<textarea style="display:none;background: none; width:100%" id="additionalinfo" rows="5" style="width:100%;">
-		                    								
-		                    							</textarea>
+		                    							<textarea style="display:none;background: none; width:100%" id="additionalinfo" rows="5" style="width:100%;"></textarea>
 		                    							<p><strong>Overview</strong></p>          							
 		                    							<p>Location: <?php echo $apptlocation1; ?><br/>
 		                    							Bedrooms: <?php echo $bedrooms; ?><br/>
@@ -196,12 +194,10 @@ function customer_query_ajax() {
 		                    								</p>		
 		                    							</div>
 		                    							<input type="hidden" id="postid" value="<?php echo get_the_ID(); ?>">
-		                    							<script type="text/javascript">
-		                    								
-																jQuery('.additionalinfotoggle').on('click',function(){
-																	jQuery(this).closest('td.pricingentry').find('#additionalinfo').show();
-																});
-														
+		                    							<script type="text/javascript">		                    								
+															jQuery('.additionalinfotoggle').on('click',function(){
+																jQuery(this).closest('td.pricingentry').find('#additionalinfo').show();
+															});														
 		                    							</script>                    							
 		                    						</td> 
 		                    						
@@ -327,7 +323,7 @@ function customer_query_ajax() {
 				
 
 				  	//generate the string of post ID's for the next query
-				 	jQuery('.apartment-entry-container:has(input:checked)').each(function() {				 		
+				 	jQuery('.apartment-entry-container:has(input:checked)').each(function() {				 	
 					   	var idstr = jQuery(this).find('input[type=checkbox]').val();
 					   	postidstring += postidstring.length > 0 ? ',' + idstr : idstr;   
 				    });
@@ -335,8 +331,10 @@ function customer_query_ajax() {
 				 	//generate the string of comments for the next query
 					jQuery('.apartment-entry-container').each(function() {					   
 					   var commstr = jQuery(this).find('textarea').val().replace(/\n\r?/g, '<br>');
-					   commentsstring += commentsstring.length > 0 ? '%%' + commstr : commstr;                   
+					   commentsstring += commentsstring.length >= 0 ?  commstr + '%': commstr;                   
 					});
+
+					console.log(commentsstring);
 					
 					//generate the string of prices for the next query
 					jQuery('.apartment-entry-container').each(function() {					   
@@ -358,7 +356,7 @@ function customer_query_ajax() {
 					    success: function(result) {
 				      		//got it back, now assign it to its fields.                     
 				      		alert('Your message has been sent.');
-				      		console.log(result);
+				      		//console.log(result);
 				      		
 				    	}
 				  	});				  	

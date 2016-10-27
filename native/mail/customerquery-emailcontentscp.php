@@ -5,7 +5,7 @@ function emailcontentscp($postidstring, $commentsstring, $pricestring, $name){
     $postsin = explode(',', $postidstring);  
 
     //create an array from the $comments string
-    $commentsarray = explode('%%',$commentsstring);
+    $commentsarray = explode('%',$commentsstring);
 
     //create an array from the $price string
     $pricearray = explode(',', $pricestring);
@@ -20,7 +20,6 @@ function emailcontentscp($postidstring, $commentsstring, $pricestring, $name){
     ob_start();   
     ?>
     
-
     <html xmlns="http://www.w3.org/1999/xhtml">
 
         <head>
@@ -40,7 +39,7 @@ function emailcontentscp($postidstring, $commentsstring, $pricestring, $name){
                                 <tbody>
                                     <tr>
                                         <td valign="top" width="300" height="95">
-                                            <img src="http://www.servicedcitypads.com/wp-content/themes/servicedcitypads/images/logo-email.PNG" style="margin: 0;padding: 0;max-width: 300px;width:100%;">
+                                            <img src="http://www.servicedcitypads.com/wp-content/themes/servicedcitypads/images/logo-email.PNG" style="margin: 0;padding: 0;max-width: 300px;width:95%;">
                                         </td>
                                         <td valign="middle">
                                             <h2 style="font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;color:#ffffff;">Our Recommendations</h2>
@@ -51,9 +50,9 @@ function emailcontentscp($postidstring, $commentsstring, $pricestring, $name){
                                         <td valign="top" colspan="2">
                                         <p style="margin:3px;border-bottom:1px solid #fff;"></p>
                                         <p></p>
-                                            <p style="margin:3px;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;color:#fff;">Dear <?php echo ($_POST['name']); ?></p>
-                                            <p style="margin:3px;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;color:#fff;">Thank you for your interest in Serviced City Pads</p>
-                                            <p style="margin:3px;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;color:#fff;">Please find a list of our recommended apartments below.</p>                                           
+                                            <p style="font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;margin:3px;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;color:#fff;">Dear <?php echo ($_POST['name']); ?></p>
+                                            <p style="font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;margin:3px;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;color:#fff;">Thank you for your interest in Serviced City Pads</p>
+                                            <p style="font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;margin:3px;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;color:#fff;">Please find a list of our recommended apartments below.</p>                                           
                                         </td>
                                     </tr>
                                 </tbody>
@@ -85,17 +84,28 @@ function emailcontentscp($postidstring, $commentsstring, $pricestring, $name){
                                     </tr>
                                     <tr>
                                         <td class="pricingentry" width="100%">
-                                            <h4><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>
-                                            <p><strong>Listing Price: <?php echo $pricearray[$i]; ?></strong></p>
-                                            <p><strong>Additional Pricing Information</strong></p>
-                                            <?php echo $commentsarray[$i]; ?><br/>                                                                                     
-                                            <p><strong>Overview</strong></p>                                    
-                                            <p>Location: <?php echo $meta['apptlocation1'][0]; ?><br/>
-                                            Bedrooms:<?php echo $meta['bedrooms'][0]; ?><br/>
+                                            <h4 style="font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>                                            
+                                            <?php
+                                            if ($pricearray[$i] != 'No price available') {
+                                                echo '<p style="font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;"><strong>Listing Price</strong></p>';
+                                                echo '<p style="font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;">'.$pricearray[$i].'</p>';
+                                            }
+                                            ?>  
+                                            <?php
+                                            if ($commentsarray[$i] != '') {
+                                                echo '<p style="font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;"><strong>Additional Pricing Information</strong></p>';
+                                                echo '<p style="font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;">'.$commentsarray[$i].'</p>';
+                                            }
+                                            ?>                                              
+                                            <p style="font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;"><strong>Overview</strong></p>                                    
+                                            <p style="font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;">Location: <?php echo $meta['apptlocation1'][0]; ?><br/>
+                                            Bedrooms: <?php echo $meta['bedrooms'][0]; ?><br/>
                                             Bathrooms: <?php echo $meta['bathrooms'][0]; ?><br/>
                                             Sleeps: <?php echo $meta['sleeps'][0]; ?></p>
-                                            <p><strong>Description</strong></p>                                                     
-                                            <?php echo $meta['description'][0]; ?>                                                                                                                                          
+                                            <p style="font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;"><strong>Description</strong></p>                                                     
+                                            <?php 
+                                            echo preg_replace('/(<[^>]*) style=("[^"]+"|\'[^\']+\')([^>]*>)/i', '', $meta['description'][0]);
+                                            ?>                                                                                                                                          
                                         </td>                                     
                                     </tr>
                                 </tbody>
@@ -110,14 +120,14 @@ function emailcontentscp($postidstring, $commentsstring, $pricestring, $name){
                                 <tbody>
                                     <tr>
                                         <td colspan="2" valign="middle" style="background:#d2d2d2;text-align:center;border-radius:4px;">
-                                            <p style="margin:3px;padding:4px 0;font-size:15px;font-weight:bold;">Contact Info</p>
+                                            <p style="font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;margin:3px;padding:4px 0;font-size:15px;font-weight:bold;">Contact Info</p>
                                         </td>
                                     </tr> 
                                     <tr>
                                         <td valign="top" colspan="2" style="text-align:center;">
-                                            Phone : 0844 335 8866<br>
+                                            <p style="font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;">Phone : 0844 335 8866<br>
                                             Email : <a href="mailto:reservations@servicedcitypads.com">Reservations and Bookings</a><br>
-                                            Web : <a href="http://www.servicedcitypads.com">servicedcitypads.com</a>
+                                            Web : <a href="http://www.servicedcitypads.com">servicedcitypads.com</a></p>
                                         </td>
                                     </tr>   
                                     <tr>
