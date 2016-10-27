@@ -11,7 +11,7 @@ function emailcontentscp($postidstring, $commentsstring, $pricestring, $name){
     $pricearray = explode(',', $pricestring);
     
     //get all the posts required to fill the email template
-    $args = array ('post__in' => $postsin,'post_type' => array( 'apartments' ));        
+    $args = array ('post__in' => $postsin,'post_type' => array( 'apartments' ), 'posts_per_page'=>-1);        
     $query = new WP_Query( $args );
     
     /****************************************/
