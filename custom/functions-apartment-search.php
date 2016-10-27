@@ -249,7 +249,7 @@ function customer_query_ajax() {
 			                        $resellerquery = new WP_Query( $resellerargs );
 			                        if ( $resellerquery->have_posts() ) {  
 			                            echo '<select class="widefat" id="reseller">';
-			                            echo '<option value="">Please Select</option>';
+			                            echo '<option id="none" value="">Please Select</option>';
 			                            while ( $resellerquery->have_posts() ) { $resellerquery->the_post();  ?>                                
 			                                <option class="widefat reseller-item" name="reseller" value="<?php echo the_title(); ?>" id="<?php echo get_the_id(); ?>" name="<?php echo the_title(); ?>">                               
 			                                    <?php echo the_title(); ?>
@@ -324,6 +324,7 @@ function customer_query_ajax() {
 				  var name = jQuery('#name').val();		  
 				  var email = jQuery('#email').val();
 				  var reseller = jQuery('#reseller option:selected').attr('id');
+				
 
 				  	//generate the string of post ID's for the next query
 				 	jQuery('.apartment-entry-container:has(input:checked)').each(function() {				 		
@@ -345,8 +346,10 @@ function customer_query_ajax() {
 
 					//Test the values sent to the mail function.					
 					//console.log('postidstring=' + postidstring+'/ commentsstring='+commentsstring + ' /pricestring=' +pricestring);
+					//console.log(reseller);
 									 	
 					//send everything off to the next function
+					
 					var siteUrl = siteUrlobject.siteUrl+'/wp-admin/admin-ajax.php';
 					jQuery.ajax({
 					    url: siteUrl,
@@ -355,9 +358,11 @@ function customer_query_ajax() {
 					    success: function(result) {
 				      		//got it back, now assign it to its fields.                     
 				      		alert('Your message has been sent.');
+				      		console.log(result);
 				      		
 				    	}
 				  	});				  	
+				  	
 				  	
 				});	
 

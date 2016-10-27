@@ -36,7 +36,7 @@ function emailcontentscp($postidstring, $commentsstring, $pricestring, $name){
                         <td valign="top">
 
                             <!-- the company logo -->
-                            <table align="center" style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif; max-width:500px; width:100%">
+                            <table align="center" style="margin: 0px;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif; max-width:500px; width:100%">
                                 <tbody>
                                     <tr>
                                         <td valign="top" width="300" height="95">
