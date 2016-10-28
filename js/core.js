@@ -151,20 +151,16 @@ jQuery(document).ready(function(){
     });
 })
 
-
 jQuery(document).ready(function() {
 	jQuery.fn.dataTable.moment( 'DD.MM.YYYY' );
-    jQuery.fn.dataTable.moment( 'DD.MMMM' );
-    jQuery.fn.dataTable.moment( 'MMMM DD, YY' );
+    jQuery.fn.dataTable.moment( 'DD.MM.YY' );
+
     jQuery('.bookingstable').DataTable({
 	        "order": [[ 7, "desc" ]],
 	        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],	        
 		    "iDisplayLength": -1	        
 	    });
 });
-
-
-
 	jQuery(document).ready(function(){
 		jQuery ("#booking-container").steps({
 		    headerTag: "h3",
