@@ -158,7 +158,7 @@ jQuery(document).ready(function() {
     jQuery('.bookingstable').DataTable({
 	        "order": [[ 7, "desc" ]],
 	        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],	        
-		    "iDisplayLength": -1	        
+		    "iDisplayLength": 60	        
 	    });
 });
 	jQuery(document).ready(function(){

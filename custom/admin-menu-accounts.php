@@ -3,20 +3,15 @@ function accountslistings_callback(){
 	function ignore_divide_by_zero($errno, $errstring){
 		return ($errstring == 'Division by zero');}
 		set_error_handler('ignore_divide_by_zero', E_WARNING);
-
 		global $post; 
-
 		echo '<div class="wrap">';
 		echo '<h2>SCP Bookings</h2>';
 		echo '<h3>Accounts</h3>';
 		$args = array (
-			'nopaging'	=> false,
 			'post_type'	=>'bookings',
-			'posts_per_page'	=> '100',
+			'posts_per_page'	=> '-1',
 		);
-
 		$apartmentsquery = new WP_Query( $args );
-
 			//get the apartments
 		if ( $apartmentsquery->have_posts() ) { ?>
 			<table style="width:100%;" class="bookingstable postbox">
@@ -64,7 +59,6 @@ function accountslistings_callback(){
 				</thead>
 				<tbody>
 				<?php  while ( $apartmentsquery->have_posts() ) { $apartmentsquery->the_post(); 
-
 						$datetime1 = new DateTime(get_post_meta($post->ID, 'arrivaldate', true));
 						$datetime2 = new DateTime(get_post_meta($post->ID, 'leavingdate', true));
 						$interval = $datetime1->diff($datetime2);	
@@ -79,33 +73,23 @@ function accountslistings_callback(){
 						$noofguests = get_post_meta($post->ID, 'numberofguests', true);
 						
 						$ownerprice = get_post_meta($post->ID, 'ownerprice', true);
-
 						if($bookingtype == 'Corporate') {                                                       
 							$ppn = get_post_meta($post->ID, 'rentalprice', true);
 						} elseif ($bookingtype == 'Groups' || ($bookingtype == 'Leisure')) {				                       
 							$ppn = get_post_meta($post->ID, 'priceperperson', true);
 						}
-
 						$priceanight = $ppn;	
-
 						$totalcost = get_post_meta( $post->ID, 'totalcost', true);
-
 						$pricepnowner = $ownerprice / $numberofnights;
-
 						$operatorname = get_post_meta( $post->ID, 'operatorname', true );
-
 						$clientname = get_post_meta( $post->ID, 'clientname', true );
-
 						$operatorobject = get_page_by_title( $operatorname, OBJECT, 'operators' );
-
 						$clientname = get_post_meta( $post->ID, 'clientname', true );
-
 						if (!empty(get_post_meta( $post->ID, 'actualcheckintime', true ))) {
 							$checkintime = get_post_meta($post->ID,'actualcheckintime',true);
 						} else {
 							$checkintime = get_post_meta($post->ID,'checkintime',true);
 						}
-
 						if (!empty(get_post_meta( $post->ID, 'actualcheckouttime', true ))) {
 							$checkouttime = get_post_meta($post->ID,'actualcheckouttime',true);
 						} else {
@@ -113,7 +97,6 @@ function accountslistings_callback(){
 						}
 						
 						$clientobject = get_page_by_title( $clientname, OBJECT, 'clients' );	
-
 						?>
 						<tr>
 							<td>
@@ -143,26 +126,5 @@ function accountslistings_callback(){
 							<td>£<?php echo $ownerprice; ?></td>
 						</tr>
 				
-				<?php } } else {} 
-				echo '</tbody>';
-				echo '</table>';
-				$args = array(
-					'base'               => '%_%',
-					'format'             => '?paged=%#%',
-					'total'              => 1,
-					'current'            => 0,
-					'show_all'           => false,
-					'end_size'           => 1,
-					'mid_size'           => 2,
-					'prev_next'          => true,
-					'prev_text'          => __('« Previous'),
-					'next_text'          => __('Next »'),
-					'type'               => 'plain',
-					'add_args'           => false,
-					'add_fragment'       => '',
-					'before_page_number' => '',
-					'after_page_number'  => ''
-				);
-				echo paginate_links( $args );
-				wp_reset_postdata();
+				<?php } } else {}
 }?>

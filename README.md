@@ -1,4 +1,9 @@
 Changelog
+V4.7.1
+- Left debug information on booking listings, this has been removed
+- Pagination has been added to speed up the page overall usage on the Accounts Page, this does  not fix the loading time but improves usability slightly.
+- Space added in booking conformation emails between the date and time
+
 V4.7
 Customer Query
 - Added conditional display check for Listin Price and Additional Comments. 

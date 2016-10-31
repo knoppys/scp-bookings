@@ -231,11 +231,11 @@ function implement_ajax_email_operator(){
                                     <tr>
                                         <td style="width:250px;"valign="top">
                                             <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Check-in Date</p></strong>
-                                            <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">' . ($_POST['arrivaldate']) . '(' . $theintime . ')</p> 
+                                            <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">' . ($_POST['arrivaldate']) . ' (' . $theintime . ')</p> 
                                         </td>
                                         <td style="width:250px;"valign="top">
                                             <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Check-out Date</p></strong>
-                                            <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">' . ($_POST['leavingdate']) . '(' . $theouttime . ')</p> 
+                                            <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">' . ($_POST['leavingdate']) . ' (' . $theouttime . ')</p> 
                                         </td>
                                     </tr>
                                     <tr>

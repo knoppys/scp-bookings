@@ -1160,11 +1160,11 @@ Meta box Contents
                                                                     <tr>
                                                                         <td style="width:250px;"valign="top">
                                                                             <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Check-in Date</p></strong>
-                                                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">' . $arrivaldate . '(' . $theintime . ')</p> 
+                                                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">' . $arrivaldate . ' (' . $theintime . ')</p> 
                                                                         </td>
                                                                         <td style="width:250px;"valign="top">
                                                                             <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Check-out Date</p></strong>
-                                                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">' . $leavingdate . '(' . $theouttime . ')</p> 
+                                                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">' . $leavingdate . ' (' . $theouttime . ')</p> 
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
