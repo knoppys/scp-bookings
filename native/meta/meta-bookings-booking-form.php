@@ -935,10 +935,11 @@ Meta box Contents
    
                 </div>
 
-                <?php 
-    $test = get_post_meta($post->ID);
-    echo '<pre>' . print_r($test) . '</pre>';
-    echo $test['apartmentname'][0];
+                    <?php 
+                    /*
+                    $test = get_post_meta($post->ID);
+                    echo '<pre>' . print_r($test) . '</pre>';
+                    echo $test['apartmentname'][0];
                     /********************************
                     Booking Confirmation
                     ********************************/ 

@@ -9,8 +9,12 @@ function accountslistings_callback(){
 		echo '<div class="wrap">';
 		echo '<h2>SCP Bookings</h2>';
 		echo '<h3>Accounts</h3>';
+		$args = array (
+			'nopaging'	=> false,
+			'post_type'	=>'bookings',
+			'posts_per_page'	=> '100',
+		);
 
-		$args = array ('post_type'=>'bookings','posts_per_page' => -1);
 		$apartmentsquery = new WP_Query( $args );
 
 			//get the apartments
@@ -142,5 +146,23 @@ function accountslistings_callback(){
 				<?php } } else {} 
 				echo '</tbody>';
 				echo '</table>';
+				$args = array(
+					'base'               => '%_%',
+					'format'             => '?paged=%#%',
+					'total'              => 1,
+					'current'            => 0,
+					'show_all'           => false,
+					'end_size'           => 1,
+					'mid_size'           => 2,
+					'prev_next'          => true,
+					'prev_text'          => __('« Previous'),
+					'next_text'          => __('Next »'),
+					'type'               => 'plain',
+					'add_args'           => false,
+					'add_fragment'       => '',
+					'before_page_number' => '',
+					'after_page_number'  => ''
+				);
+				echo paginate_links( $args );
 				wp_reset_postdata();
 }?>
