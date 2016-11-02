@@ -473,7 +473,7 @@ function apartmentdetails_save_meta_box_data( $post_id ) {
     update_post_meta( $post_id, 'internet', $my_data_internet );
     update_post_meta( $post_id, 'lift', $my_data_lift );
     update_post_meta( $post_id, 'bedrooms', $my_data_bedrooms );
-    update_post_meta( $post_id, 'bathrooms', $my_data_bedrooms );
+    update_post_meta( $post_id, 'bathrooms', $my_data_bathrooms );
     update_post_meta( $post_id, 'sleeps', $my_data_sleeps);
     update_post_meta( $post_id, 'livingroom', $my_data_livingroom);
     update_post_meta( $post_id, 'diningroom', $my_data_diningroom);

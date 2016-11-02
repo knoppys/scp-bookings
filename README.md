@@ -1,5 +1,8 @@
 Changelog
 
+V4.8.5
+Bug fix where number of bathrooms and number of bedrooms were both saving as the same meta. 
+
 V4.7.1
 
 Left debug information on booking listings, this has been removed
