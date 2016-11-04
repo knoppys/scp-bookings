@@ -8,7 +8,7 @@ function register_my_custom_submenu_page() {
 	add_submenu_page( 'edit.php?post_type=bookings', 'Reports', 'Reports', 'publish_pages', 'upcomingbookings', 'upcomingbookings_callback' );
 }
 
-http://www.greenmonkeypublicrelations.com/citypads/wp-admin/admin.php?page=mt-top-level-handle
+
 /**
 **********************************
 Upcoming Bookings Tab
@@ -22,59 +22,13 @@ function implement_ajax_search() {
 		} else {
 			$startdate = '01.01.' . date('Y');
 		}
-		//set the date
-		if ( ($_POST['enddate']) ) {
-			$enddate = ($_POST['enddate']);
-		} else {
-			$enddate = '31.12.' . date('Y');
-		}
-		//set the operator name	
-
-
-		$operatorname = ($_POST['operatorname']);
-		//$apartmentname = ($_POST['apartmentname']);
-		//$bookingtype = ($_POST['bookingtype']);
-		//$clientname = ($_POST['clientname']);
-
-	
- 
+		$fromdate = new DateTime($startdate);
 		$args = array( 
 			'post_type' => 'bookings',
 			'posts_per_page' => '-1', 
 			'order'		=> 'ASC',
-			'meta_query' => array(
-				//'relation'=>'AND',
-				/*
-				array(
-					'key' => 'operatorname',
-					'value' => $operatorname,
-					'compare' => 'LIKE'
-					),				
-				array(
-					'key' => 'apartmentname',
-					'value' => $apartmentname,
-					'compare' => 'LIKE'
-					),
-				array( 
-					'key' => 'bookingtype',
-					'value' => $bookingtype,
-					'compare' => 'LIKE'
-					),
-				array( 
-					'key' => 'clientname',
-					'value' => $clientname,
-					'compare' => 'LIKE'
-					),
-				*/
 				
-				),
-				'date_query' => array(
-			        array(
-			            'after' => $startdate,
-			            'before' => $enddate,
-			        ),		
-				),		
-			);
+		);
 
 		
 			// The Query
@@ -89,6 +43,9 @@ function implement_ajax_search() {
 						</th>
 						<th>
 							<p><strong>Arrival Date</strong></p>
+						</th>
+						<th>
+							<p><strong>Nights</strong></p>
 						</th>
 						<th>
 							<p><strong>Booking Type</strong></p>
@@ -140,12 +97,15 @@ function implement_ajax_search() {
 					?>
 				
 					
-						<tr>
+						<tr class="bookingrow">
 							<td>
 								<p><?php the_title(); ?></p>
 							</td>
+							<td class="startdate">
+								<p><?php echo $startdate; ?></p>
+							</td>
 							<td>
-								<p><?php echo $startdate . '&nbsp(' . $numberofnights . ')'; ?></p>
+								<p><?php echo $numberofnights; ?></p>
 							</td>
 							<td>
 								<p><?php echo $bookingtype; ?></p>

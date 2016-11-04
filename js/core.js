@@ -161,26 +161,26 @@ jQuery(document).ready(function() {
 		    "iDisplayLength": 60	        
 	    });
 });
-	jQuery(document).ready(function(){
-		jQuery ("#booking-container").steps({
-		    headerTag: "h3",
-		    bodyTag: "section",
-		    transitionEffect: "slideLeft",
-		    autoFocus: true,
-		    enableAllSteps: true,
-    		enablePagination: false,
-			autoFocus: true
-		});
-	})
+jQuery(document).ready(function(){
+	jQuery ("#booking-container").steps({
+	    headerTag: "h3",
+	    bodyTag: "section",
+	    transitionEffect: "slideLeft",
+	    autoFocus: true,
+	    enableAllSteps: true,
+		enablePagination: false,
+		autoFocus: true
+	});
+})
 
-	jQuery(document).ready(function(){
-		jQuery('#accordion').accordion({
-			active: false,
-			collapsible: true,
-			autoHeight: false,
-			heightStyle: "content" 
-		});
-	})
+jQuery(document).ready(function(){
+	jQuery('#accordion').accordion({
+		active: false,
+		collapsible: true,
+		autoHeight: false,
+		heightStyle: "content" 
+	});
+});
 	
 
 
@@ -259,7 +259,7 @@ jQuery(document).ready(function(){
 	            	//got it back, now assign it to its fields. 	            	
 	            	jQuery('#checkintime').val(data.checkintime);
 	            	jQuery('#checkouttime').val(data.checkouttime);
-	            	jQuery('#ownerprice').val(data.ownerprice);	
+	            	//jQuery('#ownerprice').val(data.ownerprice);	
 	            	jQuery('#emergencycontact').val(data.emergencycontact);
 	            	jQuery('#arrivalprocess div').html(data.arrivalprocess);
 	            	jQuery('#numberofnights').val(data.nights);
@@ -361,6 +361,7 @@ jQuery(document).ready(function(){
 	var numberofguests = jQuery('#numberofguests').val();	
 	var discount = jQuery('#discount').val();
 	var customvatvalue = jQuery('#customvatvalue').val();
+	var oprentalprice = jQuery('#oprentalprice').val();
 
     	//got the data, make the ajax request
 		jQuery(function(){
@@ -378,7 +379,7 @@ jQuery(document).ready(function(){
 	            '&supplementsprice=' + supplementsprice + 
 	            '&chargetype=' + chargetype +
 	            '&incvat=' + incvat +
-	            //'&priceperperson=' + priceperperson + 
+	            '&oprentalprice=' + oprentalprice + 
 	            '&numberofguests=' + numberofguests + 
 	            '&discount=' + discount +
 	            '&customvatvalue=' + customvatvalue,
@@ -391,12 +392,16 @@ jQuery(document).ready(function(){
 	            		jQuery('#vatamount').val('0');	
 	            		jQuery('#totalcost').val(result.totalcost); 
 	            		jQuery('#numberofnights').text(result.nights);
+	            		jQuery('#ownerprice').val(result.optotal);
 	            	} else {
 	            		jQuery('#balancedue').val(result.totalcost + result.vatfigure);
 	            		jQuery('#vatamount').val(result.vatfigure);
 	            		jQuery('#totalcost').val(result.totalcost);	
 	            		jQuery('#numberofnights').text(result.nights);
+	            		jQuery('#ownerprice').val(result.optotal);
 	            	}
+	            	
+	            	//console.log(result);
 
 	            	
 			    }
@@ -612,11 +617,12 @@ jQuery('#email_operator').click(function(e){
 		var supplementsprice = jQuery('#supplementsprice').val();
 		var numberofguests = jQuery('#numberofguests').val();	
 		var discount = jQuery('#discount').val();
-		var rentalprice = jQuery('#rentalprice').val();
+		var oprentalprice = jQuery('#oprentalprice').val();
 		var totalcost = jQuery('#totalcost').val();
 		var costcode = jQuery('#costcode').val();
 		var displayname = jQuery('#displayname').val();
 		var welcomepack = jQuery('#welcomepack').val();
+		var ownerprice = jQuery('#ownerprice').val();
 	
 	
 	jQuery.ajax({
@@ -653,7 +659,7 @@ jQuery('#email_operator').click(function(e){
 	    '&checkintime=' + checkintime +
 	    '&checkouttime=' + checkouttime + 
 	    '&buttonid=' + buttonid + 
-	    '&rentalprice=' + rentalprice +
+	    '&oprentalprice=' + oprentalprice +
 	    '&costcode=' + costcode +
 	    '&displayname=' + displayname +
 	    '&incvat=' + incvat +
@@ -681,7 +687,7 @@ jQuery('#searchquery').click(function(){
 jQuery('#searchquery').click(function() { 
 	var siteUrl = siteUrlobject.siteUrl+'/wp-admin/admin-ajax.php';
 	var startdate = jQuery('#date11').val();
-	var enddate = jQuery('#date12').val(); 
+	//var enddate = jQuery('#date12').val(); 
 	var operatorname = jQuery('#operatorname').val(); 
 	var apartmentname =  jQuery('#apartmentname').val();
 	var bookingtype = jQuery('#bookingtype option:selected').text();
@@ -691,7 +697,7 @@ jQuery('#searchquery').click(function() {
             type:'POST',
             data:'action=searchquery&operatorname=' + operatorname + 
             '&startdate=' + startdate +
-            '&enddate=' + enddate +
+            //'&enddate=' + enddate +
             '&bookingtype=' + bookingtype +
             '&apartmentname=' + apartmentname,
             success:function(result){

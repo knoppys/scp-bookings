@@ -1,5 +1,13 @@
 Changelog
 
+V4.8.6
+Booking confirmations changes. 
+- New field added to contain a seperate price sent to the Operator allowing for override
+- Operator email now shows Nightly Rate and Owner Price
+- Client Email now shows Nightly Rate and Total Price
+- Variable checks added to the nightly rate text in the confirmations.
+
+
 V4.8.5
 Bug fix where number of bathrooms and number of bedrooms were both saving as the same meta. 
 

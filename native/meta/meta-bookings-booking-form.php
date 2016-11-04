@@ -113,6 +113,10 @@ function bookingsteps_meta_box_callback( $post ) {
             $rentalprice = $Rentalprice;
         }
 
+        //operatorrentalprice
+        $oprentalprice = get_post_meta( $post->ID, 'oprentalprice', true );
+        
+
     //lead guest details
     $guestname = get_post_meta( $post->ID, 'guestname', true );
     $phone = get_post_meta( $post->ID, 'phone', true);
@@ -206,10 +210,7 @@ Meta box Contents
             </td>
         </tr>
         <tr>
-            <td>
-
-
-        
+            <td>        
                 <div id="booking-container">
                     <?php 
                     /********************************
@@ -598,22 +599,21 @@ Meta box Contents
                                 <tr>                    
                                     <td style="width:48%;padding-right:2%;">
                                         <?php
-                                        //rental price field
+                                        //Client Price Per Night
                                         echo '<h4>';
-                                             _e( 'Price Per Night ', 'bookingsrentalprice_textdomain' );
+                                             _e( 'Client Price Per Night ', 'bookingsrentalprice_textdomain' );
                                         echo '</h4>';  
                                         echo '<p>You can now add Price Per Night or Price Per Person Per Night. The system will update the correct value based on the booking type.</p>';                                     
                                         echo '<input type="text" class="widefat" name="rentalprice" id="rentalprice" value="' . esc_attr( $rentalprice ) . '"/>';
                                         ?>
 
-                                        <?php
-                                        /*
-                                        //price per person field
+                                        <?php                                        
+                                        //Owner Price Per Night
                                         echo '<h4>';
-                                             _e( 'Groups Price Per Person (inc vat)', 'bookingsrentalprice_textdomain' );
+                                             _e( 'Operator Price Per Night', 'bookingsrentalprice_textdomain' );
                                         echo '</h4>';
-                                        echo '<input type="text" class="widefat" name="priceperperson" id="priceperperson" value="' . esc_attr( $priceperperson ) . '"/>';
-                                        */
+                                        echo '<input type="text" class="widefat" name="oprentalprice" id="oprentalprice" value="' . esc_attr( $oprentalprice ) . '"/>';
+                                        
                                         ?>                                                                          
                                         <?php
                                             echo '<h4>';
@@ -734,7 +734,7 @@ Meta box Contents
                                                         <?php
                                                         //owner price field
                                                         echo '<h4>';
-                                                             _e( 'Owner Price', 'bookingsrentalprice_textdomain' );
+                                                             _e( 'Operator Total', 'bookingsrentalprice_textdomain' );
                                                         echo '</h4>';
                                                         echo '<input type="text" class="widefat" name="ownerprice" id="ownerprice" value="' . esc_attr( $ownerprice ) . '"/>';
                                                         ?>
@@ -1467,7 +1467,7 @@ Meta box Contents
                                                                             <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$ratelabel.'</p></strong> 
                                                                         </td>
                                                                         <td style="width:250px;"valign="middle" style="width:50%;">  
-                                                                           <p style=";font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">&pound;'. $rentalprice . $vatselecttext .'</p>                                          
+                                                                           <p style=";font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">&pound;'. $oprentalprice . $vatselecttext .'</p>                                          
                                                                         </td>
                                                                     </tr>
                                                                     '.$discounttext.'
@@ -1478,7 +1478,7 @@ Meta box Contents
                                                                             <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Total Cost</p></strong>
                                                                         </td>
                                                                         <td style="width:250px;"valign="middle">  
-                                                                          <p style=";font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">&pound;'. $totalcost . $vatselecttext .'</p>                                     
+                                                                          <p style=";font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">&pound;'. $ownerprice . $vatselecttext .'</p>                                     
                                                                         </td>
                                                                     </tr>
                                                                 </tbody>
@@ -1654,6 +1654,7 @@ function bookingsteps_save_meta_box_data( $post_id ) {
     $mydata_actualcheckintime = sanitize_text_field( $_POST['actualcheckintime'] );
     $mydata_actualcheckouttime = sanitize_text_field( $_POST['actualcheckouttime'] );
     $mydata_rentalprice = sanitize_text_field( $_POST['rentalprice'] );
+    $mydata_oprentalprice = sanitize_text_field( $_POST['oprentalprice'] );
     $mydata_priceperperson = sanitize_text_field( $_POST['priceperperson'] );
     $mydata_supplements = sanitize_text_field( $_POST['supplements'] );
     $mydata_supplementsprice = sanitize_text_field( $_POST['supplementsprice'] );
@@ -1712,6 +1713,7 @@ function bookingsteps_save_meta_box_data( $post_id ) {
     update_post_meta($post_id, 'actualcheckintime',$mydata_actualcheckintime);
     update_post_meta($post_id, 'actualcheckouttime',$mydata_actualcheckouttime);
     update_post_meta($post_id, 'rentalprice',$mydata_rentalprice);
+    update_post_meta($post_id, 'oprentalprice',$mydata_oprentalprice);
     update_post_meta($post_id, 'priceperson',$mydata_priceperson);
     update_post_meta($post_id, 'supplements',$mydata_supplements);
     update_post_meta($post_id, 'supplementsprice',$mydata_supplementsprice);

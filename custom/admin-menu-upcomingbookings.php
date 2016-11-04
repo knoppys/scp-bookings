@@ -34,17 +34,12 @@ function upcomingbookings_callback() {
                         <td>
                             <div id="tabs">
                                 <ul>
-                                	<!--<li><a href="#taba">Update</a></li>-->
                                     <li><a href="#tab1"><i class="fa fa-book"></i>Upcoming Bookings</a></li>
                                     <li><a href="#tab2"><i class="fa fa-gbp"></i>Upcoming Payments</a></li>
                                     <li><a href="#tab3"><i class="fa fa-user"></i>Client Reports</a></li>
                                     <li><a href="#tab4"><i class="fa fa-user"></i>Operator Reports</a></li>
                                     <li><a href="#tab5"><i class="fa fa-trophy"></i>Leader Boards</a></li>                   
                                 </ul>
-                                <!--<div id="taba">
-                                	<p>Use this function to update all posts in the bookings section</p>
-                                	<button class="wp-core-ui button-primary" id="updateclick">Update!</button>
-                                </div-->
                                 <div id="tab1"> 
                                 	<?php
 		                            //date 1 field
@@ -54,11 +49,13 @@ function upcomingbookings_callback() {
 		                            echo '<input type="text" class="widefat" name="date11" id="date11" />';
 		                            ?>  
 		                            <?php
+		                            /*
 		                            //date 1 field
 		                            echo '<label for="date12">';
 		                                _e( 'End Date');
 		                            echo '</label>';
 		                            echo '<input type="text" class="widefat" name="date12" id="date12" />';
+		                            */
 		                            ?>  
 		                            
 		                            <div style="padding:20px 0">

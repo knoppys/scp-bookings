@@ -22,6 +22,7 @@ function implement_ajax_vat() {
 				$supplementsprice = ($_POST['supplementsprice']);
 				$supplementscharge = ($_POST['chargetype']);
 				$incvat = ($_POST['incvat']);
+				$oprentalprice = ($_POST['oprentalprice']);
 
 
 
@@ -43,8 +44,10 @@ function implement_ajax_vat() {
 				//1. Set rental price variable as Price per Person or Fixed Apartment Price
 				if ( ($bookingtype !== 'Corporate') ) {
 					$rentalprice = ($baserentalprice * $numberofguests);
+					$oppernight = ($oprentalprice * $numberofguests) ;
 				} else {
 					$rentalprice = $baserentalprice; 
+					$oppernight = $oprentalprice;
 				}
 								
 				
@@ -105,7 +108,7 @@ function implement_ajax_vat() {
 
 				//1. Balance = the rental price X the number of nights + supps. If there is a discount, take it off
 				$balance = $rentalprice * $numberofnights + $supplementsvalue - $discount;
-
+				$opbalance = $oppernight * $numberofnights;
 
 
 			//***********************
@@ -113,8 +116,7 @@ function implement_ajax_vat() {
 			//***********************
 			
 				//1. This is the balance less the vat figure
-				$netprice = $balance - $vatfigure;
-			
+				$netprice = $balance - $vatfigure;			
 			
 
 			//***********************
@@ -136,7 +138,8 @@ function implement_ajax_vat() {
 			    $data = json_encode(array(
 			    	'vatfigure' => 	$vatfigure, 
 			    	'totalcost'	=> 	$balance,
-			    	'nights'	=> 	$numberofnights
+			    	'nights'	=> 	$numberofnights,
+			    	'optotal'	=>  $opbalance
 			    	)
 			    );
 			    

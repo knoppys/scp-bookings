@@ -117,11 +117,11 @@ function implement_ajax_email_operator(){
                 //Get the right nightly rate text
                 //Get the right total cost text
                 if (($_POST['incvat'])!==('true')) {
-                    $nightlyratetext = ($_POST['rentalprice']).' &#43;VAT';
-                    $totalcosttext = ($_POST['totalcost']).' &#43;VAT';
+                    $nightlyratetext = ($_POST['oprentalprice']).' &#43;VAT';
+                    $totalcosttext = ($_POST['ownerprice']).' &#43;VAT';
                 } else {
-                    $nightlyratetext = ($_POST['rentalprice']);
-                    $totalcosttext = ($_POST['totalcost']);
+                    $nightlyratetext = ($_POST['oprentalprice']);
+                    $totalcosttext = ($_POST['ownerprice']);
                 }
 
                 //the chekin time
@@ -297,7 +297,7 @@ function implement_ajax_email_operator(){
                                     '.$suplementtext.'
                                     <tr>
                                        <td style="width:250px;"valign="middle">
-                                            <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Total Cost</p></strong>
+                                            <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Total</p></strong>
                                         </td>
                                         <td style="width:250px;"valign="middle">  
                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">&pound;'. $totalcosttext .'</p>                                     
