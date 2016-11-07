@@ -17,13 +17,11 @@ function implement_ajax_vat() {
 				$baserentalprice = ($_POST['rentalprice']);
 				$numberofguests = ($_POST['numberofguests']);
 				$bookingtype = ($_POST['bookingtype']);
-				$customvatvalue = ($_POST['customvatvalue']);
 				$supplements = ($_POST['supplements']);
 				$supplementsprice = ($_POST['supplementsprice']);
 				$supplementscharge = ($_POST['chargetype']);
 				$incvat = ($_POST['incvat']);
 				$oprentalprice = ($_POST['oprentalprice']);
-
 
 
 		    //***********************
@@ -52,15 +50,11 @@ function implement_ajax_vat() {
 								
 				
 				//2. Over ride the vat amount if there is a value in the vat field.	
-				if($customvatvalue) {
-					$vatrate = $customvatvalue;
-				} else {
-					if($numberofnights >= 29){
-		    			$vatrate = '4';
-			    	} elseif ($numberofnights <= 28) {
-			    		$vatrate = '20';
-			    	} 
-				}	    	
+				if($numberofnights >= 29){
+	    			$vatrate = '4';
+		    	} elseif ($numberofnights <= 28) {
+		    		$vatrate = '20';
+		    	} 	    	
 				
 				//3. Give the rental VAT figure			
 				$rentalvatfigure = round( (($rentalprice * $numberofnights) / 100) * $vatrate, 2);
@@ -86,11 +80,11 @@ function implement_ajax_vat() {
 				if ($bookingtype == 'Corporate' || 'Groups') {
 					$supplementsvatfigure = round( ($supplementsvalue  / 100) * 20, 2);
 				} else {
-					$supplementsvatfigure = '';
+					$supplementsvatfigure = '0';
 				}
 				
 				
-
+				
 
 			//***********************
 			//calculatge the total VAT for the booking
@@ -144,7 +138,9 @@ function implement_ajax_vat() {
 			    );
 			    
 			    //send the aray back
-			    echo $data;    
+			    ///echo 'supplementsfig1 = '.$supplementsfig1.'<br>';
+				//echo 'supplementsvatfigure = '.$supplementsvatfigure.'<br>';
+				echo $data;
 
 		die();
 	} 

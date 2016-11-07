@@ -360,7 +360,6 @@ jQuery(document).ready(function(){
 	if (jQuery('#incvat').prop('checked')==true) {var incvat = 'true'} else {var incvat = 'false'}
 	var numberofguests = jQuery('#numberofguests').val();	
 	var discount = jQuery('#discount').val();
-	var customvatvalue = jQuery('#customvatvalue').val();
 	var oprentalprice = jQuery('#oprentalprice').val();
 
     	//got the data, make the ajax request
@@ -381,8 +380,7 @@ jQuery(document).ready(function(){
 	            '&incvat=' + incvat +
 	            '&oprentalprice=' + oprentalprice + 
 	            '&numberofguests=' + numberofguests + 
-	            '&discount=' + discount +
-	            '&customvatvalue=' + customvatvalue,
+	            '&discount=' + discount,
 	           	dataType:'json',
 	            success:function(result){
 
@@ -401,7 +399,7 @@ jQuery(document).ready(function(){
 	            		jQuery('#ownerprice').val(result.optotal);
 	            	}
 	            	
-	            	//console.log(result);
+	            	console.log(result);
 
 	            	
 			    }

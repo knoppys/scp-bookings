@@ -35,7 +35,7 @@ function custom_post_type_bookings() {
 		'label'               => 'Bookings',
 		'description'         => 'This section relates to Bookings',
 		'labels'              => $labels,
-		'supports'            => array( 'title', 'revisions'),
+		'supports'            => array( 'title'),
 		'hierarchical'        => false,
 		'public'              => true,
 		'show_ui'             => true,
