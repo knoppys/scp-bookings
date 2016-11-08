@@ -274,7 +274,7 @@ jQuery(document).ready(function(){
 					jQuery('.terms').html(data.terms); 
 
 					//place the required price into the Price Per $night field
-					jQuery('#rentalprice').val(data.rentalprice);
+					//jQuery('#rentalprice').val(data.rentalprice);
 
 	            	
 	            	/*This is the old function that used to seperate the values into two fields.
@@ -361,6 +361,7 @@ jQuery(document).ready(function(){
 	var numberofguests = jQuery('#numberofguests').val();	
 	var discount = jQuery('#discount').val();
 	var oprentalprice = jQuery('#oprentalprice').val();
+	var opsupplementsprice = jQuery('#opsupplementsprice').val();
 
     	//got the data, make the ajax request
 		jQuery(function(){
@@ -380,7 +381,8 @@ jQuery(document).ready(function(){
 	            '&incvat=' + incvat +
 	            '&oprentalprice=' + oprentalprice + 
 	            '&numberofguests=' + numberofguests + 
-	            '&discount=' + discount,
+	            '&discount=' + discount + 
+	            '&opsupplementsprice=' + opsupplementsprice,
 	           	dataType:'json',
 	            success:function(result){
 
@@ -612,10 +614,11 @@ jQuery('#email_operator').click(function(e){
 		var checkouttime = jQuery('#checkouttime').val();
 		var actualcheckintime = jQuery('#actualcheckintime').val();	
 		var actualcheckouttime = jQuery('#actualcheckouttime').val();		
-		var supplementsprice = jQuery('#supplementsprice').val();
+		var opsupplementsprice = jQuery('#opsupplementsprice').val();
 		var numberofguests = jQuery('#numberofguests').val();	
 		var discount = jQuery('#discount').val();
 		var oprentalprice = jQuery('#oprentalprice').val();
+		var rentalprice = jQuery('#rentalprice').val();
 		var totalcost = jQuery('#totalcost').val();
 		var costcode = jQuery('#costcode').val();
 		var displayname = jQuery('#displayname').val();
@@ -649,7 +652,7 @@ jQuery('#email_operator').click(function(e){
 	    '&leavingdate=' + leavingdate + 
 	    '&actualcheckintime=' + actualcheckintime + 
 	    '&actualcheckouttime=' + actualcheckouttime + 
-	    '&supplementsprice=' + supplementsprice +  
+	    '&opsupplementsprice=' + opsupplementsprice +  
 	    '&numberofguests=' + numberofguests + 
 	    '&discount='  + discount + 
 	    '&vatamount=' + vatamount + 
@@ -658,13 +661,14 @@ jQuery('#email_operator').click(function(e){
 	    '&checkouttime=' + checkouttime + 
 	    '&buttonid=' + buttonid + 
 	    '&oprentalprice=' + oprentalprice +
+	    '&rentalprice=' + rentalprice +
 	    '&costcode=' + costcode +
 	    '&displayname=' + displayname +
 	    '&incvat=' + incvat +
 	    '&welcomepack=' + welcomepack,
          success:function(result){ 
             	alert('Your email was sent to the Operator.');
-            	
+            	console.log(bookingtype);
 		    }
 
 	});

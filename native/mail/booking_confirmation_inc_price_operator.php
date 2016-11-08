@@ -113,14 +113,26 @@ function implement_ajax_email_operator(){
                 $datetime2 = new DateTime(($_POST['leavingdate']));
                 $interval = $datetime1->diff($datetime2);
                 $numberofnights = $interval->format('%a nights');
+                
 
                 //Get the right nightly rate text
                 //Get the right total cost text
                 if (($_POST['incvat'])!==('true')) {
-                    $nightlyratetext = ($_POST['oprentalprice']).' &#43;VAT';
+                    
+                    if (($_POST['bookingtype']) == 'Corporate') {
+                        $nightlyratetext = ($_POST['oprentalprice']).' &#43;VAT';
+                    } else {
+                        $nightlyratetext = ($_POST['ownerprice']) / $numberofnights.' &#43;VAT';
+                    }
+                    
                     $totalcosttext = ($_POST['ownerprice']).' &#43;VAT';
                 } else {
-                    $nightlyratetext = ($_POST['oprentalprice']);
+                    
+                    if (($_POST['bookingtype']) == 'Corporate') {
+                        $nightlyratetext = ($_POST['oprentalprice']);
+                    } else {
+                        $nightlyratetext = ($_POST['ownerprice']) / $numberofnights;
+                    }
                     $totalcosttext = ($_POST['ownerprice']);
                 }
 
@@ -136,14 +148,9 @@ function implement_ajax_email_operator(){
                     $theouttime = ($_POST['actualcheckouttime']);
                 } else {
                     $theouttime = ($_POST['checkouttime']);
-                }      
+                }  
 
-                //Get the nightly rate label
-                if (($_POST['bookingtype']) == 'Corporate') {
-                    $ratelabel = 'Price Per Night';
-                } else {
-                    $ratelabel = 'Price per person, per night';
-                }
+                
 
                 //location text
                 if ($aprtmentlocation == $aprtmentlocation2) {
@@ -286,7 +293,7 @@ function implement_ajax_email_operator(){
                                     </tr>
                                     <tr>
                                         <td style="width:250px;"valign="middle" style="width:50%;">
-                                            <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$ratelabel.'</p></strong> 
+                                            <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Nightly Rate</p></strong> 
                                         </td>
                                         <td style="width:250px;"valign="middle" style="width:50%;">  
                                            <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">&pound;'. $nightlyratetext .'</p>                                          

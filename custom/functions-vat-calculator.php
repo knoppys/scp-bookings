@@ -22,7 +22,7 @@ function implement_ajax_vat() {
 				$supplementscharge = ($_POST['chargetype']);
 				$incvat = ($_POST['incvat']);
 				$oprentalprice = ($_POST['oprentalprice']);
-
+				
 
 		    //***********************
 			//calculatge the length of stay
@@ -63,7 +63,7 @@ function implement_ajax_vat() {
 
 
 			//***********************
-			//calculatge the supplements VAT amount
+			//calculatge the client supplements VAT amount
 			//***********************				
 
 				//1. = number of supps X supps price
@@ -83,8 +83,25 @@ function implement_ajax_vat() {
 					$supplementsvatfigure = '0';
 				}
 				
+			//***********************
+			//calculatge the operator supplements price
+			//***********************			
+
+				if (($_POST['opsupplementsprice']) >= '1') {
+					$opsupplementcheck = ($_POST['opsupplementsprice']);
+				} else {
+					$opsupplementcheck = $supplementsprice;
+				}
+
+				//1. = number of supps X supps price
+				$opsupplementsfig1 = $supplements * $opsupplementcheck;
 				
-				
+				//2. If the supps are charged nightly then no. of supps X no. of nights
+				if ($supplementscharge == 'true') {
+					$opsupplementsvalue = $opsupplementsfig1 * $numberofnights;
+				} elseif ($supplementscharge == 'false') {
+					$opsupplementsvalue = $opsupplementsfig1;
+				}
 
 			//***********************
 			//calculatge the total VAT for the booking
@@ -102,7 +119,13 @@ function implement_ajax_vat() {
 
 				//1. Balance = the rental price X the number of nights + supps. If there is a discount, take it off
 				$balance = $rentalprice * $numberofnights + $supplementsvalue - $discount;
-				$opbalance = $oppernight * $numberofnights;
+				
+				if (  ($oprentalprice >= '1') || (($_POST['opsupplementsprice']) >= '1')  ) {
+					$opbalance = $oppernight * $numberofnights + $opsupplementsvalue;
+				} else {
+					$opbalance = $balance;
+				}
+				
 
 
 			//***********************
@@ -133,7 +156,8 @@ function implement_ajax_vat() {
 			    	'vatfigure' => 	$vatfigure, 
 			    	'totalcost'	=> 	$balance,
 			    	'nights'	=> 	$numberofnights,
-			    	'optotal'	=>  $opbalance
+			    	'optotal'	=>  $opbalance,
+
 			    	)
 			    );
 			    
@@ -204,20 +228,20 @@ function implement_ajax() {
 		    	$emergencycontact = get_post_meta($page->ID, 'emergencycontact', true );
 		    };	    
 
-
+		    /*
 		    // Get the right price for the aparmtent
 
 		    	//Get the number of nights
 				    
-				    //get the start and end dates
-				    $startdate = ($_POST['startdate']);
-				    $enddate = ($_POST['enddate']);	
+			    //get the start and end dates
+			    $startdate = ($_POST['startdate']);
+			    $enddate = ($_POST['enddate']);	
 
-				    //get the number of nights
-				    $datetime1 = new DateTime($startdate);
-				    $datetime2 = new DateTime($enddate);
-				    $interval = $datetime1->diff($datetime2);
-				    $numberofnights = $interval->format('%a');
+			    //get the number of nights
+			    $datetime1 = new DateTime($startdate);
+			    $datetime2 = new DateTime($enddate);
+			    $interval = $datetime1->diff($datetime2);
+			    $numberofnights = $interval->format('%a');
 
 			    //Check the booking type and get the correct base rental price
 
@@ -226,8 +250,6 @@ function implement_ajax() {
 				} elseif ( ($bookingtype == 'Groups') || ($bookingtype == 'Leisure') ) {
 					$prefix = 'gr';
 				}
-		  
-
 			
 				if ( $numberofnights <= '7' ) {
 
@@ -251,7 +273,7 @@ function implement_ajax() {
 
 				}
 	
-
+			*/
 
 
 
@@ -261,10 +283,10 @@ function implement_ajax() {
 		    	'terms' 			=> $terms, 
 		    	'checkintime' 		=> $checkintime,
 		    	'checkouttime' 		=> $checkouttime,
-		    	'ownerprice'		=> $ownerprice,
+		    	//'ownerprice'		=> $ownerprice,
 		    	'arrivalprocess' 	=> $arrivalprocess,
 		    	'emergencycontact' 	=> $emergencycontact,	
-		    	'rentalprice' 		=> $baserentalprice,
+		    	//'rentalprice' 		=> $baserentalprice,
 		    	'bookingtype'		=> $bookingtype,
 		    	'nights'			=> $numberofnights
 		   

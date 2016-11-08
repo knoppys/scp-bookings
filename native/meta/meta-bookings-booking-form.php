@@ -140,6 +140,7 @@ function bookingsteps_meta_box_callback( $post ) {
     $displayname = get_post_meta($post->ID, 'displayname', true);
     $welcomepack = get_post_meta( $post->ID, 'welcomepack', true );
     $supplements = get_post_meta( $post->ID, 'supplements', true );
+    $opsupplementsprice = get_post_meta( $post->ID, 'opsupplementsprice', true );
     $supplementsprice = get_post_meta( $post->ID, 'supplementsprice', true );
     $chargetype = get_post_meta( $post->ID, 'chargetype', true );
     $incvat = get_post_meta( $post->ID, 'incvat', true );
@@ -601,17 +602,18 @@ Meta box Contents
                                         <?php
                                         //Client Price Per Night
                                         echo '<h4>';
-                                             _e( 'Client Price Per Night ', 'bookingsrentalprice_textdomain' );
+                                             _e( 'Client Price', 'bookingsrentalprice_textdomain' );
                                         echo '</h4>';  
-                                        echo '<p>You can now add Price Per Night or Price Per Person Per Night. The system will update the correct value based on the booking type.</p>';                                     
+                                        echo '<p>Corporate Booking :: Please enter Price Per Night <br> Groups or Leisure Booking: Please enter Price Per Person</p>';                                     
                                         echo '<input type="text" class="widefat" name="rentalprice" id="rentalprice" value="' . esc_attr( $rentalprice ) . '"/>';
                                         ?>
 
                                         <?php                                        
                                         //Owner Price Per Night
                                         echo '<h4>';
-                                             _e( 'Operator Price Per Night', 'bookingsrentalprice_textdomain' );
+                                             _e( 'Operator Price', 'bookingsrentalprice_textdomain' );
                                         echo '</h4>';
+                                        echo '<p>Corporate Booking :: Please enter Price Per Night <br> Groups or Leisure Booking: Please enter Price Per Person</p>';     
                                         echo '<input type="text" class="widefat" name="oprentalprice" id="oprentalprice" value="' . esc_attr( $oprentalprice ) . '"/>';
                                         
                                         ?>                                                                          
@@ -630,7 +632,7 @@ Meta box Contents
                                         <table style="width:100%">
                                             <tbody>
                                                 <tr>
-                                                    <td class="widefat" style="width:30%">
+                                                    <td valign="middle" class="widefat" style="width:30%">
                                                         <?php
                                                         //supplements field
                                                         echo '<h4>';
@@ -639,16 +641,23 @@ Meta box Contents
                                                         echo '<input type="text" class="widefat" name="supplements" id="supplements" value="' . esc_attr( $supplements ) . '"/>';
                                                         ?> 
                                                     </td>
-                                                    <td class="widefat" style="width:30%">
+                                                    <td valign="middle" class="widefat" style="width:30%">
                                                         <?php
                                                         //supplements price field
                                                         echo '<h4>';
-                                                             _e( 'Supplements Price', 'bookingsrentalprice_textdomain' );
+                                                             _e( 'Client Price', 'bookingsrentalprice_textdomain' );
                                                         echo '</h4>';
                                                         echo '<input type="text" class="widefat" name="supplementsprice" id="supplementsprice" value="' . esc_attr( $supplementsprice ) . '"/>';
                                                         ?>
+                                                        <?php
+                                                        //supplements price field
+                                                        echo '<h4>';
+                                                             _e( 'Operator Price', 'bookingsrentalprice_textdomain' );
+                                                        echo '</h4>';
+                                                        echo '<input type="text" class="widefat" name="opsupplementsprice" id="opsupplementsprice" value="' . esc_attr( $opsupplementsprice ) . '"/>';
+                                                        ?>
                                                     </td>
-                                                    <td class="widefat" style="width:30%">
+                                                    <td valign="middle" class="widefat" style="width:30%">
                                                     <?php
                                                     echo '<h4>';
                                                     _e( 'Charge Nightly', 'bookingsapartment_textdomain' );
@@ -1064,6 +1073,8 @@ Meta box Contents
                                                 $vatselecttext = ' &#43;VAT';
                                             } 
 
+
+
                                             //location text
                                             if ($aprtmentlocation == $aprtmentlocation2) {
                                                 $locationtext = $aprtmentlocation . '<br>';
@@ -1078,6 +1089,15 @@ Meta box Contents
                                                 $available = '<p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:red;">There is a problem getting the apartment information. Please check to see is this apartment is still a published apartment.</p>';
                                             }
 
+                                            if ($oprentalprice >= '1') {
+                                                $oppricetoshow = $oprentalprice;
+                                            } else {
+                                                $oppricetoshow = $rentalprice;
+                                            }
+
+                                            
+
+                                           
 
                                                         
                                             /**
@@ -1464,12 +1484,12 @@ Meta box Contents
                                                                     </tr>
                                                                     <tr>
                                                                         <td style="width:250px;"valign="middle" style="width:50%;">
-                                                                            <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$ratelabel.'</p></strong> 
+                                                                            <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Nightly Rate</p></strong> 
                                                                         </td>
                                                                         <td style="width:250px;"valign="middle" style="width:50%;">  
-                                                                           <p style=";font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">&pound;'. $oprentalprice . $vatselecttext .'</p>                                          
+                                                                           <p style=";font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">&pound;'. $oppricetoshow . $vatselecttext .'</p>                                          
                                                                         </td>
-                                                                    </tr>
+                                                                    </tr>                                                                    
                                                                     '.$discounttext.'
                                                                     '.$costcodetext.'
                                                                     
@@ -1658,6 +1678,7 @@ function bookingsteps_save_meta_box_data( $post_id ) {
     $mydata_priceperperson = sanitize_text_field( $_POST['priceperperson'] );
     $mydata_supplements = sanitize_text_field( $_POST['supplements'] );
     $mydata_supplementsprice = sanitize_text_field( $_POST['supplementsprice'] );
+    $mydata_opsupplementsprice = sanitize_text_field( $_POST['opsupplementsprice'] );
     $mydata_chargetype = sanitize_text_field( $_POST['chargetype'] );
     $mydata_incvat = sanitize_text_field( $_POST['incvat'] );
     $mydata_deposit = sanitize_text_field( $_POST['deposit'] );
@@ -1717,6 +1738,7 @@ function bookingsteps_save_meta_box_data( $post_id ) {
     update_post_meta($post_id, 'priceperson',$mydata_priceperson);
     update_post_meta($post_id, 'supplements',$mydata_supplements);
     update_post_meta($post_id, 'supplementsprice',$mydata_supplementsprice);
+    update_post_meta($post_id, 'opsupplementsprice',$mydata_opsupplementsprice);
     update_post_meta($post_id, 'chargetype',$mydata_chargetype);
     update_post_meta($post_id, 'incvat',$mydata_incvat);
     update_post_meta($post_id, 'deposit',$mydata_deposit);
