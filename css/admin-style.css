@@ -26,7 +26,9 @@
 #booking-container>.steps>ul>li {
     width: 16%
 }
-
+.pound::before {
+    content: '£';
+}
 #booking-container > .steps a {
     background: #a66680;
     color: #fff;

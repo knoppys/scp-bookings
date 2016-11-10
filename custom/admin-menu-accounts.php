@@ -14,7 +14,7 @@ function accountslistings_callback(){
 		$apartmentsquery = new WP_Query( $args );
 			//get the apartments
 		if ( $apartmentsquery->have_posts() ) { ?>
-			<table style="width:100%;" class="bookingstable postbox">
+			<table style="width:100%;" class="accountstable postbox">
 
 				<thead>
 					<tr>
@@ -113,17 +113,18 @@ function accountslistings_callback(){
 	
 							<td><a href="<?php echo get_site_url(); ?>/wp-admin/post.php?post=<?php echo $clientobject->ID; ?>&action=edit"><?php echo $clientname; ?></a></td>								
 				
-							<td>£<?php echo $priceanight; ?></td>
+							<td class="pound"><?php echo $priceanight; ?></td>
+							
 			
-							<td>£<?php echo $totalcost; ?></td>
+							<td class="pound"><?php echo $totalcost; ?></td>
 	
 							<td><?php echo $bookingtype;?></td>
 
 							<td><a href="<?php echo get_site_url(); ?>/wp-admin/post.php?post=<?php echo $operatorobject->ID; ?>&action=edit"><?php echo $operatorname; ?></a></td>
 							
-							<td>£<?php echo substr ($pricepnowner, 0, 5); ?></td>	
+							<td class="pound"><?php echo substr ($pricepnowner, 0, 5); ?></td>	
 
-							<td>£<?php echo $ownerprice; ?></td>
+							<td class="pound"><?php echo $ownerprice; ?></td>
 						</tr>
 				
 				<?php } } else {}

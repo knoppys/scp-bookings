@@ -156,10 +156,16 @@ jQuery(document).ready(function() {
     jQuery.fn.dataTable.moment( 'DD.MM.YY' );
 
     jQuery('.bookingstable').DataTable({
-	        "order": [[ 7, "desc" ]],
-	        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],	        
-		    "iDisplayLength": 60	        
-	    });
+        "order": [[ 7, "desc" ]],
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],	        
+	    "iDisplayLength": 60	        
+    });
+
+    jQuery('.accountstable').DataTable({
+        "order": [[ 1, "desc" ]],
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],	        
+	    "iDisplayLength": 60	        
+    });
 });
 jQuery(document).ready(function(){
 	jQuery ("#booking-container").steps({

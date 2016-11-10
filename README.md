@@ -1,5 +1,9 @@
 Changelog
 
+V4.9.1
+- Bookings fields amendments have been updated. 
+- Default sort by Checkin Date on the new accounts screen
+
 V4.8.6
 Booking confirmations changes. 
 - New field added to contain a seperate price sent to the Operator allowing for override
