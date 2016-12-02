@@ -1,41 +1,23 @@
 <?php
 
-add_action( 'admin_menu', 'register_my_custom_menu_page' );
+function groupslistings_callback() { 
 
-function register_my_custom_menu_page(){
-	add_menu_page( 'SCP Bookings Dashboard', 'SCP Bookings', 'publish_pages', 'scp-bookings-parent', 'my_custom_menu_page', plugins_url( 'scp-bookings/images/iconmenu.png' ), 6 ); 
-		add_submenu_page( 'scp-bookings-parent', 'Corporate', '- Corporate', 'publish_pages', 'corporatelistings', 'corporatelistings_callback' );
-		add_submenu_page( 'scp-bookings-parent', 'Groups', '- Groups', 'publish_pages', 'groupslistings', 'groupslistings_callback' );
-		add_submenu_page( 'scp-bookings-parent', 'Leisure', '- Leisure', 'publish_pages', 'leisurelistings', 'leisurelistings_callback' );
-
-
-	add_submenu_page( 'scp-bookings-parent', 'Accounts', 'Accounts', 'publish_pages', 'accountlistings', 'accountslistings_callback' );
-	add_submenu_page( 'scp-bookings-parent', 'Apartments', 'Apartments', 'publish_pages', 'apartmentslistingsview', 'apartmentslistings_callback' );
-	add_submenu_page( 'scp-bookings-parent', 'Operators', 'Operators', 'publish_pages', 'operatorslistings', 'operatorslistings_callback' );
-	add_submenu_page( 'scp-bookings-parent', 'Clients', 'Clients', 'publish_pages', 'clients', 'clientlistings_callback' );
-	add_submenu_page( 'scp-bookings-parent', 'Locations', 'Locations', 'publish_pages', 'Locationslistings', 'Locationslistings_callback' );
-	add_submenu_page( 'scp-bookings-parent', 'City Guides', 'City Guides', 'publish_pages', 'cityguides', 'cityguides_callback' );
-	add_submenu_page( 'scp-bookings-parent', 'Reports', 'Reports', 'publish_pages', 'reports', 'upcomingbookings_callback' );	
-	add_submenu_page( 'scp-bookings-parent', 'Customer Query', 'Customer Query', 'publish_pages', 'customerquery', 'customerquery_callback' );
-	add_submenu_page( 'scp-bookings-parent', 'Welcome Packs', 'Welcome Packs', 'publish_pages', 'welcomepackquery', 'welcomepacks_callback' );
-	add_submenu_page( 'scp-bookings-parent', 'Reseller Pages', 'Reseller Pages', 'publish_pages', 'resellerp', 'resellerp_callback' );
-	add_submenu_page( 'scp-bookings-parent', 'Documentation', 'Documentation', 'publish_pages', 'documentation', 'documentation_callback' );
-	
-}
-
-
-function my_custom_menu_page(){
-	
 	//get all the required information for the query builder. 
 			global $post; 
 
 			echo '<div class="wrap">';
-			echo '<h2>SCP Bookings</h1>';
+			echo '<h2>SCP Bookings - Groups</h1>';
 			echo '<div class="apartments-button"><a href="' . site_url() . '/wp-admin/post-new.php?post_type=bookings" class="page-title-action">Add Booking</a></div>';
 
 
-			$bookings = get_posts(array('posts_per_page'=>-1,'post_type'=>'bookings'));
-			if ($bookings) { ?>
+			$bookings = get_posts(
+				array(
+					'posts_per_page'=>-1,
+					'post_type'=>'bookings',
+					'meta_key'=>'bookingtype',
+					'meta_value'=>'Groups'
+					)
+				);
 			if ($bookings) { ?>
 				<table style="width:100%;" class="bookingstable postbox">
 					<thead>

@@ -158,13 +158,13 @@ jQuery(document).ready(function() {
     jQuery('.bookingstable').DataTable({
         "order": [[ 7, "desc" ]],
         "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],	        
-	    "iDisplayLength": 60	        
+	    "iDisplayLength": -1	        
     });
 
     jQuery('.accountstable').DataTable({
         "order": [[ 1, "desc" ]],
         "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],	        
-	    "iDisplayLength": 60	        
+	    "iDisplayLength": -1	        
     });
 });
 jQuery(document).ready(function(){
@@ -660,8 +660,7 @@ jQuery('#email_operator').click(function(e){
 	    '&actualcheckouttime=' + actualcheckouttime + 
 	    '&opsupplementsprice=' + opsupplementsprice +  
 	    '&numberofguests=' + numberofguests + 
-	    '&discount='  + discount + 
-	    '&vatamount=' + vatamount + 
+	    '&discount='  + discount + 	     
 	    '&totalcost=' + totalcost +
 	    '&checkintime=' + checkintime +
 	    '&checkouttime=' + checkouttime + 
@@ -682,6 +681,28 @@ jQuery('#email_operator').click(function(e){
 
 });
 
+/********************
+// Ajax send an Arrival Process email to the client
+********************/	
+
+jQuery('#email_arrival').click(function(e){
+
+	var siteUrl = siteUrlobject.siteUrl+'/wp-admin/admin-ajax.php';
+	var bookingID = jQuery('#refid').val();
+
+	console.log(bookingID);
+	
+	jQuery.ajax({
+		url:siteUrl,
+	    type:'POST',
+	    data:'action=arrival_email&bookingID='+bookingID,
+         success:function(result){ 
+            	alert('Your email was sent to the client.');
+            	console.log(result);
+            	
+		}
+	});
+});
 
 
 /********************
@@ -1127,5 +1148,14 @@ jQuery(document).ready(function(){
 	            }
 			});		
 		});
+	});
+});
+
+/********************
+// Toggle Child Bookings
+********************/
+jQuery(document).ready(function(){
+	jQuery('.bookingexpand').click(function(){
+		jQuery(this).find('.expand').toggle();
 	});
 });

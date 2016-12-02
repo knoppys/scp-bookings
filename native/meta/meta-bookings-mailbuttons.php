@@ -14,7 +14,7 @@ function emailbuttons_add_meta_box() {
 
         add_meta_box(
             'emailbuttons_sectionid',
-            __( 'Email Notifications', 'emailbuttons_textdomain' ),
+            __( 'Related Bookings', 'emailbuttons_textdomain' ),
             'emailbuttons_meta_box_callback',
             $screen,
             'side',
@@ -35,49 +35,87 @@ add_action( 'add_meta_boxes', 'emailbuttons_add_meta_box' );
  * @param WP_Post $post The object for the current post/page.
  */
 function emailbuttons_meta_box_callback( $post ) { 
-  $current_user = wp_get_current_user();
-  $useremail = $current_user->user_email;
-  ?>
-    
-    <?php
-    if (get_the_id()) { ?>
 
-      <table cellpadding="0" cellspacing="0" border="0" class="bookings-admin">    
-        <tbody>
-            <tr>
-                <td>               
+  ?>                  
                    
-                   <!-- Location Table -->
-                    <table cellpadding="0" cellspacing="0" border="0" width="100%" class="bookings-aligntop container-table">
-                       <tbody>
-                            <tr><th><h2><i class="fa fa-map-envelope"></i>Email Notifications</h2></th></tr>
-                            <tr>
-                                <td>      
-                                    <p>You and the accounts team will be included in the email.</p> 
-                                    <p><?php echo $current_user->user_email; ?><br>info@ and account@ servicedcitypads.com</p>                            
+       <!-- Location Table -->
+        <table cellpadding="0" cellspacing="0" border="0" width="100%" class="bookings-aligntop">
+           <tbody>                            
+                <tr>
+                    <td>                                          
+                        <?php
+                        
+                        //if this is a child booking
+                        if ($post->post_parent) {                                     
+                          
+                          $args = array(
+                            'post_type' =>  'bookings',
+                            'post_parent' =>  $post->post_parent,                                        
+                            );
 
-                                    <div class="email_button">
-                                      <input class="button button-primary button-large" id="email_client" value="Send to Client">
-                                    </div>
-                                    <div class="email_button">
-                                      <input class="button button-primary button-large" id="email_operator" value="Send to Operator">
-                                    </div>                                      
-                                    <input id="useremail" type="hidden" value="<?php echo $useremail; ?>">      
-                                    
-                                </td>                               
-                            </tr>
-                       </tbody>
-                    </table>                    
+                          $myposts = get_posts( $args ); ?>                          
+                          <table class="relatedbookings">
+                            <tbody>                                 
+                                  <tr>
+                                    <td class="childheader"><strong>Apartment name</strong></td>
+                                    <td class="childheader"><strong>Checkin</strong></td>
+                                    <td class="childheader"><strong>Checkout</strong></td>
+                                  </tr>
+                                   <tr class="parentbooking">
+                                    <td><a href="post.php?post=<?php echo $post->post_parent; ?>&action=edit"><?php echo get_post_meta($post->post_parent, 'apartmentname', true); ?></a> </td>
+                                    <td class=""><?php echo get_post_meta($post->post_parent, 'arrivaldate', true); ?></td>
+                                    <td class=""><?php echo get_post_meta($post->post_parent, 'leavingdate', true); ?></td>
+                                  </tr>
+                              <?php
+                                foreach ($myposts as $child) { ?>                                  
+                                  <tr>
+                                    <td class="childcontent"><a href="post.php?post=<?php echo $child->ID; ?>&action=edit"><?php echo get_post_meta($child->ID, 'apartmentname', true); ?></td>
+                                    <td class="childcontent"><?php echo get_post_meta($child->ID, 'arrivaldate', true); ?></td>
+                                    <td class="childcontent"><?php echo get_post_meta($child->ID, 'leavingdate', true); ?></td>
+                                  </tr>
+                                <?php }
+                              ?>
+                            </tbody>
+                          </table>
 
-                </td>
-            </tr>
-        </tbody>
-    </table> 
+                          <?php }
 
-    <?php } else { ?>
-      <p>You need to save your booking before you can email it.</p>
-    <?php } ?>
-    
- 
+                        //if this is a parent
+                          $args = array(
+                            'post_parent' => $post->ID,
+                            'post_type'   => 'bookings', 
+                            'numberposts' => -1,
+                            'post_status' => 'any' 
+                          );
+                          $children = get_children( $args, OBJECT ); 
+                          if ($children) { ?>
+                            <table class="relatedbookings">
+                              <tbody>                                 
+                                    <tr>
+                                      <td class="childheader"><strong>Apartment name</strong></td>
+                                      <td class="childheader"><strong>Checkin</strong></td>
+                                      <td class="childheader"><strong>Checkout</strong></td>
+                                    </tr>  
+                                    <tr>
+                                      <td colspan="3">
+                                        You are viewing the parent booking
+                                      </td>
+                                    </tr>                                
+                                <?php
+                                  foreach ($children as $childr) { ?>                                  
+                                    <tr>
+                                      <td class="childcontent"><a href="post.php?post=<?php echo $childr->ID; ?>&action=edit"><?php echo get_post_meta($childr->ID, 'apartmentname', true); ?></td>
+                                      <td class="childcontent"><?php echo get_post_meta($childr->ID, 'arrivaldate', true); ?></td>
+                                      <td class="childcontent"><?php echo get_post_meta($childr->ID, 'leavingdate', true); ?></td>
+                                    </tr>
+                                  <?php } ?>
+                              </tbody>
+                            </table>
+                          <?php } ?>                          
+                    </td>                               
+                </tr>
+           </tbody>
+        </table>                    
 
+               
 <?php } ?>

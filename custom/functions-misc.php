@@ -305,25 +305,34 @@ function implement_ajax_operatordetails() {
 
 		    	
 		    	
-		    		<h4>Operator Phone Number</h4>
-		    		<input type="text" class="widefat" name="operatorphone" id="operatorphone" value="<?php echo $operatorphone; ?>"/>
-		    	
-		    		<h4>Select The Contact</h4>
-		    		<select class="widefat" id="operatoremailselect">
-		    			<option>Please select a contact email</option>
-		    			<?php
-                    	foreach($operatoremailArray as $email) { ?>
-                    	<?php $emailaddress = str_replace(' ', '', $email);?>
-                    		<option value="<?php echo $emailaddress; ?>"><?php echo $emailaddress; ?></option>
-                    	<?php } ?>
-		    		</select>
-		    		<?php echo '<input type="hidden" class="widefat" name="operatoremail" id="operatoremail" value=""/>'; ?>
-		    		<script>
-		    			jQuery('#operatoremailselect').change(function(){
-		    				var operatoremail = jQuery(this).val();
-		    				jQuery('#operatoremail').val(operatoremail);
-		    			});
-		    		</script>
+		    		<table width="100%">
+		    			<tr>
+			    			<td>
+			    				<label>Operator Phone Number</label>
+			    				<input type="text" class="widefat" name="operatorphone" id="operatorphone" value="<?php echo $operatorphone; ?>"/>
+			    			</td>
+			    		</tr>
+			    		<tr>
+			    			<td>
+			    				<label>Select The Contact</label>
+					    		<select class="widefat" id="operatoremailselect">
+					    			<option>Please select a contact email</option>
+					    			<?php
+			                    	foreach($operatoremailArray as $email) { ?>
+			                    	<?php $emailaddress = str_replace(' ', '', $email);?>
+			                    		<option value="<?php echo $emailaddress; ?>"><?php echo $emailaddress; ?></option>
+			                    	<?php } ?>
+					    		</select>
+					    		<?php echo '<input type="hidden" class="widefat" name="operatoremail" id="operatoremail" value=""/>'; ?>
+					    		<script>
+					    			jQuery('#operatoremailselect').change(function(){
+					    				var operatoremail = jQuery(this).val();
+					    				jQuery('#operatoremail').val(operatoremail);
+					    			});
+					    		</script>
+			    			</td>
+			    		</tr>
+		    		</table>
 		    	
 		    
 
@@ -358,26 +367,35 @@ function implement_ajax_clientdetails() {
 
 		    	
 		    	
-		    		<h4>Client Phone Number</h4>
-		    		<input type="text" class="widefat" name="clientphone" id="clientphone" value="<?php echo $clientphone; ?>"/>
+		    		<tr>
+		    			<td>
+		    				<label>Client Phone Number</label>
+		    				<input type="text" class="widefat" name="clientphone" id="clientphone" value="<?php echo $clientphone; ?>"/>	
+		    			</td>
+		    		</tr>
+		    		<tr>
+		    			<td>
+		    				<label>Select The Contact</label>
+				    		<select class="widefat" id="clientemailselect">
+				    			<option>Please select a contact email</option>
+				    			<?php
+		                    	foreach($clientemailArray as $email) { ?>
+		                    	<?php $emailaddress = str_replace(' ', '', $email);?>
+		                    		<option value="<?php echo $emailaddress; ?>"><?php echo $emailaddress; ?></option>
+		                    	<?php } ?>
+				    		</select>		    		
+				    		<?php echo '<input type="hidden" class="widefat" name="clientemail" id="clientemail" value=""/>'; ?>
+				    		<script>
+				    			jQuery('#clientemailselect').change(function(){
+				    				var clientemail = jQuery(this).val();
+				    				jQuery('#clientemail').val(clientemail);
+				    			});
+				    		</script>
+		    			</td>
+		    		</tr>
 		    
 		    	
-		    		<h4>Select The Contact</h4>
-		    		<select class="widefat" id="clientemailselect">
-		    			<option>Please select a contact email</option>
-		    			<?php
-                    	foreach($clientemailArray as $email) { ?>
-                    	<?php $emailaddress = str_replace(' ', '', $email);?>
-                    		<option value="<?php echo $emailaddress; ?>"><?php echo $emailaddress; ?></option>
-                    	<?php } ?>
-		    		</select>		    		
-		    		<?php echo '<input type="hidden" class="widefat" name="clientemail" id="clientemail" value=""/>'; ?>
-		    		<script>
-		    			jQuery('#clientemailselect').change(function(){
-		    				var clientemail = jQuery(this).val();
-		    				jQuery('#clientemail').val(clientemail);
-		    			});
-		    		</script>
+		    		
 		    
 		    
 

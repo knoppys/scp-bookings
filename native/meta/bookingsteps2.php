@@ -7,16 +7,16 @@ Adds a Lead Guest Meta box to the Bookings Post Type
 /**
  * Adds a box to the main column on the Post and Page edit screens.
  */
-function bookingsteps_add_meta_box() {
+function bookingsteps2_add_meta_box() {
 
-    $screens = array( 'post' );
+    $screens = array( 'bookings' );
 
     foreach ( $screens as $screen ) {
 
         add_meta_box(
-            'bookingsteps_sectionid',
-            __( 'Booking', 'bookingsteps_textdomain' ),
-            'bookingsteps_meta_box_callback',
+            'bookingsteps2_sectionid',
+            __( 'Booking', 'bookingsteps2_textdomain' ),
+            'bookingsteps2_meta_box_callback',
             $screen,
             'advanced',
             'core'
@@ -24,7 +24,7 @@ function bookingsteps_add_meta_box() {
 
     }
 }
-add_action( 'add_meta_boxes', 'bookingsteps_add_meta_box' );
+add_action( 'add_meta_boxes', 'bookingsteps2_add_meta_box' );
 
 
 /**
@@ -32,53 +32,38 @@ add_action( 'add_meta_boxes', 'bookingsteps_add_meta_box' );
  * 
  * @param WP_Post $post The object for the current post/page.
  */
-function bookingsteps_meta_box_callback( $post ) {
+function bookingsteps2_meta_box_callback( $post ) {
 
     // Add an nonce field so we can check for it later.
-    wp_nonce_field( 'bookingsteps_meta_box', 'bookingsteps_meta_box_nonce' );
-
+    wp_nonce_field( 'bookingsteps2_meta_box', 'bookingsteps2_meta_box_nonce' );
     add_filter( 'wp_default_editor', create_function('', 'return "tinymce";') );
 
-    //run the legacy functions and save the old code as ref
 
-        //***************************************
-        // Save the old code
-        //***************************************
-
-            //$vatselect = get_post_meta( $post->ID, 'vatselect', true );
-            //$customvatvalue = get_post_meta( $post->ID, 'customvatvalue', true );
-
-
-        
-
-    //apartment details
-    $apartmentname = get_post_meta( $post->ID, 'apartmentname', true );
-    $numberofapts = get_post_meta($post->ID,'numberofapts', true );
-    $numberofguests = get_post_meta($post->ID,'numberofguests', true );
+    //get the post type objects for the drop down menus
     $apartments = get_posts(
-            array(
-                'post_type'   => 'apartments', 
-                'orderby'     => 'title', 
-                'order'       => 'ASC', 
-                'numberposts' => -1 
-            )
-        );
+        array(
+            'post_type'   => 'apartments', 
+            'orderby'     => 'title', 
+            'order'       => 'ASC', 
+            'numberposts' => -1 
+        )
+    );
     $locations = get_posts(
-            array(
-                'post_type'   => 'locations', 
-                'orderby'     => 'title', 
-                'order'       => 'ASC', 
-                'numberposts' => -1 
-            )
-        );
+        array(
+            'post_type'   => 'locations', 
+            'orderby'     => 'title', 
+            'order'       => 'ASC', 
+            'numberposts' => -1 
+        )
+    );
     $welcomepacks = get_posts(
-            array(
-                'post_type'   => 'welcomepacks', 
-                'orderby'     => 'title', 
-                'order'       => 'ASC', 
-                'numberposts' => -1 
-            )
-        );
+        array(
+            'post_type'   => 'welcomepacks', 
+            'orderby'     => 'title', 
+            'order'       => 'ASC', 
+            'numberposts' => -1 
+        )
+    );
     $operators = get_posts(
         array(
             'post_type'   => 'operators', 
@@ -96,10 +81,6 @@ function bookingsteps_meta_box_callback( $post ) {
         )
     );
 
-    /*
-     * Use get_post_meta() to retrieve an existing values
-     * from the database and use the value for the form.
-     */
     
     //***************************************
     // Run legacy functions 
@@ -119,81 +100,27 @@ function bookingsteps_meta_box_callback( $post ) {
         $oprentalprice = get_post_meta( $post->ID, 'oprentalprice', true );
         
 
-    //lead guest details
-    $guestname = get_post_meta( $post->ID, 'guestname', true );
-    $phone = get_post_meta( $post->ID, 'phone', true);
-    $email = get_post_meta( $post->ID, 'email', true);
-    $guestage = get_post_meta( $post->ID, 'guestage', true);
-    $guestsex = get_post_meta( $post->ID, 'guestsex', true);
-    $refid = get_post_meta($post->ID, 'refid', true);
+    //get the booking as an OBJECT
+        $booking = get_post_meta($post->ID);
 
-    //booking type
-    $bookingtype = get_post_meta( $post->ID, 'bookingtype', true );
-
-
-    //checkin details
-    $checkintime = get_post_meta( $post->ID, 'checkintime', true );
-    $checkouttime = get_post_meta( $post->ID, 'checkouttime', true );
-    $actualcheckintime = get_post_meta( $post->ID, 'actualcheckintime', true );
-    $actualcheckouttime = get_post_meta( $post->ID, 'actualcheckouttime', true );
-    $leavingdate = get_post_meta( $post->ID, 'leavingdate', true );
-    $arrivaldate = get_post_meta( $post->ID, 'arrivaldate', true );   
-    $location = get_post_meta( $post->ID, 'location', true );
-    $displayname = get_post_meta($post->ID, 'displayname', true);
-    $welcomepack = get_post_meta( $post->ID, 'welcomepack', true );
-    $supplements = get_post_meta( $post->ID, 'supplements', true );
-    $opsupplementsprice = get_post_meta( $post->ID, 'opsupplementsprice', true );
-    $supplementsprice = get_post_meta( $post->ID, 'supplementsprice', true );
-    $chargetype = get_post_meta( $post->ID, 'chargetype', true );
-    $incvat = get_post_meta( $post->ID, 'incvat', true );
-    $deposit = get_post_meta( $post->ID, 'deposit', true );
-    $depositdate = get_post_meta( $post->ID, 'depositdate', true );
-    $depositmethod = get_post_meta( $post->ID, 'depositmethod', true );
-    $balancedue = get_post_meta( $post->ID, 'balancedue', true );
-    $ownerprice = get_post_meta( $post->ID, 'ownerprice', true );
-    $ourcommision = get_post_meta( $post->ID, 'ourcommision', true );
-    $discount = get_post_meta( $post->ID, 'discount', true );
-    $costcode = get_post_meta( $post->ID, 'costcode', true );
-    $vatamount = get_post_meta( $post->ID, 'vatamount', true );
-    $depositpaid = get_post_meta( $post->ID,'depositpaid', true);
-    $balancepaid = get_post_meta( $post->ID,'balancepaid', true);
-    $apartmentpaid = get_post_meta( $post->ID,'apartmentpaid', true);
-    $balanceduedate = get_post_meta( $post->ID, 'balanceduedate', true );
-    $apartmentduedate = get_post_meta( $post->ID, 'apartmentduedate', true );
-    $totalcost = get_post_meta( $post->ID, 'totalcost', true );
-    
-    $username = get_post_meta($post->ID, 'username', true); 
-
-    //Additional Notes Table
-    $additionalnotes = get_post_meta( $post->ID, 'additionalnotes', true);
-    $apptbreakdown = get_post_meta( $post->ID, 'apptbreakdown', true);
-
-    $staffnotes = get_post_meta($post->ID, 'staffnotes', true);
-
-    //Terms and Conditions Table
-    $terms = get_post_meta( $post->ID, 'terms', true);
-
-    $arrivalprocess = get_post_meta( $post->ID, 'arrivalprocess', true);
-    $emergencycontact = get_post_meta( $post->ID, 'emergencycontact', true);
-
-    //Operator details
-    $operatorname = get_post_meta( $post->ID, 'operatorname', true );
-    $operatoremail = get_post_meta( $post->ID, 'operatoremail', true);
-    $operatorphone = get_post_meta( $post->ID, 'operatorphone', true);
-
-    //client details
-    $clientname = get_post_meta( $post->ID, 'clientname', true );
-    $clientphone = get_post_meta($post->ID, 'clientphone', true);
-    $clientemail = get_post_meta($post->ID, 'clientemail', true);
+    //dublin bookings price sybmol check
+        $apartmentobject = get_page_by_title($booking['apartmentname'][0], OBJECT, 'apartments');
+        $apartmentmeta = get_post_meta($apartmentobject->ID);
+        if ( ($apartmentmeta['apptlocation1'][0] == 'Dublin') || $apartmentmeta['apptlocation2'][0] == 'Dublin' ) {
+            $currency = '€';
+        } else {
+            $currency = '£';
+        }
+        
 
 
-/**
-Meta box Contents
-*/
 ?>
- <table cellpadding="0" cellspacing="0" border="0" class="bookings-admin" >
-     <tbody>
+
+
+<table class="widefat bookingsmeta" border-collapse="collapse">
+    <tbody>
         <tr>
+         <tr>
             <td>
                 <?php 
                 /********************************
@@ -202,784 +129,633 @@ Meta box Contents
                 ?>
                 <h2>Booking Ref:                         
                     <?php 
-                    if ($refid) {
-                        echo $refid;
+                    if ($booking['refid'][0]) {
+                        echo $booking['refid'][0];
                         } else {
                             echo '<p> This booking does not have a ref yet, one will be created when you complete the form </p>';
                         }                            
                     ?>                         
                 </h2> 
+                <input type="hidden" name="refid" id="refid" value="<?php echo $booking['refid'][0]; ?>">
 
             </td>
         </tr>
-        <tr>
-            <td>        
-                <div id="booking-container">
-                    <?php 
-                    /********************************
-                    Client Details
-                    ********************************/ 
-                    ?>
-                    <h3>Client Details</h3>
-                    <section>  
-                    <table style="width:100%;">
-                        <tr>
-                            <td style="width:48%;">
-                               <?php
+            <!-- Left Column Content -->
+            <td width="40%">
 
-                                //get the post status
-                                $post_status = get_post_status( $post->id );                 
-                                if ($post_status == 'auto-draft') { ?>
+                <!-- ***********************************
+                Select the Operator
+                *************************************-->
+                <section>
+                <h4 class="moduletitle">Operator Details</h4>
+                    <?php if (get_post_status( $post->id ) == 'auto-draft') { ?>
+                       <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                           <tbody>                                            
+                                <tr>
+                                    <td>
+                                        <?php
+                                        echo '<label>';
+                                        _e( 'Select the Operator', 'bookingsoperator_textdomain' );
+                                        echo '</label>';
+                                        echo '<select class="widefat" id="operatorname" name="operatorname">';
+                                        echo '<option  value="' . esc_attr( $booking['operatorname'][0] ) . '" size="25" />' . esc_attr( $booking['operatorname'][0] ) . '</option>';
+                                            foreach ($operators as $operator) {
+                                                echo '<option value="' . $operator->post_title . '" size="25" />' . $operator->post_title . '</option>'; 
+                                            }                                        
+                                        echo "</select>";                                
+                                        ?>                                
+                                    </td>
+                                </tr>
+                                <tr id="operatorajax">
+                                    <!-- TO GO HERE -->
+                                </tr>
+                           </tbody>
+                        </table>
 
-                                   
-                                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
-                                       <tbody>                                            
-                                            <tr>
-                                                <td colspan="2">
-                                                    <?php
-                                                    echo '<h4>';
-                                                    _e( 'Select the Operator', 'bookingsoperator_textdomain' );
-                                                    echo '</h4> ';
-                                                    echo '<select class="widefat" id="operatorname" name="operatorname">';
-                                                    echo '<option  value="' . esc_attr( $operatorname ) . '" size="25" />' . esc_attr( $operatorname ) . '</option>';
-                                                        foreach ($operators as $operator) {
-                                                            echo '<option value="' . $operator->post_title . '" size="25" />' . $operator->post_title . '</option>'; 
-                                                        }                                        
-                                                    echo "</select>";                                
-                                                    ?>                                
-                                                </td>
-                                            </tr>
-                                            <tr id="operatorajax">
-                                                <!-- TO GO HERE -->
-                                            </tr>
-                                       </tbody>
-                                    </table>
+                        <?php } else { ?>
 
-                                    <?php } else { ?>
+                        <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <?php
+                                        echo '<label>';
+                                        _e( 'Select the operator');
+                                        echo '</label>';
+                                        echo '<select class="widefat" id="operatorname" name="operatorname">';
+                                        echo '<option  value="' . esc_attr( $booking['operatorname'][0] ) . '" size="25" />' . esc_attr( $booking['operatorname'][0] ) . '</option>';
+                                            foreach ($operators as $operator) {
+                                                echo '<option value="' . $operator->post_title . '" size="25" />' . $operator->post_title . '</option>'; 
+                                            }                                
+                                        echo "</select>";
+                                        ?> 
+                                    </td>
+                                </tr>                       
+                                <tr>
+                                   <td>
+                                        <?php
+                                        //deposit date field
+                                        echo '<label>';
+                                             _e( 'Operator Phone');
+                                        echo '</label>';
+                                        echo '<input type="text" class="widefat" name="operatorphone" id="operatorphone" value="' . esc_attr( $booking['operatorphone'][0] ) . '"/>';
+                                        ?>
+                                    </td>                        
+                                </tr>   
+                                <tr>
+                                    <td>
+                                        <?php
+                                        //deposit date field
+                                        echo '<label>';
+                                             _e( 'Operator Email' );
+                                        echo '</label>';
+                                        echo '<input type="text" class="widefat" name="operatoremail" id="operatoremail" value="' . esc_attr( $booking['operatoremail'][0] ) . '"/>';
+                                        ?>
+                                   </td>
+                                </tr>                         
+                            </tbody>
+                        </table>
 
-                                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
-                                        <tbody><tr>
-                                                <td colspan="2">
-                                                    <?php
-                                                    echo '<h4>';
-                                                    _e( 'Select the operator', 'bookingsoperator_textdomain' );
-                                                    echo '</h4> ';
-                                                    echo '<select class="widefat" id="operatorname" name="operatorname">';
-                                                    echo '<option value="' . esc_attr( $operatorname ) . '" size="25" />' . esc_attr( $operatorname ) . '</option>';
-                                                        foreach ($operators as $operator) {
-                                                            echo '<option value="' . $operator->post_title . '" size="25" />' . $operator->post_title . '</option>'; 
-                                                        }
-                                                        
-                                                    echo "</select>";
-                                                    ?> 
-                                                </td>
-                                            </tr>                         
+                    <?php } ?>
+                </section>
 
-                                            <tr>
-                                               <td>
-                                                    <?php
-                                                    //deposit date field
-                                                    echo '<h4>';
-                                                         _e( 'Operator Phone', 'bookingsrentalprice_textdomain' );
-                                                    echo '</h4>';
-                                                    echo '<input type="text" class="widefat" name="operatorphone" id="operatorphone" value="' . esc_attr( $operatorphone ) . '"/>';
-                                                    ?>
-                                                </td>
-                                                <td>
-                                                    <?php
-                                                    //deposit date field
-                                                    echo '<h4>';
-                                                         _e( 'Operator Email', 'bookingsrentalprice_textdomain' );
-                                                    echo '</h4>';
-                                                    echo '<input type="text" class="widefat" name="operatoremail" id="operatoremail" value="' . esc_attr( $operatoremail ) . '"/>';
+                <!-- ***********************************
+                Select the Client
+                *************************************-->
+                <section>
+                <h4 class="moduletitle">Client Details</h4>
+                    <?php if (get_post_status( $post->id ) == 'auto-draft') { ?>
+                   <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                       <tbody>                                            
+                            <tr>
+                                <td>
+                                    <?php
+                                    echo '<label>';
+                                    _e( 'Select the Client');
+                                    echo '</label>';
+                                    echo '<select class="widefat" id="clientname" name="clientname">';
+                                    echo '<option  value="' . esc_attr( $booking['clientname'][0] ) . '" size="25" />' . esc_attr( $booking['clientname'][0] ) . '</option>';
+                                        foreach ($clients as $client) {
+                                            echo '<option value="' . $client->post_title . '" size="25" />' . $client->post_title . '</option>'; 
+                                        }                                        
+                                    echo "</select>";                                
+                                    ?>                                
+                                </td>
+                            </tr>
+                            <tr id="clientajax">
+                                <!-- TO GO HERE -->
+                            </tr>
+                       </tbody>
+                    </table>
 
-                                                    ?>
-                                               </td>
-                                            </tr>                              
-                                             
-                                        </tbody>
-                                    </table>
+                    <?php } else { ?>
 
-                                <?php } ?> 
-                            </td>
-                            <td>
-                               <?php
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <?php
+                                    echo '<label>';
+                                    _e( 'Select the Client');
+                                    echo '</label>';
+                                    echo '<select class="widefat" id="clientname" name="clientname">';
+                                    echo '<option  value="' . esc_attr( $booking['clientname'][0] ) . '" size="25" />' . esc_attr( $booking['clientname'][0] ) . '</option>';
+                                        foreach ($clients as $client) {
+                                            echo '<option value="' . $client->post_title . '" size="25" />' . $client->post_title . '</option>'; 
+                                        }                                        
+                                    echo "</select>";                                
+                                    ?>                                  
+                                </td>
+                            </tr>                       
+                            <tr>
+                               <td>
+                                    <?php
+                                    //deposit date field
+                                    echo '<label>';
+                                         _e( 'Client Phone');
+                                    echo '</label>';
+                                    echo '<input type="text" class="widefat" name="clientphone" id="clientphone" value="' . esc_attr( $booking['clientphone'][0] ) . '"/>';
+                                    ?>
+                                </td>                        
+                            </tr>   
+                            <tr>
+                                <td>
+                                    <?php
+                                    //deposit date field
+                                    echo '<label>';
+                                         _e( 'Client Email' );
+                                    echo '</label>';
+                                    echo '<input type="text" class="widefat" name="clientemail" id="clientemail" value="' . esc_attr( $booking['clientemail'][0] ) . '"/>';
+                                    ?>
+                               </td>
+                            </tr>                         
+                        </tbody>
+                    </table>
 
-                                //get the post status
-                                $post_status = get_post_status( $post->id );                 
-                                if ($post_status == 'auto-draft') { ?>
-                              
-                                <table cellpadding="0" cellspacing="0" border="0" width="100%">
-                                        <tbody> <tr>
-                                                <td colspan="2">
-                                                    <?php
-                                                    echo '<h4>';
-                                                    _e( 'Select the client', 'bookingsclient_textdomain' );
-                                                    echo '</h4> ';
-                                                    echo '<select class="widefat" id="clientname" name="clientname">';        
-                                                    echo '<option value="" size="25" />Select Client</option>';                             
-                                                        foreach ($clients as $client) {
-                                                            echo '<option value="' . $client->post_title . '" size="25" selected />' . $client->post_title . '</option>'; 
-                                                        }
-                                                        
-                                                    echo "</select>";
-                                                    ?> 
-                                                </td>
-                                            </tr>
-                                           
+                <?php } ?>
+               </section>              
 
-                                            <tr id="clientajax">
-                                                <!-- TO GO HERE -->
-                                            </tr>                              
-                                             
-                                        </tbody>
-                                </table>
+                <!-- ***********************************
+                Select the Apartment and fire booking type function
+                *************************************-->
+               <section>
+               <h4 class="moduletitle">Apartment Details</h4>                   
+                   <table cellspacing="0" cellpadding="0" class="" width="100%" border-collapse="collapse">
+                       <tbody>
+                           <tr>    
+                               <td>
+                                   <?php
+                                    echo '<label>';
+                                    _e( 'Select the Apartment');
+                                    echo '</label>';
+                                    echo '<select class="widefat" id="apartmentname" name="apartmentname">';                                
+                                    echo '<option value="' . esc_attr( $booking['apartmentname'][0] ) . '" size="25" />' . esc_attr( $booking['apartmentname'][0] ) . '</option>';
+                                        foreach ($apartments as $apartment) {
+                                            echo '<option value="' . $apartment->post_title . '" size="25" />' . $apartment->post_title . '</option>'; 
+                                        }
+                                    echo "</select>";                           
+                                    ?> 
+                               </td>
+                           </tr>
+                           <tr>    
+                               <td>
+                                   <?php
+                                     echo '<label>';
+                                    _e( 'Display As');
+                                    echo '</label>';
+                                    echo '<input type="text" class="widefat" name="displayname" id="displayname" value="' . esc_attr( $booking['displayname'][0] ) . '"/>';
+                                    ?>   
+                               </td>
+                           </tr>
+                           <tr>
+                               <td>
+                                   <?php
+                                    echo '<label>';
+                                    _e( 'Booking Type');
+                                    echo '</label>';
+                                    echo '<select class="widefat" id="bookingtype" name="bookingtype">'; 
+                                        echo '<option value="' . esc_attr( $booking['bookingtype'][0] ) . '" size="25" />' . esc_attr( $booking['bookingtype'][0] ) . '</option>';
+                                        echo '<option value="Corporate" size="25" />Corporate</option>';
+                                        echo '<option value="Groups" size="25" />Groups</option>';
+                                        echo '<option value="Leisure" size="25" />Leisure</option>';
+                                    echo "</select>";
+                                   ?>
+                               </td>
+                           </tr>  
+                           <tr>
+                               <td>
+                                    <?php
+                                    echo '<label>';
+                                         _e( 'Emergency Contact', 'bookingsrentalprice_textdomain' );
+                                    echo '</label>';
+                                    echo '<input type="text" class="widefat" name="emergencycontact" id="emergencycontact" value="' . esc_attr( $emergencycontact ) . '"/>';
+                                    ?> 
+                               </td>
+                           </tr>                       
+                        </tbody>
+                   </table>                   
+                </section>
 
-                                <?php } else { ?>
-
-                                <table cellpadding="0" cellspacing="0" border="0" width="100%">
-                                       <tbody>
-                                            <tr>
-                                                <td colspan="2">
-                                                    <?php
-                                                    echo '<h4>';
-                                                    _e( 'Select the client', 'bookingsclient_textdomain' );
-                                                    echo '</h4> ';
-                                                    echo '<select class="widefat" id="clientname" name="clientname">';
-                                                    echo '<option value="' . esc_attr( $clientname ) . '" size="25" />' . esc_attr( $clientname ) . '</option>';
-                                                        foreach ($clients as $client) {
-                                                            echo '<option value="' . $client->post_title . '" size="25" />' . $client->post_title . '</option>'; 
-                                                        }
-                                                        
-                                                    echo "</select>";
-                                                    ?> 
-                                                </td>
-                                            </tr>                         
-
-                                            <tr>
-                                               <td>
-                                                    <?php
-                                                    //deposit date field
-                                                    echo '<h4>';
-                                                         _e( 'Client Phone', 'bookingsrentalprice_textdomain' );
-                                                    echo '</h4>';
-                                                    echo '<input type="text" class="widefat" name="clientphone" id="clientphone" value="' . esc_attr( $clientphone ) . '"/>';
-                                                    ?>
-                                                </td>
-                                                <td>
-                                                    <?php
-                                                    //deposit date field
-                                                    echo '<h4>';
-                                                         _e( 'Client Email', 'bookingsrentalprice_textdomain' );
-                                                    echo '</h4>';
-                                                    echo '<input type="text" class="widefat" name="clientemail" id="clientemail" value="' . esc_attr( $clientemail ) . '"/>';
-                                                    ?>
-                                               </td>
-                                            </tr>                              
-                                             
-                                       </tbody>
-                                </table>
-
-                                <?php } ?>    
-                            </td>
-                        </tr>
-                    </table> 
-                   
-                    </section>
-                    
-
-
-                    <?php 
-                    /********************************
-                    Apartment and Checkin
-                    ********************************/ 
-                    ?>
-                    <h3>Apartment and Checkin</h3>
-                    <section>             
-                     <?php
-                    echo '<h4>';
-                    _e( 'Select Apartment', 'bookingsapartment_textdomain' );
-                    echo '</h4> ';
-                    echo '<select class="widefat" id="apartmentname" name="apartmentname">';                                
-                    echo '<option value="' . esc_attr( $apartmentname ) . '" size="25" />' . esc_attr( $apartmentname ) . '</option>';
-                        foreach ($apartments as $apartment) {
-                            echo '<option value="' . $apartment->post_title . '" size="25" />' . $apartment->post_title . '</option>'; 
-                        }
-                    echo "</select>";
-                    ?>
-                    <?php
-                    //Display name field
-                    echo '<h4>';
-                         _e( 'Apartment display name to client', 'bookingsrentalprice_textdomain' );
-                    echo '</h4>';
-                    echo '<input type="text" class="widefat" name="displayname" id="displayname" value="' . esc_attr( $displayname ) . '"/>';
-                    ?>   
-                    <?php
-                    //booking type    
-                    if ($bookingtype) {
-                        $updatetext = '<span class="bookingupdate" style="color:red;display:none;"> >>> You have changed the booking type. Please update your booking</span>';
-                    } else {
-                        $updatetext = '';
-                    }
-                                                                    
-                    echo '<h4>';
-                        _e( 'Booking Type'.$updatetext, 'bookingscheckin_textdomain' );
-                    echo '</h4>';
-                    echo '<select class="widefat" id="bookingtype" name="bookingtype">'; 
-                        echo '<option value="' . esc_attr( $bookingtype ) . '" size="25" />' . esc_attr( $bookingtype ) . '</option>';
-                        echo '<option value="Corporate" size="25" />Corporate</option>';
-                        echo '<option value="Groups" size="25" />Groups</option>';
-                        echo '<option value="Leisure" size="25" />Leisure</option>';
-                    echo "</select>";
-                
-                    ?> 
-                    <table style="width:100%;">
-                        <tr>                    
-                            <td style="width:48%;">
-                                                                 
-                                <?php
-                                //checkin field
-                                echo '<h4>';
-                                    _e( 'Number Of Apartments', 'bookingscheckin_textdomain' );
-                                echo '</h4>';
-                                echo '<input type="text" class="widefat" name="numberofapts" id="numberofapts" value="' . esc_attr( $numberofapts ) . '"/>';
-                                ?> 
-                                <?php
-                                //location field                                
-                                echo '<input type="hidden" class="widefat" name="location" id="location" value="' . esc_attr( $location ) . '"/>';
-                                ?>                            
-                                
-                                <?php
-                                //arriva field
-                                echo '<h4>';
-                                    _e( 'Checkin Date', '' );
-                                echo '</h4>';
-                                echo '<input type="text" class="widefat" name="arrivaldate" id="arrivaldate" value="' . esc_attr( $arrivaldate ) . '"/>';
-                                ?>
-                            </td>
-
-                            <td style="width:50%;">
-                              <?php
-                                //checkin field
-                                echo '<h4>';
-                                    _e( 'Number Of Guests', 'bookingscheckin_textdomain' );
-                                echo '</h4>';
-                                echo '<input type="text" class="widefat" name="numberofguests" id="numberofguests" value="' . esc_attr( $numberofguests ) . '"/>';
-                                ?>
-                                <?php
-                                //checkout field
-                                echo '<h4>';
-                                     _e( 'Checkout Date', 'leavingdate' );
-                                echo '</h4>';
-                                echo '<input type="text" class="widefat" name="leavingdate" id="leavingdate" value="' . esc_attr( $leavingdate ) . '"/>';
-
-                                ?>
-                            </td>
-                        </tr>
-                        <tr>                    
-                            <td style="width:48%;">
-                                <?php
-                                //checkin field
-                                echo '<h4>';
-                                    _e( 'Checkin Time', 'bookingscheckin_textdomain' );
-                                echo '</h4>';
-                                echo '<input type="text" class="widefat upDate" name="checkintime" id="checkintime" value="' . esc_attr( $checkintime ) . '"/>';
-                                ?>
-                            </td>
-
-                            <td style="width:50%;"> 
-                                <?php
-                                //checkout field
-                                echo '<h4>';
-                                     _e( 'Checkout Time', 'bookingscheckout_textdomain' );
-                                echo '</h4>';
-                                echo '<input type="text" class="widefat upDate" name="checkouttime" id="checkouttime" value="' . esc_attr( $checkouttime ) . '"/>';
-
-                                ?>
-                            </td>
-                        </tr>
-                         <tr>                    
-                            <td style="width:48%;">
-                                <?php
-                                //checkin field
-                                echo '<h4>';
-                                    _e( 'Overide Checkin Time', 'bookingscheckin_textdomain' );
-                                echo '</h4>';
-                                echo '<input type="text" class="widefat upDate" name="actualcheckintime" id="actualcheckintime" value="' . esc_attr( $actualcheckintime ) . '"/>';
-                                ?>
-                            </td>
-
-                            <td style="width:50%;">
-                                <?php
-                                //checkout field
-                                echo '<h4>';
-                                     _e( 'Overide Checkout Time', 'bookingscheckout_textdomain' );
-                                echo '</h4>';
-                                echo '<input type="text" class="widefat upDate" name="actualcheckouttime" id="actualcheckouttime" value="' . esc_attr( $actualcheckouttime ) . '"/>';
-
-                                ?>
-                            </td>
-                        </tr>
-                    </table>    
-                    </section>
-
-                    <?php 
-                    /********************************
-                    Guest Details
-                    ********************************/ 
-                    ?>
-                    <h3>Guest Details</h3>
-                    <section>
-                         <table width="100%">
-                                <tbody>
+                <!-- ***********************************
+                Number of apartments and guests
+                *************************************-->
+                <section>
+                <h4 class="moduletitle">Checkin Details</h4>
+                    <table cellspacing="0" cellpadding="0" class="" width="100%" border-collapse="collapse">
+                        <tbody>
+                            <tr>
+                                <td>
                                     <tr>
-                                        <td width="33%">
-                                            <?php
-                                            //Name field
-                                            echo '<h4>';
-                                                _e( 'Guest Name', 'bookingscheckin_textdomain' );
-                                            echo '</h4>';
-                                            echo '<input type="text" class="widefat" name="guestname" id="guestname" value="' . esc_attr( $guestname ) . '"/>';
-                                            ?>
-                                        </td>
-                                        <td width="33%">
-                                            <?php
-                                            //Phone field
-                                            echo '<h4>';
-                                                _e( 'Contact Email', 'bookingscheckin_textdomain' );
-                                            echo '</h4>';
-                                            echo '<input type="text" class="widefat" name="email" id="email" value="' . esc_attr( $email ) . '"/>';
-                                            ?>
-                                        </td>
-                                        <td width="33%">
-                                             <?php
-                                            //Phone field
-                                            echo '<h4>';
-                                                _e( 'Contact Phone Number', 'bookingscheckin_textdomain' );
-                                            echo '</h4>';
-                                            echo '<input type="text" class="widefat" name="phone" id="phone" value="' . esc_attr( $phone ) . '"/>';
+                                       <td colspan="2">
+                                            <?php                                    
+                                            echo '<label>';
+                                            _e( 'Number of Guests');
+                                            echo '</label>';
+                                            echo '<input type="text" class="widefat" name="numberofguests" id="numberofguests" value="' . esc_attr( $booking['numberofguests'][0] ) . '"/>';?>                                            
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                    <td>
+                                        <?php
+                                        echo '<label>';
+                                             _e( 'Supplements (no. of)');
+                                        echo '</label>';
+                                        echo '<input type="text" class="widefat" name="supplements" id="supplements" value="' . esc_attr( $booking['supplements'][0] ) . '"/>';
+                                        ?> 
+                                    </td>
+                                     <td>
+                                        <?php
+                                        echo '<label>';
+                                        _e( 'Charge Nightly');
+                                        echo '</label> ';
+                                        if ($booking['chargetype'][0]) {
+                                            echo '<input type="checkbox" class="widefat" name="chargetype" id="chargetype" checked="checked" /><br>';
+                                        } else {
+                                            echo '<input type="checkbox" class="widefat" name="chargetype" id="chargetype" /><br>';
+                                        }                                            
+                                        ?>  
+                                    </td>
+                                </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <?php                                    
+                                            echo '<label>';
+                                            _e( 'Number of Apartments');
+                                            echo '</label>';
+                                            echo '<input type="text" class="widefat" name="numberofapts" id="numberofapts" value="' . esc_attr( $booking['numberofapts'][0] ) . '"/>';
+                                            echo '<input type="hidden" class="widefat" name="location" id="location" value="' . esc_attr( $booking['location'][0] ) . '"/>';
                                             ?>
                                         </td>
                                     </tr>
-                                </tbody>
-                            </table>
-                            <table width="100%">
+                                    <tr>
+                                       <td>
+                                           <?php
+                                            echo '<label>';
+                                                _e( 'Checkin Date');
+                                            echo '</label>';
+                                            echo '<input type="text" class="widefat" name="arrivaldate" id="arrivaldate" value="' . esc_attr( $booking['arrivaldate'][0] ) . '"/>';
+                                            ?>
+                                       </td>
+                                       <td>
+                                            <?php                                           
+                                            echo '<label>';
+                                                 _e( 'Ceckin Time', 'bookingscheckout_textdomain' );
+                                            echo '</label>';
+                                            echo '<input type="text" class="widefat upDate" name="checkintime" id="checkintime" value="' . esc_attr( $booking['checkintime'][0] ) . '"/>';
+                                            ?>
+                                       </td>
+                                    </tr>                                    
+                                    <tr>
+                                       <td>
+                                           <?php
+                                            echo '<label>';
+                                                _e( 'Checkout Date');
+                                            echo '</label>';
+                                            echo '<input type="text" class="widefat" name="leavingdate" id="leavingdate" value="' . esc_attr( $booking['leavingdate'][0] ) . '"/>';
+                                            ?>
+                                        </td>
+                                        <td>
+                                            <?php                                           
+                                            echo '<label>';
+                                                 _e( 'Checkout Time', 'bookingscheckout_textdomain' );
+                                            echo '</label>';
+                                            echo '<input type="text" class="widefat upDate" name="checkouttime" id="checkouttime" value="' . esc_attr( $booking['checkouttime'][0] ) . '"/>';
+                                            ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <?php
+                                                echo '<label>';
+                                                _e( 'Welcome Pack');
+                                                echo '</label> ';
+                                                echo '<select class="widefat" id="welcomepack" name="welcomepack">';
+                                                echo '<option value="' . esc_attr( $booking['welcomepack'][0] ) . '" size="25" />' . esc_attr( $booking['welcomepack'][0] ) . '</option>';                                              
+                                                foreach ($welcomepacks as $packoption) {
+                                                    echo '<option value="' . $packoption->post_title . '" size="25" />' . $packoption->post_title . '</option>'; 
+                                                }
+                                                echo "</select>";
+                                            ?>
+                                        </td>
+                                    </tr>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+
+                <!-- ***********************************
+                Guest Details
+                *************************************-->
+                <section>
+                <h4 class="moduletitle">Guest Details</h4>
+                    <table cellspacing="0" cellpadding="0" class="" width="100%" border-collapse="collapse">
+                        <tbody>
+                            <tr>
+                                <td colspan="2">
+                                    <?php
+                                    echo '<label>';
+                                        _e( 'Guest Name');
+                                    echo '</label>';
+                                    echo '<input type="text" class="widefat" name="guestname" id="guestname" value="' . esc_attr( $booking['guestname'][0] ) . '"/>';
+                                    ?>
+                                </td>                                
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <?php
+                                    echo '<label>';
+                                        _e( 'Contact Email');
+                                    echo '</label>';
+                                    echo '<input type="text" class="widefat" name="email" id="email" value="' . esc_attr( $booking['email'][0] ) . '"/>';
+                                    ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <?php
+                                    echo '<label>';
+                                        _e( 'Guest Age');
+                                    echo '</label>';
+                                    echo '<input type="text" class="widefat" name="guestage" id="guestage" value="' . esc_attr( $booking['guestage'][0] ) . '"/>';
+                                    ?>
+                                </td>
+                                <td>
+                                    <?php
+                                    echo '<label>';
+                                        _e( 'Guest Sex');
+                                    echo '</label>';
+                                    echo '<input type="text" class="widefat" name="guestsex" id="guestsex" value="' . esc_attr( $booking['guestsex'][0] ) . '"/>';
+                                    ?>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+
+               
+            <!-- Left Column Ends -->                
+            </td>
+            
+
+
+            <!-- Right Column Content -->
+            <td>
+                <!-- ***********************************
+                Pricing
+                *************************************-->
+                <center>                
+                    <section class="pricing">
+                    <h4 class="moduletitle">Pricing Details</h4>
+                        <table class="" border-collapse="collapse" style="margin-bottom: 20px;" width="75%" cellspacing="0" cellpadding="0">
+                            <tbody>
                                 <tr>
-                                    <td width="50%">
-                                        <?php
-                                        //Age field
-                                        echo '<h4>';
-                                            _e( 'Guest Age', 'bookingscheckin_textdomain' );
-                                        echo '</h4>';
-                                        echo '<input type="text" class="widefat" name="guestage" id="guestage" value="' . esc_attr( $guestage ) . '"/>';
-                                        ?>
-                                    </td>
-                                    <td width="50%">
-                                      <?php
-                                      //Sex Field
-                                        echo '<h4>';
-                                        _e( 'Sex', 'bookingsapartment_textdomain' );
-                                        echo '</h4> ';
-                                        echo '<select class="widefat" id="guestsex" name="guestsex">';
-                                        echo '<option value="' . esc_attr( $guestsex ) . '" size="25" />' . esc_attr( $guestsex ) . '</option>';
-                                            echo '<option>Male</option>';
-                                            echo '<option>Female</option>';
-                                        echo "</select>";
-                                        ?>
+                                    <td colspan="2">
+                                        <?php echo '<p><strong>Corporate Booking:</strong> Please enter Price Per Night <br> <strong>Groups or Leisure Booking:</strong> Please enter Price Per Person</p>'; ?>
                                     </td>
                                 </tr>
-                            </table>
-                    </section>
-
-                    <?php 
-                    /********************************
-                    Party Details
-                    ********************************/ 
-                    ?>
-                    <h3>Pricing and Payment</h3>
-                        <section> 
-                            <table style="width:100%">
-                                <tr>                    
-                                    <td style="width:48%;padding-right:2%;">
+                                <tr>
+                                    <td>
                                         <?php
-                                        //Client Price Per Night
-                                        echo '<h4>';
-                                             _e( 'Client Price', 'bookingsrentalprice_textdomain' );
-                                        echo '</h4>';  
-                                        echo '<p>Corporate Booking :: Please enter Price Per Night <br> Groups or Leisure Booking: Please enter Price Per Person</p>';                                     
-                                        echo '<input type="text" class="widefat" name="rentalprice" id="rentalprice" value="' . esc_attr( $rentalprice ) . '"/>';
+                                        echo '<label>';
+                                             _e( 'Client Price');
+                                        echo '</label>';                                      
+                                        echo '<span style="display:inline;width:2%;font-weight:bold;line-height:1.5;font-size:18px;">'.$currency.'</span><input type="text" class="widefat" style="width:90%;float:right;display:inline;" name="rentalprice" id="rentalprice" value="' . esc_attr( $booking['rentalprice'][0] ) . '"/>';
                                         ?>
-
-                                        <?php                                        
-                                        //Owner Price Per Night
-                                        echo '<h4>';
-                                             _e( 'Operator Price', 'bookingsrentalprice_textdomain' );
-                                        echo '</h4>';
-                                        echo '<p>Corporate Booking :: Please enter Price Per Night <br> Groups or Leisure Booking: Please enter Price Per Person</p>';     
-                                        echo '<input type="text" class="widefat" name="oprentalprice" id="oprentalprice" value="' . esc_attr( $oprentalprice ) . '"/>';
-                                        
-                                        ?>                                                                          
+                                    </td>                                
+                                    <td>
                                         <?php
-                                            echo '<h4>';
-                                            _e( 'Welcome Pack', 'bookingsapartment_textdomain' );
-                                            echo '</h4> ';
-                                            echo '<select class="widefat" id="welcomepack" name="welcomepack">';
-                                            echo '<option value="' . esc_attr( $welcomepack ) . '" size="25" />' . esc_attr( $welcomepack ) . '</option>';                                              
-                                            foreach ($welcomepacks as $packoption) {
-                                                echo '<option value="' . $packoption->post_title . '" size="25" />' . $packoption->post_title . '</option>'; 
-                                            }
-
-                                            echo "</select>";
+                                        echo '<label>';
+                                             _e( 'Operator Price');
+                                        echo '</label>';                                     
+                                        echo '<span style="display:inline;width:2%;font-weight:bold;line-height:1.5;font-size:18px;">'.$currency.'</span><input type="text" class="widefat" style="width:90%;float:right;display:inline;" name="oprentalprice" id="oprentalprice" value="' . esc_attr( $booking['oprentalprice'][0] ) . '"/>';
                                         ?>
-                                        <table style="width:100%">
-                                            <tbody>
-                                                <tr>
-                                                    <td valign="middle" class="widefat" style="width:30%">
-                                                        <?php
-                                                        //supplements field
-                                                        echo '<h4>';
-                                                             _e( 'Supplements', 'bookingsrentalprice_textdomain' );
-                                                        echo '</h4>';
-                                                        echo '<input type="text" class="widefat" name="supplements" id="supplements" value="' . esc_attr( $supplements ) . '"/>';
-                                                        ?> 
-                                                    </td>
-                                                    <td valign="middle" class="widefat" style="width:30%">
-                                                        <?php
-                                                        //supplements price field
-                                                        echo '<h4>';
-                                                             _e( 'Client Price', 'bookingsrentalprice_textdomain' );
-                                                        echo '</h4>';
-                                                        echo '<input type="text" class="widefat" name="supplementsprice" id="supplementsprice" value="' . esc_attr( $supplementsprice ) . '"/>';
-                                                        ?>
-                                                        <?php
-                                                        //supplements price field
-                                                        echo '<h4>';
-                                                             _e( 'Operator Price', 'bookingsrentalprice_textdomain' );
-                                                        echo '</h4>';
-                                                        echo '<input type="text" class="widefat" name="opsupplementsprice" id="opsupplementsprice" value="' . esc_attr( $opsupplementsprice ) . '"/>';
-                                                        ?>
-                                                    </td>
-                                                    <td valign="middle" class="widefat" style="width:30%">
-                                                    <?php
-                                                    echo '<h4>';
-                                                    _e( 'Charge Nightly', 'bookingsapartment_textdomain' );
-                                                    echo '</h4> ';
-                                                    if ($chargetype) {
-                                                        echo '<input type="checkbox" class="widefat" name="chargetype" id="chargetype" checked="checked" /><br>';
-                                                    } else {
-                                                        echo '<input type="checkbox" class="widefat" name="chargetype" id="chargetype" /><br>';
-                                                    }                                            
-                                                    ?>  
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>                                                                       
+                                    </td>
+                                </tr>                              
+                                <tr>
+                                    <td>
                                         <?php
-                                        //deposit field
-                                        echo '<h4>';
-                                             _e( 'Deposit', 'bookingsrentalprice_textdomain' );
-                                        echo '</h4>';
-                                        echo '<input type="text" class="widefat" name="deposit" id="deposit" value="' . esc_attr( $deposit ) . '"/>';
-                                        ?>                           
+                                        echo '<label>';
+                                             _e( 'Supplements Price to Client' );
+                                        echo '</label>';
+                                        echo '<span style="display:inline;width:2%;font-weight:bold;line-height:1.5;font-size:18px;">'.$currency.'</span><input type="text" class="widefat" style="width:90%;float:right;display:inline;"  name="supplementsprice" id="supplementsprice" value="' . esc_attr( $booking['supplementsprice'][0] ) . '"/>';
+                                        ?>
+                                    </td>
+                                    <td>
                                         <?php
-                                        echo '<h4>';
-                                        _e( 'Select Payment Type', 'bookingsapartment_textdomain' );
-                                        echo '</h4> ';
+                                        echo '<label>';
+                                             _e( 'Supplements Price to Operator' );
+                                        echo '</label>';
+                                        echo '<span style="display:inline;width:2%;font-weight:bold;line-height:1.5;font-size:18px;">'.$currency.'</span><input type="text" class="widefat" style="width:90%;float:right;display:inline;"  name="opsupplementsprice" id="opsupplementsprice" value="' . esc_attr( $booking['opsupplementsprice'][0] ) . '"/>';
+                                        ?>
+                                    </td>                                   
+                                </tr>                                
+                                <tr>
+                                    <td colspan="2">
+                                        <?php
+                                        echo '<label>';
+                                        _e( 'Select Payment Type');
+                                        echo '</label> ';
                                         echo '<select class="widefat" id="depositmethod" name="depositmethod">';
-                                        echo '<option value="' . esc_attr( $depositmethod ) . '" size="25" />' . esc_attr( $depositmethod ) . '</option>';
+                                        echo '<option value="' . esc_attr( $booking['depositmethod'][0] ) . '" size="25" />' . esc_attr( $booking['depositmethod'][0] ) . '</option>';
                                             echo '<option> Card </option>';
                                             echo '<option> Transfer </option>';
                                             echo '<option> Cash </option>';
                                         echo "</select>";
                                         ?>
-                                        <?php
-                                        //discount field
-                                        echo '<h4>';
-                                             _e( 'Discount', 'bookingsrentalprice_textdomain' );
-                                        echo '</h4>';
-                                        echo '<input type="text" class="widefat" name="discount" id="discount" value="' . esc_attr( $discount ) . '"/>';
-                                        ?> 
-                                                                         
-                                        <?php
-                                        /*
-                                        echo '<h4>';
-                                        _e( 'Select Vat Applicable (default is Yes + VAT)', 'bookingsapartment_textdomain' );
-                                        echo '</h4> ';
-                                        if ($vatselect) {
-                                            echo '<input type="checkbox" name="vatselect" id="vatselect" checked="checked" /><br>';
-                                        } else {
-                                            echo '<input type="checkbox" name="vatselect" id="vatselect" /><br>';
-                                        }
-                                        */
-                                        ?>  
-
-                                        <?php
-                                        /*
-                                        //custom vat field
-                                        echo '<h4>';
-                                             _e( 'Custom VAT %', 'bookingsrentalprice_textdomain' );
-                                        echo '</h4>';
-                                        echo '<input type="text" class="widefat" name="customvatvalue" id="customvatvalue" value="' . esc_attr( $customvatvalue ) . '"/>';
-                                        */
-                                        ?>
+                                    </td>
+                                </tr>                                
+                            </tbody>
+                        </table>
+                        <table cellspacing="0" cellpadding="0" class="" width="75%" border-collapse="collapse">
+                         <h4 class="moduletitle">Totals</h4>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                       <label>Deposit</label>
+                                    </td>
+                                    <td>
+                                        <?php echo '<span style="display:inline;width:2%;font-weight:bold;line-height:1.5;font-size:18px;">'.$currency.'</span><input type="text" class="widefat" style="width:90%;float:right;display:inline;" name="deposit" id="deposit" value="' . esc_attr( $booking['deposit'][0] ) . '"/>'; ?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>Discount</label>
+                                    </td>
+                                     <td>
+                                        <?php echo '<span style="display:inline;width:2%;font-weight:bold;line-height:1.5;font-size:18px;">'.$currency.'</span><input type="text" class="widefat" style="width:90%;float:right;display:inline;" name="discount" id="discount" value="' . esc_attr( $booking['discount'][0] ) . '"/>'; ?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>Operator Total</label>
+                                    </td>
+                                    <td>
+                                        <?php echo '<span style="display:inline;width:2%;font-weight:bold;line-height:1.5;font-size:18px;">'.$currency.'</span><input type="text" class="widefat" style="width:90%;float:right;display:inline;" name="ownerprice" id="ownerprice" value="' . esc_attr( $booking['ownerprice'][0] ) . '"/>'; ?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>Client Total</label>
+                                    </td>
+                                    <td>
+                                         <?php echo '<span style="display:inline;width:2%;font-weight:bold;line-height:1.5;font-size:18px;">'.$currency.'</span><input type="text" class="widefat" style="width:90%;float:right;display:inline;" name="totalcost" id="totalcost" value="' . esc_attr( $booking['totalcost'][0] ) . '"/>'; ?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="40%">
                                         
                                     </td>
-                                    <td id="showafterdeposit"style="width:50%;">      
-                                         <table cellpadding="0" cellspacing="0" border="0" class="bookings-aligntop container-table" width="100%">
-                                            <tbody>                                
+                                    <td align="right"> 
+                                        <table width="100%">
+                                            <tbody>
                                                 <tr>
-                                                    <td style="padding:20px;">
+                                                    <td style="padding-top:20px;">
+                                                        <label>Show as inc VAT</label>
+                                                    </td>
+                                                    <td style="padding-top:20px;">
                                                         <?php
-                                                        //balance due field
-                                                        echo '<h4>';
-                                                             _e( 'Balance Due', 'bookingsrentalprice_textdomain' );
-                                                        echo '</h4>';
-                                                        echo '<input type="text" class="widefat" name="balancedue" id="balancedue" value="' . esc_attr( $balancedue ) . '"/>';
+                                                         if ($booking['incvat'][0]) { echo '<input type="checkbox" class="widefat" name="incvat" id="incvat" checked="checked" />'; } 
+                                                         else { echo '<input type="checkbox" class="widefat" name="incvat" id="incvat" />'; }     
                                                         ?>
-                                                        <?php
-                                                            echo '<h4>';
-                                                             _e( 'Vat Amount', 'bookingsrentalprice_textdomain' );
-                                                            echo '</h4>';
-                                                            echo '<input type="text" class="widefat" name="vatamount" id="vatamount" value="' . esc_attr( $vatamount ) . '"/>';
-                                                            ?>
-                                                        <?php
-                                                        //owner price field
-                                                        echo '<h4>';
-                                                             _e( 'Operator Total', 'bookingsrentalprice_textdomain' );
-                                                        echo '</h4>';
-                                                        echo '<input type="text" class="widefat" name="ownerprice" id="ownerprice" value="' . esc_attr( $ownerprice ) . '"/>';
-                                                        ?>
-                                                        <?php
-                                                        //our commision field
-                                                        echo '<h4>';
-                                                             _e( 'Our Commision', 'bookingsrentalprice_textdomain' );
-                                                        echo '</h4>';
-                                                        echo '<input type="text" class="widefat" name="ourcommision" id="ourcommision" value="' . esc_attr( $ourcommision ) . '"/>';
-                                                        ?>                            
-                                                        <?php
-                                                        //cost code field
-                                                        echo '<h4>';
-                                                             _e( 'Cost Code', 'bookingsrentalprice_textdomain' );
-                                                        echo '</h4>';
-                                                        echo '<input type="text" class="widefat" name="costcode" id="costcode" value="' . esc_attr( $costcode ) . '"/>';
-                                                        ?>
-                                                        <table style="width: 100%;">
-                                                            <tr>
-                                                                <td width="50%" style="width: 50%;">
-                                                                    <?php
-                                                                    //cost code field
-                                                                    echo '<h4>';
-                                                                         _e( 'Total Cost for <span id="numberofnights"></span>', 'bookingsrentalprice_textdomain' );
-                                                                    echo '</h4>';
-                                                                    
-                                                                    ?>
-                                                                </td>
-                                                                <td width="50%" style="width: 50%;">
-                                                                    <?php
-                                                                    //cost code field
-                                                                    echo '<h4 style="display:inline-block;padding-right:40px;">';
-                                                                         _e( 'Show as inc VAT? <span id="vatshow"></span>', 'bookingsrentalprice_textdomain' );
-                                                                    echo '</h4>';                                                              ;
-                                                                    if ($incvat) {
-                                                                        echo '<input type="checkbox" class="widefat" name="incvat" id="incvat" checked="checked" />';
-                                                                    } else {
-                                                                        echo '<input type="checkbox" class="widefat" name="incvat" id="incvat" />';
-                                                                    }                                            
-                                                                    ?>                                                                    
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td colspan="2">
-                                                                    <?php echo '<input type="text" class="widefat" name="totalcost" id="totalcost" value="' . esc_attr( $totalcost ) . '"/>'; ?>
-                                                                </td>
-                                                            </tr>
-                                                        </table>
-                                                        
-                                                        <input style="width:200px; display:block; margin:10px auto; text-align:center;" class="button button-primary button-large" id="calculate" value="Calculate" />
+                                                    </td>
+                                                    <td>
+                                                        <input style="display:block; margin:10px auto; text-align:center;" class="button" id="calculate" value="Calculate" />
                                                     </td>
                                                 </tr>
                                             </tbody>
-                                        </table>
-                                      
-                                    </td>
-                                </tr> 
-                            </table> 
-                            <table class="payments" style="width:100%;">
-                                <tr>
-                                    <td>
-                                        <h4>Payment Information</h4>
+                                        </table>                                                                          
                                     </td>
                                 </tr>
-                                 <tr> 
-                                    <td>
-                                        <?php
-                                        //deposit date field
-                                        echo '<label for="depositdate">';
-                                             _e( 'Deposit Due Date', 'bookingsrentalprice_textdomain' );
-                                        echo '</label>';
-                                        echo '<input type="text" class="widefat" name="depositdate" id="depositdate" value="' . esc_attr( $depositdate ) . '"/>';
-                                        ?>
-                                       <?php
-                                        echo '<label for="depositpaid">';
-                                        _e( 'Deposit Paid', 'bookingsapartment_textdomain' );
-                                        echo '</label> ';
-                                        echo '<select class="widefat" id="depositpaid" name="depositpaid">';
-                                        echo '<option value="' . esc_attr( $depositpaid ) . '" size="25" />' . esc_attr( $depositpaid ) . '</option>';
-                                            echo '<option value="Yes"> Yes </option>';
-                                            echo '<option value="No"> No </option>';
-                                        echo "</select>";
-                                        ?>
-                                    </td> 
-                                    <td>
-                                        <?php
-                                        //balance date field
-                                        echo '<label for="balanceduedate">';
-                                             _e( 'Balance Due Date', 'bookingsrentalprice_textdomain' );
-                                        echo '</label>';
-                                        echo '<input type="text" class="widefat" name="balanceduedate" id="balanceduedate" value="' . esc_attr( $balanceduedate ) . '"/>';
-                                        ?>
-                                         <?php
-                                        echo '<label for="balancepaid">';
-                                        _e( 'Balance Paid', 'bookingsapartment_textdomain' );
-                                        echo '</label> ';
-                                        echo '<select class="widefat" id="balancepaid" name="balancepaid">';
-                                        echo '<option value="' . esc_attr( $balancepaid ) . '" size="25" />' . esc_attr( $balancepaid ) . '</option>';
-                                           echo '<option value="Yes"> Yes </option>';
-                                            echo '<option value="No"> No </option>';
-                                        echo "</select>";
-                                        ?>
-                                        <input style="width:200px; display:block; margin:10px auto; text-align:center;" class="button button-primary button-large" id="recalculate" value="Recalculate" />
-                                    </td>
-                                    <td>
-                                        <?php
-                                        //apartment date field
-                                        echo '<label for="apartmentduedate">';
-                                             _e( 'Apartment Due Date', 'bookingsrentalprice_textdomain' );
-                                        echo '</label>';
-                                        echo '<input type="text" class="widefat" name="apartmentduedate" id="apartmentduedate" value="' . esc_attr( $apartmentduedate ) . '"/>';
-                                        ?>
-                                        <?php
-                                        echo '<label for="apartmentpaid">';
-                                        _e( 'Apartment Paid', 'bookingsapartment_textdomain' );
-                                        echo '</label> ';
-                                        echo '<select class="widefat" id="apartmentpaid" name="apartmentpaid">';
-                                        echo '<option value="' . esc_attr( $apartmentpaid ) . '" size="25" />' . esc_attr( $apartmentpaid ) . '</option>';
-                                            echo '<option value="Yes"> Yes </option>';
-                                            echo '<option value="No"> No </option>';
-                                        echo "</select>";
-                                        ?>
-                                    </td>
-                                </tr>              
-                            </table>                         
-                        </section>
-
-                    <?php 
-                    /********************************
-                    Additional Information 
-                    ********************************/ 
-                    ?>
-                    <h3>Additional Information</h3>
-
-                        <section>  
-                        <table style="width:100%;">
-                             <tr>                    
-                                <td style="width:50%">
-                                    <?php
-                                    //additional notes field
-                                    echo '<h4>';
-                                         _e( 'Additional Notes', 'bookingsrentalprice_textdomain' );
-                                    echo '</h4>';
-                                    echo '<textarea contenteditable rows="5" class="widefat" name="additionalnotes" id="additionalnotes" />';
-                                    echo esc_attr( $additionalnotes ); 
-                                    echo '</textarea>';
-                                    ?>
-                                </td>
-                                <td style="width:50%">
-                                    <?php
-                                    //apartment breakdown field
-                                    echo '<h4>';
-                                         _e( 'Apartment Breakdown', 'bookingsrentalprice_textdomain' );
-                                    echo '</h4>';
-                                    echo '<textarea contenteditable rows="5" class="widefat" name="apptbreakdown" id="apptbreakdown" />';
-                                    echo esc_attr( $apptbreakdown ); 
-                                    echo '</textarea>';
-                                    ?>
-                                </td>
-                            </tr> 
+                            </tbody>
                         </table>
-                        <?php
-                        //apartment breakdown field
-                        echo '<h4>';
-                             _e( 'Operator Terms', 'bookingsrentalprice_textdomain' );
-                        echo '</h4>';
-                        
-                        wp_editor($terms, 'terms', $settings = array('wpautop' => false));
-                        ?>      
-                        <?php
-                        //apartment breakdown field
-                        echo '<h4>';
-                             _e( 'Arrival Process', 'bookingsrentalprice_textdomain' );
-                        echo '</h4>';
-                       
-                        wp_editor($arrivalprocess, 'arrivalprocess', $settings = array('wpautop' => false));
-                        ?>                        
-                        <?php
-                        //apartment breakdown field
-                        echo '<h4>';
-                             _e( 'Emergency Contact', 'bookingsrentalprice_textdomain' );
-                        echo '</h4>';
-                        echo '<input type="text" class="widefat" name="emergencycontact" id="emergencycontact" value="' . esc_attr( $emergencycontact ) . '"/>';
-                        ?>                  
-                        </section>
-                        <h3 class="staffnotes">Staff Notes</h3>
-                        <section>
-                            <?php
-                            //apartment breakdown field
-                            echo '<h4>';
-                                 _e( 'Staff Notes', 'bookingsrentalprice_textdomain' );
-                            echo '</h4>';
-                            wp_editor($staffnotes, 'staffnotes', $settings = array('wpautop' => false));
-                            ?>
-                        </section>
-   
-                </div>
+                    </section>
+                </center>
 
+                <section>
+                     <table cellspacing="0" cellpadding="0" class="" width="100%" border-collapse="collapse">
+                         <h4 class="moduletitle">Additional Information</h4>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <?php
+                                    echo '<label>';
+                                         _e( 'Additional Notes');
+                                    echo '</label>';
+                                    echo '<textarea contenteditable rows="5" class="widefat" name="additionalnotes" id="additionalnotes" />';
+                                    echo esc_attr( $booking['additionalnotes'][0] ); 
+                                    echo '</textarea>';
+                                    ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <?php
+                                    echo '<label>';
+                                         _e( 'Apartment Breakdown');
+                                    echo '</label>';
+                                    echo '<textarea contenteditable rows="5" class="widefat" name="apptbreakdown" id="apptbreakdown" />';
+                                    echo esc_attr( $booking['apptbreakdown'][0] ); 
+                                    echo '</textarea>';
+                                    ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <?php
+                                    echo '<label>';
+                                         _e( 'Arrival Process');
+                                    echo '</label>';                                   
+                                    wp_editor($booking['arrivalprocess'][0], 'arrivalprocess', $settings = array('wpautop' => false, 'textarea_rows' => 5));
+                                    ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <?php
+                                    echo '<label>';
+                                         _e( 'Operator Terms');
+                                    echo '</label>';
+                                    
+                                    wp_editor($booking['terms'][0], 'terms', $settings = array('wpautop' => false, 'textarea_rows' => 5));
+                                    ?>  
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <?php
+                                    echo '<label>';
+                                         _e( 'Staff Notes');
+                                    echo '</label>';
+                                    wp_editor($booking['staffnotes'][0], 'staffnotes', $settings = array('wpautop' => false, 'textarea_rows' => 5));
+                                    ?>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <section>
                     <?php 
-                    /*
-                    $test = get_post_meta($post->ID);
-                    echo '<pre>' . print_r($test) . '</pre>';
-                    echo $test['apartmentname'][0];
                     /********************************
                     Booking Confirmation
                     ********************************/ 
                     ?>
+
                     <table class="confirmationtable">
+                        <h4 class="moduletitle">Email Notifications
+                            <div class="module-title-menu">
+                                <input class="button" id="email_operator" value="Send to Operator">
+                                <input class="button" id="email_client" value="Send to Client">
+                                <input class="button" id="email_arrival" value="Send Arrival Email">
+                            </div>
+                        </h4>
                         <tr>
                             <td>
                                 <?php 
-                    if ($refid) { ?>
-                        <h2>Booking Confirmation</h2>
-                           
-                                <div id="accordion">
+                                    if ($booking['refid'][0]) { ?>
+                                    <div id="accordion">
                                     <h3>Client Booking Confirmation</h3>
                                     <div>
                                         <?php
-                                         //Check to see if there is a display name overide. 
-                                            if ($displayname) {
-                                                $titletext = $displayname;
+                                            //Check to see if there is a display name overide. 
+                                            if ($booking['displayname'][0]) {
+                                                $titletext = $booking['displayname'][0];
                                             } else {
-                                                $titletext = $apartmentname;
+                                                $titletext = $booking['apartmentname'][0];
                                             }         
                                             
 
                                             //Check to see if there is a cost code
-                                            if ($costcode) {
+                                            if ($booking['costcode'][0]) {
                                                 $costcodetext = '<tr>
                                                                     <td style="width:250px;"valign="middle">
                                                                         <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Cost code</p></strong> 
                                                                     </td>
                                                                     <td style="width:250px;"valign="middle">  
-                                                                       <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$costcode.'</p>                                          
+                                                                       <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$booking['costcode'][0].'</p>                                          
                                                                     </td>
                                                                 </tr>';
                                             } else {
@@ -988,19 +764,19 @@ Meta box Contents
 
                                             //Check to see if there are Supplements
                                             //add vat to supps
-                                            if ($incvat !== 'true') {
+                                            if ($booking['incvat'][0] !== 'true') {
                                                 $plusvat =  ' &#43;VAT';
                                             }
                                            
 
                                             //Check to see if there is a discount
-                                            if ($discount) {
+                                            if ($booking['discount'][0]) {
                                                 $discounttext   = '<tr>
                                                                         <td style="width:250px;"valign="middle">
                                                                             <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Discount</p></strong> 
                                                                         </td>
                                                                         <td style="width:250px;"valign="middle">  
-                                                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">&pound;'.$discount.'</p>                                          
+                                                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$currency.''.$discount.'</p>                                          
                                                                         </td>
                                                                     </tr>';
                                             } else {
@@ -1008,12 +784,7 @@ Meta box Contents
                                             }
 
 
-                                            /**
-                                            HTML Email Elements
-                                            */
-
-
-                                            $page = get_page_by_title( $apartmentname , OBJECT, 'apartments');                                        
+                                            $page = get_page_by_title( $booking['apartmentname'][0] , OBJECT, 'apartments');                                                                              
 
                                             //get the apartment address details
                                             $apartmentaddress   = get_post_meta($page->ID, 'address', true );            
@@ -1023,12 +794,9 @@ Meta box Contents
                                             $apartmentstate     = get_post_meta($page->ID, 'state', true );
                                             $apartmentcountry   = get_post_meta($page->ID, 'country', true ); 
                                             
-                                            //get the location name
-                                            $locationPage = get_page_by_title( $aprtmentlocation, OBJECT, 'locations' );
-                                            
-                                            //get the location meta
-                                            $areainformation = get_post_meta( $locationPage->ID, 'areainformation', true );
-                                            
+                                            //get the location name, use this to get the meta for the area information
+                                            $locationPage = get_page_by_title( $aprtmentlocation, OBJECT, 'locations' );                                            
+                                            $areainformation = get_post_meta( $locationPage->ID, 'areainformation', true );                                            
                                             if ($areainformation) {
                                                 $areainformationtext = '<tr>
                                                                             <td valign="top" colspan="2">
@@ -1041,39 +809,23 @@ Meta box Contents
                                             }
 
                                             //get the number of nights
-                                            $datetime1 = new DateTime($arrivaldate);
-                                            $datetime2 = new DateTime($leavingdate);
+                                            $datetime1 = new DateTime($booking['arrivaldate'][0]);
+                                            $datetime2 = new DateTime($booking['leavingdate'][0]);
                                             $interval = $datetime1->diff($datetime2);
                                             $numberofnights = $interval->format('%a nights');
 
                                             //Get the nightly rate label
-                                            if ($bookingtype == ('Corporate')) {
+                                            if ($booking['bookingtype'][0] == ('Corporate')) {
                                                 $ratelabel = 'Nightly Rate';                                                                                                
                                             } else {
                                                 $ratelabel = 'Price per person, per night';                                                                                                
                                             }
-
-                                            //the chekin time
-                                            if ($actualcheckintime ) {
-                                                $theintime = $actualcheckintime ;
-                                            } else {
-                                                $theintime = ($checkintime);
-                                            }
-
-                                            //the chekin time
-                                            if ($actualcheckouttime) {
-                                                $theouttime = $actualcheckouttime;
-                                            } else {
-                                                $theouttime = $checkouttime;
-                                            }
-
-                                            if ($incvat == 'on') {
+                                            
+                                            if ($booking['incvat'][0] == 'on') {
                                                 $vatselecttext = '';
                                             } else {
                                                 $vatselecttext = ' &#43;VAT';
                                             } 
-
-
 
                                             //location text
                                             if ($aprtmentlocation == $aprtmentlocation2) {
@@ -1089,21 +841,19 @@ Meta box Contents
                                                 $available = '<p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:red;">There is a problem getting the apartment information. Please check to see is this apartment is still a published apartment.</p>';
                                             }
 
-                                            if ($oprentalprice >= '1') {
-                                                $oppricetoshow = $oprentalprice;
+                                            //work out which booking price to show
+                                            if ($booking['oprentalprice'][0] >= '1') {
+                                                $oppricetoshow = $booking['oprentalprice'][0];
                                             } else {
-                                                $oppricetoshow = $rentalprice;
-                                            }
+                                                $oppricetoshow = $booking['rentalprice'][0];
+                                            }      
 
+                                            //get the post code into the correct format
+                                            $mappostcode = preg_replace('/\s+/', '+', $apartmentpostcode);
+
+                                            $current_user = wp_get_current_user();
+                                            $useremail = $current_user->user_email;                             
                                             
-
-                                           
-
-                                                        
-                                            /**
-                                                Build the email
-                                            **/ 
-                                
                                             echo ' 
 
 
@@ -1180,11 +930,11 @@ Meta box Contents
                                                                     <tr>
                                                                         <td style="width:250px;"valign="top">
                                                                             <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Check-in Date</p></strong>
-                                                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">' . $arrivaldate . ' (' . $theintime . ')</p> 
+                                                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">' . $booking['arrivaldate'][0] . ' (' . $booking['checkintime'][0] . ')</p> 
                                                                         </td>
                                                                         <td style="width:250px;"valign="top">
                                                                             <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Check-out Date</p></strong>
-                                                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">' . $leavingdate . ' (' . $theouttime . ')</p> 
+                                                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">' . $booking['leavingdate'][0] . ' (' . $booking['checkouttime'][0] . ')</p> 
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -1194,17 +944,17 @@ Meta box Contents
                                                                         </td>
                                                                         <td style="width:250px;"valign="top">
                                                                             <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Guests / Apartments</p></strong>
-                                                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$numberofguests.'&nbsp; / &nbsp;'.$numberofapts.'</p> 
+                                                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$booking['numberofguests'][0].'&nbsp; / &nbsp;'.$booking['numberofapts'][0].'</p> 
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td valign="top" colspan="1">
                                                                             <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Apartment(s) Breakdown</p></strong>
-                                                                            <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$apptbreakdown.'</p> 
+                                                                            <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$booking['apptbreakdown'][0].'</p> 
                                                                         </td>  
                                                                          <td valign="top" colspan="1">
                                                                             <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Additional Notes</p></strong>
-                                                                            <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$additionalnotes.'</p> 
+                                                                            <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$booking['additionalnotes'][0].'</p> 
                                                                         </td>                                        
                                                                     </tr>
                                                                     '.$areainformationtext.'
@@ -1212,12 +962,12 @@ Meta box Contents
                                                                         <!-- Guest Details -->
                                                                         <td style="width:250px;"valign="top">
                                                                             <h4 style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Guest Contact</h4>
-                                                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$guestname.'</p> 
+                                                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$booking['guestname'][0].'</p> 
                                                                         </td>
                                                                          <!-- Client Details -->
                                                                         <td style="width:250px;"valign="top">
                                                                             <h4 style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Client Contact</h4>
-                                                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$clientname.'</p> 
+                                                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$booking['clientname'][0].'</p> 
                                                                         </td>
                                                                     </tr>
                                                                 </tbody>
@@ -1238,7 +988,7 @@ Meta box Contents
                                                                             <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$ratelabel.'</p></strong> 
                                                                         </td>
                                                                         <td style="width:250px;"valign="middle" style="width:50%;">  
-                                                                           <p style=";font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">&pound;'. $rentalprice . $vatselecttext .'</p>                                          
+                                                                           <p style=";font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$currency.''. $booking['rentalprice'][0] . $vatselecttext .'</p>                                          
                                                                         </td>
                                                                     </tr>
                                                                     '.$discounttext.'
@@ -1249,7 +999,7 @@ Meta box Contents
                                                                             <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Total Cost</p></strong>
                                                                         </td>
                                                                         <td style="width:250px;"valign="middle">  
-                                                                          <p style=";font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">&pound;'. $totalcost . $vatselecttext .'</p>                                     
+                                                                          <p style=";font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$currency.''. $booking['totalcost'][0] . $vatselecttext .'</p>                                     
                                                                         </td>
                                                                     </tr>
                                                                 </tbody>
@@ -1266,8 +1016,8 @@ Meta box Contents
                                                                     </tr>
                                                                     <tr>                                        
                                                                         <td valign="top" colspan="2">
-                                                                            <p style="margin:3px;padding:4px 0;font-size:15px;font-weight:bold;">Emergency Contact : '.$emergencycontact.'</p>
-                                                                            <div class="arrivalprocess" style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$arrivalprocess.'</div>    
+                                                                            <p style="margin:3px;padding:4px 0;font-size:15px;font-weight:bold;">Emergency Contact : '.$booking['emergencycontact'][0].'</p>
+                                                                            <div class="arrivalprocess" style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$booking['arrivalprocess'][0].'</div>    
                                                                         </td>
                                                                     </tr>                                  
                                                                 </tbody>
@@ -1284,7 +1034,7 @@ Meta box Contents
                                                                     </tr>
                                                                     <tr>                                        
                                                                         <td valign="top" colspan="2">  
-                                                                           <div class="terms" style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$terms.'</div>                                         
+                                                                           <div class="terms" style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$booking['terms'][0].'</div>                                         
                                                                         </td>
                                                                     </tr>                                  
                                                                 </tbody>
@@ -1410,7 +1160,8 @@ Meta box Contents
                                                                         <td style="width:250px;"valign="top">
                                                                             <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Apartment Address</p></strong>
                                                                             '.$available.'
-                                                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">' . $apartmentaddress . '<br>' . $locationtext . $apartmentstate . '<br/>' . $apartmentpostcode . '&nbsp;' . $apartmentcountry . '</p>
+                                                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">' . 
+                                                                           $apartmentaddress . '<br>' . $locationtext . $apartmentstate . '<br/>' . $apartmentpostcode . '&nbsp;' . $apartmentcountry . '</p>
                                                                         </td>
                                                                     </tr>
                                                                 </tbody>
@@ -1423,37 +1174,37 @@ Meta box Contents
                                                                      <!-- Apartment details -->
                                                                     <tr>
                                                                         <td colspan="2" valign="middle" style="background:#d2d2d2;text-align:center;border-radius:4px;">
-                                                                            <p style="margin:3px;padding:4px 0;font-size:15px;font-weight:bold;">Check-in Details</p>
+                                                                           <p style="margin:3px;padding:4px 0;font-size:15px;font-weight:bold;">Check-in Details</p>
                                                                         </td>
                                                                     </tr>                  
                                                                     <tr>
                                                                         <td style="width:250px;"valign="top">
                                                                             <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Check-in Date</p></strong>
-                                                                            <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">' . $arrivaldate . '(' . $theintime . ')</p> 
+                                                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">' . $booking['arrivaldate'][0] . ' (' . $booking['checkintime'][0] . ')</p> 
                                                                         </td>
                                                                         <td style="width:250px;"valign="top">
                                                                             <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Check-out Date</p></strong>
-                                                                            <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">' . $leavingdate . '(' . $theouttime . ')</p> 
+                                                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">' . $booking['leavingdate'][0] . ' (' . $booking['checkouttime'][0] . ')</p> 
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td style="width:250px;"valign="top">
                                                                             <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Length of Stay</p></strong>
-                                                                            <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$numberofnights.'</p> 
+                                                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$numberofnights.'</p> 
                                                                         </td>
                                                                         <td style="width:250px;"valign="top">
                                                                             <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Guests / Apartments</p></strong>
-                                                                            <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$numberofguests.'&nbsp; / &nbsp;'.$numberofapts.'</p> 
+                                                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$booking['numberofguests'][0].'&nbsp; / &nbsp;'.$booking['numberofapts'][0].'</p> 
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td valign="top" colspan="1">
                                                                             <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Apartment(s) Breakdown</p></strong>
-                                                                            <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$apptbreakdown.'</p> 
+                                                                            <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$booking['apptbreakdown'][0].'</p> 
                                                                         </td>  
                                                                          <td valign="top" colspan="1">
                                                                             <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Additional Notes</p></strong>
-                                                                            <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$additionalnotes.'</p> 
+                                                                            <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$booking['additionalnotes'][0].'</p> 
                                                                         </td>                                        
                                                                     </tr>
                                                                     '.$areainformationtext.'
@@ -1461,12 +1212,12 @@ Meta box Contents
                                                                         <!-- Guest Details -->
                                                                         <td style="width:250px;"valign="top">
                                                                             <h4 style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Guest Contact</h4>
-                                                                            <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$guestname.'</p> 
+                                                                            <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$booking['guestname'][0].'</p> 
                                                                         </td>
                                                                          <!-- Operator Details -->
                                                                         <td style="width:250px;"valign="top">
                                                                             <h4 style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Operator Contact</h4>
-                                                                            <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$operatorname.'</p> 
+                                                                            <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$booking['operatorname'][0].'</p> 
                                                                         </td>
                                                                     </tr>
                                                                 </tbody>
@@ -1487,18 +1238,15 @@ Meta box Contents
                                                                             <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Nightly Rate</p></strong> 
                                                                         </td>
                                                                         <td style="width:250px;"valign="middle" style="width:50%;">  
-                                                                           <p style=";font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">&pound;'. $oppricetoshow . $vatselecttext .'</p>                                          
+                                                                           <p style=";font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$currency.''. $oppricetoshow . $vatselecttext .'</p>                                          
                                                                         </td>
-                                                                    </tr>                                                                    
-                                                                    '.$discounttext.'
-                                                                    '.$costcodetext.'
-                                                                    
+                                                                    </tr>                                                                  
                                                                     <tr>
                                                                        <td style="width:250px;"valign="middle">
                                                                             <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Total Cost</p></strong>
                                                                         </td>
                                                                         <td style="width:250px;"valign="middle">  
-                                                                          <p style=";font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">&pound;'. $ownerprice . $vatselecttext .'</p>                                     
+                                                                          <p style=";font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$currency.''. $booking['ownerprice'][0] . $vatselecttext .'</p>                                     
                                                                         </td>
                                                                     </tr>
                                                                 </tbody>
@@ -1515,8 +1263,8 @@ Meta box Contents
                                                                     </tr>
                                                                     <tr>                                        
                                                                         <td valign="top" colspan="2">
-                                                                            <p style="margin:3px;padding:4px 0;font-size:15px;font-weight:bold;">Emergency Contact : '.$emergencycontact.'</p>
-                                                                            <div class="arrivalprocess" style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$arrivalprocess.'</div>    
+                                                                            <p style="margin:3px;padding:4px 0;font-size:15px;font-weight:bold;">Emergency Contact : '.$booking['emergencycontact'][0].'</p>
+                                                                            <div class="arrivalprocess" style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$booking['arrivalprocess'][0].'</div>    
                                                                         </td>
                                                                     </tr>                                  
                                                                 </tbody>
@@ -1533,7 +1281,7 @@ Meta box Contents
                                                                     </tr>
                                                                     <tr>                                        
                                                                         <td valign="top" colspan="2">  
-                                                                           <div class="terms" style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$terms.'</div>                                         
+                                                                           <div class="terms" style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$booking['terms'][0].'</div>                                         
                                                                         </td>
                                                                     </tr>                                  
                                                                 </tbody>
@@ -1545,15 +1293,15 @@ Meta box Contents
                                                                 <tbody>
                                                                     <tr>                                        
                                                                         <td valign="top" colspan="2">
-                                                                            <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#fff;">Thanks for using Serviced City Pads as your booking agent. We hope you have an enjoyable stay.</p>
+                                                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#fff;">Thanks for using Serviced City Pads as your booking agent. We hope you have an enjoyable stay.</p>
 
-                                                                            <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#fff;">We have an extensive selection of serviced apartments located across the UK. Please visit www.servicedcitypads.com to see how we can help you with your next stay.</p>
+                                                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#fff;">We have an extensive selection of serviced apartments located across the UK. Please visit www.servicedcitypads.com to see how we can help you with your next stay.</p>
 
-                                                                            <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#fff;">If you have any comments or feedback about Serviced City Pads, please get in touch by e-mailing the Customer Service team. </p>
+                                                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#fff;">If you have any comments or feedback about Serviced City Pads, please get in touch by e-mailing the Customer Service team. </p>
 
-                                                                            <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#fff;">Regards</p>
+                                                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#fff;">Regards</p>
 
-                                                                            <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#fff;">'.$username.'</p>
+                                                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#fff;">'.$username.'</p>
                                                                         </td>
                                                                     </tr>                                    
                                                                 </tbody>
@@ -1565,7 +1313,7 @@ Meta box Contents
                                                                 <tbody>
                                                                     <tr>
                                                                         <td colspan="2" valign="middle" style="background:#d2d2d2;text-align:center;border-radius:4px;">
-                                                                            <p style="margin:3px;padding:4px 0;font-size:15px;font-weight:bold;">Contact Info</p>
+                                                                           <p style="margin:3px;padding:4px 0;font-size:15px;font-weight:bold;">Contact Info</p>
                                                                         </td>
                                                                     </tr> 
                                                                     <tr>
@@ -1584,6 +1332,145 @@ Meta box Contents
                                                             </table>
 
 
+                                                        </td>
+
+                                                    </tr>
+
+                                                </tbody>
+
+                                            </table>';
+                                        ?>
+                                    </div>
+                                    <h3>Arrival Process Email</h3>
+                                    <div>
+                                        <?php 
+                                        /**
+                                            Build the email
+                                        **/ 
+
+                                        echo ' 
+
+
+                                            <table width="500px" align="center" style="border:1px solid #555; background:#003;margin: 0 auto;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif; max-width:500px; width:100%">
+
+                                                <tbody>
+
+                                                    <tr>
+
+                                                        <td valign="top">
+
+                                                            <!-- the company logo -->
+                                                            <table align="center" style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif; max-width:500px; width:100%">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td valign="top">
+                                                                            <img src="http://www.servicedcitypads.com/wp-content/themes/servicedcitypads/images/logo-email.PNG" style="margin: 0;padding: 0;max-width: 300px;width:300px;">
+                                                                        </td>
+                                                                        <td valign="middle" style="text-align:center;">
+                                                                            <h2 style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#fff;">Arrival Notification</h2>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <!-- Welcome text -->                                    
+                                                                    <tr>
+                                                                        <td valign="top" colspan="2">
+                                                                        <p style="margin:10px;border-bottom:1px solid #fff;"></p>
+                                                                        <p></p>
+                                                                            <p style="margin:10px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#fff;">Thank you for choosing Services City Pads.</p>
+                                                                            <p style="margin:10px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#fff;"> Please find below your arrival instructions for your upcoming stay.</p>                                                                            
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            <p></p>     
+
+                                                            <table align="center" style="background:#eee;margin: 0;padding: 10px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif; max-width:500px; width:100%">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td style="padding-bottom:10px;">                                                
+                                                                            <strong>Lead Guest: </strong>'.$booking['guestname'][0].'
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td style="padding-bottom:10px;">                                                
+                                                                            <strong>Apartments: </strong>'.$booking['apartmentname'][0].'<br>
+                                                                            <strong>Address: </strong>' . $apartmentaddress . ', ' . $aprtmentlocation . ', ' . $aprtmentlocation2 . ', ' . $apartmentstate . ', ' . $apartmentpostcode . '<br>' . $apartmentcountry . '
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td style="padding-bottom:10px;">
+                                                                            <strong>Check-in: </strong>'.$booking['arrivaldate'][0].' ('.$booking['checkintime'][0].')<br>
+                                                                            <strong>Check-in: </strong>'.$booking['leavingdate'][0].' ('.$booking['checkouttime'][0].')
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td style="padding-bottom:10px;">
+                                                                            <strong>Arrival Process:</strong><br>'.$booking['arrivalprocess'][0].'
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td style="padding-bottom:10px;">
+                                                                            <strong>Additional Information:</strong><br>'.$booking['additionalnotes'][0].'
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td style="padding-bottom:10px;">
+                                                                            <strong>Emergency Tel.:</strong>'.$booking['emergencycontact'][0].'
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td style="padding-bottom:5px;">
+                                                                            <strong>Map:</strong><br>
+                                                                            <span style="font-style:italic;">For an interactive map, please <a style="colour:red;"href="'.$page->guid.'">click here</a></span>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <img src="http://maps.googleapis.com/maps/api/staticmap?center='.$mappostcode.'&zoom=15&size=450x300&maptype=roadmap&markers=color:blue%7Clabel:We+are+here%7C'.$mappostcode.'&key=AIzaSyAgbOmk-xspMP30E6kXDyHH1-2VMIRJsjY"/>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td style="padding-bottom:10px;padding-top:10px;">
+                                                                             <strong>Terms &amp; Conditions</strong><br>'.$booking['terms'][0].'
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                                <strong>We hope you have an enjoyable stay.</strong><br></br>
+                                                                           
+                                                                                If you have any questions or require assistance during your stay, please do not hesitate to get in touch. Our team can arrange extensions, late check-out and grocery deliveries - just give us a call.<br></br>
+                                                                          
+                                                                                We look forward to seeing you soon!<br></br>
+                                                                           
+                                                                                <strong>Serviced CIty Pads Reservation Team</strong>
+                                                                        </td>
+                                                                    </tr>                            
+                                                                </tbody>
+                                                            </table>                                           
+                                                                           
+                                                            <p></p>
+                                                            <!-- Contact Info -->
+                                                            <table style="background:#eee;border:1px solid #a2a2a2;border-radius:5px;margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif; max-width:500px; width:100%">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td colspan="2" valign="middle" style="background:#d2d2d2;text-align:center;border-radius:4px;">
+                                                                           <p style="margin:10px;padding:4px 0;font-size:15px;font-weight:bold;">Contact Info</p>
+                                                                        </td>
+                                                                    </tr> 
+                                                                    <tr>
+                                                                        <td valign="top" colspan="2" style="text-align:center;">
+                                                                            Phone : 0844 335 8866<br>
+                                                                            Email : <a href="">Reservations and Bookings</a><br>
+                                                                            Web : <a href="www.servicedcitypads.com">servicedcitypads.com</a>
+                                                                        </td>
+                                                                    </tr>   
+                                                                    <tr>
+                                                                         <td valign="top" colspan="2" style="text-align:center;">
+                                                                           <a href="http://www.servicedcitypads.com"><img style="width:450px;height:auto;"src="http://www.servicedcitypads.com/wp-content/themes/servicedcitypads/images/image001.gif"</a>
+                                                                        </td>
+                                                                    </tr>                           
+                                                                </tbody>
+                                                            </table>
+
 
                                                         </td>
 
@@ -1594,24 +1481,24 @@ Meta box Contents
                                             </table>';
                                         ?>
                                     </div>
-                                </div>         
+                                </div> 
+                                <input id="useremail" type="hidden" value="<?php echo $useremail; ?>">         
                             
                                 <?php } else { ?>
-                                    <h2>Booking Confirmation</h2>
-                                        
-                                            <p>You need to save your booking before viewing the booking confirmation.</p>                           
-                                        
+                                <h2>Booking Confirmation</h2>        
+                                <p>You need to save your booking before viewing the booking confirmation.</p>                           
+                            
                                 <?php } ?>
                             </td>
                         </tr>
                     </table>
-
-
-       
+                </section>
+            <!-- Right Column Ends -->
             </td>
-        </tr>
-     </tbody>
- </table>
+        </tr>  
+    </tbody>
+</table> 
+
 
 <?php    
 
@@ -1622,7 +1509,7 @@ Meta box Contents
  *
  * @param int $post_id The ID of the post being saved.
  */
-function bookingsteps_save_meta_box_data( $post_id ) {
+function bookingsteps2_save_meta_box_data( $post_id ) {
 
     /*
      * We need to verify this came from our screen and with proper authorization,
@@ -1630,12 +1517,12 @@ function bookingsteps_save_meta_box_data( $post_id ) {
      */
 
     // Check if our nonce is set.
-    if ( ! isset( $_POST['bookingsteps_meta_box_nonce'] ) ) {
+    if ( ! isset( $_POST['bookingsteps2_meta_box_nonce'] ) ) {
         return;
     }
 
     // Verify that the nonce is valid.
-    if ( ! wp_verify_nonce( $_POST['bookingsteps_meta_box_nonce'], 'bookingsteps_meta_box' ) ) {
+    if ( ! wp_verify_nonce( $_POST['bookingsteps2_meta_box_nonce'], 'bookingsteps2_meta_box' ) ) {
         return;
     }
 
@@ -1781,12 +1668,11 @@ function bookingsteps_save_meta_box_data( $post_id ) {
     update_post_meta($post_id, 'guestage',$mydata_guestage);
     update_post_meta($post_id, 'guestsex',$mydata_guestsex);
     update_post_meta($post_id, 'priceperperson', $mydata_priceperperson);
-    update_post_meta( $post_id, 'refid', get_the_id() );
+    update_post_meta( $post_id, 'refid', get_the_ID() );
     update_post_meta( $post_id, 'staffnotes', ($_POST['staffnotes']) );
-
 
     
 }
-add_action( 'save_post', 'bookingsteps_save_meta_box_data' );
+add_action( 'save_post', 'bookingsteps2_save_meta_box_data' );
 
 ?>

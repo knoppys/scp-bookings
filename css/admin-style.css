@@ -23,11 +23,49 @@
     padding-left: 20px;
     line-height: 0;
 }
+.bookingsmeta label {
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 1.8;
+    display: block;
+}
+.pricing {
+    border: 3px solid #c2c2c2;
+}
+
+.bookingsmeta section {
+    background: #efefef none repeat scroll 0 0;
+    border-radius: 2px;
+    margin-bottom: 10px;
+    padding-bottom: 25px;
+}
+.totals {
+    border-top: 3px solid #c2c2c2;
+    margin-top: 10px;
+    padding-top: 10px;
+}
+.bookingsmeta input, .bookingsmeta select {
+    display: block;
+    width: 100%;
+}
 #booking-container>.steps>ul>li {
     width: 16%
 }
 .pound::before {
     content: '£';
+}
+
+.confirmationtable .button {
+    display: inline-block;
+    float: right;
+    position: relative;
+    text-align: center;
+    top: -4px;
+    width: 200px;
+}
+.post-type-bookings #postbox-container-1 .postbox {
+    float: left;
+    width: 33%;
 }
 #booking-container > .steps a {
     background: #a66680;
@@ -38,13 +76,10 @@
     font-size: 17px;
     text-decoration: underline
 }
-.widefat {
-    line-height: 2!important
-}
+
 .wp-admin select {
     padding: 2px;
     line-height: 28px;
-    height: 41px;
     vertical-align: middle
 }
 .apartments-button {
@@ -111,6 +146,14 @@ table.bookings-ref h2 {
     line-height: 0;
     color: #fff
 }
+.pricing .pricingcalculate {
+    background: #003 none repeat scroll 0 0;
+    border: medium none;
+    float: right;
+    font-weight: bold;
+    width: 150px !important;
+    color: #fff;
+}
 .bookings-ref input {
     background: 0 0;
     border: none;
@@ -125,6 +168,14 @@ table.bookings-ref h2 {
 .locations-button {
     float: right;
     padding: 10px 0
+}
+
+.moduletitle {
+    background: #003 none repeat scroll 0 0;
+    color: #fff;
+    display: block;
+    margin-top: 0;
+    padding: 7px 10px;
 }
 table.bookings-ref {
     background: brown;
@@ -218,9 +269,38 @@ td.haseditor .wp-editor-wrap {
     font-weight: 700;
     color: #eb8f00
 }
+
+.relatedbookings {
+    border: 1px solid #e2e2e2;
+    width: 100%;
+}
+.parentbooking {
+    background: #e2e2e2 none repeat scroll 0 0;
+}
+
+.parent-post, .child-post {
+    list-style: outside none none;
+}
+.child-post {
+    padding-left: 10px;
+}
+#pageparentdiv {
+    display: none;
+}
+.expand {
+    background: #23282d none repeat scroll 0 0;
+    display: none;
+    position: absolute;
+    right: 0;
+    width: 500px;
+}
 .email_button {
     margin: 10px 0;
     text-align: center
+}
+.expand table {
+    padding: 10px;
+    width: 100%;
 }
 .bookingstable *,
 table.dashboard_widget {
@@ -354,4 +434,16 @@ div#accordion h3 {
 .halfwidth {
     width: 49%;
     display: inline-block;
+}
+.bookingsmeta input[type=checkbox] {
+    width: auto;
+}
+.module-title-menu {
+    width: 53%;
+    display: inline-flex;
+    margin-left: 28%;
+}
+.module-title-menu input {
+    text-align: center;
+    width: 144px;
 }

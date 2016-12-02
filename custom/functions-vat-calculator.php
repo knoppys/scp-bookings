@@ -57,7 +57,7 @@ function implement_ajax_vat() {
 		    	} 	    	
 				
 				//3. Give the rental VAT figure			
-				$rentalvatfigure = round( (($rentalprice * $numberofnights) / 100) * $vatrate, 2);
+				$rentalvatfigure = number_format( (($rentalprice * $numberofnights) / 100) * $vatrate, 2, '.', '');
 
 
 
@@ -78,7 +78,7 @@ function implement_ajax_vat() {
 				
 				//3. Get the supplements VAT figure. If the booking is a groups or leisure booking then normal 20% VAT applies
 				if ($bookingtype == 'Corporate' || 'Groups') {
-					$supplementsvatfigure = round( ($supplementsvalue  / 100) * 20, 2);
+					$supplementsvatfigure = number_format( ($supplementsvalue  / 100) * 20, 2, '.', '');
 				} else {
 					$supplementsvatfigure = '0';
 				}
@@ -142,9 +142,9 @@ function implement_ajax_vat() {
 
 				//1. If the booking is INC VAT then $totalcost will be the $balance figure, else its the $netprice
 				if ($incvat == 'true') {
-					$totalcost = round($balance, 2);
+					$totalcost = number_format($balance, 2, '.', '');
 				} else {
-					$totalcost = round($netprice, 2);
+					$totalcost = number_format($netprice, 2, '.', '');
 				}
 			
 
@@ -152,14 +152,15 @@ function implement_ajax_vat() {
 			//***********************
 			//Bundle this into an array and send it all back
 			//***********************
-			    $data = json_encode(array(
+			    $array = array(
 			    	'vatfigure' => 	$vatfigure, 
 			    	'totalcost'	=> 	$balance,
 			    	'nights'	=> 	$numberofnights,
 			    	'optotal'	=>  $opbalance,
+			    	);
 
-			    	)
-			    );
+			    $data = json_encode($array, JSON_NUMERIC_CHECK);
+
 			    
 			    //send the aray back
 			    ///echo 'supplementsfig1 = '.$supplementsfig1.'<br>';

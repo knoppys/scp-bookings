@@ -7,10 +7,7 @@
 function implement_ajax_email_client(){
     if(isset($_POST['title']))
         { 
-            $testvar = 'ajax comms up';
-            /**
-            Email content vairables
-            */
+
 
             //WP Mail Variables
             $to = ($_POST['clientemail']);
@@ -47,7 +44,7 @@ function implement_ajax_email_client(){
                                             <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.($_POST['supplementstext']).'</p>
                                         </td>
                                         <td style="width:250px;"valign="middle">  
-                                            <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">&pound;'.($_POST['supplementsprice']).'</p>                                          
+                                            <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$currency.''.($_POST['supplementsprice']).'</p>                                          
                                         </td>
                                     </tr>';
             } else {
@@ -63,7 +60,7 @@ function implement_ajax_email_client(){
                                             <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Discount</p></strong> 
                                         </td>
                                         <td style="width:250px;"valign="middle">  
-                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">&pound;'.($_POST['discount']).'</p>                                          
+                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$currency.''.($_POST['discount']).'</p>                                          
                                         </td>
                                     </tr>';
             } else {
@@ -88,6 +85,15 @@ function implement_ajax_email_client(){
                 $apartmentpostcode  = get_post_meta($page->ID,'postcode', true );
                 $apartmentstate     = get_post_meta($page->ID,'state', true );
                 $apartmentcountry   = get_post_meta($page->ID,'country', true ); 
+                
+
+                if ( ($aprtmentlocation == 'Dublin') || $aprtmentlocation2 == 'Dublin' ) {
+                    $currency = '€';
+                } else {
+                    $currency = '£';
+                }
+
+
                 //get the location name
                 $locationPage = get_page_by_title( $aprtmentlocation, OBJECT, 'locations' );
                     //get the location meta
@@ -130,14 +136,7 @@ function implement_ajax_email_client(){
                     $theintime = ($_POST['actualcheckintime']);
                 } else {
                     $theintime = ($_POST['checkintime']);
-                }
-
-                //the chekin time
-                if (($_POST['actualcheckouttime'])) {
-                    $theouttime = ($_POST['actualcheckouttime']);
-                } else {
-                    $theouttime = ($_POST['checkouttime']);
-                }      
+                }    
 
                 //Get the nightly rate label
                 if (($_POST['bookingtype']) == 'Corporate') {
@@ -292,18 +291,16 @@ function implement_ajax_email_client(){
                                             <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$ratelabel.'</p></strong> 
                                         </td>
                                         <td style="width:250px;"valign="middle" style="width:50%;">  
-                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">&pound;'. $nightlyratetext .'</p>                                          
+                                           <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$currency.''. $nightlyratetext .'</p>                                          
                                         </td>
                                     </tr>
-                                    '.$discounttext.'
-                                    '.$costcodetext.' 
-                                    '.$suplementtext.'                                 
+                                    '.$discounttext.'                                 
                                     <tr>
                                        <td style="width:250px;"valign="middle">
                                             <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Total Cost</p></strong>
                                         </td>
                                         <td style="width:250px;"valign="middle">  
-                                          <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">&pound;'. $totalcosttext .'</p>                                     
+                                          <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">'.$currency.''. $totalcosttext .'</p>                                     
                                         </td>
                                     </tr>
                                 </tbody>
