@@ -82,7 +82,7 @@ function rd_duplicate_post_as_draft(){
 		/*
 		 * finally, redirect to the edit post screen for the new draft
 		 */
-		wp_redirect( admin_url( 'admin.php?page=scp-bookings-parent' ) );
+		wp_redirect( admin_url( 'post.php?post='.$new_post_id.'&action=edit' ) );
 		exit;
 	} else {
 		wp_die('Post creation failed, could not find original post: ' . $post_id);

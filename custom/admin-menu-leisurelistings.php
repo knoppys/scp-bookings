@@ -114,7 +114,7 @@ function leisurelistings_callback() {
 							);
 							$children = get_children( $args );
 							if ($children) { ?>
-								More
+								<span class="page-title-action">More</span>
 								<div class="expand">
 									<table>
 										<tbody>

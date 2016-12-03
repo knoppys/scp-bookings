@@ -117,9 +117,11 @@ function my_custom_menu_page(){
 						
 						<td><?php echo $bookingmeta['welcomepack'][0]; ?></td>
 						<td>
-							<?php echo '
-							<a href="admin.php?action=rd_duplicate_post_as_draft&amp;post=' . $booking->ID . '" title="Duplicate this item" rel="permalink">Duplicate</a>
-							';
+							<?php 
+							$string = ($_SERVER["QUERY_STRING"]);
+							parse_str($string, $output);
+							$page = $output['page'];
+							echo '<a href="admin.php?action=rd_duplicate_post_as_draft&amp;post=' . $booking->ID . '&page='.$page.'" title="Duplicate this item" rel="permalink">Duplicate</a>';
 							?>
 						</td>
 						<td class="bookingexpand">
@@ -132,7 +134,7 @@ function my_custom_menu_page(){
 							);
 							$children = get_children( $args );
 							if ($children) { ?>
-								More
+								<span class="page-title-action">More</span>
 								<div class="expand">
 									<table>
 										<tbody>
