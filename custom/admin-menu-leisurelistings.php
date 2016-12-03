@@ -148,5 +148,4 @@ function leisurelistings_callback() {
 				echo '</table>';
 			}
 				
-}?>
-
+}

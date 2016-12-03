@@ -166,5 +166,4 @@ function my_custom_menu_page(){
 				echo '</table>';
 			}
 				
-}?>
-
+}

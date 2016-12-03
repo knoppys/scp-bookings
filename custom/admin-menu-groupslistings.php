@@ -148,5 +148,4 @@ function groupslistings_callback() {
 				echo '</table>';
 			}
 				
-}?>
-
+}
