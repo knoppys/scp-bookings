@@ -279,27 +279,15 @@ jQuery(document).ready(function(){
 					jQuery('.arrivalprocess').html(data.arrivalprocess); 					
 					jQuery('.terms').html(data.terms); 
 
-					//place the required price into the Price Per $night field
-					//jQuery('#rentalprice').val(data.rentalprice);
-
-	            	
-	            	/*This is the old function that used to seperate the values into two fields.
-	            	if (data.bookingtype == 'Corporate') {
-    					jQuery('#rentalprice').val(data.rentalprice);
-    					jQuery('#priceperperson').val(null);
-
-					} else if (data.bookingtype == 'Groups') {
-					    jQuery('#priceperperson').val(data.rentalprice);
-					    jQuery('#rentalprice').val(null);
-
-					} else if (data.bookingtype == 'Leisure') {
-					    jQuery('#priceperperson').val(data.rentalprice);
-					    jQuery('#rentalprice').val(null);
-
+					//If the booking type is Corporate then mark the booking as +VAT
+					if (bookingtype = 'Corporate' || bookingtype == 'Leisure') {
+						jQuery('#incvat').prop('checked', true);
+					} else {
+						jQuery('#incvat').prop('checked', false);
 					}
-					console.log(data.terms);
-					*/
 
+					
+					
 	            	
 			    }
 			});
@@ -498,84 +486,16 @@ var siteUrl = siteUrlobject.siteUrl+'/wp-admin/admin-ajax.php';
 
 jQuery('#email_client').click(function(e){
 
-		jQuery('#incvat').on('click', function () {
-		    jQuery(this).val(this.checked ? true : false);	    
-		});
-		if (jQuery('#incvat').prop('checked')==true) {var incvat = 'true'} else {var incvat = 'false'}
-
-		var siteUrl = siteUrlobject.siteUrl+'/wp-admin/admin-ajax.php';
-		var buttonid = this.id;
-		var bookingtype = jQuery('#bookingtype').val();
-		var useremail = jQuery('#useremail').attr('value');
-		var username = jQuery('#username').val();
-		var title = jQuery('#title').val();
-		var guestname = jQuery('#guestname').val();
-		var email = jQuery('#email').val();
-		var phone = jQuery('#phone').val();
-		var apartmentname = jQuery('#apartmentname').val();
-		var numberofapts = jQuery('#numberofapts').val();
-		var additionalnotes = jQuery('#additionalnotes').val()
-		var apptbreakdown = jQuery('#apptbreakdown').val();		
-		var terms = jQuery('#terms').val();
-		var arrivalprocess = jQuery('#arrivalprocess').val();
-		var emergencycontact = jQuery('#emergencycontact').val;
-		var clientname = jQuery('#clientname').val();
-		var clientemail = jQuery('#clientemail').val();
-		var clientphone = jQuery('#clientphone').val();	
-		var arrivaldate = jQuery('#arrivaldate').val();	 
-		var leavingdate = jQuery('#leavingdate').val();
-		var checkintime = jQuery('#checkintime').val();
-		var checkouttime = jQuery('#checkouttime').val();
-		var actualcheckintime = jQuery('#actualcheckintime').val();	
-		var actualcheckouttime = jQuery('#actualcheckouttime').val();		
-		var supplementsprice = jQuery('#supplementsprice').val();
-		var numberofguests = jQuery('#numberofguests').val();	
-		var discount = jQuery('#discount').val();
-		var rentalprice = jQuery('#rentalprice').val();	
-		var totalcost = jQuery('#totalcost').val();
-		var costcode = jQuery('#costcode').val();
-		var displayname = jQuery('#displayname').val();
-		var welcomepack = jQuery('#welcomepack').val();
-
+	var siteUrl = siteUrlobject.siteUrl+'/wp-admin/admin-ajax.php';
+	var bookingID = jQuery('#refid').val();
 	
 	jQuery.ajax({
 		url:siteUrl,
 	    type:'POST',
-	    data:'action=booking_confirmation_email_client&guestname=' + guestname + 
-	    '&useremail=' + useremail + 
-	    '&bookingtype=' + bookingtype + 
-	    '&username=' + username +
-	    '&title=' + title + 
-	    '&email=' + email + 
-	    '&phone=' + phone + 
-	    '&apartmentname=' + apartmentname + 
-	    '&numberofapts=' + numberofapts + 
-	    '&additionalnotes=' + additionalnotes + 
-	    '&apptbreakdown=' + apptbreakdown + 
-	    '&arrivaldate=' + arrivaldate + 
-	    '&terms=' + terms + 
-	    '&arrivalprocess=' + arrivalprocess + 
-	    '&emergencycontact=' + emergencycontact + 
-	    '&clientname=' + clientname + 
-	    '&clientemail=' + clientemail +  
-	    '&clientphone=' + clientphone + 
-	    '&leavingdate=' + leavingdate + 
-	    '&actualcheckintime=' + actualcheckintime + 
-	    '&actualcheckouttime=' + actualcheckouttime + 
-	    '&supplementsprice=' + supplementsprice + 
-	    '&numberofguests=' + numberofguests + 
-	    '&discount='  + discount + 
-	    '&totalcost=' + totalcost +
-	    '&checkintime=' + checkintime +
-	    '&checkouttime=' + checkouttime + 
-	    '&buttonid=' + buttonid + 
-	    '&rentalprice=' + rentalprice +
-	    '&costcode=' + costcode +
-	    '&displayname=' + displayname +
-	    '&incvat=' + incvat +
-	    '&welcomepack=' + welcomepack,
+	    data:'action=booking_confirmation_email_client&bookingID='+bookingID,
          success:function(result){ 
             	alert('Your email was sent to the client.');
+            	console.log(result);
             	
 		    }
 
@@ -589,91 +509,16 @@ jQuery('#email_client').click(function(e){
 
 jQuery('#email_operator').click(function(e){
 
-		jQuery('#incvat').on('click', function () {
-		    jQuery(this).val(this.checked ? true : false);	    
-		});
-		if (jQuery('#incvat').prop('checked')==true) {var incvat = 'true'} else {var incvat = 'false'}
-
-		var siteUrl = siteUrlobject.siteUrl+'/wp-admin/admin-ajax.php';
-		var buttonid = this.id;
-		var bookingtype = jQuery('#bookingtype').val();
-		var useremail = jQuery('#useremail').attr('value');
-		var username = jQuery('#username').val();
-		var title = jQuery('#title').val();
-		var guestname = jQuery('#guestname').val();
-		var email = jQuery('#email').val();
-		var phone = jQuery('#phone').val();
-		var apartmentname = jQuery('#apartmentname').val();
-		var numberofapts = jQuery('#numberofapts').val();
-		var additionalnotes = jQuery('#additionalnotes').val();
-		var apptbreakdown = jQuery('#apptbreakdown').val();		
-		var terms = jQuery('#terms').val();
-		var arrivalprocess = jQuery('#arrivalprocess').val();
-		var emergencycontact = jQuery('#emergencycontact').val;
-		var clientname = jQuery('#bookingsclient_new_field').val();
-		var operatorname = jQuery('#operatorname').val();
-		var operatoremail = jQuery('#operatoremail').val();
-		var operatorphone = jQuery('#clientphone').val();	
-		var arrivaldate = jQuery('#arrivaldate').val();	
-		var leavingdate = jQuery('#leavingdate').val();
-		var checkintime = jQuery('#checkintime').val();
-		var checkouttime = jQuery('#checkouttime').val();
-		var actualcheckintime = jQuery('#actualcheckintime').val();	
-		var actualcheckouttime = jQuery('#actualcheckouttime').val();		
-		var opsupplementsprice = jQuery('#opsupplementsprice').val();
-		var numberofguests = jQuery('#numberofguests').val();	
-		var discount = jQuery('#discount').val();
-		var oprentalprice = jQuery('#oprentalprice').val();
-		var rentalprice = jQuery('#rentalprice').val();
-		var totalcost = jQuery('#totalcost').val();
-		var costcode = jQuery('#costcode').val();
-		var displayname = jQuery('#displayname').val();
-		var welcomepack = jQuery('#welcomepack').val();
-		var ownerprice = jQuery('#ownerprice').val();
-	
+	var siteUrl = siteUrlobject.siteUrl+'/wp-admin/admin-ajax.php';
+	var bookingID = jQuery('#refid').val();
 	
 	jQuery.ajax({
 		url:siteUrl,
 	    type:'POST',
-	    data:'action=booking_confirmation_email_operator&guestname=' + guestname +
-	    '&ownerprice=' + ownerprice +
-	    '&useremail=' + useremail + 
-	    '&bookingtype=' + bookingtype + 
-	    '&username=' + username +
-	    '&title=' + title + 
-	    '&email=' + email + 
-	    '&phone=' + phone + 
-	    '&apartmentname=' + apartmentname + 
-	    '&numberofapts=' + numberofapts + 
-	    '&additionalnotes=' + additionalnotes + 
-	    '&apptbreakdown=' + apptbreakdown + 
-	    '&arrivaldate=' + arrivaldate + 
-	    '&terms=' + terms + 
-	    '&arrivalprocess=' + arrivalprocess + 
-	    '&emergencycontact=' + emergencycontact + 
-	    '&clientname=' + clientname + 
-	    '&operatoremail=' + operatoremail + 
-	    '&operatorname=' + operatorname + 
-	    '&operatorphone=' + operatorphone + 
-	    '&leavingdate=' + leavingdate + 
-	    '&actualcheckintime=' + actualcheckintime + 
-	    '&actualcheckouttime=' + actualcheckouttime + 
-	    '&opsupplementsprice=' + opsupplementsprice +  
-	    '&numberofguests=' + numberofguests + 
-	    '&discount='  + discount + 	     
-	    '&totalcost=' + totalcost +
-	    '&checkintime=' + checkintime +
-	    '&checkouttime=' + checkouttime + 
-	    '&buttonid=' + buttonid + 
-	    '&oprentalprice=' + oprentalprice +
-	    '&rentalprice=' + rentalprice +
-	    '&costcode=' + costcode +
-	    '&displayname=' + displayname +
-	    '&incvat=' + incvat +
-	    '&welcomepack=' + welcomepack,
+	    data:'action=booking_confirmation_email_operator&bookingID='+bookingID,
          success:function(result){ 
             	alert('Your email was sent to the Operator.');
-            	console.log(bookingtype);
+            	console.log(result);
 		    }
 
 	});
@@ -689,16 +534,14 @@ jQuery('#email_arrival').click(function(e){
 
 	var siteUrl = siteUrlobject.siteUrl+'/wp-admin/admin-ajax.php';
 	var bookingID = jQuery('#refid').val();
-
-	console.log(bookingID);
 	
 	jQuery.ajax({
 		url:siteUrl,
 	    type:'POST',
 	    data:'action=arrival_email&bookingID='+bookingID,
-         success:function(result){ 
-            	alert('Your email was sent to the client.');
-            	console.log(result);
+	     success:function(result){ 
+	        	alert('Your email was sent to the Client.');
+	        	console.log(result);
             	
 		}
 	});

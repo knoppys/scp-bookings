@@ -23,6 +23,9 @@
     padding-left: 20px;
     line-height: 0;
 }
+span.page-title-action {
+    cursor: pointer;
+}
 .bookingsmeta label {
     font-weight: bold;
     font-size: 14px;

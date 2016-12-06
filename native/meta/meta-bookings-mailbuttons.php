@@ -78,7 +78,7 @@ function emailbuttons_meta_box_callback( $post ) {
                             </tbody>
                           </table>
 
-                          <?php }
+                          <?php } else {
 
                         //if this is a parent
                           $args = array(
@@ -111,7 +111,8 @@ function emailbuttons_meta_box_callback( $post ) {
                                   <?php } ?>
                               </tbody>
                             </table>
-                          <?php } ?>                          
+                          <?php } ?>     
+                        <?php } ?>                      
                     </td>                               
                 </tr>
            </tbody>
