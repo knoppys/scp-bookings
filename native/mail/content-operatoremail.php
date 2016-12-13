@@ -24,7 +24,7 @@ $numberofnights = $interval->format('%a nights');
 //Get the correct apartmentname
 if ($booking['displayname'][0]) {
     $apartmentnametext = '                                  
-                    <p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">
+                    <p style="font-family: \'Helvetica\', \'Arial\', sans-serif;color:#333;">
                     <strong>Apartment Name</strong><br>
                     '.$booking['displayname'][0].'<br>
                     <a target="_blank" href="'.$page->guid.'">View apartment information</a><br>
@@ -33,7 +33,7 @@ if ($booking['displayname'][0]) {
                     ';
 } else {
     $apartmentnametext = '
-                    <p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">
+                    <p style="font-family: \'Helvetica\', \'Arial\', sans-serif;color:#333;">
                     <strong>'.$booking['apartmentname'][0].'</strong> <br>
                     <a target="_blank" href="'.$page->guid.'">View apartment information</a><br>
                     <a href="https://www.google.co.uk/maps/place/'.$apartmentpostcode.'">Get directions</a>
@@ -44,7 +44,7 @@ if ($booking['displayname'][0]) {
 //Get the correct address format. 
 if ($aprtmentlocation == $aprtmentlocation2) {
    $apartmentlocationtext = '
-                            <p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">
+                            <p style="font-family: \'Helvetica\', \'Arial\', sans-serif;color:#333;">
                             <strong>Apartment Address</strong><br>
                             '.$apartmentaddress.'<br>
                             '.$aprtmentlocation.'<br>
@@ -53,7 +53,7 @@ if ($aprtmentlocation == $aprtmentlocation2) {
                             ';
 } else {
    $apartmentlocationtext = '
-                            <p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">
+                            <p style="font-family: \'Helvetica\', \'Arial\', sans-serif;color:#333;">
                             <strong>Apartment Address</strong><br>
                             '.$apartmentaddress.'<br>
                             '.$aprtmentlocation.'<br>
@@ -65,7 +65,7 @@ if ($aprtmentlocation == $aprtmentlocation2) {
 
 //Get the checkin details
 $checkintext =  '
-    <p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">
+    <p style="font-family: \'Helvetica\', \'Arial\', sans-serif;color:#333;">
     <strong>Check-in</strong><br>
     '.$booking['arrivaldate'][0].' ('.$booking['checkintime'][0].')
     </p>
@@ -73,7 +73,7 @@ $checkintext =  '
 
 //Get the checkout details
 $checkouttext =  '
-    <p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">
+    <p style="font-family: \'Helvetica\', \'Arial\', sans-serif;color:#333;">
     <strong>Check-out</strong><br>
     '.$booking['leavingdate'][0].' ('.$booking['checkouttime'][0].')
     </p>
@@ -81,7 +81,7 @@ $checkouttext =  '
 
 //Length of stay
 $lengthofstaytext = '
-    <p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">
+    <p style="font-family: \'Helvetica\', \'Arial\', sans-serif;color:#333;">
     <strong>Length of stay</strong><br>
     '.$numberofnights.'
     </p>
@@ -89,7 +89,7 @@ $lengthofstaytext = '
 
 //Length of stay
 $gueststext =   '
-    <p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">
+    <p style="font-family: \'Helvetica\', \'Arial\', sans-serif;color:#333;">
     <strong>Guests / Apartments</strong><br>
     '.$booking['numberofguests'][0].'&nbsp; / &nbsp;'.$booking['numberofapts'][0].'
     </p>
@@ -98,7 +98,7 @@ $gueststext =   '
 //Breakdown
 if (strlen ( $booking['apptbreakdown'][0] ) >= 1 )  {
 $breakdowntext = '
-    <p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">
+    <p style="font-family: \'Helvetica\', \'Arial\', sans-serif;color:#333;">
     <strong>Apartment Breakdown</strong><br>
     '.$booking['apptbreakdown'][0].'
     </p>
@@ -108,7 +108,7 @@ $breakdowntext = '
 //Additional Notes                
 if (strlen ( $booking['additionalnotes'][0] ) >= 1 )  {
     $additionalnotestext = '
-    <p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">
+    <p style="font-family: \'Helvetica\', \'Arial\', sans-serif;color:#333;">
     <strong>Additional Notes</strong><br>
     '.$booking['additionalnotes'][0].'
     </p>
@@ -119,7 +119,7 @@ if (strlen ( $booking['additionalnotes'][0] ) >= 1 )  {
 //Arrival Process
 if (strlen ( $booking['arrivalprocess'][0] ) >= 1 )  {
     $arrivalprocesstext = '
-    <p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">                           
+    <p style="font-family: \'Helvetica\', \'Arial\', sans-serif;color:#333;">                           
     '.$booking['arrivalprocess'][0].'
     </p>
     ';
@@ -128,7 +128,7 @@ if (strlen ( $booking['arrivalprocess'][0] ) >= 1 )  {
 
 //Guest Contact
 $guestnametext = '
-    <p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">
+    <p style="font-family: \'Helvetica\', \'Arial\', sans-serif;color:#333;">
     <strong>Guest Contact</strong><br>
     '.$booking['guestname'][0].'
     </p>
@@ -136,7 +136,7 @@ $guestnametext = '
 
 //Client Contact
 $clientnametext = '
-    <p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">
+    <p style="font-family: \'Helvetica\', \'Arial\', sans-serif;color:#333;">
     <strong>Client Contact</strong><br>
     '.$booking['clientname'][0].'
     </p>
@@ -151,8 +151,8 @@ $areainformation = get_post_meta( $locationPage->ID, 'areainformation', true );
 if ($areainformation) {
     $areainformationtext = '<tr>
                                 <td valign="top" colspan="2">
-                                    <strong><p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Area Information</p></strong>                                                     
-                                   <p style="margin:3px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">Contact Name: '.$areainformation.'</p>                                          
+                                    <strong><p style="font-family: \'Helvetica\', \'Arial\', sans-serif;color:#333;">Area Information</p></strong>                                                     
+                                   <p style="margin:3px;font-family: \'Helvetica\', \'Arial\', sans-serif;color:#333;">Contact Name: '.$areainformation.'</p>                                          
                                 </td>
                             </tr>';
 } else {
@@ -170,9 +170,9 @@ if ($booking['incvat'][0]!=='true') {
 
 //Get the nightly rate label
 if ($booking['bookingtype'][0] == 'Corporate') {
-    $ratelabel = '<p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;"><strong>Price Per Night</strong></p>';
+    $ratelabel = '<p style="font-family: \'Helvetica\', \'Arial\', sans-serif;color:#333;"><strong>Price Per Night</strong></p>';
 } else {
-    $ratelabel = '<p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;"><strong>Price per person, per night</strong></p>';
+    $ratelabel = '<p style="font-family: \'Helvetica\', \'Arial\', sans-serif;color:#333;"><strong>Price per person, per night</strong></p>';
 }
 
 //Get the currency symbol
@@ -221,7 +221,7 @@ ob_start(); ?>
                                                                     <img src="http://www.servicedcitypads.com/wp-content/themes/servicedcitypads/images/logo-email.PNG" style="margin: 0;padding: 0;max-width: 300px;width:200px;">
                                                                 </td>
                                                                 <td valign="middle" style="text-align:center;">
-                                                                    <h2 style="font-family:Helvetica Neue,Helvetica, Helvetica, Arial, sans-serif;color:#fff;">Booking Confirmation</h2>
+                                                                    <h2 style="font-family: 'Helvetica', 'Arial', sans-serif;color:#fff;">Booking Confirmation</h2>
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -307,7 +307,7 @@ ob_start(); ?>
                                                             <?php echo $discounttext; ?>
                                                             <tr>    
                                                                 <td width="300" valign="top" style="background:#efefef;padding:10px">
-                                                                    <p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;"><strong>Total Cost</strong></p>
+                                                                    <p style="font-family: \'Helvetica\', \'Arial\', sans-serif;color:#333;"><strong>Total Cost</strong></p>
                                                                 </td>
                                                                 <td width="300" valign="top" style="background:#efefef;padding:10px">
                                                                   <?php echo $currency . $totalcosttext; ?>
@@ -353,16 +353,16 @@ ob_start(); ?>
                                                         <tbody>                                                
                                                             <tr>    
                                                                  <td valign="top" style=";padding:20px 10px">
-                                                                    <p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#fff;">
+                                                                    <p style="font-family: \'Helvetica\', \'Arial\', sans-serif;color:#fff;">
                                                                     Thank you for choosing Serviced City Pads as your accomodation provider. We hope you have an enjoyable stay.
                                                                     </p>
-                                                                    <p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#fff;">
+                                                                    <p style="font-family: \'Helvetica\', \'Arial\', sans-serif;color:#fff;">
                                                                     Visit <a href="http://www.servicedcitypads.com"><span style="color:#fff;">www.servicedcitypads.com</span></a> to view our portfolio of serviced apartements acrross the UK and Ireland
                                                                     </p>
-                                                                    <p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#fff;">
+                                                                    <p style="font-family: \'Helvetica\', \'Arial\', sans-serif;color:#fff;">
                                                                     If you would like to share your feedback with us, please get in touch by emailing <a href="mailto:reservations@servicedcitypads.com"><span style="color:#fff;">reservations@servicedcitypads.com</span></a>
                                                                     </p>
-                                                                    <p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#fff;">
+                                                                    <p style="font-family: \'Helvetica\', \'Arial\', sans-serif;color:#fff;">
                                                                     Kind Regards, <br>Serviced City Pads Team
                                                                     </p>
                                                                 </td>
@@ -371,16 +371,16 @@ ob_start(); ?>
                                                     </table>                                        
 
                                                 
-                                                    <table cellspacing="0" cellpadding="0" class="" width="500" style="width:500px;background: #003; margin:0 auto;" border-collapse="collapse">
+                                                     <table cellspacing="0" cellpadding="0" class="" width="500" style="width:500px;background: #003; margin:0 auto;" border-collapse="collapse">
                                                         <tbody>
                                                             <tr>    
                                                                 <td colspan="2" valign="middle" style="background:#d2d2d2;text-align:center;padding:10px;">
-                                                                   <p style="font-size:15px;font-weight:bold;">Contact Info</p>
+                                                                   <p style="font-family: 'Helvetica', 'Arial', sans-serif;font-size:15px;font-weight:bold;">Contact Info</p>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td colspan="2" valign="top" style="background:#efefef;padding-top:20px;text-align:center;">
-                                                                    <p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#003;">
+                                                                    <p style="font-family:Helvetica,Helvetica&quot;, Helvetica, Arial, sans-serif;color:#003;">
                                                                     Phone : 0844 335 8866<br>
                                                                     Email : <span style="color:#003;"><a href="">Reservations and Bookings</a></span><br>
                                                                     Web : <span style="color:#003;"><a href="www.servicedcitypads.com">servicedcitypads.com</a></span>
@@ -388,20 +388,20 @@ ob_start(); ?>
                                                                 </td>
                                                             </tr>   
                                                             <tr>
-                                                                <td valign="top" style="background:#efefef;padding-bottom:20px;text-align:right;">
+                                                                <td valign="top" style="background:#efefef;text-align:right;">
                                                                     <a href="https://www.facebook.com/ServicedCityPadsApartments/"><img src="http://www.servicedcitypads.com/scpemail/facebook.png"></a>
                                                                 </td>
-                                                                <td valign="top" style="background:#efefef;padding-bottom:20px;">
+                                                                <td valign="top" style="background:#efefef;">
                                                                     <a href="https://twitter.com/citypadteam"><img src="http://www.servicedcitypads.com/scpemail/twitter.png"></a>
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td colspan="2" valign="top" style="background:#efefef;padding-top:10px;">
-                                                                   <a href="http://www.servicedcitypads.com"><img style="width:100%;height:auto;" src="http://www.servicedcitypads.com/wp-content/themes/servicedcitypads/images/image001.gif"></a>
+                                                                <td width="500" colspan="2" valign="top" style="background:#efefef;padding-top:10px;">
+                                                                   <a href="http://www.servicedcitypads.com"><img width="500" style="width:500px;height:auto;" src="http://www.servicedcitypads.com/wp-content/themes/servicedcitypads/images/image001.gif"></a>
                                                                 </td>
                                                             </tr> 
                                                         </tbody>
-                                                    </table> 
+                                                    </table>  
 
 
                                               </td>

@@ -39,9 +39,9 @@ function arrivalemail($ID) {
     if ($booking['arrivalprocess'][0]) {
         $arrivaltext = '
         <tr>
-            <td style="background:#efefef;padding:10px;">
-                <p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">
-                    <strong>Arrival Process:</strong><br>'.$booking['arrivalprocess'][0].'
+            <td style="font-family: \'Helvetica\', \'Arial\', sans-serif;background:#efefef;padding:10px;">
+                <p style="font-family: \'Helvetica\', \'Arial\', sans-serif;color:#333;">
+                    <strong style="font-weight:bold;">Arrival Process:</strong><br>'.$booking['arrivalprocess'][0].'
                 </p>
             </td>
         </tr>
@@ -52,9 +52,9 @@ function arrivalemail($ID) {
     if ($booking['additionalinformation'][0]) {
         $additionalinformationtext = '
         <tr>
-            <td style="background:#efefef;padding:10px;">
-                <p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">
-                    <strong>Additional Information:</strong><br>'.$booking['additionalnotes'][0].'
+            <td style="font-family: \'Helvetica\', \'Arial\', sans-serif;background:#efefef;padding:10px;">
+                <p style="font-family: \'Helvetica\', \'Arial\', sans-serif;color:#333;">
+                    <strong style="font-weight:bold;">Additional Information:</strong><br>'.$booking['additionalnotes'][0].'
                 </p>
             </td>
         </tr>
@@ -65,9 +65,9 @@ function arrivalemail($ID) {
     if ($booking['emergenecycontact']) {
         $emergencytelephonetext = '
         <tr>
-            <td style="background:#efefef;padding:10px;">
-                <p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">
-                    <strong>Emergency Tel.:</strong>'.$booking['emergencycontact'][0].'
+            <td style="font-family: \'Helvetica\', \'Arial\', sans-serif;background:#efefef;padding:10px;">
+                <p style="font-family: \'Helvetica\', \'Arial\', sans-serif;color:#333;">
+                    <strong style="font-weight:bold;">Emergency Tel.:</strong>'.$booking['emergencycontact'][0].'
                 </p>
             </td>
         </tr>
@@ -85,6 +85,18 @@ function arrivalemail($ID) {
 
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <link href="https://fonts.googleapis.com/css?family=Open+Sans:600,800" rel="stylesheet" />
+            <!--[if !mso]><!-->
+            <link href="https://fonts.googleapis.com/css?family=Open+Sans:600,800" rel="stylesheet" />
+            <!--<![endif]-->
+            <style type="text/css">
+                body, p {
+                    font-family: 'Helvetica', 'Arial', sans-serif;
+                }
+                strong {
+                    font-weight: bold;
+                }
+            </style>
         </head>
             <body>
                 
@@ -106,12 +118,12 @@ function arrivalemail($ID) {
                                                                             <img src="http://www.servicedcitypads.com/wp-content/themes/servicedcitypads/images/logo-email.PNG" style="margin: 0;padding: 0;max-width: 300px;width:200px;">
                                                                         </td>
                                                                         <td valign="middle" style="text-align:center;">
-                                                                            <h2 style="font-family:Helvetica Neue,Helvetica, Helvetica, Arial, sans-serif;color:#fff;">Arrival Process</h2>
+                                                                            <h2 style="font-family: 'Helvetica', 'Arial', sans-serif;color:#fff;">Arrival Process</h2>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td colspan="2" style="background:#003;padding:10px;">
-                                                                           <p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#fff;font-size: 16px;">                                              
+                                                                           <p style="font-family: 'Helvetica', 'Arial', sans-serif;color:#fff;font-size: 16px;">                                              
                                                                                 Thank you for choosing Serviced City Pads.
                                                                                 Please find below your arrival instructions for your upcoming stay.
                                                                             </p>
@@ -125,14 +137,14 @@ function arrivalemail($ID) {
                                                                 <tbody>
                                                                     <tr>
                                                                         <td style="background:#efefef;padding:10px;">
-                                                                            <p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">                                           
+                                                                            <p style="font-family: 'Helvetica', 'Arial', sans-serif;color:#333;">                                           
                                                                                 <strong>Lead Guest: </strong><?php echo $booking['guestname'][0]; ?>
                                                                             </p>
                                                                         </td>
                                                                     </tr>  
                                                                     <tr>
                                                                         <td style="background:#efefef;padding:10px;">
-                                                                            <p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">
+                                                                            <p style="font-family: 'Helvetica', 'Arial', sans-serif;color:#333;">
                                                                                 <strong>Apartments: </strong><?php echo $booking['apartmentname'][0]; ?><br>
                                                                                 <strong>Address: </strong><?php $apartmentaddress . ', '.$addresstext . $apartmentstate . ', ' . $apartmentpostcode . '<br>' . $apartmentcountry; ?>
                                                                             </p>
@@ -140,7 +152,7 @@ function arrivalemail($ID) {
                                                                     </tr>
                                                                     <tr>
                                                                         <td style="background:#efefef;padding:10px;">
-                                                                            <p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">
+                                                                            <p style="font-family: 'Helvetica', 'Arial', sans-serif;color:#333;">
                                                                                 <strong>Check-in: </strong><?php echo $booking['arrivaldate'][0]; ?> (<?php echo $booking['checkintime'][0]; ?>)<br>
                                                                                 <strong>Check-in: </strong><?php echo $booking['leavingdate'][0]; ?> (<?php echo $booking['checkouttime'][0]; ?>)
                                                                             </p>
@@ -151,7 +163,7 @@ function arrivalemail($ID) {
                                                                     <?php echo $emergencytelephonetext; ?>
                                                                     <tr>
                                                                         <td style="background:#efefef;padding:10px;">
-                                                                            <p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">
+                                                                            <p style="font-family: 'Helvetica', 'Arial', sans-serif;color:#333;">
                                                                                 <strong>Map:</strong><br>
                                                                                 <span style="font-style:italic;">For an interactive map, please <a style="color:red;"href="<?php echo $page->guid; ?>">click here</a></span>
                                                                             </p>
@@ -164,14 +176,14 @@ function arrivalemail($ID) {
                                                                     </tr>
                                                                     <tr>
                                                                         <td style="background:#efefef;padding:10px;">
-                                                                            <p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">
+                                                                            <p style="font-family: 'Helvetica', 'Arial', sans-serif;color:#333;">
                                                                                  <strong>Terms &amp; Conditions</strong><br><?php echo $booking['terms'][0]; ?>
                                                                             </p>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td style="background:#efefef;padding:10px;">
-                                                                            <p style="font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color:#333;">
+                                                                            <p style="font-family: 'Helvetica', 'Arial', sans-serif;color:#333;">
                                                                                     <strong>We hope you have an enjoyable stay.</strong><br></br>                                                               
                                                                                
                                                                                     If you have any questions or require assistance during your stay, please do not hesitate to get in touch. Our team can arrange extensions, late check-out and grocery deliveries - just give us a call.<br></br>
@@ -191,7 +203,7 @@ function arrivalemail($ID) {
                                                                 <tbody>
                                                                     <tr>    
                                                                         <td colspan="2" valign="middle" style="background:#d2d2d2;text-align:center;padding:10px;">
-                                                                           <p style="font-size:15px;font-weight:bold;">Contact Info</p>
+                                                                           <p style="font-family: 'Helvetica', 'Arial', sans-serif;font-size:15px;font-weight:bold;">Contact Info</p>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -204,16 +216,16 @@ function arrivalemail($ID) {
                                                                         </td>
                                                                     </tr>   
                                                                     <tr>
-                                                                        <td valign="top" style="background:#efefef;padding-bottom:20px;text-align:right;">
+                                                                        <td valign="top" style="background:#efefef;text-align:right;">
                                                                             <a href="https://www.facebook.com/ServicedCityPadsApartments/"><img src="http://www.servicedcitypads.com/scpemail/facebook.png"></a>
                                                                         </td>
-                                                                        <td valign="top" style="background:#efefef;padding-bottom:20px;">
+                                                                        <td valign="top" style="background:#efefef;">
                                                                             <a href="https://twitter.com/citypadteam"><img src="http://www.servicedcitypads.com/scpemail/twitter.png"></a>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td colspan="2" valign="top" style="background:#efefef;padding-top:10px;">
-                                                                           <a href="http://www.servicedcitypads.com"><img style="width:100%;height:auto;" src="http://www.servicedcitypads.com/wp-content/themes/servicedcitypads/images/image001.gif"></a>
+                                                                        <td width="500" colspan="2" valign="top" style="background:#efefef;padding-top:10px;">
+                                                                           <a href="http://www.servicedcitypads.com"><img width="500" style="width:500px;height:auto;" src="http://www.servicedcitypads.com/wp-content/themes/servicedcitypads/images/image001.gif"></a>
                                                                         </td>
                                                                     </tr> 
                                                                 </tbody>

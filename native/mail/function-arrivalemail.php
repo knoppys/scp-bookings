@@ -21,7 +21,7 @@ function implement_ajax_arrival_email(){
         wp_mail( $to, $subject, $message, $headers);
         
         }       
-
+        echo $message;
         die();        
 
 }
