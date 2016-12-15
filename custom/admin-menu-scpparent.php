@@ -103,7 +103,7 @@ function my_custom_menu_page(){
 					?>
 
 					<tr>
-						<td><?php the_time('d.m.y'); ?></td>
+						<td><?php echo mysql2date('d.m.y', $booking->post_date); ?></td>
 						<td><a href="<?php echo get_site_url(); ?>/wp-admin/post.php?post=<?php echo $booking->ID; ?>&action=edit"><?php echo $bookingmeta['guestname'][0]; ?></a></td>
 						<td><?php echo $bookingmeta['arrivaldate'][0];?></td>
 						<td><?php echo $bookingmeta['leavingdate'][0];?></td>
@@ -117,11 +117,9 @@ function my_custom_menu_page(){
 						
 						<td><?php echo $bookingmeta['welcomepack'][0]; ?></td>
 						<td>
-							<?php 
-							$string = ($_SERVER["QUERY_STRING"]);
-							parse_str($string, $output);
-							$page = $output['page'];
-							echo '<a href="admin.php?action=rd_duplicate_post_as_draft&amp;post=' . $booking->ID . '&page='.$page.'" title="Duplicate this item" rel="permalink">Duplicate</a>';
+							<?php echo '
+							<a href="admin.php?action=rd_duplicate_post_as_draft&amp;post=' . $booking->ID . '" title="Duplicate this item" rel="permalink">Duplicate</a>
+							';
 							?>
 						</td>
 						<td class="bookingexpand">

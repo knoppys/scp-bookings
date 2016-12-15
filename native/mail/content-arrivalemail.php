@@ -15,25 +15,61 @@ function arrivalemail($ID) {
     //Get the apartment details
     $apartmenttitle = $booking['apartmentname'][0];
     $page = get_page_by_title( $apartmenttitle, OBJECT, 'apartments');
-    $permalink = $page->guid;
+    
+        //get the link
+        $permalink = $page->guid;
 
-    //get the apartment address details
-    $apartmentaddress   = get_post_meta($page->ID,'address', true );            
-    $aprtmentlocation   = get_post_meta($page->ID,'apptlocation1', true);
-    $aprtmentlocation2  = get_post_meta($page->ID,'apptlocation2', true);
-    $apartmentpostcode  = get_post_meta($page->ID,'postcode', true );
-    $apartmentstate     = get_post_meta($page->ID,'state', true );
-    $apartmentcountry   = get_post_meta($page->ID,'country', true ); 
+        //get the apartment postcode
+        $apartmentpostcode  = get_post_meta($page->ID,'postcode', true );
 
-    //get the post code into the correct format
-    $mappostcode = preg_replace('/\s+/', '+', $apartmentpostcode);
+        //get the post code into the correct format
+        $mappostcode = preg_replace('/\s+/', '+', $apartmentpostcode);
+        
 
-    //location text
-    if ($aprtmentlocation2) {
-        $addresstext = $apptlocation1.', '.$aprtmentlocation2.',';
-    } else {
-        $addresstext = $apptlocation1.',';
-    }
+        //check for a building name
+        if (get_post_meta($page->ID,'buildingname', true )) {
+            $buildingname = get_post_meta($page->ID,'buildingname', true ).', ';
+        } else {
+            $buildingname = '';
+        }
+
+        //check for a building name
+        if (get_post_meta($page->ID,'address', true )) {
+            $address = get_post_meta($page->ID,'address', true ).', ';
+        } else {
+            $address = '';
+        }
+
+        //check for a building name
+        if (get_post_meta($page->ID,'town', true )) {
+            $town = get_post_meta($page->ID,'town', true ).', ';
+        } else {
+            $town = '';
+        }
+
+        //check for a building name
+        if (get_post_meta($page->ID,'state', true )) {
+            $state = get_post_meta($page->ID,'state', true ).', ';
+        } else {
+            $state = '';
+        }
+
+        //check for a building name
+        if (get_post_meta($page->ID,'postcode', true )) {
+            $postcode = get_post_meta($page->ID,'postcode', true );
+        } else {
+            $postcode = '';
+        }
+
+        //check for a building name
+        if (get_post_meta($page->ID,'country', true )) {
+            $country = get_post_meta($page->ID,'country', true ).', ';
+        } else {
+            $country = '';
+        }
+        
+        $fulladdress = $buildingname.$address.$town.$state.$postcode.$country;
+
 
     //arrival email text
     if ($booking['arrivalprocess'][0]) {
@@ -146,7 +182,7 @@ function arrivalemail($ID) {
                                                                         <td style="background:#efefef;padding:10px;">
                                                                             <p style="font-family: 'Helvetica', 'Arial', sans-serif;color:#333;">
                                                                                 <strong>Apartments: </strong><?php echo $booking['apartmentname'][0]; ?><br>
-                                                                                <strong>Address: </strong><?php $apartmentaddress . ', '.$addresstext . $apartmentstate . ', ' . $apartmentpostcode . '<br>' . $apartmentcountry; ?>
+                                                                                <strong>Address: </strong><?php echo $fulladdress; ?>
                                                                             </p>
                                                                         </td>
                                                                     </tr>
@@ -209,9 +245,9 @@ function arrivalemail($ID) {
                                                                     <tr>
                                                                         <td colspan="2" valign="top" style="background:#efefef;padding-top:20px;text-align:center;">
                                                                             <p style="font-family:Helvetica,Helvetica&quot;, Helvetica, Arial, sans-serif;color:#003;">
-                                                                            Phone : 0844 335 8866<br>
-                                                                            Email : <span style="color:#003;"><a href="">Reservations and Bookings</a></span><br>
-                                                                            Web : <span style="color:#003;"><a href="www.servicedcitypads.com">servicedcitypads.com</a></span>
+                                                                            Phone: 0844 335 8866<br>
+                                                                            Email: <span style="color:#003;"><a href="">Reservations and Bookings</a></span><br>
+                                                                            Web: <span style="color:#003;"><a href="www.servicedcitypads.com">servicedcitypads.com</a></span>
                                                                             </p>
                                                                         </td>
                                                                     </tr>   

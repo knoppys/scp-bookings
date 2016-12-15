@@ -85,7 +85,7 @@ function leisurelistings_callback() {
 					?>
 
 					<tr>
-						<td><?php the_time('d.m.y'); ?></td>
+						<td><?php echo mysql2date('d.m.y', $booking->post_date); ?></td>
 						<td><a href="<?php echo get_site_url(); ?>/wp-admin/post.php?post=<?php echo $booking->ID; ?>&action=edit"><?php echo $bookingmeta['guestname'][0]; ?></a></td>
 						<td><?php echo $bookingmeta['arrivaldate'][0];?></td>
 						<td><?php echo $bookingmeta['leavingdate'][0];?></td>

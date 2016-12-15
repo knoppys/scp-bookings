@@ -483,12 +483,20 @@ function bookingsteps2_meta_box_callback( $post ) {
                                 </td>                                
                             </tr>
                             <tr>
-                                <td colspan="2">
+                                <td>
                                     <?php
                                     echo '<label>';
                                         _e( 'Contact Email');
                                     echo '</label>';
                                     echo '<input type="text" class="widefat" name="email" id="email" value="' . esc_attr( $booking['email'][0] ) . '"/>';
+                                    ?>
+                                </td>
+                                 <td>
+                                    <?php
+                                    echo '<label>';
+                                        _e( 'Contact Number');
+                                    echo '</label>';
+                                    echo '<input type="text" class="widefat" name="contactnumber" id="contactnumber" value="' . esc_attr( $booking['contactnumber'][0] ) . '"/>';
                                     ?>
                                 </td>
                             </tr>
@@ -637,8 +645,11 @@ function bookingsteps2_meta_box_callback( $post ) {
                                                     </td>
                                                     <td style="padding-top:20px;">
                                                         <?php
-                                                         if ($booking['incvat'][0]) { echo '<input type="checkbox" class="widefat" name="incvat" id="incvat" checked="checked" />'; } 
-                                                         else { echo '<input type="checkbox" class="widefat" name="incvat" id="incvat" />'; }     
+                                                        if ( $booking['incvat'][0] == '1' ) { 
+                                                            echo '<input type="checkbox" class="widefat" name="incvat" id="incvat" checked="checked" />'; } 
+                                                        else { 
+                                                            echo '<input type="checkbox" class="widefat" name="incvat" id="incvat" />'; 
+                                                        }                                           
                                                         ?>
                                                     </td>
                                                     <td>
@@ -830,18 +841,14 @@ function bookingsteps2_save_meta_box_data( $post_id ) {
     $mydata_supplementsprice = sanitize_text_field( $_POST['supplementsprice'] );
     $mydata_opsupplementsprice = sanitize_text_field( $_POST['opsupplementsprice'] );
     $mydata_chargetype = sanitize_text_field( $_POST['chargetype'] );
-    $mydata_incvat = sanitize_text_field( $_POST['incvat'] );
+    $mydata_incvat = $_POST['incvat'] ? true : false;
     $mydata_deposit = sanitize_text_field( $_POST['deposit'] );
     $mydata_depositdate = sanitize_text_field( $_POST['depositdate'] );
     $mydata_depositmethod = sanitize_text_field( $_POST['depositmethod'] );
     $mydata_balancedue = sanitize_text_field( $_POST['balancedue'] );
     $mydata_ownerprice = sanitize_text_field( $_POST['ownerprice'] );
-    $mydata_ourcommision = sanitize_text_field( $_POST['ourcommision'] );
-    $mydata_additionalnotes = sanitize_text_field( $_POST['additionalnotes'] );
-    $mydata_apptbreakdown = sanitize_text_field( $_POST['apptbreakdown'] );
-    //$mydata_vatselect = sanitize_text_field( $_POST['vatselect'] );
-    $mydata_costcode = sanitize_text_field( $_POST['costcode'] );
-    $mydata_terms = ( $_POST['terms'] ); //removed sanitisation
+    $mydata_ourcommision = sanitize_text_field( $_POST['ourcommision'] );    
+    $mydata_costcode = sanitize_text_field( $_POST['costcode'] );    
     $mydata_emergencycontact = sanitize_text_field( $_POST['emergencycontact'] );
     $mydata_arrivaldate = sanitize_text_field( $_POST['arrivaldate'] );
     $mydata_leavingdate = sanitize_text_field( $_POST['leavingdate'] );
@@ -870,7 +877,12 @@ function bookingsteps2_save_meta_box_data( $post_id ) {
     $mydata_email = sanitize_text_field( $_POST['email'] );
     $mydata_guestage = sanitize_text_field( $_POST['guestage'] );
     $mydata_guestsex = sanitize_text_field( $_POST['guestsex'] );
-    $mydata_arrivalprocess = ( $_POST['arrivalprocess'] ); //removed sanitisation
+    $mydata_contactnumber = sanitize_text_field( $_POST['contactnumber'] );
+
+    $mydata_arrivalprocess = ( $_POST['arrivalprocess'] ); 
+    $mydata_terms = ( $_POST['terms'] ); 
+    $mydata_additionalnotes = ( $_POST['additionalnotes'] );
+    $mydata_apptbreakdown = ( $_POST['apptbreakdown'] );
 
 
 
@@ -931,6 +943,7 @@ function bookingsteps2_save_meta_box_data( $post_id ) {
     update_post_meta($post_id, 'guestage',$mydata_guestage);
     update_post_meta($post_id, 'guestsex',$mydata_guestsex);
     update_post_meta($post_id, 'priceperperson', $mydata_priceperperson);
+    update_post_meta($post_id, 'contactnumber', $mydata_contactnumber);
     update_post_meta( $post_id, 'refid', get_the_ID() );
     update_post_meta( $post_id, 'staffnotes', ($_POST['staffnotes']) );
 

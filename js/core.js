@@ -234,6 +234,19 @@ jQuery(document).ready(function(){
 })
 
 
+jQuery(document).ready(function(){
+	jQuery('#bookingtype').change(function(){
+		//If the booking type is Corporate then mark the booking as +VAT
+		var bookingtype = jQuery('#bookingtype').val();	
+		console.log(bookingtype);
+		if (bookingtype == 'Groups' ) {
+			jQuery('#incvat').prop('checked', true);
+		} else {
+			jQuery('#incvat').prop('checked', false);
+		}
+	})
+})
+
 /********************
 // Ajax auto populate booking fields
 ********************/																																																																																																																																																																																																																																																																													
@@ -279,17 +292,7 @@ jQuery(document).ready(function(){
 					jQuery('.arrivalprocess').html(data.arrivalprocess); 					
 					jQuery('.terms').html(data.terms); 
 
-					//If the booking type is Corporate then mark the booking as +VAT
-					if (bookingtype = 'Corporate' || bookingtype == 'Leisure') {
-						jQuery('#incvat').prop('checked', true);
-					} else {
-						jQuery('#incvat').prop('checked', false);
-					}
-
-					
-					
-	            	
-			    }
+				}
 			});
 		});
 	});
@@ -558,28 +561,26 @@ jQuery('#searchquery').click(function(){
 
 jQuery('#searchquery').click(function() { 
 	var siteUrl = siteUrlobject.siteUrl+'/wp-admin/admin-ajax.php';
-	var startdate = jQuery('#date11').val();
-	//var enddate = jQuery('#date12').val(); 
-	var operatorname = jQuery('#operatorname').val(); 
-	var apartmentname =  jQuery('#apartmentname').val();
-	var bookingtype = jQuery('#bookingtype option:selected').text();
+	var startdate = jQuery('input#date11').val();
+	/*
 	jQuery(function(){
 	    jQuery.ajax({
             url:siteUrl,
             type:'POST',
-            data:'action=searchquery&operatorname=' + operatorname + 
-            '&startdate=' + startdate +
-            //'&enddate=' + enddate +
-            '&bookingtype=' + bookingtype +
-            '&apartmentname=' + apartmentname,
+            data:'action=searchquery&startdate=' + startdate,
             success:function(result){
             	//got it back, now assign it to its fields. 	            	
-            	jQuery('#searchresult').html( result );
-            	jQuery('#searchresult').DataTable({"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]});
+            	//jQuery('#searchresult').html( result );
+            	//jQuery('#searchresult').DataTable({"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]});
+            	console.log(startdate);
             	
             }
 		});
 	});
+	*/
+	console.log(startdate);
+
+	
 });
 
 

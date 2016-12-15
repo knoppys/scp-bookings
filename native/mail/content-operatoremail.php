@@ -7,17 +7,75 @@ $apartmenttitle = ($booking['apartmentname'][0]);
 $page = get_page_by_title( $apartmenttitle, OBJECT, 'apartments');
 $permalink = $page->guid;
 
-//get the apartment address details
-$apartmentaddress   = get_post_meta($page->ID,'address', true );            
-$aprtmentlocation   = get_post_meta($page->ID,'apptlocation1', true);
-$aprtmentlocation2  = get_post_meta($page->ID,'apptlocation2', true);
-$apartmentpostcode  = get_post_meta($page->ID,'postcode', true );
-$apartmentstate     = get_post_meta($page->ID,'state', true );
-$apartmentcountry   = get_post_meta($page->ID,'country', true ); 
+    //Get the apartment details
+    $apartmenttitle = $booking['apartmentname'][0];
+    $page = get_page_by_title( $apartmenttitle, OBJECT, 'apartments');
+    
+        //get the link
+        $permalink = $page->guid;
+
+        //get the apartment postcode
+        $apartmentpostcode  = get_post_meta($page->ID,'postcode', true );
+
+        //get the post code into the correct format
+        $mappostcode = preg_replace('/\s+/', '+', $apartmentpostcode);
+        
+
+        //check for a building name
+        if (get_post_meta($page->ID,'buildingname', true )) {
+            $buildingname = get_post_meta($page->ID,'buildingname', true ).', ';
+        } else {
+            $buildingname = '';
+        }
+
+        //check for a building name
+        if (get_post_meta($page->ID,'address', true )) {
+            $address = get_post_meta($page->ID,'address', true ).'<br> ';
+        } else {
+            $address = '';
+        }
+
+        //check for a building name
+        if (get_post_meta($page->ID,'town', true )) {
+            $town = get_post_meta($page->ID,'town', true ).'<br> ';
+        } else {
+            $town = '';
+        }
+
+        //check for a building name
+        if (get_post_meta($page->ID,'state', true )) {
+            $state = get_post_meta($page->ID,'state', true ).'<br> ';
+        } else {
+            $state = '';
+        }
+
+        //check for a building name
+        if (get_post_meta($page->ID,'postcode', true )) {
+            $postcode = get_post_meta($page->ID,'postcode', true ).'<br> ';
+        } else {
+            $postcode = '';
+        }
+
+        //check for a building name
+        if (get_post_meta($page->ID,'country', true )) {
+            $country = get_post_meta($page->ID,'country', true ).'<br> ';
+        } else {
+            $country = '';
+        }
+        
+        $fulladdress = $buildingname.$address.$town.$state.$postcode.$country;
+
+        $apartmentlocationtext = '
+        <p style="font-family: \'Helvetica\', \'Arial\', sans-serif;color:#333;">
+        <strong>Apartment Address</strong><br>
+        '.$fulladdress.'
+        </p>
+        ';
+    
 
 //get the number of nights
-$datetime1 = new DateTime(($_POST['arrivaldate']));
-$datetime2 = new DateTime(($_POST['leavingdate']));
+$datetime1 = new DateTime($booking['arrivaldate'][0]);
+$datetime2 = new DateTime($booking['leavingdate'][0]);
 $interval = $datetime1->diff($datetime2);
 $numberofnights = $interval->format('%a nights');      
 
@@ -40,28 +98,6 @@ if ($booking['displayname'][0]) {
                     </p>
                     ';
 } 
-
-//Get the correct address format. 
-if ($aprtmentlocation == $aprtmentlocation2) {
-   $apartmentlocationtext = '
-                            <p style="font-family: \'Helvetica\', \'Arial\', sans-serif;color:#333;">
-                            <strong>Apartment Address</strong><br>
-                            '.$apartmentaddress.'<br>
-                            '.$aprtmentlocation.'<br>
-                            '.$apartmentpostcode.'
-                            </p>
-                            ';
-} else {
-   $apartmentlocationtext = '
-                            <p style="font-family: \'Helvetica\', \'Arial\', sans-serif;color:#333;">
-                            <strong>Apartment Address</strong><br>
-                            '.$apartmentaddress.'<br>
-                            '.$aprtmentlocation.'<br>
-                            '.$apptlocation2.'<br>
-                            '.$apartmentpostcode.'
-                            </p>
-                            ';
-}
 
 //Get the checkin details
 $checkintext =  '
@@ -159,14 +195,43 @@ if ($areainformation) {
     $areainformationtext = '';
 }
 
-//Get the right total cost text
-if ($booking['incvat'][0]!=='true') {
-    $nightlyratetext = $booking['rentalprice'][0].' &#43;VAT';
-    $totalcosttext = $booking['totalcost'][0].' &#43;VAT';
+//Get the rental variable
+if ($booking['oprentalprice'][0]) {
+    $rentalvar = $booking['oprentalprice'][0];
 } else {
-    $nightlyratetext = $booking['rentalprice'][0];
-    $totalcosttext = $booking['totalcost'][0];
+    $rentalvar = $booking['rentalprice'][0];
 }
+
+//Get the total cost variable
+if ($booking['ownerprice'][0]) {
+    $totcostvar = $booking['ownerprice'][0];
+} else {
+    $totcostvar = $booking['totalcost'][0];
+}
+
+
+//Get the right vat total
+if ( $booking['bookingtype'][0] == 'Groups' && $booking['incvat'][0] == '1' ) {
+
+    $nightlyratetext = $rentalvar;
+    $totalcosttext = $totcostvar;
+
+} elseif ( $booking['bookingtype'][0] == 'Groups' && $booking['incvat'][0] !== '1' ) {
+    
+    $nightlyratetext = $rentalvar.' &#43;VAT';
+    $totalcosttext = $totcostvar.' &#43;VAT';
+
+} elseif ( ($booking['bookingtype'][0] == 'Corporate' || $booking['bookingtype'][0] == 'Leisure' ) && $booking['incvat'][0] !== '1' ) {
+    
+    $nightlyratetext = $rentalvar.' &#43;VAT';
+    $totalcosttext = $totcostvar.' &#43;VAT';
+
+} elseif ( ($booking['bookingtype'][0] == 'Corporate' || $booking['bookingtype'][0] == 'Leisure' ) && $booking['incvat'][0] == '1' ) {
+    
+    $nightlyratetext = $rentalvar;
+    $totalcosttext = $totcostvar;
+
+} 
 
 //Get the nightly rate label
 if ($booking['bookingtype'][0] == 'Corporate') {
@@ -341,7 +406,7 @@ ob_start(); ?>
                                                                 </td>
                                                             </tr> 
                                                             <tr>    
-                                                                <td>
+                                                                <td valign="top" style="background:#efefef;padding:20px 10px">
                                                                    <?php echo $booking['terms'][0]; ?>
                                                                 </td>
                                                             </tr>                                                                                              
@@ -357,7 +422,7 @@ ob_start(); ?>
                                                                     Thank you for choosing Serviced City Pads as your accomodation provider. We hope you have an enjoyable stay.
                                                                     </p>
                                                                     <p style="font-family: \'Helvetica\', \'Arial\', sans-serif;color:#fff;">
-                                                                    Visit <a href="http://www.servicedcitypads.com"><span style="color:#fff;">www.servicedcitypads.com</span></a> to view our portfolio of serviced apartements acrross the UK and Ireland
+                                                                    Visit <a href="http://www.servicedcitypads.com"><span style="color:#fff;">www.servicedcitypads.com</span></a> to view our portfolio of serviced apartments.
                                                                     </p>
                                                                     <p style="font-family: \'Helvetica\', \'Arial\', sans-serif;color:#fff;">
                                                                     If you would like to share your feedback with us, please get in touch by emailing <a href="mailto:reservations@servicedcitypads.com"><span style="color:#fff;">reservations@servicedcitypads.com</span></a>
@@ -381,9 +446,9 @@ ob_start(); ?>
                                                             <tr>
                                                                 <td colspan="2" valign="top" style="background:#efefef;padding-top:20px;text-align:center;">
                                                                     <p style="font-family:Helvetica,Helvetica&quot;, Helvetica, Arial, sans-serif;color:#003;">
-                                                                    Phone : 0844 335 8866<br>
-                                                                    Email : <span style="color:#003;"><a href="">Reservations and Bookings</a></span><br>
-                                                                    Web : <span style="color:#003;"><a href="www.servicedcitypads.com">servicedcitypads.com</a></span>
+                                                                    Phone: 0844 335 8866<br>
+                                                                    Email: <span style="color:#003;"><a href="">Reservations and Bookings</a></span><br>
+                                                                    Web: <span style="color:#003;"><a href="www.servicedcitypads.com">servicedcitypads.com</a></span>
                                                                     </p>
                                                                 </td>
                                                             </tr>   
