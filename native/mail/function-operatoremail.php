@@ -17,12 +17,11 @@ function implement_ajax_email_operator(){
         $headers .= "X-MSMail-Priority: Normal\n";
         $headers .= "X-Mailer: php\n";
         $headers .= "From: Serviced City Pads <bookings@citypadsmail.com>\n";    
-        ///$headers .= 'Cc: info@servicedcitypads.com,accounts@servicedcitypads.com';
+        $headers .= 'Cc: info@servicedcitypads.com,accounts@servicedcitypads.com';
         wp_mail( $to, $subject, $message, $headers);
         
         }
 
-        echo ($_POST['bookingID']);
         die();
 
         

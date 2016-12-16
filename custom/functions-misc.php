@@ -412,71 +412,22 @@ add_action('wp_ajax_clientdetails', 'implement_ajax_clientdetails');
 add_action('wp_ajax_nopriv_clientdetails', 'implement_ajax_clientdetails');
 
 
-/*
-Update all bookings posts
+//date conversions for the reports
+function dateRange( $first, $last, $step = '+1 day', $format = 'd.m.Y' ) {
+
+	$dates = array();
+	$current = strtotime( $first );
+	$last = strtotime( $last );
+
+	while( $current <= $last ) {
+
+		$dates[] = date( $format, $current );
+		$current = strtotime( $step, $current );
+	}
+
+	return $dates;
+}
 
 
-function implement_ajax_update_bookings() { ?>
-
-
-			<ul>
-			<?php
-			 ob_start();
-
-				// WP_Query arguments
-				$args = array (
-					'post_type' => array( 'bookings' ),
-					'posts_per_page' => -1,
-				);
-
-				// The Query
-				$query = new WP_Query( $args );
-			
-				// The Loop
-				if ( $query->have_posts() ) {
-					
-					while ( $query->have_posts() ) {
-						$query->the_post();
-						echo '<div>'; 
-						echo the_title();
-
-							//get the data
-							$postid = get_the_id();
-							$terms = get_post_meta($postid, 'terms', true);
-							$arrival = get_post_meta($postid, 'arrival', true);
-
-							echo '<p>' . $terms . '</p>';
-							echo '<p>' . $arrival . '</p>';
-
-							//sanitize the fields
-							$myterms = sanitize_text_field( $terms );
-							$myarrival = sanitize_text_field( $arrival );
-
-							//update post meta
-							//update_post_meta( $postid, 'terms', $myterms );
-							//update_post_meta( $postid, 'arrival', $myarrival );
-
-						echo '</div>';
-
-					}
-					
-				} 
-				else {
-					// no posts found
-				}
-
-				// Restore original Post Data
-				wp_reset_postdata();
-
-
-				$content = ob_get_clean();
-
-			echo $content;
-		    die();
-		}
-	
-add_action('wp_ajax_update_bookings', 'implement_ajax_update_bookings');
-add_action('wp_ajax_nopriv_update_bookings', 'implement_ajax_update_bookings');
-*/
 
  ?>

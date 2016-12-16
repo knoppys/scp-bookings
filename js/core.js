@@ -562,7 +562,7 @@ jQuery('#searchquery').click(function(){
 jQuery('#searchquery').click(function() { 
 	var siteUrl = siteUrlobject.siteUrl+'/wp-admin/admin-ajax.php';
 	var startdate = jQuery('input#date11').val();
-	/*
+	
 	jQuery(function(){
 	    jQuery.ajax({
             url:siteUrl,
@@ -570,15 +570,13 @@ jQuery('#searchquery').click(function() {
             data:'action=searchquery&startdate=' + startdate,
             success:function(result){
             	//got it back, now assign it to its fields. 	            	
-            	//jQuery('#searchresult').html( result );
-            	//jQuery('#searchresult').DataTable({"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]});
+            	jQuery('#searchresult').html( result );
+            	jQuery('#searchresult').DataTable({"order": [[ 1, "desc" ]],"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]});
             	console.log(startdate);
             	
             }
 		});
 	});
-	*/
-	console.log(startdate);
 
 	
 });
@@ -596,25 +594,16 @@ jQuery('#paymentsquery').click(function() {
 	var siteUrl = siteUrlobject.siteUrl+'/wp-admin/admin-ajax.php';
 	var startdate = jQuery('#date13').val();
 	var enddate = jQuery('#date14').val();
-	var operatorname = jQuery('#operatorname').val(); 
-	var apartmentname =  jQuery('#apartmentname').val()
-	var bookingtype = jQuery('#bookingtype option:selected').text();
-	var clientname = jQuery('#clientname').val();
-
+	
 	jQuery(function(){
 	    jQuery.ajax({
             url:siteUrl,
             type:'POST',
-            data:'action=paymentsquery&operatorname=' + operatorname + 
-            '&startdate=' + startdate + 
-            '&enddate=' + enddate +
-            '&bookingtype=' + bookingtype +
-            '&clientname=' + clientname +
-            '&apartmentname=' + apartmentname,
+            data:'action=paymentsquery&startdate=' + startdate + '&enddate=' + enddate,
             success:function(result){
             	//got it back, now assign it to its fields. 	            	
             	jQuery('#searchresult').html( result );
-            	jQuery('#searchresult').DataTable({"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]});
+            	jQuery('#searchresult').DataTable({"order": [[ 1, "desc" ]],"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]});
             //console.log(result);
             	
             }
@@ -651,6 +640,50 @@ jQuery('#clientquery').click(function() {
             //got it back, now assign it to its fields. 	            	
             jQuery('#searchresult').html( result );
             jQuery('#searchresult').DataTable({"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]});
+
+            //Total Spend Calculation
+			jQuery(function() {
+			    jQuery("#calculate_total").click(function() {
+			        var add = 0;
+			       	jQuery(".total-cost").each(function() {
+			            add += Number(jQuery(this).text());
+			        });
+			        jQuery("#total_spend").text('£' + add);
+			    });
+			    jQuery('#calculate_average').click(function(){
+					var add = 0;
+					jQuery('.total-cost').each(function(){							
+						add += Number(jQuery(this).text());
+						numberofcells = jQuery('.total-cost').length;
+						num = (add / numberofcells);
+					});
+					jQuery("#average_spend").text('£' + (Math.round(num*100)/100).toFixed(2) );		
+				});
+				jQuery('#calculate_total_bookings').click(function(){
+					var numberofcells = jQuery('.booking').length;
+					jQuery('#total_bookings').text(numberofcells + ' bookings');
+				});
+				jQuery('#calculate_average_duration').click(function(){
+					var add = 0;
+					jQuery('.numberofnights').each(function(){							
+						add += Number(jQuery(this).text());
+						numberofcells = jQuery('.numberofnights').length;
+						num = (add / numberofcells);
+					});
+					jQuery("#average_duration").text((Math.round(num*100)/100).toFixed(0) + ' nights');					
+				});
+				jQuery('#calculate_average_nightly').click(function(){
+					var add = 0;
+					jQuery('.nightlyrate').each(function(){							
+						add += Number(jQuery(this).text());
+						numberofcells = jQuery('.numberofnights').length;
+						num = (add / numberofcells);
+					});						
+					jQuery("#average_nightly").text('£' + (Math.round(num*100)/100).toFixed(2) );
+				
+				});
+			});
+			
             	
             }
 		});		
@@ -685,8 +718,52 @@ jQuery('#operatorquery').click(function() {
             success:function(result){
             //got it back, now assign it to its fields. 	            	
            	jQuery('#searchresult').html( result );
-           	jQuery('#searchresult').DataTable({"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]});
-            	
+           	jQuery('#searchresult').DataTable({"order": [[ 1, "desc" ]],"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]});
+            
+
+            //Total Spend Calculation
+			jQuery(function() {
+			    jQuery("#calculate_total").click(function() {
+			        var add = 0;
+			       	jQuery(".total-cost").each(function() {
+			            add += Number(jQuery(this).text());
+			        });
+			        jQuery("#total_spend").text('£' + add);
+			    });
+			    jQuery('#calculate_average').click(function(){
+					var add = 0;
+					jQuery('.total-cost').each(function(){							
+						add += Number(jQuery(this).text());
+						numberofcells = jQuery('.total-cost').length;
+						num = (add / numberofcells);
+					});
+					jQuery("#average_spend").text('£' + (Math.round(num*100)/100).toFixed(2) );		
+				});
+				jQuery('#calculate_total_bookings').click(function(){
+					var numberofcells = jQuery('.booking').length;
+					jQuery('#total_bookings').text(numberofcells + ' bookings');
+				});
+				jQuery('#calculate_average_duration').click(function(){
+					var add = 0;
+					jQuery('.numberofnights').each(function(){							
+						add += Number(jQuery(this).text());
+						numberofcells = jQuery('.numberofnights').length;
+						num = (add / numberofcells);
+					});
+					jQuery("#average_duration").text((Math.round(num*100)/100).toFixed(0) + ' nights');					
+				});
+				jQuery('#calculate_average_nightly').click(function(){
+					var add = 0;
+					jQuery('.nightlyrate').each(function(){							
+						add += Number(jQuery(this).text());
+						numberofcells = jQuery('.numberofnights').length;
+						num = (add / numberofcells);
+					});						
+					jQuery("#average_nightly").text('£' + (Math.round(num*100)/100).toFixed(2) );
+				
+				});
+			});
+				
             }
 		});		
 	});
@@ -714,7 +791,7 @@ jQuery('#leaderoperator').click(function() {
             success:function(result){
             //got it back, now assign it to its fields. 	            	
            	jQuery('#searchresult').html( result );
-            jQuery('#searchresult').DataTable({"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]});
+            jQuery('#searchresult').DataTable({"order": [[ 1, "desc" ]],"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]});
             	
             }
 		});		
@@ -751,7 +828,7 @@ jQuery('#leaderclient').click(function() {
 				    jQuery("#searchresult").filter(function() {
 				        return jQuery(this).text() == search;
 				    }).parent('tr').hide();
-				    jQuery('#searchresult').DataTable({"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]});
+				    jQuery('#searchresult').DataTable({"order": [[ 1, "desc" ]],"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]});
 
 	            });
 			}		
@@ -795,7 +872,7 @@ var siteUrl = siteUrlobject.siteUrl+'/wp-admin/admin-ajax.php';
 				    jQuery("#searchresult").filter(function() {
 				        return jQuery(this).text() == search;
 				    }).parent('tr').hide();
-				    jQuery('#searchresult').DataTable({"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]});
+				    jQuery('#searchresult').DataTable({"order": [[ 1, "desc" ]],"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]});
 	            });
 			}		
 		});	
@@ -837,7 +914,7 @@ jQuery('#leaderapartments').click(function() {
 				    jQuery("#searchresult").filter(function() {
 				        return jQuery(this).text() == search;
 				    }).parent('tr').hide();
-				    jQuery('#searchresult').DataTable({"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]});
+				    jQuery('#searchresult').DataTable({"order": [[ 1, "desc" ]],"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]});
 	            });
 			}		
 		});	
@@ -1003,3 +1080,4 @@ jQuery(document).ready(function(){
 		jQuery(this).find('.expand').toggle();
 	});
 });
+
