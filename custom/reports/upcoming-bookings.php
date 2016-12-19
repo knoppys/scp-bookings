@@ -10,7 +10,7 @@ function implement_ajax_search() {
 			$startdate = '01.01.' . date('Y');
 		}
 
-		$datestring = join(',',dateRange($startdate, date('d.m.y')));
+		$datestring = join(',',dateRange($startdate,'31.01.3000'));
 		
 		$args = array( 
 			'post_type' => 'bookings',

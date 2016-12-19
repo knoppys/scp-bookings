@@ -137,7 +137,7 @@ function bookingsteps2_meta_box_callback( $post ) {
                     ?>                         
                 </h2> 
                 <input type="hidden" name="refid" id="refid" value="<?php echo $booking['refid'][0]; ?>">
-
+                <?php var_dump($booking); ?>
             </td>
         </tr>
             <!-- Left Column Content -->
@@ -286,6 +286,17 @@ function bookingsteps2_meta_box_callback( $post ) {
                                          _e( 'Client Email' );
                                     echo '</label>';
                                     echo '<input type="text" class="widefat" name="clientemail" id="clientemail" value="' . esc_attr( $booking['clientemail'][0] ) . '"/>';
+                                    ?>
+                               </td>
+                            </tr> 
+                            <tr>
+                                <td>
+                                    <?php
+                                    //deposit date field
+                                    echo '<label>';
+                                         _e( 'Cost Code' );
+                                    echo '</label>';
+                                    echo '<input type="text" class="widefat" name="costcode" id="costcode" value="' . esc_attr( $booking['costcode'][0] ) . '"/>';
                                     ?>
                                </td>
                             </tr>                         

@@ -38,7 +38,8 @@ function upcomingbookings_callback() {
                                     <li><a href="#tab2"><i class="fa fa-gbp"></i>Upcoming Payments</a></li>
                                     <li><a href="#tab3"><i class="fa fa-user"></i>Client Reports</a></li>
                                     <li><a href="#tab4"><i class="fa fa-user"></i>Operator Reports</a></li>
-                                    <li><a href="#tab5"><i class="fa fa-trophy"></i>Leader Boards</a></li>                   
+                                    <li><a href="#tab5"><i class="fa fa-trophy"></i>Leader Boards</a></li>    
+                                             
                                 </ul>
                                 <div id="tab1"> 
                                 	<?php
@@ -390,6 +391,7 @@ function upcomingbookings_callback() {
             <div id="searchresults" style="display:none;">             	  
               	<table id="searchresult" cellpadding="0" cellspacing="0" border="0" class="bookings-aligntop container-table" width="100%">
 	        	</table>
+	        	 <div id="loadingDiv">Your report is generating, this can take a few mins.</div>     
 	        	<button class="wp-core-ui button-primary" id="printme">Print Me</button> 
 			</div>			
 			<script>

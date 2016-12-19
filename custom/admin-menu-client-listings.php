@@ -12,7 +12,7 @@ function clientlistings_callback() {
 			echo '<h2>Clients</h1>';
 			echo '<div class="apartments-button"><a href="' . site_url() . '/wp-admin/post-new.php?post_type=clients" class="page-title-action">Add Client</a></div>';
 
-			$args = array ('post_type'=>'clients','posts_per_page' => -1);
+			$args = array ('post_type'=>'clients','posts_per_page' => -1, 'post_status' => 'any' );
 			$clientquery = new WP_Query( $args );
 
 

@@ -130,13 +130,13 @@ table.payments {
     top: 3px
 }
 div#loadingDiv {
-    position: absolute;
+    position: relative;
     top: 0;
     right: 0;
     background-color: #0091cd;
     color: #fff;
     padding: 30px;
-    font-size: 20px
+    font-size: 20px;
 }
 .bookings-admin {
     width: 100%

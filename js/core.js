@@ -792,6 +792,10 @@ jQuery('#leaderoperator').click(function() {
             //got it back, now assign it to its fields. 	            	
            	jQuery('#searchresult').html( result );
             jQuery('#searchresult').DataTable({"order": [[ 1, "desc" ]],"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]});
+ 			var search = '£0.00';
+            jQuery("#searchresult").filter(function() {
+		        return jQuery(this).text() == search;
+		    }).closest('tr.sortrows').hide();
             	
             }
 		});		
@@ -823,14 +827,9 @@ jQuery('#leaderclient').click(function() {
            	jQuery('#searchresult').html( result );
             //console.log(result);
             jQuery(function(){
-		            // this will hide all the rows that equal 0 spend.
-				    var search = '£0';
-				    jQuery("#searchresult").filter(function() {
-				        return jQuery(this).text() == search;
-				    }).parent('tr').hide();
-				    jQuery('#searchresult').DataTable({"order": [[ 1, "desc" ]],"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]});
-
-	            });
+	            // this will hide all the rows that equal 0 spend.				    
+			    jQuery('#searchresult').DataTable({"order": [[ 1, "desc" ]],"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]});				    
+            });
 			}		
 		});	
 	});	

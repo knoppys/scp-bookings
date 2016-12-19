@@ -17,7 +17,7 @@ function implement_ajax_operatorsearch() {
 			if ( ($_POST['enddate']) ) {
 				$enddate = ($_POST['enddate']);
 			} else {
-				$enddate = '31.12.' . date('Y');
+				$enddate = '31.12.3000';
 			}
 
 			$datestring = join(',',dateRange($startdate, $enddate));

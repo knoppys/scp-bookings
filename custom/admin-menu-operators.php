@@ -4,7 +4,6 @@
 Add sub menu page for listing apartmnets as the default page isnt comprehensive enough
 **/
 
-
 function operatorslistings_callback() { 
 
 			//get all the required information for the query builder. 
