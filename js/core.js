@@ -562,7 +562,7 @@ jQuery('#searchquery').click(function(){
 jQuery('#searchquery').click(function() { 
 	var siteUrl = siteUrlobject.siteUrl+'/wp-admin/admin-ajax.php';
 	var startdate = jQuery('input#date11').val();
-	
+		
 	jQuery(function(){
 	    jQuery.ajax({
             url:siteUrl,
