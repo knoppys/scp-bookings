@@ -40,6 +40,9 @@ if ( $query->have_posts() ) {?>
 	<thead>
 		<tr>
 			<th>
+				<p><strong>Arrival Date</strong></p>
+			</th>
+			<th>
 				<p><strong>Booking Ref</strong></p>
 			</th>
 			<th>
@@ -50,6 +53,9 @@ if ( $query->have_posts() ) {?>
 			</th>						
 			<th>
 				<p><strong>Apartment Name</strong></p>
+			</th>
+			<th>
+				<p><strong>Location</strong></p>
 			</th>
 			<th>
 				<p><strong>Total Cost</strong></p>
@@ -81,29 +87,17 @@ if ( $query->have_posts() ) {?>
 	<?php while ( $query->have_posts() ) {
 
 		$query->the_post(); 
+		$ID = get_the_ID();
+		$booking = get_post_meta($ID);
 
 		//get the id
 		$ID = get_the_ID();
 		//get the post meta
-	    $startdate = get_post_meta( $ID, 'arrivaldate', true );
-	    $enddate = get_post_meta( $ID, 'leavingdate', true );   
-	    $bookingtype = get_post_meta( $ID, 'bookingtype', true); 
-	    $operatorname = get_post_meta( $ID, 'operatorname', true);
-	    $balancedue = get_post_meta($ID, 'balancedue', true);
-	    $apartmentname = get_post_meta($ID, 'apartmentname', true);
-	    $deposit = get_post_meta($ID, 'deposit', true);
-	    $costcode = get_post_meta($ID, 'costcode', true);
-	    $depositpaid = get_post_meta($ID, 'depositpaid', true);
-	    $balancepaid = get_post_meta($ID, 'balancepaid', true);
-	    $clientname = get_post_meta($ID, 'clientname', true);
-	    $depositdate = get_post_meta($ID ,'depositdate', true);
-	    $apartmentduedate = get_post_meta($ID, 'apartmentduedate');
-	    $balanceduedate = get_post_meta($ID, 'balanceduedate', true); 
 	    $totalcost = $balancedue + $deposit;
 
 	    //calculate number of nights stay
-	    $startdate = get_post_meta( $ID, 'arrivaldate', true );
-	    $enddate = get_post_meta( $ID, 'leavingdate', true ); 
+	    $startdate = $booking['arrivaldate'][0];
+	    $enddate = $booking['leavingdate'][0]; 
 	    $datetime1 = new DateTime($startdate);
 	    $datetime2 = new DateTime($enddate);
 	    $interval = $datetime1->diff($datetime2);
@@ -113,67 +107,74 @@ if ( $query->have_posts() ) {?>
 		
 			<tr>
 				<td>
-					<p><?php the_title(); ?></p>
+					<p><?php echo $booking['arrivaldate'][0]; ?></p>
 				</td>
 				<td>
-					<p><?php echo $operatorname; ?></p>
+					<p><?php echo $post->post_title; ?></p>
 				</td>
 				<td>
-					<p><?php echo $clientname; ?></p>
+					<p><?php echo $booking['operatorname'][0]; ?></p>
 				</td>
 				<td>
-					<p><?php echo $apartmentname; ?></p>
+					<p><?php echo $booking['clientname'][0]; ?></p>
+				</td>
+				<td>
+					<p><?php echo $booking['apartmentname'][0]; ?></p>
+				</td>
+				<td>
+					<?php $page = get_page_by_title( $booking['apartmentname'][0], $output, 'apartments' ); ?>
+					<p><?php echo get_post_meta($page->ID, 'apptlocation1', true); ?></p>
 				</td>
 				<td style="text-align:right;">
 					<p><strong>£ &nbsp;<?php echo $totalcost; ?></strong></p>
 				</td>
 				<td style="text-align:right;">
 				<?php
-				if ($depositpaid == "Yes") {
+				if ($booking['depositpaid'][0] == "Yes") {
 					echo '<p style="color:green;">';
-					echo '£&nbsp' . $deposit;
+					echo '£&nbsp' . $booking['deposit'][0];
 					echo '</p>';
-				} elseif ( ($depositpaid == "No") || ($depositpaid == "") ) {
+				} elseif ( ($booking['depositpaid'][0] == "No") || ($booking['depositpaid'][0] == "") ) {
 					echo '<p style="color:red;">';
-					echo '£&nbsp' . $deposit;
+					echo '£&nbsp' . $booking['deposit'][0];
 					echo '</p>';
 				}							
 				?>
 				</td>
 				<td>
-					<p><?php echo $depositdate; ?></p>
+					<p><?php echo $booking['depositdate'][0]; ?></p>
 				</td>
 				<td style="text-align:right;">
 				<?php
-				if ($balancepaid == "Yes") {
+				if ($booking['balancepaid'][0] == "Yes") {
 					echo '<p style="color:green;">';
-					echo '£&nbsp' . $balancedue;
+					echo '£&nbsp' . $booking['balancedue'][0];
 					echo '</p>';
-				} elseif ( ($balancepaid == "No") || ($balancepaid == "") ) {
+				} elseif ( ($booking['balancepaid'][0] == "No") || ($booking['balancepaid'][0] == "") ) {
 					echo '<p style="color:red;">';
-					echo '£&nbsp' . $balancedue;
+					echo '£&nbsp' . $booking['balancedue'][0];
 					echo '</p>';
 				}							
 				?>
 				</td>
 				<td>
-					<p><?php echo $balanceduedate; ?></p>
+					<p><?php echo $booking['balanceduedate'][0]; ?></p>
 				</td>
 				<td style="text-align:right;">
 				<?php
-				if ($apartmentpaid == "Yes") {
+				if ($booking['apartmentpaid'][0] == "Yes") {
 					echo '<p style="color:green;">';
-					echo '£&nbsp' . $apartmentpaid;
+					echo '£&nbsp' . $booking['apartmentpaid'][0];
 					echo '</p>';
-				} elseif ( ($apartmentpaid == "No") || ($apartmentpaid == "") ) {
+				} elseif ( ($booking['apartmentpaid'][0] == "No") || ($booking['apartmentpaid'][0] == "") ) {
 					echo '<p style="color:red;">';
-					echo '£&nbsp' . $balancedue;
+					echo '£&nbsp' . $booking['balancedue'][0];
 					echo '</p>';
 				}							
 				?>
 				</td>
 				<td>
-					<p><?php echo $balanceduedate; ?></p>
+					<p><?php echo $booking['balanceduedate'][0]; ?></p>
 				</td>
 
 				
