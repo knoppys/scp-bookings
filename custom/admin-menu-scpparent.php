@@ -11,7 +11,6 @@ function my_custom_menu_page(){
 
 			$bookings = get_posts(array('posts_per_page'=>-1,'post_type'=>'bookings'));
 			if ($bookings) { ?>
-			if ($bookings) { ?>
 				<table style="width:100%;" class="bookingstable postbox">
 					<thead>
 						<tr>

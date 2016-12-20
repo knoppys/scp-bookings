@@ -10,13 +10,13 @@ function implement_ajax_paymentssearch() {
 if ( ($_POST['startdate']) ) {
 	$startdate = ($_POST['startdate']);
 } else {
-	$startdate = '01.01.' . date('Y');
+	$startdate = '01.01.1970';
 }
 
 if ( ($_POST['enddate']) ) {
 	$enddate = ($_POST['enddate']);
 } else {
-	$enddate = '31.12'.date(Y);
+	$enddate = '31.12.3000';
 }
 
 

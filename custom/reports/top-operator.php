@@ -10,7 +10,7 @@ function implement_ajax_topoperatorsearch() {
 			if ( ($_POST['startdate']) ) {
 				$startdate = ($_POST['startdate']);
 			} else {
-				$startdate = '01.01.' . date('Y');
+				$startdate = '01.01.1970';
 			}
 			//set the end date
 			if ( ($_POST['enddate']) ) {
@@ -26,7 +26,7 @@ function implement_ajax_topoperatorsearch() {
 
 			//Get all the operators before we get all their bookings. 
 			$args = array ('post_type'=>'operators', 'posts_per_page' => -1);
-			$getclient = get_posts( $args ); ?>
+			$getoperator = get_posts( $args ); ?>
 			<thead>
 				<tr>
 					<th>
@@ -38,15 +38,15 @@ function implement_ajax_topoperatorsearch() {
 				</tr>						
 			</thead>						
 			<tbody>
-			<?php foreach ( $getclient as $client ) : setup_postdata( $post ); ?>
+			<?php foreach ( $getoperator as $operator ) : setup_postdata( $post ); ?>
 				<tr class="sortrows">
 					<td>
-						<?php echo $client->post_title; ?>
+						<?php echo $operator->post_title; ?>
 					</td>
 					<td class='sortnr'>
 					<?php
-					//get all the bookings that match this client			
-						$operatorname = $client->post_title;
+					//get all the bookings that match this operator			
+						$operatorname = $operator->post_title;
 						$args2 = array(
 						'post_type' => 'bookings',					
 						'posts_per_page' => -1,	
@@ -83,7 +83,7 @@ function implement_ajax_topoperatorsearch() {
 						
 						//echo the total from all those bookings. 						
 						setlocale(LC_MONETARY,'en_UK');
-						echo money_format('%i', $sum);
+						echo '£'.money_format('%i', $sum);
 						?>
 					</td>
 				</tr>			

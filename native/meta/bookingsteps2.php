@@ -137,7 +137,6 @@ function bookingsteps2_meta_box_callback( $post ) {
                     ?>                         
                 </h2> 
                 <input type="hidden" name="refid" id="refid" value="<?php echo $booking['refid'][0]; ?>">
-                <?php var_dump($booking); ?>
             </td>
         </tr>
             <!-- Left Column Content -->

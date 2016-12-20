@@ -11,7 +11,7 @@ function implement_ajax_operatorsearch() {
 			if ( ($_POST['startdate']) ) {
 				$startdate = ($_POST['startdate']);
 			} else {
-				$startdate = '01.01.' . date('Y');
+				$startdate = '01.01.1970';
 			}
 			//set the date
 			if ( ($_POST['enddate']) ) {

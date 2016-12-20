@@ -11,7 +11,7 @@ function implement_ajax_topapartmentssearch() {
 			if ( ($_POST['startdate']) ) {
 				$startdate = ($_POST['startdate']);
 			} else {
-				$startdate = '01.01.' . date('Y');
+				$startdate = '01.01.1970';
 			}
 			//set the end date
 			if ( ($_POST['enddate']) ) {
@@ -21,7 +21,6 @@ function implement_ajax_topapartmentssearch() {
 			}
 			//get the date array
 			$datestring = join(',',dateRange($startdate, $enddate));
-			$apartmentname = ($_POST['apartmentname']);
 			$clientname = ($_POST['clientname']);
 			$operatorname = ($_POST['operatorname']);
 			
@@ -51,15 +50,10 @@ function implement_ajax_topapartmentssearch() {
 					<?php
 					//get all the bookings that match this apartment			
 					$apartmentname = $apartment->post_title;
-					if ( ( $apartmentname == 'ANY' ) && ( $operatorname == 'ANY') ) {
+					if ( ( $clientname == 'ANY' ) && ( $operatorname == 'ANY') ) {
 							$args2 = array (
 								'post_type'=>'bookings',
-								'meta_query' => array(									
-									array(
-										'key' => 'apartmentname',
-										'value' => $apartmentname,
-										'compare' => '=',
-									),									
+								'meta_query' => array(							
 									array(
 										'key' => 'arrivaldate',
 										'value' => $datestring,
@@ -67,16 +61,11 @@ function implement_ajax_topapartmentssearch() {
 									)			
 								),
 							);
-						} elseif ( ( $apartmentname !== 'ANY' ) && ( $operatorname == 'ANY' ) ) {
+						} elseif ( ( $clientname !== 'ANY' ) && ( $operatorname == 'ANY' ) ) {
 							$args2 = array (
 								'post_type'=>'bookings',
 								'meta_query' => array(		
 									'relation' => 'AND',							
-									array(
-										'key' => 'apartmentname',
-										'value' => $apartmentname,
-										'compare' => '=',
-									),
 									array(
 										'key' => 'clientname',
 										'value' => $clientname,
@@ -89,16 +78,11 @@ function implement_ajax_topapartmentssearch() {
 									),
 								)
 							);
-						} elseif ( ( $apartmentname == 'ANY' ) && ( $operatorname !== 'ANY' ) ) {
+						} elseif ( ( $clientname == 'ANY' ) && ( $operatorname !== 'ANY' ) ) {
 							$args2 = array (
 								'post_type'=>'bookings',
 								'meta_query' => array(		
-									'relation' => 'AND',							
-									array(
-										'key' => 'apartmentname',
-										'value' => $apartmentname,
-										'compare' => '=',
-									),
+									'relation' => 'AND',
 									array(
 										'key' => 'operatorname',
 										'value' => $operatorname,
@@ -111,16 +95,11 @@ function implement_ajax_topapartmentssearch() {
 									)
 								)
 							);
-						} elseif ( ( $apartmentname !== 'ANY' ) && ( $operatorname !== 'ANY' ) ) {
+						} elseif ( ( $clientname !== 'ANY' ) && ( $operatorname !== 'ANY' ) ) {
 							$args2 = array (
 								'post_type'=>'bookings',
 								'meta_query' => array(		
-									'relation' => 'AND',							
-									array(
-										'key' => 'apartmentname',
-										'value' => $apartmentname,
-										'compare' => '=',
-									),
+									'relation' => 'AND',					
 									array(
 										'key' => 'clientname',
 										'value' => $clientname,

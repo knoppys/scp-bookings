@@ -49,17 +49,7 @@ function upcomingbookings_callback() {
 		                            echo '</label>';
 		                            echo '<input type="text" class="widefat" name="date11" id="date11" />';
 		                            ?>  
-		                            <?php
-		                            /*
-		                            //date 1 field
-		                            echo '<label for="date12">';
-		                                _e( 'End Date');
-		                            echo '</label>';
-		                            echo '<input type="text" class="widefat" name="date12" id="date12" />';
-		                            */
-		                            ?>  
-		                            
-		                            <div style="padding:20px 0">
+		                           	<div style="padding:20px 0">
 		                            	<button class="wp-core-ui button-primary" id="searchquery">Ok now search!</button>
 		                            </div>
 	                            </div>
@@ -105,9 +95,10 @@ function upcomingbookings_callback() {
 		                            echo '</label> ';
 		                            echo '<select class="widefat" id="clientreportname" name="clientreportname">';                                
 		                            echo '<option value="" size="25" />Please select a client</option>';
-		                                foreach ($clientnames as $clientname) {
+		                                foreach ($clientnames as $clientname) : setup_postdata( $post );
 		                                    echo '<option value="' . $clientname->post_title . '" size="25" />' . $clientname->post_title . '</option>'; 
-		                                }
+										endforeach; 
+										wp_reset_postdata();	                                
 		                            echo "</select>";
 		                            ?>		
 		                            <?php
@@ -116,9 +107,10 @@ function upcomingbookings_callback() {
 		                            echo '</label> ';
 		                            echo '<select class="widefat" id="clientreportapartment" name="clientreportapartment">';                                
 		                            echo '<option value="ANY" size="25" />ANY</option>';
-		                                foreach ($apartmentnames as $apartmentname) {
+		                                foreach ($apartmentnames as $apartmentname) : setup_postdata( $post );
 		                                    echo '<option value="' . $apartmentname->post_title . '" size="25" />' . $apartmentname->post_title . '</option>'; 
-		                                }
+		                                endforeach; 
+										wp_reset_postdata();
 		                            echo "</select>";
 		                            ?>
 		                            <?php
@@ -127,9 +119,10 @@ function upcomingbookings_callback() {
 		                            echo '</label> ';
 		                            echo '<select class="widefat" id="clientreportlocation" name="clientreportlocation">';                                
 		                            echo '<option value="ANY" size="25" />ANY</option>';
-		                                foreach ($locationnames as $location) {
+		                                foreach ($locationnames as $location) : setup_postdata( $post );
 		                                    echo '<option value="' . $location->post_title . '" size="25" />' . $location->post_title . '</option>'; 
-		                                }
+		                                endforeach; 
+										wp_reset_postdata();
 		                            echo "</select>";
 		                            ?>			                           		                            
 		                            <div style="padding:20px 0">
@@ -157,9 +150,10 @@ function upcomingbookings_callback() {
 								    echo '</label> ';								    
 								    echo '<select class="widefat" id="operatorreportname" name="operatorreportname">';                                
 								    echo '<option value="ANY" size="25" />Please select an operator</option>';
-								        foreach ($operatornames as $operatorname) {
+								        foreach ($operatornames as $operatorname) : setup_postdata( $post );
 								            echo '<option value="' . $operatorname->post_title . '" size="25" />' . $operatorname->post_title . '</option>'; 
-								        }
+								        endforeach; 
+										wp_reset_postdata();
 								    echo "</select>";
 								    ?>		
 								    <?php
@@ -168,9 +162,10 @@ function upcomingbookings_callback() {
 								    echo '</label> ';
 								    echo '<select class="widefat" id="operatorreportapartment" name="operatorreportapartment">';                                
 								    echo '<option value="ANY" size="25" />ANY</option>';
-								        foreach ($apartmentnames as $apartmentname) {
+								        foreach ($apartmentnames as $apartmentname) : setup_postdata( $post );
 								            echo '<option value="' . $apartmentname->post_title . '" size="25" />' . $apartmentname->post_title . '</option>'; 
-								        }
+								        endforeach; 
+										wp_reset_postdata();
 								    echo "</select>";
 								    ?>
 								    <?php
@@ -179,9 +174,10 @@ function upcomingbookings_callback() {
 								    echo '</label> ';
 								    echo '<select class="widefat" id="operatorreportlocation" name="operatorreportlocation">';                                
 								    echo '<option value="ANY" size="25" />ANY</option>';
-								        foreach ($locationnames as $location) {
+								        foreach ($locationnames as $location) : setup_postdata( $post );
 								            echo '<option value="' . $location->post_title . '" size="25" />' . $location->post_title . '</option>'; 
-								        }
+								        endforeach; 
+										wp_reset_postdata();
 								    echo "</select>";
 								    ?>									   	                            
 								    <div style="padding:20px 0">
@@ -292,9 +288,10 @@ function upcomingbookings_callback() {
 						                            echo '</label> ';
 						                            echo '<select class="widefat" id="leaderloc_clientname" name="leaderloc_clientname">';                                
 						                           	echo '<option value="ANY" size="25" />ANY</option>';
-						                                foreach ($clientnames as $clientname) {
+						                                foreach ($clientnames as $clientname) : setup_postdata( $post );
 						                                    echo '<option value="' . $clientname->post_title . '" size="25" />' . $clientname->post_title . '</option>'; 
-						                                }
+						                                endforeach; 
+														wp_reset_postdata();
 						                            echo "</select>";
 						                            ?>
 						                            <?php
@@ -303,9 +300,10 @@ function upcomingbookings_callback() {
 						                            echo '</label> ';
 						                            echo '<select class="widefat" id="leaderloc_operatorname" name="leaderloc_operatorname">';                                
 						                           	echo '<option value="ANY" size="25" />ANY</option>';
-						                                foreach ($operatornames as $operatorname) {
+						                                foreach ($operatornames as $operatorname) : setup_postdata( $post );
 						                                    echo '<option value="' . $operatorname->post_title . '" size="25" />' . $operatorname->post_title . '</option>'; 
-						                                }
+						                                endforeach; 
+														wp_reset_postdata();
 						                            echo "</select>";
 						                            ?>
 												</td>
@@ -350,9 +348,10 @@ function upcomingbookings_callback() {
 												    echo '</label> ';
 												    echo '<select class="widefat" id="leaderapp_clientname" name="leaderapp_clientname">';                                
 												    echo '<option value="ANY" size="25" />ANY</option>';
-												        foreach ($clientnames as $clientname) {
+												        foreach ($clientnames as $clientname) : setup_postdata( $post );
 												            echo '<option value="' . $clientname->post_title . '" size="25" />' . $clientname->post_title . '</option>'; 
-												        }
+												        endforeach; 
+														wp_reset_postdata();
 												    echo "</select>";
 												    ?>
 												    <?php
@@ -361,9 +360,10 @@ function upcomingbookings_callback() {
 												    echo '</label> ';
 												    echo '<select class="widefat" id="leaderapp_operatorname" name="leaderapp_operatorname">';                                
 												    echo '<option value="ANY" size="25" />ANY</option>';
-												        foreach ($operatornames as $operatorname) {
+												        foreach ($operatornames as $operatorname) : setup_postdata( $post );
 												            echo '<option value="' . $operatorname->post_title . '" size="25" />' . $operatorname->post_title . '</option>'; 
-												        }
+												        endforeach; 
+														wp_reset_postdata();
 												    echo "</select>";
 												    ?>
 												</td>

@@ -7,7 +7,7 @@ function implement_ajax_search() {
 		if ( ($_POST['startdate']) ) {
 			$startdate = ($_POST['startdate']);
 		} else {
-			$startdate = '01.01.' . date('Y');
+			$startdate = '01.01.1970';
 		}
 
 		$datestring = join(',',dateRange($startdate,'31.01.3000'));

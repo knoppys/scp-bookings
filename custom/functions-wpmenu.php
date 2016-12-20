@@ -13,11 +13,3 @@ function remove_menus(){
   
 }
 add_action( 'admin_menu', 'remove_menus' );
-
-//now remove those created by plugins
-function wpse_136058_remove_menu_pages() {
-
-    remove_menu_page( 'edit.php?post_type=acf' );
-    remove_menu_page( 'admin.php?page=wppusher' );
-}
-add_action( 'admin_init', 'wpse_136058_remove_menu_pages' );
