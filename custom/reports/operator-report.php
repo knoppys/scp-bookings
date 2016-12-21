@@ -130,14 +130,20 @@ function implement_ajax_operatorsearch() {
 				<thead>
 					<tr>
 						<th>
-							<p><strong>Booking Ref</strong></p>
+							<p><strong>Arrival Date</strong></p>
 						</th>
-						
+						<th>
+							<p><strong>Booking Ref</strong></p>
+						</th>						
 						<th>
 							<p><strong>Operator Name</strong></p>
 						</th>						
 						<th>
 							<p><strong>Apartment Name</strong></p>
+						</th>
+
+						<th>
+							<p><strong>Location</strong></p>
 						</th>
 						<th>
 							<p><strong>Location</strong></p>
@@ -277,6 +283,7 @@ function implement_ajax_operatorsearch() {
 				    $clientname = get_post_meta($ID, 'clientname', true);			  
 				    $totalcost = get_post_meta($ID, 'totalcost', true);
 				    $location = get_post_meta($ID, 'location', true);
+				    $guestname = get_post_meta($ID, 'guestname', true);
 
 				    //calculate number of nights stay				     
 				    $datetime1 = new DateTime($startdate);
@@ -293,13 +300,17 @@ function implement_ajax_operatorsearch() {
 					
 						<tr class="booking">
 							<td>
-								<p><?php the_title(); ?></p>
+								<p><?php echo $startdate; ?></p>
 							</td>							
 							<td>
-								<p><?php echo $operatorname; ?></p>
+								<p><?php echo $guestname; ?></p>
 							</td>
 							<td>
 								<p><?php echo $apartmentname; ?></p>
+							</td>
+							<td>
+								<?php $page = get_page_by_title( $apartmentname, $output, 'apartments' ); ?>
+								<p><?php echo get_post_meta($page->ID, 'apptlocation1', true); ?></p>
 							</td>
 							<td>
 								<p><?php echo $location; ?></p>
@@ -311,7 +322,17 @@ function implement_ajax_operatorsearch() {
 								<p><?php echo $nicenightly; ?></p>
 							</td>
 							<td style="text-align:right;" class="total-cost">
-								<p><strong><?php echo $totalcost; ?></strong></p>
+								<p><strong>
+								<?php
+								if (get_post_meta($ID, 'ownerprice', true)) {
+									$bookingspend = get_post_meta($ID, 'ownerprice', true);
+								} else {
+									$bookingspend = get_post_meta($ID, 'totalcost', true);
+								echo '£'.$bookingspend;
+								}
+								?>
+									
+								</strong></p>
 							</td>						
 							<td class="options">
 								<a href="<?php echo get_site_url();?>/wp-admin/post.php?post=<?php echo $ID ;?>&action=edit"><i class="fa fa-file-text" style="padding-right:10px;"></i></a>

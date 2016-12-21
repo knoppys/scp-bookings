@@ -132,6 +132,9 @@ function implement_ajax_clientsearch() {
 				<thead>
 					<tr>
 						<th>
+							<p><strong>Arrival Date</strong></p>
+						</th>
+						<th>
 							<p><strong>Booking Ref</strong></p>
 						</th>
 						
@@ -292,6 +295,7 @@ function implement_ajax_clientsearch() {
 				    $totalcost = get_post_meta($ID, 'totalcost', true);
 				    $location = get_post_meta($ID, 'location', true);
 				    $costcode = get_post_meta($ID, 'costcode', true);
+				    $guestname = get_post_meta($ID, 'guestname', true);
 
 				    //calculate number of nights stay				     
 				    $datetime1 = new DateTime($startdate);
@@ -308,13 +312,20 @@ function implement_ajax_clientsearch() {
 					
 						<tr class="booking">
 							<td>
-								<p><?php the_title(); ?></p>
+								<p><?php echo $startdate; ?></p>
+							</td>
+							<td>
+								<p><?php $guestname; ?></p>
 							</td>							
 							<td>
 								<p><?php echo $clientname; ?></p>
 							</td>
 							<td>
 								<p><?php echo $apartmentname; ?></p>
+							</td>
+							<td>
+								<?php $page = get_page_by_title( $apartmentname, $output, 'apartments' ); ?>
+								<p><?php echo get_post_meta($page->ID, 'apptlocation1', true); ?></p>
 							</td>
 							<td>
 								<p><?php echo $location; ?></p>
@@ -329,7 +340,7 @@ function implement_ajax_clientsearch() {
 								<p><?php echo $costcode; ?></p>
 							</td>
 							<td style="text-align:right;" class="total-cost">
-								<p><strong><?php echo floor($totalcost); ?></strong></p>
+								<p><strong><?php echo '£'.$totalcost; ?></strong></p>
 							</td>						
 							<td class="options">
 								<a href="<?php echo get_site_url();?>/wp-admin/post.php?post=<?php echo $ID ;?>&action=edit"><i class="fa fa-file-text" style="padding-right:10px;"></i></a>
