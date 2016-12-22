@@ -25,7 +25,8 @@ function implement_ajax_topoperatorsearch() {
 			/*************************CONTENT STARTS HERE************************/
 
 			//Get all the operators before we get all their bookings. 
-			$args = array ('post_type'=>'operators', 'posts_per_page' => -1);
+			$option = explode(',', '1'.get_option( 'operator-excludelist' ));
+			$args = array ('post_type'=>'operators', 'posts_per_page' => -1, 'post__not_in'=> $option);
 			$getoperator = get_posts( $args ); ?>
 			<thead>
 				<tr>

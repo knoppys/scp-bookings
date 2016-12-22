@@ -1,45 +1,42 @@
 <?php
-function clientreportsettings() {
-    //register our settings
-    register_setting( 'clientreportexclude-group', 'excludelist' );
-}
-
-function scp_bookings_options_page() {
+function apartment_options_page() {
 ?>
 <div class="wrap">
-<h2>Client Report options</h2>
-<p>Select the Clients you wish to <strong>EXCLUDE</strong> from all Client Reports</p>
+<h2>apartment Report options</h2>
+<p>Select the apartments you wish to <strong>EXCLUDE</strong> from all apartment Reports</p>
 
 <form method="post" action="options.php" class="reportoptions">
     <?php 
-    settings_fields( 'clientreportexclude-group' );
-    do_settings_sections( 'clientreportexclude-group' );
-    $options = get_option( 'excludelist' );  
+    settings_fields( 'apartmentreportexclude-group' );
+    do_settings_sections( 'apartmentreportexclude-group' );
+    $options = get_option( 'apartment-excludelist' );  
     $i = 0;
-    $args = array('post_type' => 'clients', 'posts_per_page' => -1, 'post_status' => 'ANY', 'orderby'=>'title', 'order'=>'ASC');
-    $clients = get_posts($args); 
+    $args = array('post_type' => 'apartments', 'posts_per_page' => -1, 'post_status' => 'ANY', 'orderby'=>'title', 'order'=>'ASC');
+    $apartments = get_posts($args); 
     ?>
     <div class="widefat">
-    <?php foreach ( $clients as $client ) : setup_postdata( $post ); ?>
+    <?php foreach ( $apartments as $apartment ) : setup_postdata( $post ); ?>
         <div class="item">
-            <?php echo $client->post_title ?> 
+            <?php echo $apartment->post_title ?> 
             <input 
             class="iteminput"
             type='checkbox' 
-            name='clientidfield'            
+            name='apartmentidfield'            
             value=''
-            id="<?php echo $client->ID; ?>"> 
+            id="<?php echo $apartment->ID; ?>"> 
             <?php $i++; ?>
         </div>
     <?php endforeach; 
     wp_reset_postdata();    
     ?>    
     </div>
-    <div class="widefat" style="display:block;">
+    <div class="widefat" style="display:none;">
     	<label>Excluded ID's</label>
-    	<input type="text" name="excludelist" id="excludelist" value="<?php echo get_option( 'excludelist' ); ?>">
+    	<input type="text" name="apartment-excludelist" id="apartment-excludelist" value="<?php echo get_option( 'apartment-excludelist' ); ?>">
     </div>
-    <?php submit_button(); ?>
+     <div class="widefat">
+        <?php submit_button(); ?>
+    </div>
 </form>
 </div>
 <script type="text/javascript">
@@ -73,16 +70,13 @@ function scp_bookings_options_page() {
     jQuery(document).ready(function(){
         jQuery('.iteminput').each(function(){
             var id = jQuery(this).attr('id');
-            var inputValue = jQuery('input[type=text]').val();
+            var string = jQuery('input[type=text]').val();
 
-            // Split the IDs into an array by comma.
-            var currentIds = inputValue.split(',');
-
-            if (currentIds.indexOf(id) === -1) {
-                jQuery('.iteminput').prop('checked');
+            if (string.indexOf(id) >= 1) {
+                jQuery('input#'+id).prop('checked', true);
             }  
 
-            console.log(id);
+            console.log(string);
 
         });
     })

@@ -26,10 +26,13 @@ function implement_ajax_operatorsearch() {
 			$apartmentname = ($_POST['apartmentname']);
 			$location = ($_POST['location']);		
 
+			$option = explode(',', '1'.get_option( 'operator-excludelist' ));
+
 			//Query all the clients bookings
 			if( isset($operatorname) && ( !isset($apartmentname) || ($apartmentname == 'ANY') ) &&  ( !isset($location) || ($location == 'ANY') ) ) {
 				$args = array( 
 				'post_type' => 'bookings',
+				'post__not_in' => $option,
 				'meta_key' => 'arrivaldate',
 				'meta_value' => $datestring,
 				'meta_compare' => 'IN',
@@ -48,6 +51,7 @@ function implement_ajax_operatorsearch() {
 			elseif( isset($operatorname) && ( isset($apartmentname) || ($apartmentname !== 'ANY') ) &&  ( !isset($location) || ($location == 'ANY') ) ) {
 			   $args = array( 
 				'post_type' => 'bookings',
+				'post__not_in' => $option,
 				'meta_key' => 'arrivaldate',
 				'meta_value' => $datestring,
 				'meta_compare' => 'IN',
@@ -72,6 +76,7 @@ function implement_ajax_operatorsearch() {
 			elseif( isset($operatorname) && ( !isset($apartmentname) || ($apartmentname == 'ANY') ) &&  ( isset($location) || ($location !== 'ANY') ) ) {
 				$args = array( 
 				'post_type' => 'bookings',
+				'post__not_in' => $option,
 				'meta_key' => 'arrivaldate',
 				'meta_value' => $datestring,
 				'meta_compare' => 'IN',
@@ -95,6 +100,7 @@ function implement_ajax_operatorsearch() {
 			elseif( isset( $operatorname ) && ( isset( $apartmentname ) || ( $apartmentname !== 'ANY' ) ) &&  ( isset( $location ) || ( $location !== 'ANY' ) ) ) {
 				$args = array( 
 				'post_type' => 'bookings',
+				'post__not_in' => $option,
 				'meta_key' => 'arrivaldate',
 				'meta_value' => $datestring,
 				'meta_compare' => 'IN',
@@ -141,13 +147,9 @@ function implement_ajax_operatorsearch() {
 						<th>
 							<p><strong>Apartment Name</strong></p>
 						</th>
-
 						<th>
 							<p><strong>Location</strong></p>
-						</th>
-						<th>
-							<p><strong>Location</strong></p>
-						</th>
+						</th>						
 						<th>
 							<p><strong>No of nights</strong></p>
 						</th>
@@ -165,6 +167,8 @@ function implement_ajax_operatorsearch() {
 				<tfoot>
 					<!-- Total Spend Control Row -->
 					<tr>						
+						<td class="report-footer">							
+						</td>
 						<td class="report-footer">							
 						</td>
 						<td class="report-footer">							
@@ -193,6 +197,8 @@ function implement_ajax_operatorsearch() {
 						<td class="report-footer">							
 						</td>
 						<td class="report-footer">							
+						</td>
+						<td class="report-footer">							
 						</td>							
 						<td class="report-footer">							
 						</td>						
@@ -206,6 +212,8 @@ function implement_ajax_operatorsearch() {
 						</td>
 					</tr>
 					<tr>						
+						<td class="report-footer">							
+						</td>
 						<td class="report-footer">							
 						</td>
 						<td class="report-footer">							
@@ -231,6 +239,8 @@ function implement_ajax_operatorsearch() {
 						<td class="report-footer">							
 						</td>
 						<td class="report-footer">							
+						</td>
+						<td class="report-footer">							
 						</td>						
 						<td class="report-footer">							
 						</td>		
@@ -246,6 +256,8 @@ function implement_ajax_operatorsearch() {
 						</td>
 					</tr>
 					<tr>						
+						<td class="report-footer">							
+						</td>
 						<td class="report-footer">							
 						</td>
 						<td class="report-footer">							
@@ -284,6 +296,7 @@ function implement_ajax_operatorsearch() {
 				    $totalcost = get_post_meta($ID, 'totalcost', true);
 				    $location = get_post_meta($ID, 'location', true);
 				    $guestname = get_post_meta($ID, 'guestname', true);
+				    $ownerprice = get_post_meta($ID, 'ownerprice', true);
 
 				    //calculate number of nights stay				     
 				    $datetime1 = new DateTime($startdate);
@@ -306,15 +319,15 @@ function implement_ajax_operatorsearch() {
 								<p><?php echo $guestname; ?></p>
 							</td>
 							<td>
+								<p><?php echo $operatorname; ?></p>
+							</td>
+							<td>
 								<p><?php echo $apartmentname; ?></p>
 							</td>
 							<td>
 								<?php $page = get_page_by_title( $apartmentname, $output, 'apartments' ); ?>
 								<p><?php echo get_post_meta($page->ID, 'apptlocation1', true); ?></p>
-							</td>
-							<td>
-								<p><?php echo $location; ?></p>
-							</td>
+							</td>							
 							<td class="numberofnights">
 								<p><?php echo $numberofnights; ?></p>
 							</td>
@@ -324,12 +337,12 @@ function implement_ajax_operatorsearch() {
 							<td style="text-align:right;" class="total-cost">
 								<p><strong>
 								<?php
-								if (get_post_meta($ID, 'ownerprice', true)) {
-									$bookingspend = get_post_meta($ID, 'ownerprice', true);
+								if ($ownerprice) {
+									$bookingspend = $ownerprice;
 								} else {
-									$bookingspend = get_post_meta($ID, 'totalcost', true);
-								echo '£'.$bookingspend;
+									$bookingspend = $totalcost;								
 								}
+								echo $bookingspend;
 								?>
 									
 								</strong></p>

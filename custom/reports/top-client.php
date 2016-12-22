@@ -26,7 +26,8 @@ function implement_ajax_topclientsearch() {
 			/*************************CONTENT STARTS HERE************************/
 
 			//Get all the clients before we get all their bookings. 
-			$args = array ('post_type'=>'clients', 'posts_per_page' => -1);
+			$option = explode(',', '1'.get_option( 'client-excludelist' ));
+			$args = array ('post_type'=>'clients', 'posts_per_page' => -1, 'post__not_in'=> $option);
 			$getclient = get_posts( $args ); ?>
 			<thead>
 				<tr>
@@ -44,7 +45,7 @@ function implement_ajax_topclientsearch() {
 					<td>
 						<?php echo $client->post_title; ?>
 					</td>
-					
+					<td>
 					<?php
 					//get all the bookings that match this client			
 						$clientname = $client->post_title;
@@ -80,7 +81,6 @@ function implement_ajax_topclientsearch() {
 						//echo the total from all those bookings. 						
 						setlocale(LC_MONETARY, 'en_GB');
 						echo '£'.money_format('%i', $sum);
-						?>
 						?>
 					</td>
 				</tr>			

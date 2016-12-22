@@ -29,7 +29,8 @@ function implement_ajax_toplocationssearch() {
 			/*************************CONTENT STARTS HERE************************/
 
 			//Get all the locations before we get all their bookings. 
-			$args = array ('post_type'=>'locations', 'posts_per_page' => -1);
+			$option = explode(',', '1'.get_option( 'location-excludelist' ));
+			$args = array ('post_type'=>'locations', 'posts_per_page' => -1, 'post__not_in'=> $option);
 			$getlocation = get_posts( $args ); ?>
 			<thead>
 				<tr>

@@ -28,7 +28,8 @@ function implement_ajax_topapartmentssearch() {
 			/*************************CONTENT STARTS HERE************************/
 
 			//Get all the apartments before we get all their bookings. 
-			$args = array ('post_type'=>'apartments', 'posts_per_page' => -1);
+			$option = explode(',', '1'.get_option( 'apartment-excludelist' ));
+			$args = array ('post_type'=>'apartments', 'posts_per_page' => -1, 'post__not_in'=> $option);
 			$getapartment = get_posts( $args ); ?>
 			<thead>
 				<tr>

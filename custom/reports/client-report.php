@@ -22,6 +22,8 @@ function implement_ajax_clientsearch() {
 
 		$datestring = join(',',dateRange($startdate, $enddate));
 
+		$option = explode(',', '1'.get_option( 'client-excludelist' ));
+
 		$clientname = ($_POST['clientname']);
 		$apartmentname = ($_POST['apartmentname']);
 		$location = ($_POST['location']);		
@@ -30,6 +32,7 @@ function implement_ajax_clientsearch() {
 		if( isset($clientname) && ( !isset($apartmentname) || ($apartmentname == 'ANY') ) &&  ( !isset($location) || ($location == 'ANY') ) ) {
 			$args = array( 
 				'post_type' => 'bookings',
+				'post__not_in' => $option,
 				'meta_key' => 'arrivaldate',
 				'meta_value' => $datestring,
 				'meta_compare' => 'IN',
@@ -48,6 +51,7 @@ function implement_ajax_clientsearch() {
 		elseif( isset($clientname) && ( isset($apartmentname) || ($apartmentname !== 'ANY') ) &&  ( !isset($location) || ($location == 'ANY') ) ) {
 		   $args = array( 
 				'post_type' => 'bookings',
+				'post__not_in' => $option,
 				'meta_key' => 'arrivaldate',
 				'meta_value' => $datestring,
 				'meta_compare' => 'IN',
@@ -72,6 +76,7 @@ function implement_ajax_clientsearch() {
 		elseif( isset($clientname) && ( !isset($apartmentname) || ($apartmentname == 'ANY') ) &&  ( isset($location) || ($location !== 'ANY') ) ) {
 			$args = array( 
 				'post_type' => 'bookings',
+				'post__not_in' => $option,
 				'meta_key' => 'arrivaldate',
 				'meta_value' => $datestring,
 				'meta_compare' => 'IN',
@@ -95,6 +100,7 @@ function implement_ajax_clientsearch() {
 		elseif( isset($clientname) && ( isset($apartmentname) || ($apartmentname !== 'ANY') ) &&  ( isset($location) || ($location !== 'ANY') ) ) {
 			$args = array( 
 				'post_type' => 'bookings',
+				'post__not_in' => $option,
 				'meta_key' => 'arrivaldate',
 				'meta_value' => $datestring,
 				'meta_compare' => 'IN',
@@ -174,6 +180,8 @@ function implement_ajax_clientsearch() {
 						<td class="report-footer">							
 						</td>
 						<td class="report-footer">							
+						</td>
+						<td class="report-footer">							
 						</td>							
 						<td class="report-footer">							
 						</td>
@@ -190,6 +198,8 @@ function implement_ajax_clientsearch() {
 					</tr>
 					<!-- Average Spend Control Row -->
 					<tr>						
+						<td class="report-footer">							
+						</td>
 						<td class="report-footer">							
 						</td>
 						<td class="report-footer">							
@@ -217,6 +227,8 @@ function implement_ajax_clientsearch() {
 						<td class="report-footer">							
 						</td>
 						<td class="report-footer">							
+						</td>
+						<td class="report-footer">							
 						</td>						
 						<td class="report-footer">							
 						</td>		
@@ -239,6 +251,8 @@ function implement_ajax_clientsearch() {
 						<td class="report-footer">							
 						</td>
 						<td class="report-footer">							
+						</td>
+						<td class="report-footer">							
 						</td>						
 						<td class="report-footer">							
 						</td>		
@@ -256,6 +270,8 @@ function implement_ajax_clientsearch() {
 						</td>
 					</tr>
 					<tr>						
+						<td class="report-footer">							
+						</td>
 						<td class="report-footer">							
 						</td>
 						<td class="report-footer">							
@@ -326,10 +342,7 @@ function implement_ajax_clientsearch() {
 							<td>
 								<?php $page = get_page_by_title( $apartmentname, $output, 'apartments' ); ?>
 								<p><?php echo get_post_meta($page->ID, 'apptlocation1', true); ?></p>
-							</td>
-							<td>
-								<p><?php echo $location; ?></p>
-							</td>
+							</td>							
 							<td class="numberofnights">
 								<p><?php echo $numberofnights; ?></p>
 							</td>
@@ -340,7 +353,7 @@ function implement_ajax_clientsearch() {
 								<p><?php echo $costcode; ?></p>
 							</td>
 							<td style="text-align:right;" class="total-cost">
-								<p><strong><?php echo '£'.$totalcost; ?></strong></p>
+								<p><strong><?php echo $totalcost; ?></strong></p>
 							</td>						
 							<td class="options">
 								<a href="<?php echo get_site_url();?>/wp-admin/post.php?post=<?php echo $ID ;?>&action=edit"><i class="fa fa-file-text" style="padding-right:10px;"></i></a>
