@@ -44,14 +44,48 @@ function scp_bookings_options_page() {
 </div>
 <script type="text/javascript">
 	
-	jQuery(document).ready(function(){
+	jQuery(document).ready(function(){        
+
 		jQuery('.iteminput').on('click', function(){
-			var id = jQuery(this).attr('ID');
-			var string = jQuery('#excludelist').val();
-			var newstring = string + id + ',';
-			jQuery('#excludelist').val(newstring);
+			const id = jQuery(this).attr('id');
+            const inputValue = jQuery('input[type=text]').val();
+
+            // Split the IDs into an array by comma.
+            const currentIds = inputValue.split(',');
+
+            if (currentIds.indexOf(id) === -1) {
+                // ID has not yet been added to the input box.
+                // We can add it to the array here, and
+                // update it later.
+                currentIds.push(id);
+            } else {
+                // ID is in the current list of IDs. We
+                // can remove it like this:
+                currentIds.splice(currentIds.indexOf(id), 1);
+            }
+
+            // Finally, we can reset the input string
+            // with the new values we set above.
+            jQuery('input[type=text]').val(currentIds.join(','));
 		})
-	})
+	});
+
+    jQuery(document).ready(function(){
+        jQuery('.iteminput').each(function(){
+            var id = jQuery(this).attr('id');
+            var inputValue = jQuery('input[type=text]').val();
+
+            // Split the IDs into an array by comma.
+            var currentIds = inputValue.split(',');
+
+            if (currentIds.indexOf(id) === -1) {
+                jQuery('.iteminput').prop('checked');
+            }  
+
+            console.log(id);
+
+        });
+    })
 
 </script>
 <?php } ?>
