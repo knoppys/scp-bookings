@@ -2,8 +2,8 @@
 function apartment_options_page() {
 ?>
 <div class="wrap">
-<h2>apartment Report options</h2>
-<p>Select the apartments you wish to <strong>EXCLUDE</strong> from all apartment Reports</p>
+<h2>Apartment Report Options</h2>
+<p>Select the Apartments you wish to <strong>EXCLUDE</strong> from all apartment Reports</p>
 
 <form method="post" action="options.php" class="reportoptions">
     <?php 

@@ -2,8 +2,8 @@
 function location_options_page() {
 ?>
 <div class="wrap">
-<h2>location Report options</h2>
-<p>Select the locations you wish to <strong>EXCLUDE</strong> from all location Reports</p>
+<h2>Location Report Options</h2>
+<p>Select the Locations you wish to <strong>EXCLUDE</strong> from all location Reports</p>
 
 <form method="post" action="options.php" class="reportoptions">
     <?php 

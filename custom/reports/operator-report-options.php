@@ -2,8 +2,8 @@
 function operator_options_page() {
 ?>
 <div class="wrap">
-<h2>operator Report options</h2>
-<p>Select the operators you wish to <strong>EXCLUDE</strong> from all operator Reports</p>
+<h2>Operator Report Options</h2>
+<p>Select the Operators you wish to <strong>EXCLUDE</strong> from all operator Reports</p>
 
 <form method="post" action="options.php" class="reportoptions">
     <?php 

@@ -2,7 +2,7 @@
 function client_options_page() {
 ?>
 <div class="wrap">
-<h2>Client Report options</h2>
+<h2>Client Report Options</h2>
 <p>Select the Clients you wish to <strong>EXCLUDE</strong> from all Client Reports</p>
 
 <form method="post" action="options.php" class="reportoptions">
