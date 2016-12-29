@@ -5,6 +5,7 @@ add_action( 'admin_init', 'clientreportsettings' );
 add_action( 'admin_init', 'operatorreportsettings' );
 add_action( 'admin_init', 'locationreportsettings' );
 add_action( 'admin_init', 'apartmentreportsettings' );
+
 function register_my_custom_menu_page(){
 	add_menu_page( 'SCP Bookings Dashboard', 'SCP Bookings', 'publish_pages', 'scp_bookings-parent', 'my_custom_menu_page', plugins_url( 'scp_bookings/images/iconmenu.png' ), 3 ); 
 		add_submenu_page( 'scp_bookings-parent', 'Corporate', '- Corporate', 'publish_pages', 'corporatelistings', 'corporatelistings_callback' );
@@ -17,6 +18,7 @@ function register_my_custom_menu_page(){
 	add_submenu_page( 'scp_bookings-parent', 'Operators', 'Operators', 'publish_pages', 'operatorslistings', 'operatorslistings_callback' );
 	add_submenu_page( 'scp_bookings-parent', 'Clients', 'Clients', 'publish_pages', 'clients', 'clientlistings_callback' );
 	add_submenu_page( 'scp_bookings-parent', 'Locations', 'Locations', 'publish_pages', 'Locationslistings', 'Locationslistings_callback' );
+	add_submenu_page( 'scp_bookings-parent', 'Locations', '- Location Types', 'publish_pages', 'locationtypes', 'locationtypes_callback' );
 	add_submenu_page( 'scp_bookings-parent', 'City Guides', 'City Guides', 'publish_pages', 'cityguides', 'cityguides_callback' );
 	add_submenu_page( 'scp_bookings-parent', 'Reports', 'Reports', 'publish_pages', 'reports', 'upcomingbookings_callback' );	
 
@@ -29,6 +31,5 @@ function register_my_custom_menu_page(){
 	add_submenu_page( 'scp_bookings-parent', 'Welcome Packs', 'Welcome Packs', 'publish_pages', 'welcomepackquery', 'welcomepacks_callback' );
 	add_submenu_page( 'scp_bookings-parent', 'Reseller Pages', 'Reseller Pages', 'publish_pages', 'resellerp', 'resellerp_callback' );
 	add_submenu_page( 'scp_bookings-parent', 'Documentation', 'Documentation', 'publish_pages', 'documentation', 'documentation_callback' );
-	
-}
 
+}

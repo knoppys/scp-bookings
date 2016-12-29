@@ -245,4 +245,43 @@ function scp_location_category_taxonomy() {
 
 // Hook into the 'init' action
 add_action( 'init', 'scp_location_category_taxonomy', 0 );
-?>
+
+
+/** 
+7. Location Area Taxonomy
+*/
+function scp_location_area_taxonomy() {
+
+	$labels = array(
+		'name'                       => 'Location Area',
+		'singular_name'              => 'Location Area',
+		'menu_name'                  => 'Categories',
+		'all_items'                  => 'All Categories',
+		'parent_item'                => 'Parent Location Area',
+		'parent_item_colon'          => 'Parent Location Area:',
+		'new_item_name'              => 'New Location Area',
+		'add_new_item'               => 'Add New Location Area',	
+		'edit_item'                  => 'Edit Location Area',
+		'update_item'                => 'Update Location Area',
+		'separate_items_with_commas' => 'Separate Categories with commas',
+		'search_items'               => 'Search Location Area',
+		'add_or_remove_items'        => 'Add or Remove Item Area',
+		'choose_from_most_used'      => 'Choose From Most Used Categories',
+		'not_found'                  => 'Not Found',
+	);
+	$args = array(
+		'labels'                     => $labels,
+		'hierarchical'               => true,
+		'public'                     => true,
+		'show_ui'                    => true,
+		'show_admin_column'          => true,
+		'show_in_nav_menus'          => true,
+		'show_tagcloud'              => false,
+		'show_in_menu'				 => false,
+	);
+	register_taxonomy( 'locationarea', array( 'locations' ), $args );
+
+}
+
+// Hook into the 'init' action
+add_action( 'init', 'scp_location_area_taxonomy', 0 );
