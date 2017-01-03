@@ -29,10 +29,16 @@ function implement_ajax_vat() {
 			//***********************	
 
 				//1. Get the dates and get the diff between them
-				$datetime1 = new DateTime(($_POST['arrivaldate']));
-			    $datetime2 = new DateTime(($_POST['leavingdate']));
-			    $interval = $datetime1->diff($datetime2);
-			    $numberofnights = $interval->format('%a nights');
+				
+			    if (($_POST['numberofnights'])) {
+			    	$numberofnights = $_POST['numberofnights'];
+			    } else {
+			    	$datetime1 = new DateTime(($_POST['arrivaldate']));
+				    $datetime2 = new DateTime(($_POST['leavingdate']));
+				    $interval = $datetime1->diff($datetime2);
+			    	$numberofnights = $interval->format('%a nights');
+			    }
+			    
 
 
 			//***********************

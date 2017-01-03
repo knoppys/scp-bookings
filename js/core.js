@@ -359,6 +359,7 @@ jQuery(document).ready(function(){
 	var discount = jQuery('#discount').val();
 	var oprentalprice = jQuery('#oprentalprice').val();
 	var opsupplementsprice = jQuery('#opsupplementsprice').val();
+	var numberofnights = jQuery('#numberofnights').val();
 
     	//got the data, make the ajax request
 		jQuery(function(){
@@ -379,6 +380,7 @@ jQuery(document).ready(function(){
 	            '&oprentalprice=' + oprentalprice + 
 	            '&numberofguests=' + numberofguests + 
 	            '&discount=' + discount + 
+	            '&numberofnights=' + numberofnights +
 	            '&opsupplementsprice=' + opsupplementsprice,
 	           	dataType:'json',
 	            success:function(result){
@@ -388,13 +390,13 @@ jQuery(document).ready(function(){
 	            		jQuery('#balancedue').val(result.totalcost);
 	            		jQuery('#vatamount').val('0');	
 	            		jQuery('#totalcost').val(result.totalcost); 
-	            		jQuery('#numberofnights').text(result.nights);
+	            		//jQuery('#numberofnights').text(result.nights);
 	            		jQuery('#ownerprice').val(result.optotal);
 	            	} else {
 	            		jQuery('#balancedue').val(result.totalcost + result.vatfigure);
 	            		jQuery('#vatamount').val(result.vatfigure);
 	            		jQuery('#totalcost').val(result.totalcost);	
-	            		jQuery('#numberofnights').text(result.nights);
+	            		//jQuery('#numberofnights').text(result.nights);
 	            		jQuery('#ownerprice').val(result.optotal);
 	            	}
 	            	
@@ -418,7 +420,7 @@ jQuery(document).ready(function(){
 		    jQuery.ajax({
 	            url:siteUrl,
 	            type:'POST',
-	            data:'action=operatordetails&operatorname=' + operatorname,           
+	            data:'action=operatordetails&operatorname=' + encodeURIComponent(operatorname),           
 	            success:function(result){
 	            	//got it back, now assign it to its fields. 	            	
 	            	jQuery('#operatorajax').html( result );;    
@@ -442,7 +444,7 @@ jQuery(document).ready(function(){
 		    jQuery.ajax({
 	            url:siteUrl,
 	            type:'POST',
-	            data:'action=clientdetails&clientname=' + clientname,           
+	            data:'action=clientdetails&clientname=' + encodeURIComponent(clientname),           
 	            success:function(result){
 	            	//got it back, now assign it to its fields. 	            	
 	            	jQuery('#clientajax').html( result );  
@@ -631,7 +633,7 @@ jQuery('#clientquery').click(function() {
 	    jQuery.ajax({
             url:siteUrl,
             type:'POST',
-            data:'action=clientreport&clientname=' + clientname + 
+            data:'action=clientreport&clientname=' + encodeURIComponent(clientname) + 
             '&apartmentname=' + apartmentname +
             '&location=' + location +
             '&startdate=' + startdate +
@@ -710,7 +712,7 @@ jQuery('#operatorquery').click(function() {
 	    jQuery.ajax({
             url:siteUrl,
             type:'POST',
-            data:'action=operatorreport&operatorname=' + operatorname + 
+            data:'action=operatorreport&operatorname=' + encodeURIComponent(operatorname) + 
             '&apartmentname=' + apartmentname +
             '&location=' + location +
             '&startdate=' + startdate +
@@ -859,8 +861,8 @@ var siteUrl = siteUrlobject.siteUrl+'/wp-admin/admin-ajax.php';
             type:'POST',
             data:'action=toplocations&startdate=' + startdate +
             '&enddate=' + enddate +
-            '&operatorname=' + operatorname +
-            '&clientname=' + clientname,          
+            '&operatorname=' + encodeURIComponent(operatorname) +
+            '&clientname=' + encodeURIComponent(clientname),          
             success:function(result){
             //got it back, now assign it to its fields. 	            	
            	jQuery('#searchresult').html( result );
@@ -901,8 +903,8 @@ jQuery('#leaderapartments').click(function() {
             type:'POST',
             data:'action=topapartments&startdate=' + startdate +
             '&enddate=' + enddate +
-            '&operatorname=' + operatorname + 
-            '&clientname=' + clientname,          
+            '&operatorname=' + encodeURIComponent(operatorname) + 
+            '&clientname=' + encodeURIComponent(clientname),          
             success:function(result){
             //got it back, now assign it to its fields. 	            	
            	jQuery('#searchresult').html( result );
@@ -1082,7 +1084,6 @@ jQuery(document).ready(function(){
 
 /********************
 // Ajax auto populate the operator details
-*****************/
 
 jQuery(document).ready(function(){
 	jQuery('#postcodesearch').click(function() { 
@@ -1136,4 +1137,5 @@ jQuery(document).ready(function(){
 		});
 	});
 })
+*****************/
 

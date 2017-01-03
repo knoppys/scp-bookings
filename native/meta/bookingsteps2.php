@@ -436,7 +436,7 @@ function bookingsteps2_meta_box_callback( $post ) {
                                        </td>
                                     </tr>                                    
                                     <tr>
-                                       <td>
+                                        <td>
                                            <?php
                                             echo '<label>';
                                                 _e( 'Checkout Date');
@@ -450,6 +450,16 @@ function bookingsteps2_meta_box_callback( $post ) {
                                                  _e( 'Checkout Time', 'bookingscheckout_textdomain' );
                                             echo '</label>';
                                             echo '<input type="text" class="widefat upDate" name="checkouttime" id="checkouttime" value="' . esc_attr( $booking['checkouttime'][0] ) . '"/>';
+                                            ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                         <td colspan="2">
+                                           <?php
+                                            echo '<label>';
+                                                _e( 'Number of nights');
+                                            echo '</label>';
+                                            echo '<input type="text" class="widefat" name="numberofnights" id="numberofnights" value="' . esc_attr( $booking['numberofnights'][0] ) . '"/>';
                                             ?>
                                         </td>
                                     </tr>
@@ -888,6 +898,7 @@ function bookingsteps2_save_meta_box_data( $post_id ) {
     $mydata_guestage = sanitize_text_field( $_POST['guestage'] );
     $mydata_guestsex = sanitize_text_field( $_POST['guestsex'] );
     $mydata_contactnumber = sanitize_text_field( $_POST['contactnumber'] );
+    $mydata_numberofnights = sanitize_text_field( $_POST['numberofnights'] );
 
     $mydata_arrivalprocess = ( $_POST['arrivalprocess'] ); 
     $mydata_terms = ( $_POST['terms'] ); 
@@ -954,6 +965,7 @@ function bookingsteps2_save_meta_box_data( $post_id ) {
     update_post_meta($post_id, 'guestsex',$mydata_guestsex);
     update_post_meta($post_id, 'priceperperson', $mydata_priceperperson);
     update_post_meta($post_id, 'contactnumber', $mydata_contactnumber);
+    update_post_meta($post_id, 'numberofnights', $mydata_numberofnights);
     update_post_meta( $post_id, 'refid', get_the_ID() );
     update_post_meta( $post_id, 'staffnotes', ($_POST['staffnotes']) );
 
