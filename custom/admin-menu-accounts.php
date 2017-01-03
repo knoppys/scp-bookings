@@ -58,11 +58,17 @@ function accountslistings_callback(){
 
 				</thead>
 				<tbody>
-				<?php  while ( $apartmentsquery->have_posts() ) { $apartmentsquery->the_post(); 
-						$datetime1 = new DateTime(get_post_meta($post->ID, 'arrivaldate', true));
-						$datetime2 = new DateTime(get_post_meta($post->ID, 'leavingdate', true));
-						$interval = $datetime1->diff($datetime2);	
-						$numberofnights = $interval->format('%a nights');
+				<?php  while ( $apartmentsquery->have_posts() ) { $apartmentsquery->the_post(); 						
+
+						//get the number of nights
+						if (get_post_meta($post->ID, 'numberofnights', true)) {
+						    $numberofnights = get_post_meta($post->ID, 'numberofnights', true);
+						} else {
+							$datetime1 = new DateTime(get_post_meta($post->ID, 'arrivaldate', true));
+							$datetime2 = new DateTime(get_post_meta($post->ID, 'leavingdate', true));
+							$interval = $datetime1->diff($datetime2);	
+							$numberofnights = $interval->format('%a nights');
+						}
 						
 						$refid = get_post_meta($post->ID, 'refid', true);
 						

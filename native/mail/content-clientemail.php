@@ -71,14 +71,14 @@ $permalink = $page->guid;
         ';
 
 //get the number of nights
-if (($_POST['numberofnights'])) {
-    $numberofnights = $booking['numberofnights'];
+if ($booking['numberofnights'][0]) {
+    $numberofnights = $booking['numberofnights'][0];
 } else {
     $datetime1 = new DateTime($booking['arrivaldate'][0]);
     $datetime2 = new DateTime($booking['leavingdate'][0]);
     $interval = $datetime1->diff($datetime2);
     $numberofnights = $interval->format('%a nights');
-}  
+} 
     
 
 //Get the correct apartmentname
