@@ -470,3 +470,8 @@ div#accordion h3 {
     text-align: center;
     width: 144px;
 }
+#map-canvas {
+    width: 100%;
+    height: 500px;
+    margin: 20px 0;
+}

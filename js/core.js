@@ -1080,3 +1080,60 @@ jQuery(document).ready(function(){
 	});
 });
 
+/********************
+// Ajax auto populate the operator details
+*****************/
+
+jQuery(document).ready(function(){
+	jQuery('#postcodesearch').click(function() { 
+	var siteUrl = siteUrlobject.siteUrl+'/wp-admin/admin-ajax.php'; 
+	var postcode = jQuery('#postcodeinput').val();  
+		jQuery(function(){
+		    jQuery.ajax({
+	            url:siteUrl,
+	            type:'POST',
+	            data:'action=postcodesearch&postcode=' + postcode,           
+	            success:function(result){
+	            	
+	            	var array = jQuery.parseJSON(result);
+	            	var apartments = array;
+	            	console.log(array);
+
+	        		var geocoder = new google.maps.Geocoder(); 
+	        		var infowindow = new google.maps.InfoWindow();			    	
+			    	var map = new google.maps.Map(document.getElementById('map-canvas'), {
+			       		center: new google.maps.LatLng(53.408371, -2.991573),
+			        	zoom:   5
+			    	});		    
+				      			   
+				    
+				    google.maps.event.addListenerOnce(map, 'tilesloaded', function() {
+			        
+				        for (var i = 0; i < apartments.length; ++i) {
+
+				            geocoder.geocode({ address: apartments[i].postcode + ' UK', }, function(result, status) {
+				                if (status == 'OK' && result.length > 0) {
+				                    
+				                    new google.maps.Marker({
+				                        position: result[0].geometry.location,
+				                        map: map,				                        
+				                    });	
+
+				                    google.maps.event.addListener(marker, 'click' function() {
+				                    	infowindow.setContent(apartments[i].info);
+				                    	infowindow.open(map, this);
+				                    });
+				                }
+				            });
+						}
+				    
+				    });
+				    
+				          	
+	            	
+	            }
+			});
+		});
+	});
+})
+

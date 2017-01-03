@@ -73,8 +73,3 @@ function operatorslistings_callback() {
 				wp_reset_postdata();
 	
  }
-
-
- 
-
-?>
