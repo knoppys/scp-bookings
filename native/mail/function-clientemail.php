@@ -9,7 +9,7 @@ function implement_ajax_email_client(){
         { 
 
         $to = get_post_meta(($_POST['bookingID']), 'clientemail', true); 
-        $message = operatoremail(($_POST['bookingID']));             
+        $message = clientemail(($_POST['bookingID']));             
 
         $subject = 'Booking Confirmation: '.get_post_meta(($_POST['bookingID']), 'guestname', true);
         $headers .= "Content-type: text/html;charset=utf-8\n";
