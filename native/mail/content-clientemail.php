@@ -180,6 +180,14 @@ $clientnametext = '
     </p>
     ';
 
+//Cost Code
+$costcodetext = '
+    <p style="font-family: \'Helvetica\', \'Arial\', sans-serif;color:#333;">
+    <strong>Cost Code</strong><br>
+    '.$booking['costcode'][0].'
+    </p>
+    ';
+
 
 //get the location name
 $locationPage = get_page_by_title( $aprtmentlocation, OBJECT, 'locations' );
@@ -342,6 +350,13 @@ ob_start(); ?>
                                                        <?php echo $clientnametext ;?>
                                                     </td>
                                                 </tr>
+                                                <?php if ($booking['costcode'][0]){ ?>
+                                                    <tr>    
+                                                        <td valign="top" style="background:#efefef;padding:10px">
+                                                           <?php echo $costcodetext ;?>
+                                                        </td>
+                                                    </tr>
+                                                <?php } ?>
                                             </tbody>
                                         </table> 
                                    

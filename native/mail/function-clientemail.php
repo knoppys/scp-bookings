@@ -5,20 +5,20 @@
 ******************************************************************************/
 
 function implement_ajax_email_client(){
-    if(isset($_POST['id']))
+    if(isset($_POST['bookingId']))
         { 
 
-        $to = get_post_meta(($_POST['id']), 'clientemail', true); 
+        $to = get_post_meta(($_POST['bookingId']), 'clientemail', true); 
         $message = operatoremail(($_POST['bookingID']));             
 
-        $subject = 'Booking Confirmation: '.$booking['guestname'][0];
+        $subject = 'Booking Confirmation: '.get_post_meta(($_POST['bookingID']), 'guestname', true);
         $headers .= "Content-type: text/html;charset=utf-8\n";
         $headers .= "X-Priority: 3\n";
         $headers .= "X-MSMail-Priority: Normal\n";
         $headers .= "X-Mailer: php\n";
         $headers .= "From: Serviced City Pads <bookings@citypadsmail.com>\n";    
         $headers .= 'Cc: info@servicedcitypads.com,accounts@servicedcitypads.com';
-        wp_mail( $booking['clientemail'][0], $subject, $message, $headers);
+        wp_mail( $to, $subject, $message, $headers);
         
         }
 
