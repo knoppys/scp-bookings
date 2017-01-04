@@ -352,7 +352,7 @@ ob_start(); ?>
                                                 </tr>
                                                 <?php if ($booking['costcode'][0]){ ?>
                                                     <tr>    
-                                                        <td valign="top" style="background:#efefef;padding:10px">
+                                                        <td colspan="2" valign="top" style="background:#efefef;padding:10px">
                                                            <?php echo $costcodetext ;?>
                                                         </td>
                                                     </tr>
