@@ -500,7 +500,7 @@ jQuery('#email_client').click(function(e){
 	    data:'action=booking_confirmation_email_client&bookingID='+bookingID,
          success:function(result){ 
             	alert('Your email was sent to the client.');
-            	console.log(result);
+            	console.log(bookingID);
             	
 		    }
 

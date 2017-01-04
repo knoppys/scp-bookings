@@ -244,6 +244,17 @@ function bookingsteps2_meta_box_callback( $post ) {
                             <tr id="clientajax">
                                 <!-- TO GO HERE -->
                             </tr>
+                            <tr>
+                                <td>
+                                    <?php
+                                    //deposit date field
+                                    echo '<label>';
+                                         _e( 'Cost Code' );
+                                    echo '</label>';
+                                    echo '<input type="text" class="widefat" name="costcode" id="costcode" value="' . esc_attr( $booking['costcode'][0] ) . '"/>';
+                                    ?>
+                               </td>
+                            </tr>    
                        </tbody>
                     </table>
 

@@ -5,10 +5,10 @@
 ******************************************************************************/
 
 function implement_ajax_email_client(){
-    if(isset($_POST['bookingId']))
+    if(isset($_POST['bookingID']))
         { 
 
-        $to = get_post_meta(($_POST['bookingId']), 'clientemail', true); 
+        $to = get_post_meta(($_POST['bookingID']), 'clientemail', true); 
         $message = operatoremail(($_POST['bookingID']));             
 
         $subject = 'Booking Confirmation: '.get_post_meta(($_POST['bookingID']), 'guestname', true);
