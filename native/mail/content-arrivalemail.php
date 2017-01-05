@@ -75,8 +75,8 @@ function arrivalemail($ID) {
     if ($booking['arrivalprocess'][0]) {
         $arrivaltext = '
         <tr>
-            <td style="font-family: \'Helvetica\', \'Arial\', sans-serif;background:#efefef;padding:10px;">
-                <p style="font-family: \'Helvetica\', \'Arial\', sans-serif;color:#333;">
+            <td style="font-family: Helvetica, Arial, sans-serif;background:#efefef;padding:10px;">
+                <p style="font-family: Helvetica, Arial, sans-serif;color:#333;">
                     <strong style="font-weight:bold;">Arrival Process:</strong><br>'.$booking['arrivalprocess'][0].'
                 </p>
             </td>
@@ -88,8 +88,8 @@ function arrivalemail($ID) {
     if ($booking['additionalinformation'][0]) {
         $additionalinformationtext = '
         <tr>
-            <td style="font-family: \'Helvetica\', \'Arial\', sans-serif;background:#efefef;padding:10px;">
-                <p style="font-family: \'Helvetica\', \'Arial\', sans-serif;color:#333;">
+            <td style="font-family: Helvetica, Arial, sans-serif;background:#efefef;padding:10px;">
+                <p style="font-family: Helvetica, Arial, sans-serif;color:#333;">
                     <strong style="font-weight:bold;">Additional Information:</strong><br>'.$booking['additionalnotes'][0].'
                 </p>
             </td>
@@ -101,8 +101,8 @@ function arrivalemail($ID) {
     if ($booking['emergenecycontact']) {
         $emergencytelephonetext = '
         <tr>
-            <td style="font-family: \'Helvetica\', \'Arial\', sans-serif;background:#efefef;padding:10px;">
-                <p style="font-family: \'Helvetica\', \'Arial\', sans-serif;color:#333;">
+            <td style="font-family: Helvetica, Arial, sans-serif;background:#efefef;padding:10px;">
+                <p style="font-family: Helvetica, Arial, sans-serif;color:#333;">
                     <strong style="font-weight:bold;">Emergency Tel.:</strong>'.$booking['emergencycontact'][0].'
                 </p>
             </td>
