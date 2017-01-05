@@ -212,14 +212,14 @@ function arrivalemail($ID) {
                                                                     </tr>
                                                                     <tr>
                                                                         <td style="background:#efefef;padding:10px;">
-                                                                            <p style="font-family: 'Helvetica', 'Arial', sans-serif;color:#ffffff;">
+                                                                            <p style="font-family: 'Helvetica', 'Arial', sans-serif;color:#333;">
                                                                                  <strong>Terms &amp; Conditions</strong><br><?php echo $booking['terms'][0]; ?>
                                                                             </p>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td style="background:#efefef;padding:10px;">
-                                                                            <p style="font-family: 'Helvetica', 'Arial', sans-serif;color:#ffffff;">
+                                                                            <p style="font-family: 'Helvetica', 'Arial', sans-serif;color:#333;">
                                                                                     <strong>We hope you have an enjoyable stay.</strong><br></br>                                                               
                                                                                
                                                                                     If you have any questions or require assistance during your stay, please do not hesitate to get in touch. Our team can arrange extensions, late check-out and grocery deliveries - just give us a call.<br></br>

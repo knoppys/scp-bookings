@@ -421,17 +421,17 @@ ob_start(); ?>
                                                     <table cellspacing="0" cellpadding="0" class="" width="500" style="width:500px;background: #003; margin:0 auto;" border-collapse="collapse">
                                                         <tbody>                                                
                                                             <tr>    
-                                                                  <td valign="top" style="padding:20px 10px;">
-                                                                    <p style="font-family: 'Helvetica', 'Arial', sans-serif;color:#fff;">
+                                                                 <td valign="top" style=";padding:20px 10px">
+                                                                    <p style="font-family: \'Helvetica\', \'Arial\', sans-serif;color:#fff;">
                                                                     Thank you for choosing Serviced City Pads as your accomodation provider. We hope you have an enjoyable stay.
                                                                     </p>
-                                                                    <p style="font-family: 'Helvetica', 'Arial', sans-serif;color:#fff;">
+                                                                    <p style="font-family: \'Helvetica\', \'Arial\', sans-serif;color:#fff;">
                                                                     Visit <a href="http://www.servicedcitypads.com"><span style="color:#fff;">www.servicedcitypads.com</span></a> to view our portfolio of serviced apartments.
                                                                     </p>
-                                                                    <p style="font-family: 'Helvetica', 'Arial', sans-serif;color:#fff;">
+                                                                    <p style="font-family: \'Helvetica\', \'Arial\', sans-serif;color:#fff;">
                                                                     If you would like to share your feedback with us, please get in touch by emailing <a href="mailto:reservations@servicedcitypads.com"><span style="color:#fff;">reservations@servicedcitypads.com</span></a>
                                                                     </p>
-                                                                    <p style="font-family: 'Helvetica', 'Arial', sans-serif;color:#fff;">
+                                                                    <p style="font-family: \'Helvetica\', \'Arial\', sans-serif;color:#fff;">
                                                                     Kind Regards, <br>Serviced City Pads Team
                                                                     </p>
                                                                 </td>
