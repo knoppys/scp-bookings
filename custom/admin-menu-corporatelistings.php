@@ -78,11 +78,11 @@ function corporatelistings_callback() {
 					//get apartment by title
 					$apartmentobject = get_page_by_title( $bookingmeta['apartmentname'][0], OBJECT, 'apartments' );
 					//get the number of nights
-					if ($booking['numberofnights'][0]) {
-					    $numberofnights = $booking['numberofnights'][0];
+					if ($bookingmeta['numberofnights'][0]) {
+					    $numberofnights = $bookingmeta['numberofnights'][0];
 					} else {
-					    $datetime1 = new DateTime($booking['arrivaldate'][0]);
-					    $datetime2 = new DateTime($booking['leavingdate'][0]);
+					    $datetime1 = new DateTime($bookingmeta['arrivaldate'][0]);
+					    $datetime2 = new DateTime($bookingmeta['leavingdate'][0]);
 					    $interval = $datetime1->diff($datetime2);
 					    $numberofnights = $interval->format('%a nights');
 					} 

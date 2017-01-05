@@ -278,19 +278,14 @@ jQuery(document).ready(function(){
 	            	//got it back, now assign it to its fields. 	            	
 	            	jQuery('#checkintime').val(data.checkintime);
 	            	jQuery('#checkouttime').val(data.checkouttime);
-	            	//jQuery('#ownerprice').val(data.ownerprice);	
+	            	jQuery('#ownerprice').val(data.ownerprice);	
 	            	jQuery('#emergencycontact').val(data.emergencycontact);
-	            	jQuery('#arrivalprocess div').html(data.arrivalprocess);
+	            	
 	            	jQuery('#numberofnights').val(data.nights);
-	            	jQuery('#terms div').html(data.terms);
-
-	            	//empty the booking confirmation fields that already exits
-	            	jQuery('.arrivalprocess p').remove();
-	            	jQuery('.terms p').remove();
-
-	            	//place the post meta retunred in html format
-					jQuery('.arrivalprocess').html(data.arrivalprocess); 					
-					jQuery('.terms').html(data.terms); 
+	            	tinyMCE.get('terms').setContent(data.terms);
+	            	tinyMCE.get('arrivalprocess').setContent(data.arrivalprocess);	            	
+					
+					console.log(data);
 
 				}
 			});
@@ -1084,7 +1079,7 @@ jQuery(document).ready(function(){
 
 /********************
 // Ajax auto populate the operator details
-
+*****************/
 jQuery(document).ready(function(){
 	jQuery('#postcodesearch').click(function() { 
 	var siteUrl = siteUrlobject.siteUrl+'/wp-admin/admin-ajax.php'; 
@@ -1096,16 +1091,16 @@ jQuery(document).ready(function(){
 	            data:'action=postcodesearch&postcode=' + postcode,           
 	            success:function(result){
 	            	
-	            	var array = jQuery.parseJSON(result);
-	            	var apartments = array;
-	            	console.log(array);
+	            	var apartments = jQuery.parseJSON(result);
+	            	//console.log(array);
 
-	        		var geocoder = new google.maps.Geocoder(); 
-	        		var infowindow = new google.maps.InfoWindow();			    	
+	        				    	
 			    	var map = new google.maps.Map(document.getElementById('map-canvas'), {
 			       		center: new google.maps.LatLng(53.408371, -2.991573),
 			        	zoom:   5
 			    	});		    
+			    	var geocoder = new google.maps.Geocoder(); 
+	        		var infowindow = new google.maps.InfoWindow();	
 				      			   
 				    
 				    google.maps.event.addListenerOnce(map, 'tilesloaded', function() {
@@ -1115,20 +1110,27 @@ jQuery(document).ready(function(){
 				            geocoder.geocode({ address: apartments[i].postcode + ' UK', }, function(result, status) {
 				                if (status == 'OK' && result.length > 0) {
 				                    
-				                    new google.maps.Marker({
+				                    var marker = new google.maps.Marker({
 				                        position: result[0].geometry.location,
 				                        map: map,				                        
-				                    });	
-
-				                    google.maps.event.addListener(marker, 'click' function() {
-				                    	infowindow.setContent(apartments[i].info);
-				                    	infowindow.open(map, this);
-				                    });
+				                    });					                    
 				                }
 				            });
-						}
-				    
+						}	
+
 				    });
+
+				    google.maps.event.addListener(marker, 'click', function() {
+
+					      for (var i = 0; i < apartments.length; ++i) {
+
+					      	var content = apartments[i].info;
+					      	infowindow.setContent(content);
+            				infowindow.open(map, this);	
+
+						}     
+
+					});
 				    
 				          	
 	            	
@@ -1137,5 +1139,3 @@ jQuery(document).ready(function(){
 		});
 	});
 })
-*****************/
-
