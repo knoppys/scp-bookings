@@ -9,9 +9,16 @@ function implement_ajax_email_client(){
         { 
 
         $to = get_post_meta(($_POST['bookingID']), 'clientemail', true); 
-        $message = clientemail(($_POST['bookingID']));             
+        $message = clientemail(($_POST['bookingID']));     
 
-        $subject = 'Booking Confirmation: '.get_post_meta(($_POST['bookingID']), 'guestname', true);
+        //Subject Header
+        if  (get_post_meta(($_POST['bookingID']), 'clientAmendment', true) == 'on' )  {
+            $subjecttext = 'Booking Amendment: ';
+        } else {
+            $subjecttext = 'Booking Confirmation: ';
+        }       
+
+        $subject = $subjecttext.get_post_meta(($_POST['bookingID']), 'guestname', true);
         $headers .= "Content-type: text/html;charset=utf-8\n";
         $headers .= "X-Priority: 3\n";
         $headers .= "X-MSMail-Priority: Normal\n";

@@ -780,8 +780,10 @@ function bookingsteps2_meta_box_callback( $post ) {
                                         <?php                                        
                                         if ($booking['clientAmendment'][0]) {
                                             echo '<div class="amend-input">Check for Amendment<input type="checkbox" class="widefat" name="clientAmendment" id="clientAmendment" checked="checked" /><br></div>';
+                                            var_dump($booking['clientAmendment'][0]);
                                         } else {
                                             echo '<div class="amend-input">Check for Amendment<input type="checkbox" class="widefat" name="clientAmendment" id="clientAmendment" /><br></div>';
+                                            var_dump($booking['clientAmendment'][0]);
                                         }                                            
                                         ?> 
                                     </h3>
