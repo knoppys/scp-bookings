@@ -775,11 +775,29 @@ function bookingsteps2_meta_box_callback( $post ) {
                                 <?php 
                                     if ($booking['refid'][0]) { ?>
                                     <div id="accordion">
-                                    <h3>Client Booking Confirmation</h3>
+                                    <h3>
+                                        Client Booking Confirmation
+                                        <?php                                        
+                                        if ($booking['clientAmendment'][0]) {
+                                            echo '<div class="amend-input">Check for Amendment<input type="checkbox" class="widefat" name="clientAmendment" id="clientAmendment" checked="checked" /><br></div>';
+                                        } else {
+                                            echo '<div class="amend-input">Check for Amendment<input type="checkbox" class="widefat" name="clientAmendment" id="clientAmendment" /><br></div>';
+                                        }                                            
+                                        ?> 
+                                    </h3>
                                     <div>
                                         <?php  echo clientemail($booking['refid'][0]); ?>
                                     </div>
-                                    <h3>Operator Booking Confirmation</h3>
+                                    <h3>
+                                        Operator Booking Confirmation
+                                        <?php                                        
+                                        if ($booking['operatorAmendment'][0]) {
+                                            echo '<div class="amend-input">Check for Amendment<input type="checkbox" class="widefat" name="operatorAmendment" id="operatorAmendment" checked="checked" /><br></div>';
+                                        } else {
+                                            echo '<div class="amend-input">Check for Amendment<input type="checkbox" class="widefat" name="operatorAmendment" id="operatorAmendment" /><br></div>';
+                                        }                                            
+                                        ?> 
+                                    </h3>
                                     <div>
                                         <?php  echo operatoremail($booking['refid'][0]); ?>
                                     </div>
@@ -910,6 +928,8 @@ function bookingsteps2_save_meta_box_data( $post_id ) {
     $mydata_guestsex = sanitize_text_field( $_POST['guestsex'] );
     $mydata_contactnumber = sanitize_text_field( $_POST['contactnumber'] );
     $mydata_numberofnights = sanitize_text_field( $_POST['numberofnights'] );
+    $mydata_clientAmendment = sanitize_text_field( $_POST['clientAmendment'] );
+    $mydata_operatorAmendment = sanitize_text_field( $_POST['operatorAmendment'] );
 
     $mydata_arrivalprocess = ( $_POST['arrivalprocess'] ); 
     $mydata_terms = ( $_POST['terms'] ); 
@@ -979,6 +999,8 @@ function bookingsteps2_save_meta_box_data( $post_id ) {
     update_post_meta($post_id, 'numberofnights', $mydata_numberofnights);
     update_post_meta( $post_id, 'refid', get_the_ID() );
     update_post_meta( $post_id, 'staffnotes', ($_POST['staffnotes']) );
+    update_post_meta($post_id, 'clientAmendment',$mydata_clientAmendment);
+    update_post_meta($post_id, 'operatorAmendment',$mydata_operatorAmendment);
 
     
 }

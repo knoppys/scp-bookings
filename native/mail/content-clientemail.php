@@ -153,7 +153,6 @@ if (strlen ( $booking['additionalnotes'][0] ) >= 1 )  {
     ';
 } else {}
 
-
 //Arrival Process
 if (strlen ( $booking['arrivalprocess'][0] ) >= 1 )  {
     $arrivalprocesstext = '
@@ -162,6 +161,14 @@ if (strlen ( $booking['arrivalprocess'][0] ) >= 1 )  {
     </p>
     ';
 } else {}
+
+//Subject Header
+if  ($booking['clientAmendment'][0] == 'on' )  {
+    $subjecttext = 'Booking Amendment';
+} else {
+    $subjecttext = 'Booking Confirmation';
+}
+
 
 
 //Guest Contact
@@ -283,7 +290,7 @@ ob_start(); ?>
                                                         <img src="http://www.servicedcitypads.com/wp-content/themes/servicedcitypads/images/logo-email.PNG" style="margin: 0;padding: 0;max-width: 300px;width:200px;">
                                                     </td>
                                                     <td valign="middle" style="text-align:center;">
-                                                        <h2 style="font-family: 'Helvetica', 'Arial', sans-serif;color:#fff;">Booking Confirmation</h2>
+                                                        <h2 style="font-family: 'Helvetica', 'Arial', sans-serif;color:#fff;"><?php echo $subjecttext; ?></h2>
                                                     </td>
                                                 </tr>
                                             </tbody>

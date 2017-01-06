@@ -165,6 +165,15 @@ if (strlen ( $booking['arrivalprocess'][0] ) >= 1 )  {
     ';
 } else {}
 
+//Subject Header
+if  ($booking['operatorAmendment'][0] == 'on' )  {
+    $subjecttext = 'Booking Amendment';
+    var_dump($booking['operatorAmendment'][0]);
+} else {
+    $subjecttext = 'Booking Confirmation';
+    var_dump($booking['operatorAmendment'][0]);
+}
+
 
 //Guest Contact
 $guestnametext = '
@@ -290,7 +299,7 @@ ob_start(); ?>
                                                                     <img src="http://www.servicedcitypads.com/wp-content/themes/servicedcitypads/images/logo-email.PNG" style="margin: 0;padding: 0;max-width: 300px;width:200px;">
                                                                 </td>
                                                                 <td valign="middle" style="text-align:center;">
-                                                                    <h2 style="font-family: 'Helvetica', 'Arial', sans-serif;color:#fff;">Booking Confirmation</h2>
+                                                                    <h2 style="font-family: 'Helvetica', 'Arial', sans-serif;color:#fff;"><?php echo $subjecttext; ?></h2>
                                                                 </td>
                                                             </tr>
                                                         </tbody>

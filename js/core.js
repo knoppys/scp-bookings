@@ -186,6 +186,9 @@ jQuery(document).ready(function(){
 		autoHeight: false,
 		heightStyle: "content" 
 	});
+	jQuery('#accordion h3 input').on('click', function(e){
+		e.stopPropagation();
+	})
 });
 	
 
@@ -1113,24 +1116,22 @@ jQuery(document).ready(function(){
 				                    var marker = new google.maps.Marker({
 				                        position: result[0].geometry.location,
 				                        map: map,				                        
-				                    });					                    
+				                    });	
+
+				                    google.maps.event.addListener(marker, 'click', function() {
+				                    	var content = (apartments);
+				                    	console.log(apartments)
+				                    	
+							            infowindow.setContent(content);
+							            infowindow.open(map, this);
+							        });				                    
 				                }
 				            });
 						}	
 
 				    });
 
-				    google.maps.event.addListener(marker, 'click', function() {
-
-					      for (var i = 0; i < apartments.length; ++i) {
-
-					      	var content = apartments[i].info;
-					      	infowindow.setContent(content);
-            				infowindow.open(map, this);	
-
-						}     
-
-					});
+				
 				    
 				          	
 	            	

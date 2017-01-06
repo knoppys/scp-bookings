@@ -475,3 +475,15 @@ div#accordion h3 {
     height: 500px;
     margin: 20px 0;
 }
+.amend-input {
+    position: absolute;
+    right: 9px;
+    top: 9px;
+    z-index: 999999;
+}
+
+.amend-input input {
+    display: inline-block;
+    padding-top: 10px;
+    margin-left: 10px;
+}

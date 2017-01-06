@@ -36,9 +36,10 @@ function implement_ajax_postcodesearch() {
 				$link = get_permalink();
 				
 				$apartments[] = array(		
-						"postcode" => $apartment['postcode'][0],				
+						"postcode" => $apartment['postcode'][0],	
+						"title" => $title,			
 						"address" => $apartment['address'][0].' '.$apartment['postcode'][0],											
-						"info" => 'Link: <a href="'.$link.'" target="_blank">'.$title.'</a><br>Beds: '.$apartment['bedrooms'][0].'<br>Sleeps: '.$apartment['sleeps'][0],
+						"info" => 'Link: <a href="'.$link.'" target="_blank">View</a><br>Beds: '.$apartment['bedrooms'][0].'<br>Sleeps: '.$apartment['sleeps'][0],
 					);
 
 			}
