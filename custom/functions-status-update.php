@@ -22,7 +22,9 @@ function update_archive_status( ) {
 			# code...
 		}		
 		
-	endforeach; 
+	
+	}
+
 }
 
 // Schedule Cron Job Event
