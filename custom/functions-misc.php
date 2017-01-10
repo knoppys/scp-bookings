@@ -429,5 +429,27 @@ function dateRange( $first, $last, $step = '+1 day', $format = 'd.m.Y' ) {
 }
 
 
+function create_new_archive_post_status(){
+	register_post_status( 'archive', array(
+		'label'                     => _x( 'Archive', 'post' ),
+		'public'                    => true,
+		'exclude_from_search'       => false,
+		'show_in_admin_all_list'    => true,
+		'show_in_admin_status_list' => true,
+		'label_count'               => _n_noop( 'Archive <span class="count">(%s)</span>', 'Archive <span class="count">(%s)</span>' ),
+	) );
+}
+add_action( 'init', 'create_new_archive_post_status' );
 
- ?>
+function add_to_post_status_dropdown()
+{
+    ?>
+    <script>
+    jQuery(document).ready(function($){
+        $("select#post_status").append("<option value=\"archive\" <?php selected('archive', $post->post_status); ?>>Archive</option>");
+    });
+    </script>
+    <?php
+}
+
+add_action( 'post_submitbox_misc_actions', 'add_to_post_status_dropdown');
