@@ -10,7 +10,7 @@ function update_archive_status( ) {
 		$today = time();
 		$ID = $knopost->ID;
 
-		if ($arrival =< $today) {
+		if ($arrival <= $today) {
 
 			$post = array(
 			'ID' => $ID,
