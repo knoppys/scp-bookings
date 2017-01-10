@@ -6,21 +6,19 @@ function update_archive_status( ) {
 	$knoposts = get_posts( $args );
 	foreach ( $knoposts as $knopost ) {
 
-		$arrival = strtotime(get_post_meta($knopost->ID,'leavingdate',true ));
-		$today = time();
-		$ID = $knopost->ID;
+		$leavingdate = strtotime(get_post_meta($knopost->ID,'leavingdate',true ));
+		$time = time();
 
-		if ($arrival <= $today) {
+
+		if ($leavingdate <= $today) {
 
 			$post = array(
-			'ID' => $ID,
+			'ID' => $knopost->ID,
 			'post_status' => 'archive',
 			);
 			wp_update_post($post);
 			
-		} else {
-			# code...
-		}		
+		};	
 		
 	
 	}
