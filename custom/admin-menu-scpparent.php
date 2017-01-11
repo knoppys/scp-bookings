@@ -131,6 +131,22 @@ function my_custom_menu_page(){
 						</td>
 						
 					</tr>
+
+					<?php
+					$leavingdate = strtotime($booking['leavingdate'][0]);
+					$today = time();
+
+
+					if ($leavingdate <= $today) {
+
+						$post = array(
+						'ID' => $booking->ID,
+						'post_status' => 'archive',
+						);
+						wp_update_post($post);
+						
+					};	
+					?>
 					
 
 				<?php 

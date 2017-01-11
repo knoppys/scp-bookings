@@ -1,4 +1,5 @@
 <?php
+/*
 // Scheduled Action Hook
 function update_archive_status( ) {
 
@@ -32,3 +33,4 @@ function update_status() {
 	}
 }
 add_action( 'wp', 'update_status' );
+*/
