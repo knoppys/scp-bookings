@@ -11,6 +11,7 @@ add_menu_page( 'SCP Bookings Dashboard', 'SCP Bookings', 'publish_pages', 'scp_b
 	add_submenu_page( 'scp_bookings-parent', 'Corporate', '- Corporate', 'publish_pages', 'corporatelistings', 'corporatelistings_callback' );
 	add_submenu_page( 'scp_bookings-parent', 'Groups', '- Groups', 'publish_pages', 'groupslistings', 'groupslistings_callback' );
 	add_submenu_page( 'scp_bookings-parent', 'Leisure', '- Leisure', 'publish_pages', 'leisurelistings', 'leisurelistings_callback' );
+	add_submenu_page( 'scp_bookings-parent', 'Archive', '- Archive', 'publish_pages', 'archivelistings', 'archivelistings_callback' );
 
 	add_submenu_page( 'scp_bookings-parent', 'Search', 'Search', 'publish_pages', 'searchmaps', 'searchmaps_callback' );
 

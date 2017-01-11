@@ -15,7 +15,8 @@ function leisurelistings_callback() {
 					'posts_per_page'=>-1,
 					'post_type'=>'bookings',
 					'meta_key'=>'bookingtype',
-					'meta_value'=>'Leisure'
+					'meta_value'=>'Leisure',
+					'post_status' => array('publish','draft'),
 					)
 				);
 			if ($bookings) { ?>

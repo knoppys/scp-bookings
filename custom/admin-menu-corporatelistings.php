@@ -15,7 +15,8 @@ function corporatelistings_callback() {
 					'posts_per_page'=>-1,
 					'post_type'=>'bookings',
 					'meta_key'=>'bookingtype',
-					'meta_value'=>'Corporate'
+					'meta_value'=>'Corporate',
+					'post_status' => array('publish','draft'),
 					)
 				);
 			if ($bookings) { ?>

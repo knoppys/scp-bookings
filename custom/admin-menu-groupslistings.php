@@ -15,7 +15,8 @@ function groupslistings_callback() {
 					'posts_per_page'=>-1,
 					'post_type'=>'bookings',
 					'meta_key'=>'bookingtype',
-					'meta_value'=>'Groups'
+					'meta_value'=>'Groups',
+					'post_status' => array('publish','draft'),
 					)
 				);
 			if ($bookings) { ?>
