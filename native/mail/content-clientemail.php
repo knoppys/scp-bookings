@@ -243,7 +243,7 @@ if ($booking['bookingtype'][0] == 'Corporate') {
 }
 
 //Get the currency symbol
-if ( ($aprtmentlocation == 'Dublin') || $aprtmentlocation2 == 'Dublin' ) {
+if ( ($aprtmentlocation == 'Dublin') || ( $aprtmentlocation2 == 'Dublin' ) {
     $currency = '€';
 } else {
     $currency = '£';
