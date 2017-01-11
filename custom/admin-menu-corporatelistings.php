@@ -17,6 +17,7 @@ function corporatelistings_callback() {
 					'meta_key'=>'bookingtype',
 					'meta_value'=>'Corporate',
 					'post_status' => array('publish','draft'),
+					'post_parent' => 0,
 					)
 				);
 			if ($bookings) { ?>
@@ -69,7 +70,7 @@ function corporatelistings_callback() {
 						</tr>
 					</thead>
 				<tbody>
-				<?php foreach ($bookings as $booking) : setup_postdata( $post );  
+				<?php foreach ($bookings as $booking) {
 					//get post meta
 					$bookingmeta = get_post_meta($booking->ID); 
 					//get operator by title
@@ -144,11 +145,25 @@ function corporatelistings_callback() {
 						</td>
 						
 					</tr>
+					<?php
+						if ($children){
+						//do nohting
+						} else {
+							$leavingdate = strtotime(get_post_meta($booking->ID,'leavingdate',true ));
+							$today = time();
+							if ($leavingdate <= $today) {
+								$post = array(
+								'ID' => $booking->ID,
+								'post_status' => 'archive',
+								);
+								wp_update_post($post);							
+							};
+						}
+					?>
 					
 
 				<?php 
-				endforeach;
-				wp_reset_postdata();
+				}
 				echo '</tbody>';
 				echo '</table>';
 			}

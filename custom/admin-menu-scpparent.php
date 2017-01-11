@@ -9,7 +9,7 @@ function my_custom_menu_page(){
 			echo '<div class="apartments-button"><a href="' . site_url() . '/wp-admin/post-new.php?post_type=bookings" class="page-title-action">Add Booking</a></div>';
 
 
-			$bookings = get_posts(array('posts_per_page'=>-1,'post_type'=>'bookings', 'post_status' => array('publish','draft')));
+			$bookings = get_posts(array('posts_per_page'=>-1,'post_type'=>'bookings', 'post_parent' => 0, 'post_status' => array('publish','draft')));
 			if ($bookings) { ?>
 				<table style="width:100%;" class="bookingstable postbox">
 					<thead>
@@ -60,7 +60,7 @@ function my_custom_menu_page(){
 						</tr>
 					</thead>
 				<tbody>
-				<?php foreach ($bookings as $booking) : setup_postdata( $post );  
+				<?php foreach ($bookings as $booking) {  
 					//get post meta
 					$bookingmeta = get_post_meta($booking->ID); 
 					//get operator by title
@@ -132,26 +132,28 @@ function my_custom_menu_page(){
 						
 					</tr>
 
-					<?php
-					$leavingdate = strtotime(get_post_meta($booking->ID,'leavingdate',true ));
-					$today = time();
+					<?php					
 
+					if ($children){
+						//do nohting
+					} else {
+						$leavingdate = strtotime(get_post_meta($booking->ID,'leavingdate',true ));
+						$today = time();
+						if ($leavingdate <= $today) {
+							$post = array(
+							'ID' => $booking->ID,
+							'post_status' => 'archive',
+							);
+							wp_update_post($post);							
+						};
+					}
 
-					if ($leavingdate <= $today) {
-
-						$post = array(
-						'ID' => $booking->ID,
-						'post_status' => 'archive',
-						);
-						wp_update_post($post);
-						
-					};	
+					
 					?>
 					
 
 				<?php 
-				endforeach;
-				wp_reset_postdata();
+				}
 				echo '</tbody>';
 				echo '</table>';
 			}
