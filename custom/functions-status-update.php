@@ -7,7 +7,7 @@ function update_archive_status( ) {
 	foreach ( $knoposts as $knopost ) {
 
 		$leavingdate = strtotime(get_post_meta($knopost->ID,'leavingdate',true ));
-		$time = time();
+		$today = time();
 
 
 		if ($leavingdate <= $today) {
