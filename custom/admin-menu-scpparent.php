@@ -133,7 +133,7 @@ function my_custom_menu_page(){
 					</tr>
 
 					<?php
-					$leavingdate = strtotime($booking['leavingdate'][0]);
+					$leavingdate = strtotime(get_post_meta($booking->ID,'leavingdate',true ));
 					$today = time();
 
 
