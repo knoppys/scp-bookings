@@ -135,6 +135,21 @@ function corporatelistings_callback() {
 														<td class="childcontent"><?php echo get_post_meta($child->ID, 'arrivaldate', true); ?></td>
 														<td class="childcontent"><?php echo get_post_meta($child->ID, 'leavingdate', true); ?></td>
 													</tr>
+													<?php
+													$leavingdate = strtotime(get_post_meta($chil->ID,'leavingdate',true ));
+													$today = time();
+
+
+													if ($leavingdate <= $today) {
+
+														$post = array(
+														'ID' => $booking->ID,
+														'post_status' => 'archive',
+														);
+														wp_update_post($post);
+														
+													};	
+													?>
 												<?php }
 											?>
 										</tbody>
@@ -144,6 +159,22 @@ function corporatelistings_callback() {
 						</td>
 						
 					</tr>
+
+					<?php
+					$leavingdate = strtotime(get_post_meta($booking->ID,'leavingdate',true ));
+					$today = time();
+
+
+					if ($leavingdate <= $today) {
+
+						$post = array(
+						'ID' => $booking->ID,
+						'post_status' => 'archive',
+						);
+						wp_update_post($post);
+						
+					};	
+					?>
 					
 
 				<?php 
