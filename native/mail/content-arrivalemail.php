@@ -190,7 +190,7 @@ function arrivalemail($ID) {
                                                                         <td style="background:#efefef;padding:10px;">
                                                                             <p style="font-family: 'Helvetica', 'Arial', sans-serif;color:#333;">
                                                                                 <strong>Check-in: </strong><?php echo $booking['arrivaldate'][0]; ?> (<?php echo $booking['checkintime'][0]; ?>)<br>
-                                                                                <strong>Check-in: </strong><?php echo $booking['leavingdate'][0]; ?> (<?php echo $booking['checkouttime'][0]; ?>)
+                                                                                <strong>Check-out: </strong><?php echo $booking['leavingdate'][0]; ?> (<?php echo $booking['checkouttime'][0]; ?>)
                                                                             </p>
                                                                         </td>
                                                                     </tr>

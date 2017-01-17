@@ -440,7 +440,7 @@ function bookingsteps2_meta_box_callback( $post ) {
                                        <td>
                                             <?php                                           
                                             echo '<label>';
-                                                 _e( 'Ceckin Time', 'bookingscheckout_textdomain' );
+                                                 _e( 'Checkin Time', 'bookingscheckout_textdomain' );
                                             echo '</label>';
                                             echo '<input type="text" class="widefat upDate" name="checkintime" id="checkintime" value="' . esc_attr( $booking['checkintime'][0] ) . '"/>';
                                             ?>
