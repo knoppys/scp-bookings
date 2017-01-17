@@ -146,7 +146,8 @@ function groupslistings_callback() {
 						
 					</tr>
 
-					<?php
+					<?php					
+					/*
 					if ($children){
 						//do nohting
 					} else {
@@ -160,6 +161,8 @@ function groupslistings_callback() {
 							wp_update_post($post);							
 						};
 					}
+
+					*/
 					?>
 					
 

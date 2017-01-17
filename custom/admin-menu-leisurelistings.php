@@ -161,7 +161,8 @@ function leisurelistings_callback() {
 						
 					</tr>
 
-					<?php
+					<?php					
+					/*
 					if ($children){
 						//do nohting
 					} else {
@@ -175,6 +176,8 @@ function leisurelistings_callback() {
 							wp_update_post($post);							
 						};
 					}
+
+					*/
 					?>
 					
 

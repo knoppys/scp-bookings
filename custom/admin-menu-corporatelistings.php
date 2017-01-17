@@ -145,20 +145,23 @@ function corporatelistings_callback() {
 						</td>
 						
 					</tr>
-					<?php
-						if ($children){
+					<?php					
+					/*
+					if ($children){
 						//do nohting
-						} else {
-							$leavingdate = strtotime(get_post_meta($booking->ID,'leavingdate',true ));
-							$today = time();
-							if ($leavingdate <= $today) {
-								$post = array(
-								'ID' => $booking->ID,
-								'post_status' => 'archive',
-								);
-								wp_update_post($post);							
-							};
-						}
+					} else {
+						$leavingdate = strtotime(get_post_meta($booking->ID,'leavingdate',true ));
+						$today = time();
+						if ($leavingdate <= $today) {
+							$post = array(
+							'ID' => $booking->ID,
+							'post_status' => 'archive',
+							);
+							wp_update_post($post);							
+						};
+					}
+
+					*/
 					?>
 					
 
