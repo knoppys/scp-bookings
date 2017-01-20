@@ -465,12 +465,34 @@ function bookingsteps2_meta_box_callback( $post ) {
                                         </td>
                                     </tr>
                                     <tr>
-                                         <td colspan="2">
-                                           <?php
-                                            echo '<label>';
-                                                _e( 'Number of nights');
-                                            echo '</label>';
-                                            echo '<input type="text" class="widefat" name="numberofnights" id="numberofnights" value="' . esc_attr( $booking['numberofnights'][0] ) . '"/>';
+                                        <td colspan="2">
+                                            <?php
+                                               if ($booking['numberofnights'][0]) {
+
+                                                echo '<label>';
+                                                    _e( 'Number of nights');
+                                                echo '</label>';
+                                                echo '<input type="text" class="widefat" name="numberofnights" id="numberofnights" value="' . esc_attr( $booking['numberofnights'][0] ) . '"/>';
+
+                                               } elseif ( ( !$booking['numberofnights'][0] ) && ( $booking['arrivaldate'][0] ) ) {
+
+                                                $datetime1 = new DateTime($booking['arrivaldate'][0]);
+                                                $datetime2 = new DateTime($booking['leavingdate'][0]);
+                                                $interval = $datetime1->diff($datetime2);
+                                                $numberofnights = $interval->format('%a');
+                                                echo '<label>';
+                                                    _e( 'Number of nights');
+                                                echo '</label>';
+                                                echo '<input type="text" class="widefat" name="numberofnights" id="numberofnights" value="' . esc_attr( $numberofnights ) . '"/>';
+                                               
+                                               } elseif ( ( !$booking['numberofnights'][0] ) && ( !$booking['arrivaldate'][0] ) ) {
+
+                                                echo '<label>';
+                                                    _e( 'Number of nights');
+                                                echo '</label>';
+                                                echo '<input type="text" class="widefat" name="numberofnights" id="numberofnights" value="' . esc_attr( $booking['numberofnights'][0] ) . '"/>';
+                                                
+                                               }                                     
                                             ?>
                                         </td>
                                     </tr>
@@ -773,7 +795,7 @@ function bookingsteps2_meta_box_callback( $post ) {
                         <tr>
                             <td>
                                 <?php 
-                                    if ($booking['refid'][0]) { ?>
+                                    if ($post->ID) { ?>
                                     <div id="accordion">
                                     <h3>
                                         Client Booking Confirmation
