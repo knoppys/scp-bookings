@@ -70,6 +70,13 @@ $permalink = $page->guid;
         </p>
         ';
 
+//Get the currency symbol
+if ( ($town == 'Dublin') || ( get_post_meta($page->ID,'apptlocation1', true ) == 'Dublin' ) || ( get_post_meta($page->ID,'apptlocation2', true ) == 'Dublin' ) ) {
+    $currency = '€';
+} else {
+    $currency = '£';
+} 
+
 //get the number of nights
 if ($booking['numberofnights'][0]) {
     $numberofnights = $booking['numberofnights'][0];
@@ -242,12 +249,6 @@ if ($booking['bookingtype'][0] == 'Corporate') {
     $ratelabel = '<p style="font-family: Helvetica, Arial, sans-serif;color:#333;"><strong>Price per person, per night</strong></p>';
 }
 
-//Get the currency symbol
-if ( ($aprtmentlocation == 'Dublin') || ( $aprtmentlocation2 == 'Dublin' ) ) {
-    $currency = '€';
-} else {
-    $currency = '£';
-} 
 
 //Get the discount value
 if ($booking['discount'][0]) {
