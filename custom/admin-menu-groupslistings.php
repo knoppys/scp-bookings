@@ -74,9 +74,9 @@ function groupslistings_callback() {
 					//get post meta
 					$bookingmeta = get_post_meta($booking->ID); 
 					//get operator by title
-					$operatorobject = get_page_by_title( $bookingmeta['operatorname'][0], OBJECT, 'operators' );
+					//$operatorobject = get_page_by_title( $bookingmeta['operatorname'][0], OBJECT, 'operators' );
 					//get client  by title
-					$clientobject = get_page_by_title( $bookingmeta['clientname'][0], OBJECT, 'clients' );
+					//$clientobject = get_page_by_title( $bookingmeta['clientname'][0], OBJECT, 'clients' );
 					//get apartment by title
 					$apartmentobject = get_page_by_title( $bookingmeta['apartmentname'][0], OBJECT, 'apartments' );
 					//get the number of nights
@@ -89,21 +89,20 @@ function groupslistings_callback() {
 					    $numberofnights = $interval->format('%a nights');
 					}  
 					?>
-
 					<tr>
 						<td><?php echo mysql2date('d.m.y', $booking->post_date); ?></td>
 						<td><a href="<?php echo get_site_url(); ?>/wp-admin/post.php?post=<?php echo $booking->ID; ?>&action=edit"><?php echo $bookingmeta['guestname'][0]; ?></a></td>
 						<td><?php echo $bookingmeta['arrivaldate'][0];?></td>
 						<td><?php echo $bookingmeta['leavingdate'][0];?></td>
-						<td><?php echo get_post_meta($apartmentobject->ID, 'apptlocation1', true); ?></td>
+						<td><?php echo get_post_meta($apartmentobject->ID, 'apptlocation1', true);?></td>
 						<td><?php echo $numberofnights; ?></td>
-						<td><a href="<?php echo get_site_url(); ?>/wp-admin/post.php?post=<?php echo $booking->ID; ?>&action=edit"><?php echo $bookingmeta['apartmentname'][0] ?></a></td>
+						<td><?php echo $bookingmeta['apartmentname'][0] ?></td>
 						<td><?php echo $bookingmeta['bookingtype'][0]; ?></td>
 						<td style="text-align:center;"><?php echo $bookingmeta['numberofguests'][0]; ?></td>
-						<td><a href="http://www.servicedcitypads.com/wp-admin/post.php?post=<?php echo $operatorobject->ID; ?>&action=edit"><?php echo $bookingmeta['operatorname'][0]; ?></a></td>
-						<td><a href="http://www.servicedcitypads.com/wp-admin/post.php?post=<?php echo $clientobject->ID; ?>&action=edit"><?php echo $bookingmeta['clientname'][0]; ?></a></td>
-						
+						<td><?php echo $bookingmeta['operatorname'][0]; ?></td>
+						<td><?php echo $bookingmeta['clientname'][0]; ?></td>						
 						<td><?php echo $bookingmeta['welcomepack'][0]; ?></td>
+						
 						<td>
 							<?php echo '
 							<a href="admin.php?action=rd_duplicate_post_as_draft&amp;post=' . $booking->ID . '" title="Duplicate this item" rel="permalink">Duplicate</a>
@@ -147,22 +146,22 @@ function groupslistings_callback() {
 					</tr>
 
 					<?php					
-					/*
+					
 					if ($children){
 						//do nohting
 					} else {
-						$leavingdate = strtotime(get_post_meta($booking->ID,'leavingdate',true ));
-						$today = time();
+						$leavingdate = strtotime($bookingmeta['leavingdate'][0]);
+						$today = time();						
 						if ($leavingdate <= $today) {
 							$post = array(
 							'ID' => $booking->ID,
 							'post_status' => 'archive',
 							);
 							wp_update_post($post);							
-						};
+						};						
 					}
 
-					*/
+				
 					?>
 					
 
