@@ -12,7 +12,8 @@ function my_custom_menu_page(){
 			$bookings = get_posts(array(
 					'posts_per_page'=>-1,
 					'post_type'=>'bookings', 
-					//'post_parent' => 0
+					'post_parent' => 0,		
+					'post_status' => array('publish','draft')			
 				)
 			);
 			if ($bookings) { ?>
@@ -73,7 +74,7 @@ function my_custom_menu_page(){
 					//get client  by title
 					//$clientobject = get_page_by_title( $bookingmeta['clientname'][0], OBJECT, 'clients' );
 					//get apartment by title
-					$apartmentobject = get_page_by_title( $bookingmeta['apartmentname'][0], OBJECT, 'apartments' );
+					//$apartmentobject = get_page_by_title( $bookingmeta['apartmentname'][0], OBJECT, 'apartments' );
 					//get the number of nights
 					$datetime1 = new DateTime($bookingmeta['arrivaldate'][0]);
 				    $datetime2 = new DateTime($bookingmeta['leavingdate'][0]);
@@ -82,27 +83,17 @@ function my_custom_menu_page(){
 					?>
 
 					<tr>
-						<td><?php echo mysql2date('d.m.y', $booking->post_date); ?></td>
-						<td><a href="<?php echo get_site_url(); ?>/wp-admin/post.php?post=<?php echo $booking->ID; ?>&action=edit"><?php echo $bookingmeta['guestname'][0]; ?></a></td>
+						<td><a href="<?php echo get_site_url(); ?>/wp-admin/post.php?post=<?php echo $booking->ID; ?>&action=edit"><?php echo mysql2date('d.m.y', $booking->post_date); ?></a></td>
+						<td><?php echo $bookingmeta['guestname'][0]; ?></td>
 						<td><?php echo $bookingmeta['arrivaldate'][0];?></td>
 						<td><?php echo $bookingmeta['leavingdate'][0];?></td>
-						<td>
-						<?php 
-						if ($bookingmeta['location'][0]) {
-							echo $bookingmeta['location'][0];							
-						} else {
-							echo get_post_meta($apartmentobject->ID, 'apptlocation1', true);
-							update_post_meta($booking->ID,'location',get_post_meta($apartmentobject->ID, 'apptlocation1', true));
-						}
-						?>
-							
-						</td>
+						<td><?php echo $bookingmeta['location'][0];?></td>
 						<td><?php echo $numberofnights; ?></td>
-						<td><a href="<?php echo get_site_url(); ?>/wp-admin/post.php?post=<?php echo $booking->ID; ?>&action=edit"><?php echo $bookingmeta['apartmentname'][0] ?></a></td>
+						<td><?php echo $bookingmeta['apartmentname'][0] ?></td>
 						<td><?php echo $bookingmeta['bookingtype'][0]; ?></td>
 						<td style="text-align:center;"><?php echo $bookingmeta['numberofguests'][0]; ?></td>
-						<td><a href="http://www.servicedcitypads.com/wp-admin/post.php?post=<?php echo $operatorobject->ID; ?>&action=edit"><?php echo $bookingmeta['operatorname'][0]; ?></a></td>
-						<td><a href="http://www.servicedcitypads.com/wp-admin/post.php?post=<?php echo $clientobject->ID; ?>&action=edit"><?php echo $bookingmeta['clientname'][0]; ?></a></td>
+						<td><?php echo $bookingmeta['operatorname'][0]; ?></td>
+						<td><?php echo $bookingmeta['clientname'][0]; ?></td>
 						
 						<td><?php echo $bookingmeta['welcomepack'][0]; ?></td>
 						<td>
@@ -148,11 +139,11 @@ function my_custom_menu_page(){
 					</tr>
 
 					<?php					
-					/*
+					
 					if ($children){
 						//do nohting
 					} else {
-						$leavingdate = strtotime(get_post_meta($booking->ID,'leavingdate',true ));
+						$leavingdate = strtotime($bookingmeta['leavingdate'][0]);
 						$today = time();
 						if ($leavingdate <= $today) {
 							$post = array(
@@ -161,9 +152,7 @@ function my_custom_menu_page(){
 							);
 							wp_update_post($post);							
 						};
-					}
-
-					*/
+					}					
 					?>
 					
 

@@ -70,38 +70,34 @@ function leisurelistings_callback() {
 						</tr>
 					</thead>
 				<tbody>
-				<?php foreach ($bookings as $booking) { 
+				<?php foreach ($bookings as $booking) {  
 					//get post meta
 					$bookingmeta = get_post_meta($booking->ID); 
 					//get operator by title
-					$operatorobject = get_page_by_title( $bookingmeta['operatorname'][0], OBJECT, 'operators' );
+					//$operatorobject = get_page_by_title( $bookingmeta['operatorname'][0], OBJECT, 'operators' );
 					//get client  by title
-					$clientobject = get_page_by_title( $bookingmeta['clientname'][0], OBJECT, 'clients' );
+					//$clientobject = get_page_by_title( $bookingmeta['clientname'][0], OBJECT, 'clients' );
 					//get apartment by title
-					$apartmentobject = get_page_by_title( $bookingmeta['apartmentname'][0], OBJECT, 'apartments' );
+					//$apartmentobject = get_page_by_title( $bookingmeta['apartmentname'][0], OBJECT, 'apartments' );
 					//get the number of nights
-					if ($bookingmeta['numberofnights'][0]) {
-					    $numberofnights = $bookingmeta['numberofnights'][0];
-					} else {
-					    $datetime1 = new DateTime($bookingmeta['arrivaldate'][0]);
-					    $datetime2 = new DateTime($bookingmeta['leavingdate'][0]);
-					    $interval = $datetime1->diff($datetime2);
-					    $numberofnights = $interval->format('%a nights');
-					} 
+					$datetime1 = new DateTime($bookingmeta['arrivaldate'][0]);
+				    $datetime2 = new DateTime($bookingmeta['leavingdate'][0]);
+				    $interval = $datetime1->diff($datetime2);
+				    $numberofnights = $interval->format('%a');
 					?>
 
 					<tr>
-						<td><?php echo mysql2date('d.m.y', $booking->post_date); ?></td>
-						<td><a href="<?php echo get_site_url(); ?>/wp-admin/post.php?post=<?php echo $booking->ID; ?>&action=edit"><?php echo $bookingmeta['guestname'][0]; ?></a></td>
+						<td><a href="<?php echo get_site_url(); ?>/wp-admin/post.php?post=<?php echo $booking->ID; ?>&action=edit"><?php echo mysql2date('d.m.y', $booking->post_date); ?></a></td>
+						<td><?php echo $bookingmeta['guestname'][0]; ?></td>
 						<td><?php echo $bookingmeta['arrivaldate'][0];?></td>
 						<td><?php echo $bookingmeta['leavingdate'][0];?></td>
-						<td><?php echo get_post_meta($apartmentobject->ID, 'apptlocation1', true); ?></td>
+						<td><?php echo $bookingmeta['location'][0];?></td>
 						<td><?php echo $numberofnights; ?></td>
-						<td><a href="<?php echo get_site_url(); ?>/wp-admin/post.php?post=<?php echo $booking->ID; ?>&action=edit"><?php echo $bookingmeta['apartmentname'][0] ?></a></td>
+						<td><?php echo $bookingmeta['apartmentname'][0] ?></td>
 						<td><?php echo $bookingmeta['bookingtype'][0]; ?></td>
 						<td style="text-align:center;"><?php echo $bookingmeta['numberofguests'][0]; ?></td>
-						<td><a href="http://www.servicedcitypads.com/wp-admin/post.php?post=<?php echo $operatorobject->ID; ?>&action=edit"><?php echo $bookingmeta['operatorname'][0]; ?></a></td>
-						<td><a href="http://www.servicedcitypads.com/wp-admin/post.php?post=<?php echo $clientobject->ID; ?>&action=edit"><?php echo $bookingmeta['clientname'][0]; ?></a></td>
+						<td><?php echo $bookingmeta['operatorname'][0]; ?></td>
+						<td><?php echo $bookingmeta['clientname'][0]; ?></td>
 						
 						<td><?php echo $bookingmeta['welcomepack'][0]; ?></td>
 						<td>
@@ -136,21 +132,6 @@ function leisurelistings_callback() {
 														<td class="childcontent"><?php echo get_post_meta($child->ID, 'arrivaldate', true); ?></td>
 														<td class="childcontent"><?php echo get_post_meta($child->ID, 'leavingdate', true); ?></td>
 													</tr>
-													<?php
-													$leavingdate = strtotime(get_post_meta($chil->ID,'leavingdate',true ));
-													$today = time();
-
-
-													if ($leavingdate <= $today) {
-
-														$post = array(
-														'ID' => $booking->ID,
-														'post_status' => 'archive',
-														);
-														wp_update_post($post);
-														
-													};	
-													?>
 												<?php }
 											?>
 										</tbody>
@@ -162,11 +143,11 @@ function leisurelistings_callback() {
 					</tr>
 
 					<?php					
-					/*
+					
 					if ($children){
 						//do nohting
 					} else {
-						$leavingdate = strtotime(get_post_meta($booking->ID,'leavingdate',true ));
+						$leavingdate = strtotime($bookingmeta['leavingdate'][0]);
 						$today = time();
 						if ($leavingdate <= $today) {
 							$post = array(
@@ -175,9 +156,7 @@ function leisurelistings_callback() {
 							);
 							wp_update_post($post);							
 						};
-					}
-
-					*/
+					}					
 					?>
 					
 
