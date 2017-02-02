@@ -294,7 +294,7 @@ function implement_ajax_operatordetails() {
 	if(isset($_POST['operatorname']))
 		{
 			//get the correct page ID
-		    $title = ($_POST['operatorname']);
+		    $title = stripslashes(($_POST['operatorname']));
 		    $page = get_page_by_title( $title, OBJECT, 'Operators');
 
 		    //get the meta for the operator
@@ -356,7 +356,7 @@ function implement_ajax_clientdetails() {
 	if(isset($_POST['clientname']))
 		{
 			//get the correct page ID
-		    $title = ($_POST['clientname']);
+		    $title = stripslashes(($_POST['clientname']));
 		    $page = get_page_by_title( $title, OBJECT, 'clients');
 
 		    //get the meta for the client

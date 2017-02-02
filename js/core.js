@@ -271,7 +271,7 @@ jQuery(document).ready(function(){
 		    jQuery.ajax({
 	            url: siteUrl,
 	            type:'POST',
-	            data:'action=my_special_action&apartmentname=' + apartmentname + 
+	            data:'action=my_special_action&apartmentname=' + encodeURIComponent(apartmentname) + 
 	            '&bookingtype=' + bookingtype +
 	            '&startdate=' + startdate +
 	            '&enddate=' + enddate,
@@ -413,7 +413,8 @@ jQuery(document).ready(function(){
 jQuery(document).ready(function(){
 	jQuery('#operatorname').change(function() { 
 	var siteUrl = siteUrlobject.siteUrl+'/wp-admin/admin-ajax.php'; 
-		var operatorname = jQuery('#operatorname').val();  
+		var operatorname = jQuery('#operatorname').val(); 
+		
 		jQuery(function(){
 		    jQuery.ajax({
 	            url:siteUrl,
@@ -421,11 +422,14 @@ jQuery(document).ready(function(){
 	            data:'action=operatordetails&operatorname=' + encodeURIComponent(operatorname),           
 	            success:function(result){
 	            	//got it back, now assign it to its fields. 	            	
-	            	jQuery('#operatorajax').html( result );;    
+	            	jQuery('#operatorajax').html( result );
+	            	//console.log(result);   
 	            	
 	            }
 			});
 		});
+
+
 	});
 })
 
@@ -632,7 +636,7 @@ jQuery('#clientquery').click(function() {
             url:siteUrl,
             type:'POST',
             data:'action=clientreport&clientname=' + encodeURIComponent(clientname) + 
-            '&apartmentname=' + apartmentname +
+            '&apartmentname=' + encodeURIComponent(apartmentname) +
             '&location=' + location +
             '&startdate=' + startdate +
             '&enddate=' + enddate,          
@@ -711,7 +715,7 @@ jQuery('#operatorquery').click(function() {
             url:siteUrl,
             type:'POST',
             data:'action=operatorreport&operatorname=' + encodeURIComponent(operatorname) + 
-            '&apartmentname=' + apartmentname +
+            '&apartmentname=' + encodeURIComponent(apartmentname) +
             '&location=' + location +
             '&startdate=' + startdate +
             '&enddate=' + enddate,          

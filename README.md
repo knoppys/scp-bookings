@@ -1,5 +1,8 @@
 Changelog
 
+V5.9.7
+- Fixed the problem with the client details and operator details not picking up single quotes in the edit booking screen. Added stripslashes in the PHP.
+
 V4.9.1
 - Bookings fields amendments have been updated. 
 - Default sort by Checkin Date on the new accounts screen

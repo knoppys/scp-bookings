@@ -193,7 +193,7 @@ function implement_ajax() {
 		{
 		    
 		    //get the correct page ID
-		    $title = ($_POST['apartmentname']);
+		    $title = stripslashes(($_POST['apartmentname']));;
 		    $page = get_page_by_title( $title, OBJECT, 'apartments');
 
 		    //Get the booking type meta value and terms because there are 3 different values
