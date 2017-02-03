@@ -1096,9 +1096,9 @@ jQuery(document).ready(function(){
 	            url:siteUrl,
 	            type:'POST',
 	            data:'action=postcodesearch&postcode=' + postcode,           
-	            success:function(result){
+	            success:function(results){
 	            	
-					var apartments = jQuery.parseJSON(result);
+					var apartments = jQuery.parseJSON(results);
 					var map = new google.maps.Map(document.getElementById('map-canvas'), {
 					    center: new google.maps.LatLng(53.408371, -2.991573),
 					    zoom: 5
@@ -1121,14 +1121,17 @@ jQuery(document).ready(function(){
 					                marker.addListener('click', function() {
 					                	$i = 0;
 								        infowindow.setContent(
+								        	/*
 								        	'<strong>'+apartments[0].title+'</strong><br>'
 								        	+apartments[0].info+'<br>'
 								        	+result[0].formatted_address+'<br>'
 								        	+'<a href="'+apartments[0].url+'" target="_blank">View Apartment</a>'
+								        	*/
+								        	result[0].formatted_address
 								        );
 								        infowindow.open(map, marker);
 								        ++i;
-								        console.log(i);
+								        console.log(result);
 								    });
 
 					                                                 
