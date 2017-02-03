@@ -101,18 +101,7 @@ function bookingsteps2_meta_box_callback( $post ) {
         
 
     //get the booking as an OBJECT
-        $booking = get_post_meta($post->ID);
-
-    //dublin bookings price sybmol check
-        $apartmentobject = get_page_by_title($booking['apartmentname'][0], OBJECT, 'apartments');
-        $apartmentmeta = get_post_meta($apartmentobject->ID);
-        if ( ($apartmentmeta['apptlocation1'][0] == 'Dublin') || $apartmentmeta['apptlocation2'][0] == 'Dublin' ) {
-            $currency = '€';
-        } else {
-            $currency = '£';
-        }
-        
-
+        $booking = get_post_meta($post->ID); 
 
 ?>
 
@@ -601,9 +590,35 @@ function bookingsteps2_meta_box_callback( $post ) {
                                     <td>
                                         <?php
                                         echo '<label>';
+                                        _e( 'Select Client Currency');
+                                        echo '</label> ';
+                                        echo '<select class="widefat" id="clientcurrency" name="clientcurrency">';
+                                        echo '<option value="' . esc_attr( $booking['clientcurrency'][0] ) . '" size="25" />' . esc_attr( $booking['clientcurrency'][0] ) . '</option>';
+                                            echo '<option>&pound;</option>';
+                                            echo '<option>&euro;</option>';                                            
+                                        echo "</select>";
+                                        ?>
+                                    </td>
+                                    <td>
+                                        <?php
+                                        echo '<label>';
+                                        _e( 'Select Operator Currency');
+                                        echo '</label> ';
+                                        echo '<select class="widefat" id="operatorcurrency" name="operatorcurrency">';
+                                        echo '<option value="' . esc_attr( $booking['operatorcurrency'][0] ) . '" size="25" />' . esc_attr( $booking['operatorcurrency'][0] ) . '</option>';
+                                            echo '<option>&pound;</option>';
+                                            echo '<option>&euro;</option>';      
+                                        echo "</select>";
+                                        ?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <?php
+                                        echo '<label>';
                                              _e( 'Client Price');
                                         echo '</label>';                                      
-                                        echo '<span style="display:inline;width:2%;font-weight:bold;line-height:1.5;font-size:18px;">'.$currency.'</span><input type="text" class="widefat" style="width:90%;float:right;display:inline;" name="rentalprice" id="rentalprice" value="' . esc_attr( $booking['rentalprice'][0] ) . '"/>';
+                                        echo '<span style="display:inline;width:2%;font-weight:bold;line-height:1.5;font-size:18px;">'.$booking['clientcurrency'][0].'</span><input type="text" class="widefat" style="width:90%;float:right;display:inline;" name="rentalprice" id="rentalprice" value="' . esc_attr( $booking['rentalprice'][0] ) . '"/>';
                                         ?>
                                     </td>                                
                                     <td>
@@ -611,7 +626,7 @@ function bookingsteps2_meta_box_callback( $post ) {
                                         echo '<label>';
                                              _e( 'Operator Price');
                                         echo '</label>';                                     
-                                        echo '<span style="display:inline;width:2%;font-weight:bold;line-height:1.5;font-size:18px;">'.$currency.'</span><input type="text" class="widefat" style="width:90%;float:right;display:inline;" name="oprentalprice" id="oprentalprice" value="' . esc_attr( $booking['oprentalprice'][0] ) . '"/>';
+                                        echo '<span style="display:inline;width:2%;font-weight:bold;line-height:1.5;font-size:18px;">'.$booking['operatorcurrency'][0].'</span><input type="text" class="widefat" style="width:90%;float:right;display:inline;" name="oprentalprice" id="oprentalprice" value="' . esc_attr( $booking['oprentalprice'][0] ) . '"/>';
                                         ?>
                                     </td>
                                 </tr>                              
@@ -621,7 +636,7 @@ function bookingsteps2_meta_box_callback( $post ) {
                                         echo '<label>';
                                              _e( 'Supplements Price to Client' );
                                         echo '</label>';
-                                        echo '<span style="display:inline;width:2%;font-weight:bold;line-height:1.5;font-size:18px;">'.$currency.'</span><input type="text" class="widefat" style="width:90%;float:right;display:inline;"  name="supplementsprice" id="supplementsprice" value="' . esc_attr( $booking['supplementsprice'][0] ) . '"/>';
+                                        echo '<span style="display:inline;width:2%;font-weight:bold;line-height:1.5;font-size:18px;">'.$booking['clientcurrency'][0].'</span><input type="text" class="widefat" style="width:90%;float:right;display:inline;"  name="supplementsprice" id="supplementsprice" value="' . esc_attr( $booking['supplementsprice'][0] ) . '"/>';
                                         ?>
                                     </td>
                                     <td>
@@ -629,7 +644,7 @@ function bookingsteps2_meta_box_callback( $post ) {
                                         echo '<label>';
                                              _e( 'Supplements Price to Operator' );
                                         echo '</label>';
-                                        echo '<span style="display:inline;width:2%;font-weight:bold;line-height:1.5;font-size:18px;">'.$currency.'</span><input type="text" class="widefat" style="width:90%;float:right;display:inline;"  name="opsupplementsprice" id="opsupplementsprice" value="' . esc_attr( $booking['opsupplementsprice'][0] ) . '"/>';
+                                        echo '<span style="display:inline;width:2%;font-weight:bold;line-height:1.5;font-size:18px;">'.$booking['operatorcurrency'][0].'</span><input type="text" class="widefat" style="width:90%;float:right;display:inline;"  name="opsupplementsprice" id="opsupplementsprice" value="' . esc_attr( $booking['opsupplementsprice'][0] ) . '"/>';
                                         ?>
                                     </td>                                   
                                 </tr>                                
@@ -658,7 +673,7 @@ function bookingsteps2_meta_box_callback( $post ) {
                                        <label>Deposit</label>
                                     </td>
                                     <td>
-                                        <?php echo '<span style="display:inline;width:2%;font-weight:bold;line-height:1.5;font-size:18px;">'.$currency.'</span><input type="text" class="widefat" style="width:90%;float:right;display:inline;" name="deposit" id="deposit" value="' . esc_attr( $booking['deposit'][0] ) . '"/>'; ?>
+                                        <?php echo '<span style="display:inline;width:2%;font-weight:bold;line-height:1.5;font-size:18px;">'.$booking['clientcurrency'][0].'</span><input type="text" class="widefat" style="width:90%;float:right;display:inline;" name="deposit" id="deposit" value="' . esc_attr( $booking['deposit'][0] ) . '"/>'; ?>
                                     </td>
                                 </tr>
                                 <tr>
@@ -666,7 +681,7 @@ function bookingsteps2_meta_box_callback( $post ) {
                                         <label>Discount</label>
                                     </td>
                                      <td>
-                                        <?php echo '<span style="display:inline;width:2%;font-weight:bold;line-height:1.5;font-size:18px;">'.$currency.'</span><input type="text" class="widefat" style="width:90%;float:right;display:inline;" name="discount" id="discount" value="' . esc_attr( $booking['discount'][0] ) . '"/>'; ?>
+                                        <?php echo '<span style="display:inline;width:2%;font-weight:bold;line-height:1.5;font-size:18px;">'.$booking['clientcurrency'][0].'</span><input type="text" class="widefat" style="width:90%;float:right;display:inline;" name="discount" id="discount" value="' . esc_attr( $booking['discount'][0] ) . '"/>'; ?>
                                     </td>
                                 </tr>
                                 <tr>
@@ -674,7 +689,7 @@ function bookingsteps2_meta_box_callback( $post ) {
                                         <label>Operator Total</label>
                                     </td>
                                     <td>
-                                        <?php echo '<span style="display:inline;width:2%;font-weight:bold;line-height:1.5;font-size:18px;">'.$currency.'</span><input type="text" class="widefat" style="width:90%;float:right;display:inline;" name="ownerprice" id="ownerprice" value="' . esc_attr( $booking['ownerprice'][0] ) . '"/>'; ?>
+                                        <?php echo '<span style="display:inline;width:2%;font-weight:bold;line-height:1.5;font-size:18px;">'.$booking['operatorcurrency'][0].'</span><input type="text" class="widefat" style="width:90%;float:right;display:inline;" name="ownerprice" id="ownerprice" value="' . esc_attr( $booking['ownerprice'][0] ) . '"/>'; ?>
                                     </td>
                                 </tr>
                                 <tr>
@@ -682,7 +697,7 @@ function bookingsteps2_meta_box_callback( $post ) {
                                         <label>Client Total</label>
                                     </td>
                                     <td>
-                                         <?php echo '<span style="display:inline;width:2%;font-weight:bold;line-height:1.5;font-size:18px;">'.$currency.'</span><input type="text" class="widefat" style="width:90%;float:right;display:inline;" name="totalcost" id="totalcost" value="' . esc_attr( $booking['totalcost'][0] ) . '"/>'; ?>
+                                         <?php echo '<span style="display:inline;width:2%;font-weight:bold;line-height:1.5;font-size:18px;">'.$booking['clientcurrency'][0].'</span><input type="text" class="widefat" style="width:90%;float:right;display:inline;" name="totalcost" id="totalcost" value="' . esc_attr( $booking['totalcost'][0] ) . '"/>'; ?>
                                     </td>
                                 </tr>
                                 <tr>
@@ -1023,6 +1038,10 @@ function bookingsteps2_save_meta_box_data( $post_id ) {
     update_post_meta( $post_id, 'staffnotes', ($_POST['staffnotes']) );
     update_post_meta($post_id, 'clientAmendment',$mydata_clientAmendment);
     update_post_meta($post_id, 'operatorAmendment',$mydata_operatorAmendment);
+
+    //currencysettings
+    update_post_meta($post_id, 'clientcurrency',$_POST['clientcurrency']);
+    update_post_meta($post_id, 'operatorcurrency',$_POST['operatorcurrency']);
 
     
 }

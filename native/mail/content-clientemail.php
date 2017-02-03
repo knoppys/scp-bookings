@@ -1,9 +1,7 @@
 <?php
 function clientemail($ID){
+
 $booking = get_post_meta($ID);
-$apartmenttitle = ($booking['apartmentname'][0]);
-$page = get_page_by_title( $apartmenttitle, OBJECT, 'apartments');
-$permalink = $page->guid;
 
     //Get the apartment details
     $apartmenttitle = $booking['apartmentname'][0];
@@ -69,13 +67,6 @@ $permalink = $page->guid;
         '.$fulladdress.'
         </p>
         ';
-
-//Get the currency symbol
-if ( ($town == 'Dublin') || ( get_post_meta($page->ID,'apptlocation1', true ) == 'Dublin' ) || ( get_post_meta($page->ID,'apptlocation2', true ) == 'Dublin' ) ) {
-    $currency = '€';
-} else {
-    $currency = '£';
-} 
 
 //get the number of nights
 if ($booking['numberofnights'][0]) {
@@ -254,13 +245,14 @@ if ($booking['bookingtype'][0] == 'Corporate') {
 if ($booking['discount'][0]) {
     $discounttext =  '
     <tr>    
-        <td width="300" valign="middle" style="background:#d2d2d2;text-align:center;border-radius:4px;padding:4px 0px;">
-          Discount
+        <td width="300" valign="top" style="background:#efefef;padding:10px">
+            <p style="font-family: Helvetica, Arial, sans-serif;color:#333;"><strong> Discount</strong></p>
         </td>
-        <td width="300" valign="middle" style="background:#d2d2d2;text-align:center;border-radius:4px;padding:4px 0px;">
-          '.$booking['discount'][0].'
+        <td width="300" valign="top" style="background:#efefef;padding:10px">
+          '.$booking['clientcurrency'][0].$booking['discount'][0].'
         </td>
     </tr>
+   
     ';
 } else {}
 
@@ -382,7 +374,7 @@ ob_start(); ?>
                                                         <?php echo $ratelabel; ?>
                                                     </td>
                                                     <td width="300" valign="top" style="background:#efefef;padding:10px">
-                                                        <?php echo $currency . $nightlyratetext; ?>
+                                                        <?php echo $booking['clientcurrency'][0] . $nightlyratetext; ?>
                                                     </td>
                                                 </tr> 
                                                 <?php echo $discounttext; ?>
@@ -391,7 +383,7 @@ ob_start(); ?>
                                                         <p style="font-family: Helvetica, Arial, sans-serif;color:#333;"><strong>Total Cost</strong></p>
                                                     </td>
                                                     <td width="300" valign="top" style="background:#efefef;padding:10px">
-                                                      <?php echo $currency . $totalcosttext; ?>
+                                                      <?php echo $booking['clientcurrency'][0] . $totalcosttext; ?>
                                                     </td>
                                                 </tr>                                                
                                             </tbody>
