@@ -1098,61 +1098,48 @@ jQuery(document).ready(function(){
 	            data:'action=postcodesearch&postcode=' + postcode,           
 	            success:function(result){
 	            	
-	            	var apartments = jQuery.parseJSON(result);
-	            	var map = new google.maps.Map(document.getElementById('map-canvas'), {
-						center: new google.maps.LatLng(53.408371, -2.991573),
-						zoom: 5
-					});
-					var infowindow = new google.maps.InfoWindow();
+					var apartments = jQuery.parseJSON(result);
+					var map = new google.maps.Map(document.getElementById('map-canvas'), {
+					    center: new google.maps.LatLng(53.408371, -2.991573),
+					    zoom: 5
+					});         
+					var geocoder = new google.maps.Geocoder(); 
+					var infowindow = new google.maps.InfoWindow();     
 
 					google.maps.event.addListenerOnce(map, 'tilesloaded', function() {
 
 					    for (var i = 0; i < apartments.length; ++i) {
 
-					    	geocodeAddress(apartments[i].postcode, infowindow, map);
+					        geocoder.geocode({ address: apartments[i].postcode + ' UK', }, function(result, status) {
+					            if (status == 'OK' && result.length > 0) {
 
-					    }
+					                var marker = new google.maps.Marker({
+					                    position: result[0].geometry.location,
+					                    map: map,                                       
+					                }); 
 
-					});
+					                marker.addListener('click', function() {
+					                	$i = 0;
+								        infowindow.setContent(
+								        	'<strong>'+apartments[0].title+'</strong><br>'
+								        	+apartments[0].info+'<br>'
+								        	+result[0].formatted_address+'<br>'
+								        	+'<a href="'+apartments[0].url+'" target="_blank">View Apartment</a>'
+								        );
+								        infowindow.open(map, marker);
+								        ++i;
+								        console.log(i);
+								    });
 
-					google.maps.event.addDomListener(window, "load", result);
+					                                                 
+					            }
+					        });
+					    }   
 
-					function geocodeAddress(address, infowindow, map) {
-
-						var geocoder = new google.maps.Geocoder();
-
-						geocoder.geocode({address: address.postcode + ' UK',}, function(result, status) {
-
-							if (status == 'OK' && result.length > 0) {
-
-								var marker = new google.maps.Marker({
-									position: result[0].geometry.location,
-									map: map,
-								});
-
-								google.maps.event.addListener(marker, 'click', function() {
-								var content = (address.info);
-
-									infowindow.setContent(content);
-									infowindow.open(map, this);
-
-								});
-							} else {
-					
-								alert("geocoder returns status:" + status)
-							}
-						});
-
-					}
-
-					
-
-				
-				    
-				          	
+					});		          	
 	            	
 	            }
 			});
 		});
 	});
-})
+});

@@ -1,9 +1,15 @@
 Changelog
+V6.0
+- Added the new google map search facility.
+
 V5.9.10
 - Updated bookings edit screen and confirmation emails to use variable currency symbols.
 
 V5.9.7
 - Fixed the problem with the client details and operator details not picking up single quotes in the edit booking screen. Added stripslashes in the PHP.
+
+NOTE*** This was the last migration ***NOTE
+Jan 31st
 
 V4.9.1
 - Bookings fields amendments have been updated. 
