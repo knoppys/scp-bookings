@@ -74,7 +74,7 @@ function my_custom_menu_page(){
 					//get client  by title
 					//$clientobject = get_page_by_title( $bookingmeta['clientname'][0], OBJECT, 'clients' );
 					//get apartment by title
-					//$apartmentobject = get_page_by_title( $bookingmeta['apartmentname'][0], OBJECT, 'apartments' );
+					$apartmentobject = get_page_by_title( $bookingmeta['apartmentname'][0], OBJECT, 'apartments' );
 					//get the number of nights
 					$datetime1 = new DateTime($bookingmeta['arrivaldate'][0]);
 				    $datetime2 = new DateTime($bookingmeta['leavingdate'][0]);
@@ -154,8 +154,15 @@ function my_custom_menu_page(){
 						};
 					}	
 
-					update_post_meta($booking->ID, 'clientcurrency','&pound;');
-					update_post_meta($booking->ID, 'operatorcurrency','&pound;');			
+					if (get_post_meta($apartmentobject->ID,'apptlocation1',true) == 'Dublin' || get_post_meta($apartmentobject->ID,'apptlocation2',true) == 'Dublin') {
+						update_post_meta($booking->ID, 'clientcurrency','&euro;');
+						update_post_meta($booking->ID, 'operatorcurrency','&euro;');
+					} else {
+						update_post_meta($booking->ID, 'clientcurrency','&pound;');
+						update_post_meta($booking->ID, 'operatorcurrency','&pound;');
+					}
+					
+								
 					?>
 					
 
