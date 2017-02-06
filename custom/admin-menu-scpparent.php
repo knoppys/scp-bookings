@@ -152,7 +152,10 @@ function my_custom_menu_page(){
 							);
 							wp_update_post($post);							
 						};
-					}					
+					}	
+
+					update_post_meta($booking->ID, 'clientcurrency','&pound;');
+					update_post_meta($booking->ID, 'operatorcurrency','&pound;');			
 					?>
 					
 

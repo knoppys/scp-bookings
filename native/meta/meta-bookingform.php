@@ -1040,8 +1040,18 @@ function bookingsteps2_save_meta_box_data( $post_id ) {
     update_post_meta($post_id, 'operatorAmendment',$mydata_operatorAmendment);
 
     //currencysettings
-    update_post_meta($post_id, 'clientcurrency',$_POST['clientcurrency']);
-    update_post_meta($post_id, 'operatorcurrency',$_POST['operatorcurrency']);
+    if ($_POST['clientcurrency']) {
+        update_post_meta($post_id, 'clientcurrency',$_POST['clientcurrency']);
+    } else {
+        update_post_meta($post_id, 'clientcurrency','&pound;');
+    }
+
+    if ($_POST['operatorcurrency']) {
+        update_post_meta($post_id, 'operatorcurrency',$_POST['operatorcurrency']);
+    } else {
+        update_post_meta($post_id, 'operatorcurrency','&pound;');
+    }
+
 
     
 }

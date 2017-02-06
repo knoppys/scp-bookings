@@ -1,4 +1,8 @@
 Changelog
+V6.0.2
+- Default currency for all bookings set to £ on save.
+- Added update_post_meta() function inside SCP Parent to update all currnt bookings with £. Will remove after the loop has run. 
+
 V6.0
 - Added the new google map search facility.
 
