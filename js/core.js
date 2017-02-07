@@ -1107,36 +1107,32 @@ jQuery(document).ready(function(){
 					var infowindow = new google.maps.InfoWindow();     
 
 					google.maps.event.addListenerOnce(map, 'tilesloaded', function() {
-
+					
+						var b = 0;
 					    for (var i = 0; i < apartments.length; ++i) {
 
 					        geocoder.geocode({ address: apartments[i].postcode + ' UK', }, function(result, status) {
-					            if (status == 'OK' && result.length > 0) {
+					            if (status == 'OK' && result.length > 0) {					            
+
+					                var content = 
+					                '<strong>'+apartments[b].title+'</strong><br>'// This line stays the same in each info window
+								    +apartments[b].info+'<br>'// This line stays the same in each info window
+								    +result[0].formatted_address+'<br>' // This line works fine and the address changes
+								    +'<a href="'+apartments[b].url+'" target="_blank">View Apartment</a>'// This line stays the same in each info window
 
 					                var marker = new google.maps.Marker({
 					                    position: result[0].geometry.location,
-					                    map: map,                                       
+					                    map: map,     
+					                    info: content                                  
 					                }); 
 
-					                marker.addListener('click', function() {
-					                	$i = 0;
-								        infowindow.setContent(
-								        	/*
-								        	'<strong>'+apartments[0].title+'</strong><br>'
-								        	+apartments[0].info+'<br>'
-								        	+result[0].formatted_address+'<br>'
-								        	+'<a href="'+apartments[0].url+'" target="_blank">View Apartment</a>'
-								        	*/
-								        	result[0].formatted_address
-								        );
-								        infowindow.open(map, marker);
-								        ++i;
-								        console.log(result);
-								    });
+					                google.maps.event.addListener( marker, 'click', function() {		
+									   infowindow.setContent( this.info );		   
+									   infowindow.open( map, this );		
+									});         
 
-					                                                 
-					            }
-					        });
+					            } ++b; 					       		
+					   		}); 
 					    }   
 
 					});		          	

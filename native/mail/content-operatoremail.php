@@ -3,6 +3,8 @@ function operatoremail($bookingID){
 
 $booking = get_post_meta($bookingID); 
 
+var_dump($booking['totalcost'][0]);
+
     //Get the apartment details
     $apartmenttitle = $booking['apartmentname'][0];
     $page = get_page_by_title( $apartmenttitle, OBJECT, 'apartments');
@@ -163,10 +165,8 @@ if (strlen ( $booking['arrivalprocess'][0] ) >= 1 )  {
 //Subject Header
 if  ($booking['operatorAmendment'][0] == 'on' )  {
     $subjecttext = 'Booking Amendment';
-    var_dump($booking['operatorAmendment'][0]);
 } else {
     $subjecttext = 'Booking Confirmation';
-    var_dump($booking['operatorAmendment'][0]);
 }
 
 

@@ -1,4 +1,7 @@
 Changelog
+V6.5
+- Google map apartment searh added.
+
 V6.0.2
 - Default currency for all bookings set to £ on save.
 - Added update_post_meta() function inside SCP Parent to update all currnt bookings with £. Will remove after the loop has run. 
