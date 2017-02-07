@@ -74,7 +74,7 @@ function my_custom_menu_page(){
 					//get client  by title
 					//$clientobject = get_page_by_title( $bookingmeta['clientname'][0], OBJECT, 'clients' );
 					//get apartment by title
-					$apartmentobject = get_page_by_title( $bookingmeta['apartmentname'][0], OBJECT, 'apartments' );
+					//$apartmentobject = get_page_by_title( $bookingmeta['apartmentname'][0], OBJECT, 'apartments' );
 					//get the number of nights
 					$datetime1 = new DateTime($bookingmeta['arrivaldate'][0]);
 				    $datetime2 = new DateTime($bookingmeta['leavingdate'][0]);
