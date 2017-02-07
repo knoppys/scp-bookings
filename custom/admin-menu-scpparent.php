@@ -152,15 +152,7 @@ function my_custom_menu_page(){
 							);
 							wp_update_post($post);							
 						};
-					}	
-
-					if (get_post_meta($apartmentobject->ID,'apptlocation1',true) == 'Dublin' || get_post_meta($apartmentobject->ID,'apptlocation2',true) == 'Dublin') {
-						update_post_meta($booking->ID, 'clientcurrency','&euro;');
-						update_post_meta($booking->ID, 'operatorcurrency','&euro;');
-					} else {
-						update_post_meta($booking->ID, 'clientcurrency','&pound;');
-						update_post_meta($booking->ID, 'operatorcurrency','&pound;');
-					}
+					}		
 					
 								
 					?>
