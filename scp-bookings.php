@@ -3,7 +3,7 @@
 Plugin Name:       SCP Bookings
 Plugin URI:        https://github.com/knoppys/scp-bookings.git
 Description:       The SCP Bookings plugin is a custom built application as a tool for managing the companies assets. Process bookings, assetts and peform reports on yoru data with ease. 
-Version:           6.5.2
+Version:           6.5.3
 Author:            Knoppys Digital Limited
 License:           GNU General Public License v2
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
@@ -11,7 +11,7 @@ GitHub Plugin URI: https://github.com/knoppys/scp-bookings.git
 GitHub Branch:     master
 */
 
-define( 'BOOKINGS_VERSION', '6.5.2' );
+define( 'BOOKINGS_VERSION', '6.5.3' );
 define( 'BOOKINGS__MINIMUM_WP_VERSION', '1.0' );
 define( 'BOOKINGS__PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'BOOKINGS__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
@@ -89,7 +89,7 @@ function scp_scripts() {
     
     wp_enqueue_script( 'ui', plugin_dir_url( __FILE__ ) . 'js/jquery-ui.min.js', array(), '', true );
     wp_enqueue_script( 'steps', plugin_dir_url( __FILE__ ) . 'js/jquery.steps.min.js', array(), '', true );
-    wp_enqueue_script( 'google_maps', 'https://maps.googleapis.com/maps/api/js?libraries=places&sensor=false', array(), '1.0.0', true );
+    wp_enqueue_script( 'google_maps', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAgbOmk-xspMP30E6kXDyHH1-2VMIRJsjY&callback=initMap', array(), '1.0.0', true );
     wp_enqueue_script( 'core', plugin_dir_url( __FILE__ ) . 'js/core.js', array(), '1.0.0', true );
     wp_localize_script( 'core', 'siteUrlobject', array('siteUrl' => get_bloginfo('url')));
     wp_enqueue_script( 'dashboard-widgets', plugin_dir_url( __FILE__ ) . 'js/dashboard-widgets.js', array(), '1.0.0', true );

@@ -1,4 +1,7 @@
 Changelog
+V.6.5.3
+- Updated google map API key to comply with google api access requests.
+
 V6.5
 - Google map apartment searh added.
 
