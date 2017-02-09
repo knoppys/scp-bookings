@@ -91,12 +91,12 @@ function corporatelistings_callback() {
 						<td><?php echo $bookingmeta['guestname'][0]; ?></td>
 						<td><?php echo $bookingmeta['arrivaldate'][0];?></td>
 						<td><?php echo $bookingmeta['leavingdate'][0];?></td>
-						<td><?php 
+						<td><?php
 						if ($bookingmeta['location'][0]) {
 							echo $bookingmeta['location'][0];
 						} else {
 							$apartmentobject = get_page_by_title( $bookingmeta['apartmentname'][0], OBJECT, 'apartments' );
-							echo get_post_meta($apartmentobject->ID,'apptlocation1',true);
+							echo get_post_meta($apartmentobject->ID, 'apptlocation1', true);							
 						}
 						?></td>
 						<td><?php echo $numberofnights; ?></td>

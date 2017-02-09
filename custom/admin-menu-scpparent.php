@@ -92,10 +92,8 @@ function my_custom_menu_page(){
 							echo $bookingmeta['location'][0];
 						} else {
 							$apartmentobject = get_page_by_title( $bookingmeta['apartmentname'][0], OBJECT, 'apartments' );
-							$newlocation = get_post_meta($apartmentobject->ID, 'apptlocation1', true);
-							update_post_meta($booking->ID, 'location', $newlocation);
+							echo get_post_meta($apartmentobject->ID, 'apptlocation1', true);							
 						}
-
 						?></td>
 						<td><?php echo $numberofnights; ?></td>
 						<td><?php echo $bookingmeta['apartmentname'][0] ?></td>
