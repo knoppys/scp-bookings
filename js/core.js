@@ -283,6 +283,7 @@ jQuery(document).ready(function(){
 	            	jQuery('#checkouttime').val(data.checkouttime);
 	            	jQuery('#ownerprice').val(data.ownerprice);	
 	            	jQuery('#emergencycontact').val(data.emergencycontact);
+	            	jQuery('#location').val(data.location);
 	            	
 	            	jQuery('#numberofnights').val(data.nights);
 	            	tinyMCE.get('terms').setContent(data.terms);

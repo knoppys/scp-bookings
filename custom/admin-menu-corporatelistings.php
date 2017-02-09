@@ -78,7 +78,7 @@ function corporatelistings_callback() {
 					//get client  by title
 					//$clientobject = get_page_by_title( $bookingmeta['clientname'][0], OBJECT, 'clients' );
 					//get apartment by title
-					//$apartmentobject = get_page_by_title( $bookingmeta['apartmentname'][0], OBJECT, 'apartments' );
+					//
 					//get the number of nights
 					$datetime1 = new DateTime($bookingmeta['arrivaldate'][0]);
 				    $datetime2 = new DateTime($bookingmeta['leavingdate'][0]);
@@ -91,7 +91,15 @@ function corporatelistings_callback() {
 						<td><?php echo $bookingmeta['guestname'][0]; ?></td>
 						<td><?php echo $bookingmeta['arrivaldate'][0];?></td>
 						<td><?php echo $bookingmeta['leavingdate'][0];?></td>
-						<td><?php echo $bookingmeta['location'][0];?></td>
+						<td><?php 
+						if ($bookingmeta['location'][0]) {
+							echo $bookingmeta['location'][0];
+						} else {
+							$apartmentobject = get_page_by_title( $bookingmeta['apartmentname'][0], OBJECT, 'apartments' );
+							echo get_post_meta($apartmentobject->ID,'apptlocation1',true);
+						}
+
+						?></td>
 						<td><?php echo $numberofnights; ?></td>
 						<td><?php echo $bookingmeta['apartmentname'][0] ?></td>
 						<td><?php echo $bookingmeta['bookingtype'][0]; ?></td>

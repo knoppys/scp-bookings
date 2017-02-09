@@ -233,7 +233,9 @@ function implement_ajax() {
 		    	$emergencycontact = 'No Data Available';
 		    }else{
 		    	$emergencycontact = get_post_meta($page->ID, 'emergencycontact', true );
-		    };	    
+		    };	 
+
+		    $location = get_post_meta($page->ID, 'apptlocation1', true);
 
 		    /*
 		    // Get the right price for the aparmtent
@@ -295,6 +297,7 @@ function implement_ajax() {
 		    	'emergencycontact' 	=> $emergencycontact,	
 		    	//'rentalprice' 		=> $baserentalprice,
 		    	'bookingtype'		=> $bookingtype,
+		    	'location'			=> $location,
 		    	'nights'			=> $numberofnights
 		   
 		    	)
