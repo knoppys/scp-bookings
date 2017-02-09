@@ -150,7 +150,7 @@ function corporatelistings_callback() {
 					</tr>
 
 					<?php					
-					
+					/*
 					if ($children){
 						//do nohting
 					} else {
@@ -163,7 +163,9 @@ function corporatelistings_callback() {
 							);
 							wp_update_post($post);							
 						};
-					}					
+					}		
+					*/
+								
 					?>
 					
 

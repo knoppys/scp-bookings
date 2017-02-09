@@ -146,7 +146,7 @@ function my_custom_menu_page(){
 					</tr>
 
 					<?php					
-					
+					/*
 					if ($children){
 						//do nohting
 					} else {
@@ -160,7 +160,7 @@ function my_custom_menu_page(){
 							wp_update_post($post);							
 						};
 					}		
-					
+					*/
 								
 					?>
 					
