@@ -457,3 +457,5 @@ add_action( 'post_submitbox_misc_actions', 'add_to_post_status_dropdown');
 //Add email marketing image size
 add_image_size( 'iContact Special Offer', 190, 160, array( 'center', 'center' ) );
 add_image_size( 'iContact Latest News', 166, 130, array( 'center', 'center' ) );
+
+

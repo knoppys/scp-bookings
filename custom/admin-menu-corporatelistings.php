@@ -70,7 +70,7 @@ function corporatelistings_callback() {
 						</tr>
 					</thead>
 				<tbody>
-					<?php foreach ($bookings as $booking) {  
+				<?php foreach ($bookings as $booking) {  
 					//get post meta
 					$bookingmeta = get_post_meta($booking->ID); 
 					//get operator by title
@@ -78,7 +78,7 @@ function corporatelistings_callback() {
 					//get client  by title
 					//$clientobject = get_page_by_title( $bookingmeta['clientname'][0], OBJECT, 'clients' );
 					//get apartment by title
-					//
+					//$apartmentobject = get_page_by_title( $bookingmeta['apartmentname'][0], OBJECT, 'apartments' );
 					//get the number of nights
 					$datetime1 = new DateTime($bookingmeta['arrivaldate'][0]);
 				    $datetime2 = new DateTime($bookingmeta['leavingdate'][0]);
@@ -133,40 +133,52 @@ function corporatelistings_callback() {
 												<td class="childheader"><strong>Checkout</strong></td>
 											</tr>
 											<?php
-												foreach ($children as $child) { ?>													
+												foreach ($children as $child) { 
+													$leavingdate = get_post_meta($child->ID, 'leavingdate', true);
+													?>													
 													<tr>
 														<td class="childcontent"><a href="post.php?post=<?php echo $child->ID; ?>&action=edit"><?php echo get_post_meta($child->ID, 'apartmentname', true); ?></td>
 														<td class="childcontent"><?php echo get_post_meta($child->ID, 'arrivaldate', true); ?></td>
-														<td class="childcontent"><?php echo get_post_meta($child->ID, 'leavingdate', true); ?></td>
+														<td class="childcontent"><?php echo $leavingdate ?></td>
 													</tr>
-												<?php }
+													<?php 
+													$date1 = date_create($leavingdate);
+													$date = new DateTime(date_format($date1,"Y/m/d"));
+													$now = new DateTime();
+
+														if($date < $now) {
+														   	$post = array(
+															'ID' => $booking->ID,
+															'post_status' => 'archive',
+															);
+															wp_update_post($post);	
+														}							
+												}											
 											?>
 										</tbody>
 									</table>
 								</div>
 							<?php } else {} ?>							
-						</td>
-						
+						</td>		
+						<td>
+							<?php if ( !$children ){ 															
+								$date1 = date_create($bookingmeta['leavingdate'][0]);
+								$date = new DateTime(date_format($date1,"Y/m/d"));
+								$now = new DateTime();
+
+									if($date < $now) {
+									   	$post = array(
+										'ID' => $booking->ID,
+										'post_status' => 'archive',
+										);
+										wp_update_post($post);	
+									}							
+								} 
+							?>
+						</td>				
 					</tr>
 
-					<?php					
-					/*
-					if ($children){
-						//do nohting
-					} else {
-						$leavingdate = strtotime($bookingmeta['leavingdate'][0]);
-						$today = time();
-						if ($leavingdate <= $today) {
-							$post = array(
-							'ID' => $booking->ID,
-							'post_status' => 'archive',
-							);
-							wp_update_post($post);							
-						};
-					}		
-					*/
-								
-					?>
+					
 					
 
 				<?php 

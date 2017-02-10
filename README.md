@@ -1,4 +1,7 @@
 Changelog
+V6.5.9
+- Bug fix update to the archive function
+
 V.6.5.3
 - Updated google map API key to comply with google api access requests.
 
