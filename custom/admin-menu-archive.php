@@ -50,6 +50,9 @@ function archivelistings_callback(){
 							<th>
 								Welcome Pack
 							</th>
+							<th>
+								In Series
+							</th>
 							
 
 						</tr>
@@ -85,6 +88,53 @@ function archivelistings_callback(){
 						<td><?php echo $bookingmeta['clientname'][0]; ?></td>
 						
 						<td><?php echo $bookingmeta['welcomepack'][0]; ?></td>
+						<td class="bookingexpand">
+							<?php
+							$args = array(
+								'post_parent' => $booking->ID,
+								'post_type'   => 'bookings', 
+								'numberposts' => -1,
+								'post_status' => 'any' 
+							);
+							$children = get_children( $args );
+							if ($children) { ?>
+								<span class="page-title-action">More</span>
+								<div class="expand">
+									<table>
+										<tbody>
+											<tr>
+												<td class="childheader"><strong>Apartment name</strong></td>
+												<td class="childheader"><strong>Checkin</strong></td>
+												<td class="childheader"><strong>Checkout</strong></td>
+											</tr>
+											<?php
+												foreach ($children as $child) { 
+													$leavingdate = get_post_meta($child->ID, 'leavingdate', true);
+													?>													
+													<tr>
+														<td class="childcontent"><a href="post.php?post=<?php echo $child->ID; ?>&action=edit"><?php echo get_post_meta($child->ID, 'apartmentname', true); ?></td>
+														<td class="childcontent"><?php echo get_post_meta($child->ID, 'arrivaldate', true); ?></td>
+														<td class="childcontent"><?php echo $leavingdate ?></td>
+													</tr>
+													<?php 
+													$date1 = date_create($leavingdate);
+													$date = new DateTime(date_format($date1,"Y/m/d"));
+													$now = new DateTime();
+
+														if($date < $now) {
+														   	$post = array(
+															'ID' => $booking->ID,
+															'post_status' => 'archive',
+															);
+															wp_update_post($post);	
+														}							
+												}											
+											?>
+										</tbody>
+									</table>
+								</div>
+							<?php } else {} ?>							
+						</td>
 						
 						
 					</tr>
