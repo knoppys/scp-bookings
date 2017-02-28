@@ -61,10 +61,7 @@ function my_custom_menu_page(){
 							</th>
 							<th>
 								In series
-							</th>	
-							<th>
-								result
-							</th>						
+							</th>												
 						</tr>
 					</thead>
 				<tbody>
@@ -156,9 +153,7 @@ function my_custom_menu_page(){
 										</tbody>
 									</table>
 								</div>
-							<?php } else {} ?>							
-						</td>		
-						<td>
+							<?php } else {} ?>
 							<?php if ( !$children ){ 															
 								$date1 = date_create($bookingmeta['leavingdate'][0]);
 								$date = new DateTime(date_format($date1,"Y/m/d"));
@@ -172,8 +167,8 @@ function my_custom_menu_page(){
 										wp_update_post($post);	
 									}							
 								} 
-							?>
-						</td>				
+							?>							
+						</td>		
 					</tr>
 
 					

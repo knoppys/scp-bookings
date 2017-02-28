@@ -1,5 +1,4 @@
 <?php
-
 function corporatelistings_callback() { 
 
 	//get all the required information for the query builder. 
@@ -158,9 +157,7 @@ function corporatelistings_callback() {
 										</tbody>
 									</table>
 								</div>
-							<?php } else {} ?>							
-						</td>		
-						<td>
+							<?php } else {} ?>	
 							<?php if ( !$children ){ 															
 								$date1 = date_create($bookingmeta['leavingdate'][0]);
 								$date = new DateTime(date_format($date1,"Y/m/d"));
@@ -174,13 +171,9 @@ function corporatelistings_callback() {
 										wp_update_post($post);	
 									}							
 								} 
-							?>
-						</td>				
+							?>						
+						</td>	
 					</tr>
-
-					
-					
-
 				<?php 
 				}
 				echo '</tbody>';

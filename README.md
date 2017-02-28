@@ -1,4 +1,7 @@
 Changelog
+
+V6.7
+- Bug fix to the sorting in list views. Markup error adding archive funciton to additional <td>
 V6.5.9
 - Bug fix update to the archive function
 
