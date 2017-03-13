@@ -1,4 +1,6 @@
 Changelog
+V7.1
+- Updated duplicate group function to update arrival date and leaving date to year 9999 to show the booking at the top of the list view.
 
 V.7
 - Created a new duplicate function to now provide 2 options. One to duplicate a single booking and one to duplicatea a group of bookings. 

@@ -5,17 +5,10 @@ global $wpdb;
 //Get parent post
 $parent = get_post( ( $_GET['post'] ) );
 $parentID = $parent->ID;
-echo "<h3>The parent post object</h3>";
-var_dump($parent->ID);
 
 //Get child posts
-
 $childargs = array('post_parent'=>$parent->ID);
-echo "<h3>The childargs</h3>";
-var_dump($childargs);
 $children = get_children($childargs);
-echo "<h3>The children</h3>";
-var_dump($children);
 
 //Set the author for the new posts
 $current_user = wp_get_current_user();
@@ -36,11 +29,7 @@ $newparentargs = array(
 	'to_ping'        => $parent->to_ping,
 	'menu_order'     => $parent->menu_order
 );
-echo "<h3>The newparentargs</h3>";
-var_dump($newparentargs);
 $newpostid = wp_insert_post( $newparentargs );
-echo "<h3>The newpostid</h3>";
-var_dump($newpostid);
 
 //duplicate parent post meta
 $post_meta_infos = $wpdb->get_results("SELECT meta_key, meta_value FROM $wpdb->postmeta WHERE post_id=$parentID");
@@ -55,10 +44,11 @@ if (count($post_meta_infos)!=0) {
 	$wpdb->query($sql_query);
 }
 
+update_post_meta($newpostid, 'arrivaldate', '01.01.9999');
+update_post_meta($newpostid, 'leavingdate', '01.01.9999');
+
 //Get the new post as an objet
 $newparent = get_post($newpostid);
-echo "<h3>The newparent</h3>";
-var_dump($newparent);
 
 //Insert new child posts with $newparent as the parent ID
 $newchildargs = array(
@@ -76,16 +66,10 @@ $newchildargs = array(
 	'to_ping'        => $newparent->to_ping,
 	'menu_order'     => $newparent->menu_order
 );
-echo "<h3>The newchildargs</h3>";
-var_dump($newchildargs);
 
 foreach ($children as $child) {
 	$newchild = wp_insert_post( $newchildargs );
-	echo "<h3>The newchild id</h3>";
-	var_dump($newchild);
-	echo "<h3>The newchild parent</h3>";
 	$newchildid = get_post($newchild);
-	var_dump($newchildid->post_parent);
 
 	//duplicate child post meta
 	$post_meta_infos = $wpdb->get_results("SELECT meta_key, meta_value FROM $wpdb->postmeta WHERE post_id=$parentID");
@@ -99,6 +83,10 @@ foreach ($children as $child) {
 		$sql_query.= implode(" UNION ALL ", $sql_query_sel);
 		$wpdb->query($sql_query);
 	}
+
+	//update the arrival and leaving date to show at the top of hte list
+	update_post_meta($newchild, 'arrivaldate', '01.01.9999');
+	update_post_meta($newchild, 'leavingdate', '01.01.9999');
 }
 
 wp_redirect( admin_url( 'post.php?post='.$newpostid.'&action=edit' ) );

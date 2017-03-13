@@ -316,6 +316,7 @@ td.haseditor .wp-editor-wrap {
     position: absolute;
     right: 0;
     width: 500px;
+    z-index: 99;
 }
 .email_button {
     margin: 10px 0;
