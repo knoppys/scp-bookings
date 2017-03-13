@@ -413,7 +413,7 @@ function bookingsteps2_meta_box_callback( $post ) {
                                             _e( 'Number of Apartments');
                                             echo '</label>';
                                             echo '<input type="text" class="widefat" name="numberofapts" id="numberofapts" value="' . esc_attr( $booking['numberofapts'][0] ) . '"/>';
-                                            echo '<input type="text" class="widefat" name="location" id="location" value="' . esc_attr( $booking['location'][0] ) . '"/>';
+                                            echo '<input type="hidden" class="widefat" name="location" id="location" value="' . esc_attr( $booking['location'][0] ) . '"/>';
                                             ?>
                                         </td>
                                     </tr>

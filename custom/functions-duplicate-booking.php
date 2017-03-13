@@ -77,8 +77,7 @@ function rd_duplicate_post_as_draft(){
 			$sql_query.= implode(" UNION ALL ", $sql_query_sel);
 			$wpdb->query($sql_query);
 		}
- 
- 
+
 		/*
 		 * finally, redirect to the edit post screen for the new draft
 		 */
@@ -89,4 +88,5 @@ function rd_duplicate_post_as_draft(){
 	}
 }
 add_action( 'admin_action_rd_duplicate_post_as_draft', 'rd_duplicate_post_as_draft' );
-?>
+
+

@@ -16,7 +16,6 @@ jQuery(document).ready(function(){
 	});
 });
 
-
 jQuery(document).ready(function(){ 
     jQuery('.upload_image_button').click(function(){ 
     var textfieldid = jQuery(this).prev().attr("id"); 
@@ -1143,3 +1142,4 @@ jQuery(document).ready(function(){
 		});
 	});
 });
+

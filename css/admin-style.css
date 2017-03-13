@@ -487,3 +487,11 @@ div#accordion h3 {
     padding-top: 10px;
     margin-left: 10px;
 }
+.duplicate img {
+    max-width: 19px;
+    display: inline;
+}
+
+.duplicate {
+    text-align: center;
+}

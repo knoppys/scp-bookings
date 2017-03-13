@@ -51,6 +51,9 @@ function archivelistings_callback(){
 								Welcome Pack
 							</th>
 							<th>
+								Duplicate
+							</th>
+							<th>
 								In Series
 							</th>
 							
@@ -88,6 +91,10 @@ function archivelistings_callback(){
 						<td><?php echo $bookingmeta['clientname'][0]; ?></td>
 						
 						<td><?php echo $bookingmeta['welcomepack'][0]; ?></td>
+						<td class="duplicate">
+							<?php echo '<a href="admin.php?action=rd_duplicate_post_as_draft&amp;post=' . $booking->ID . '" title="Duplicate Single"><img src="'.get_site_url().'/wp-content/plugins/scp-bookings/images/single.png"></a>';?>	
+							<?php echo '<a href="admin.php?action=rd_duplicate_group_as_draft&amp;post=' . $booking->ID . '" title="Duplicate Group"><img src="'.get_site_url().'/wp-content/plugins/scp-bookings/images/group.png"></a>';?>	
+						</td>
 						<td class="bookingexpand">
 							<?php
 							$args = array(
