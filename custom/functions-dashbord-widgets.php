@@ -12,7 +12,7 @@ function wp_two_columns() {
 add_action( 'admin_head-index.php', 'wp_two_columns' );
 
 function scp_bookings_dashboard_widgets() {
-
+/*
 	wp_add_dashboard_widget(
                  'upcoming_bookings_dashboard_widget',         	// Widget slug.
                  'Upcoming Bookings',         					// Title.
@@ -24,7 +24,7 @@ function scp_bookings_dashboard_widgets() {
                  'Top 5 Reports',									      	// Title.
                  'top_5_function' 									// Display function.
         );
-  	/*
+  	
   	Remove the dashboar widgets so we can merge the functionality into a single widget.
     wp_add_dashboard_widget(
                  'top_clients_widget',         					// Widget slug.

@@ -1,4 +1,6 @@
 Changelog
+V7.2
+- Removed the dashboard widgets function. When loading the widgets for users with no current show/hide settings, the upcoming bookings would receive a fatal error. 
 V7.1
 - Updated duplicate group function to update arrival date and leaving date to year 9999 to show the booking at the top of the list view.
 
