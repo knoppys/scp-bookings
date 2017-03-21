@@ -141,9 +141,8 @@ function implement_ajax_clientsearch() {
 							<p><strong>Arrival Date</strong></p>
 						</th>
 						<th>
-							<p><strong>Booking Ref</strong></p>
-						</th>
-						
+							<p><strong>Guest Name</strong></p>
+						</th>						
 						<th>
 							<p><strong>Client Name</strong></p>
 						</th>						
@@ -191,7 +190,7 @@ function implement_ajax_clientsearch() {
 							<button class="wp-core-ui button-primary" id="calculate_total">Total Spend</button>
 						</td>
 						<td class="report-footer">
-							<strong><p style="text-align:right;"id="total_spend"></p></strong>
+							<strong><p style="text-align:right;" id="total_spend"></p></strong>
 						</td>						
 						<td class="report-footer options">							
 						</td>
@@ -216,7 +215,7 @@ function implement_ajax_clientsearch() {
 							<button class="wp-core-ui button-primary" id="calculate_average">Average Spend</button>
 						</td>
 						<td class="report-footer">
-							<strong><p style="text-align:right;"id="average_spend"></p></strong>									
+							<strong><p style="text-align:right;" id="average_spend"></p></strong>									
 						</td>						
 						<td class="report-footer options">							
 						</td>
@@ -240,7 +239,7 @@ function implement_ajax_clientsearch() {
 							<button class="wp-core-ui button-primary" id="calculate_total_bookings">Total Bookings</button>
 						</td>
 						<td class="report-footer">
-							<strong><p style="text-align:right;"id="total_bookings"></p></strong>									
+							<strong><p style="text-align:right;" id="total_bookings"></p></strong>									
 						</td>						
 						<td class="report-footer options">							
 						</td>
@@ -264,7 +263,7 @@ function implement_ajax_clientsearch() {
 							<button class="wp-core-ui button-primary" id="calculate_average_duration">Average Duration</button>
 						</td>
 						<td class="report-footer">
-							<strong><p style="text-align:right;"id="average_duration"></p></strong>									
+							<strong><p style="text-align:right;" id="average_duration"></p></strong>									
 						</td>						
 						<td class="report-footer options">							
 						</td>
@@ -288,7 +287,7 @@ function implement_ajax_clientsearch() {
 							<button class="wp-core-ui button-primary" id="calculate_average_nightly">Average Nightly Rate</button>
 						</td>
 						<td class="report-footer">
-							<strong><p style="text-align:right;"id="average_nightly"></p></strong>									
+							<strong><p style="text-align:right;" id="average_nightly"></p></strong>									
 						</td>						
 						<td class="report-footer options">							
 						</td>
@@ -331,7 +330,7 @@ function implement_ajax_clientsearch() {
 								<p><?php echo $startdate; ?></p>
 							</td>
 							<td>
-								<p><?php $guestname; ?></p>
+								<p><?php echo $guestname; ?></p>
 							</td>							
 							<td>
 								<p><?php echo $clientname; ?></p>

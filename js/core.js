@@ -730,7 +730,7 @@ jQuery('#operatorquery').click(function() {
 			    jQuery("#calculate_total").click(function() {
 			        var add = 0;
 			       	jQuery(".total-cost").each(function() {
-			            add += Number(jQuery(this).text());
+			            add += Number(jQuery(this).text().toFixed(2));
 			        });
 			        jQuery("#total_spend").text('£' + add);
 			    });
