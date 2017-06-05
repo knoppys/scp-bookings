@@ -1,4 +1,7 @@
 Changelog
+V7.5
+- Updated the duplicate function to offer the option to duplicate as child or duplicate as parent. 
+
 V7.4
 - REmoved Welcome Pack from list views and replaced with Total Cost
 
