@@ -238,7 +238,7 @@ function bookingsteps2_meta_box_callback( $post ) {
                                     <?php
                                     //deposit date field
                                     echo '<label>';
-                                         _e( 'Cost Code' );
+                                         _e( 'Cost Code - Country of Origin' );
                                     echo '</label>';
                                     echo '<input type="text" class="widefat" name="costcode" id="costcode" value="' . esc_attr( $booking['costcode'][0] ) . '"/>';
                                     ?>
